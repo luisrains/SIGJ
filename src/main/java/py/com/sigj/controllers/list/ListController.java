@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.controllers.list;
+package py.com.sigj.controllers.list;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import py.com.owl.owlapp.dao.Dao;
-import py.com.owl.owlapp.main.DataTable;
-import py.com.owl.owlapp.main.SesionUsuario;
+import py.com.sigj.dao.Dao;
+import py.com.sigj.main.DataTable;
+import py.com.sigj.main.SesionUsuario;
 
 public abstract class ListController<T> {
 

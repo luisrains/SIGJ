@@ -1,8 +1,8 @@
-package py.com.owl.owlapp.controllers;
+package py.com.sigj.controllers;
 
 import java.util.List;
 
-import py.com.owl.owlapp.validation.ErrorCampo;
+import py.com.sigj.validation.ErrorCampo;
 
 public class Respuesta<T> {
 

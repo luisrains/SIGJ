@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.dao.impl;
+package py.com.sigj.dao.impl;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import py.com.owl.owlapp.dao.UsuarioDao;
-import py.com.owl.owlapp.domain.Usuario;
-import py.com.owl.owlapp.util.Util;
+import py.com.sigj.dao.UsuarioDao;
+import py.com.sigj.domain.Usuario;
+import py.com.sigj.util.Util;
 
 @Repository
 @Scope("session")

@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.controllers;
+package py.com.sigj.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import py.com.owl.owlapp.dao.Dao;
-import py.com.owl.owlapp.domain.GenericEntity;
-import py.com.owl.owlapp.main.Message;
-import py.com.owl.owlapp.validation.ErrorCampo;
+import py.com.sigj.dao.Dao;
+import py.com.sigj.domain.GenericEntity;
+import py.com.sigj.main.Message;
+import py.com.sigj.validation.ErrorCampo;
 
 public abstract class PersistController<T extends GenericEntity> {
 	@Autowired

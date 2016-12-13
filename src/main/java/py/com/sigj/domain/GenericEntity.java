@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.domain;
+package py.com.sigj.domain;
 
 public abstract class GenericEntity {
 	private static final int RESULT = 1;

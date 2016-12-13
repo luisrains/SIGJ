@@ -1,10 +1,10 @@
-package py.com.owl.owlapp.dao.impl;
+package py.com.sigj.dao.impl;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import py.com.owl.owlapp.dao.ClienteDao;
-import py.com.owl.owlapp.domain.Cliente;
+import py.com.sigj.dao.ClienteDao;
+import py.com.sigj.domain.Cliente;
 
 @Repository
 @Scope("session")

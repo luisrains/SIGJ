@@ -1,10 +1,10 @@
-package py.com.owl.owlapp.dao.impl;
+package py.com.sigj.dao.impl;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import py.com.owl.owlapp.dao.PersonaDao;
-import py.com.owl.owlapp.domain.Persona;
+import py.com.sigj.dao.PersonaDao;
+import py.com.sigj.domain.Persona;
 
 //hibernate recomendia repository para cuando trabaja con transacciones de base de datos, le decis que vas a trabajar con base de datos directos
 @Repository

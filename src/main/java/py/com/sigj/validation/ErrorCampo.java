@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.validation;
+package py.com.sigj.validation;
 
 public class ErrorCampo {
 	private String objectName;

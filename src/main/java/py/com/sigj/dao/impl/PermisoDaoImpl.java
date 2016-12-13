@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.dao.impl;
+package py.com.sigj.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import py.com.owl.owlapp.dao.PermisoDao;
-import py.com.owl.owlapp.domain.Permiso;
-import py.com.owl.owlapp.domain.Rol;
-import py.com.owl.owlapp.domain.RolPermiso;
+import py.com.sigj.dao.PermisoDao;
+import py.com.sigj.domain.Permiso;
+import py.com.sigj.domain.Rol;
+import py.com.sigj.domain.RolPermiso;
 
 @Repository
 @Scope("request")

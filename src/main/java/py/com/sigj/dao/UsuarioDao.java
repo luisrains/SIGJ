@@ -1,6 +1,6 @@
-package py.com.owl.owlapp.dao;
+package py.com.sigj.dao;
 
-import py.com.owl.owlapp.domain.Usuario;
+import py.com.sigj.domain.Usuario;
 
 public interface UsuarioDao extends Dao<Usuario> {
 	/**

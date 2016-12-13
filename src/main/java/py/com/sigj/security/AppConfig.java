@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.security;
+package py.com.sigj.security;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

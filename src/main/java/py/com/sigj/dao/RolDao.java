@@ -1,6 +1,6 @@
-package py.com.owl.owlapp.dao;
+package py.com.sigj.dao;
 
-import py.com.owl.owlapp.domain.Rol;
+import py.com.sigj.domain.Rol;
 
 public interface RolDao extends Dao<Rol> {
 

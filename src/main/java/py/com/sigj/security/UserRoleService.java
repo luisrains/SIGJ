@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.security;
+package py.com.sigj.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,12 +12,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import py.com.owl.owlapp.dao.PermisoDao;
-import py.com.owl.owlapp.dao.UsuarioDao;
-import py.com.owl.owlapp.domain.Permiso;
-import py.com.owl.owlapp.domain.Usuario;
-import py.com.owl.owlapp.main.Contexto;
-import py.com.owl.owlapp.main.SesionUsuario;
+import py.com.sigj.dao.PermisoDao;
+import py.com.sigj.dao.UsuarioDao;
+import py.com.sigj.domain.Permiso;
+import py.com.sigj.domain.Usuario;
+import py.com.sigj.main.Contexto;
+import py.com.sigj.main.SesionUsuario;
 
 @Service
 public class UserRoleService implements UserDetailsService {

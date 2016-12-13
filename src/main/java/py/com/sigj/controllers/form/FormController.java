@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.controllers.form;
+package py.com.sigj.controllers.form;
 
 import javax.validation.Valid;
 
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import py.com.owl.owlapp.controllers.PersistController;
-import py.com.owl.owlapp.controllers.Respuesta;
-import py.com.owl.owlapp.dao.Dao;
-import py.com.owl.owlapp.domain.GenericEntity;
-import py.com.owl.owlapp.domain.Usuario;
-import py.com.owl.owlapp.main.Message;
-import py.com.owl.owlapp.main.SesionUsuario;
+import py.com.sigj.controllers.PersistController;
+import py.com.sigj.controllers.Respuesta;
+import py.com.sigj.dao.Dao;
+import py.com.sigj.domain.GenericEntity;
+import py.com.sigj.domain.Usuario;
+import py.com.sigj.main.Message;
+import py.com.sigj.main.SesionUsuario;
 
 public abstract class FormController<T extends GenericEntity> extends PersistController<T> {
 

@@ -1,10 +1,10 @@
-package py.com.owl.owlapp.main;
+package py.com.sigj.main;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import py.com.owl.owlapp.domain.Usuario;
+import py.com.sigj.domain.Usuario;
 
 @Component
 @Scope(WebApplicationContext.SCOPE_SESSION)

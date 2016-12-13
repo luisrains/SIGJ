@@ -1,6 +1,6 @@
-package py.com.owl.owlapp.dao;
+package py.com.sigj.dao;
 
-import py.com.owl.owlapp.domain.TipoCliente;
+import py.com.sigj.domain.TipoCliente;
 
 public interface TipoClienteDao extends Dao<TipoCliente> {
 

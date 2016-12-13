@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.controllers.form;
+package py.com.sigj.controllers.form;
 
 import java.util.List;
 
@@ -9,12 +9,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import py.com.owl.owlapp.controllers.list.ClienteListController;
-import py.com.owl.owlapp.dao.ClienteDao;
-import py.com.owl.owlapp.dao.Dao;
-import py.com.owl.owlapp.dao.TipoClienteDao;
-import py.com.owl.owlapp.domain.Cliente;
-import py.com.owl.owlapp.domain.TipoCliente;
+import py.com.sigj.controllers.list.ClienteListController;
+import py.com.sigj.dao.ClienteDao;
+import py.com.sigj.dao.Dao;
+import py.com.sigj.dao.TipoClienteDao;
+import py.com.sigj.domain.Cliente;
+import py.com.sigj.domain.TipoCliente;
 
 @Controller
 @Scope("request")

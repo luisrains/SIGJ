@@ -1,10 +1,10 @@
-package py.com.owl.owlapp.dao.impl;
+package py.com.sigj.dao.impl;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import py.com.owl.owlapp.dao.RolDao;
-import py.com.owl.owlapp.domain.Rol;
+import py.com.sigj.dao.RolDao;
+import py.com.sigj.domain.Rol;
 
 @Repository
 @Scope("session")

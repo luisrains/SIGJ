@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.util;
+package py.com.sigj.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

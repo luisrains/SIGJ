@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.controllers.form;
+package py.com.sigj.controllers.form;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
-import py.com.owl.owlapp.main.SesionUsuario;
+import py.com.sigj.main.SesionUsuario;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_REQUEST)

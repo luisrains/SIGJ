@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.controllers.form;
+package py.com.sigj.controllers.form;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import py.com.owl.owlapp.controllers.list.PersonaListController;
-import py.com.owl.owlapp.dao.Dao;
-import py.com.owl.owlapp.dao.PersonaDao;
-import py.com.owl.owlapp.domain.Persona;
+import py.com.sigj.controllers.list.PersonaListController;
+import py.com.sigj.dao.Dao;
+import py.com.sigj.dao.PersonaDao;
+import py.com.sigj.domain.Persona;
 
 @Controller
 @Scope("request")

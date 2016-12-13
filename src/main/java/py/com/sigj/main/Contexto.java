@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.main;
+package py.com.sigj.main;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

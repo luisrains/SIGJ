@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.dao.impl;
+package py.com.sigj.dao.impl;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import py.com.owl.owlapp.dao.Dao;
-import py.com.owl.owlapp.domain.GenericEntity;
+import py.com.sigj.dao.Dao;
+import py.com.sigj.domain.GenericEntity;
 
 //para que po lo menos tenga emetodo getId()
 public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {

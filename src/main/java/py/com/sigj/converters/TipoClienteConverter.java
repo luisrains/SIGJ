@@ -1,9 +1,9 @@
-package py.com.owl.owlapp.converters;
+package py.com.sigj.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import py.com.owl.owlapp.domain.TipoCliente;
+import py.com.sigj.domain.TipoCliente;
 
 @Component
 public class TipoClienteConverter implements Converter<String, TipoCliente> {

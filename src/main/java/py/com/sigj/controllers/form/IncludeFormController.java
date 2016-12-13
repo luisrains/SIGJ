@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.controllers.form;
+package py.com.sigj.controllers.form;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;

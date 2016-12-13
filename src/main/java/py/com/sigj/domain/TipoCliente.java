@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.domain;
+package py.com.sigj.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.dao;
+package py.com.sigj.dao;
 
 import java.util.List;
 

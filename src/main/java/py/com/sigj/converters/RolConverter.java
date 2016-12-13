@@ -1,8 +1,8 @@
-package py.com.owl.owlapp.converters;
+package py.com.sigj.converters;
 
 import org.springframework.core.convert.converter.Converter;
 
-import py.com.owl.owlapp.domain.Rol;
+import py.com.sigj.domain.Rol;
 
 public class RolConverter implements Converter<String, Rol> {
 

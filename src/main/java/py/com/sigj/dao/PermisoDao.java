@@ -1,9 +1,9 @@
-package py.com.owl.owlapp.dao;
+package py.com.sigj.dao;
 
 import java.util.List;
 
-import py.com.owl.owlapp.domain.Permiso;
-import py.com.owl.owlapp.domain.Rol;
+import py.com.sigj.domain.Permiso;
+import py.com.sigj.domain.Rol;
 
 public interface PermisoDao extends Dao<Permiso> {
 	List<Permiso> ListByRol(Rol rol);

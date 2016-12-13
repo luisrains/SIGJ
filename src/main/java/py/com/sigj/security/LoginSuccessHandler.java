@@ -1,4 +1,4 @@
-package py.com.owl.owlapp.security;
+package py.com.sigj.security;
 
 import java.io.IOException;
 
@@ -12,8 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
-import py.com.owl.owlapp.main.Contexto;
-import py.com.owl.owlapp.main.SesionUsuario;
+import py.com.sigj.main.Contexto;
+import py.com.sigj.main.SesionUsuario;
 
 @Service
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
