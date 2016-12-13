@@ -32,6 +32,7 @@
 	<mvc:annotation-driven conversion-service="conversionService" />
 
 	<context:component-scan base-package="py.*" />
+	<bean id="contexto" class="py.com.sigj.main.Contexto"/>
 
 
 
@@ -44,7 +45,14 @@
 
 		<property name="converters">
 			<set>
-				
+				<bean class="py.com.sigj.converters.TipoClienteConverter" />
+				<bean class="py.com.sigj.converters.RolConverter" />
+			</set>
+		</property>
+		
+		<property name="formatters">
+			<set>
+				<bean class="py.com.sigj.util.DateFormatter" />
 			</set>
 		</property>
 	
@@ -73,7 +81,7 @@
 	</bean>
 
 	<!-- JDNI name for EntityManagerFactory is defined in src/main/resources/META-INF/persistence.xml -->
-	<jee:jndi-lookup jndi-name="java:jboss/owlapp/persistence"
+	<jee:jndi-lookup jndi-name="java:jboss/sigj/persistence"
 		id="entityManagerFactory" expected-type="javax.persistence.EntityManagerFactory" />
 
 	<bean id="entityManager"

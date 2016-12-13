@@ -4,11 +4,11 @@
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="rh">
-		<jta-data-source>java:jboss/datasources/owlappDS</jta-data-source>
+		<jta-data-source>java:jboss/datasources/sigjDS</jta-data-source>
 
 		<properties>
 			<property name="jboss.entity.manager.factory.jndi.name"
-				value="java:jboss/owlapp/persistence" />
+				value="java:jboss/sigj/persistence" />
 			<!-- Properties for Hibernate -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />

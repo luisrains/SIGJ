@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "py.com.owl*" })
+@ComponentScan({ "py.com.sigj*" })
 @Import({ SecurityConfig.class })
 public class AppConfig {
 
