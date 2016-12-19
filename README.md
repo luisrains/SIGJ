@@ -75,8 +75,9 @@ Template/
 Template/
 
 ├── abogado/
+
 │   ├── abogado_index.html
-│   ├── abogado_form.html
+  │   ├── abogado_form.html
 │   ├── abogado_otros.html
 ├── botones/
 │   ├── form_botones.html
