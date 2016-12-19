@@ -48,6 +48,32 @@ py.com.sigj.gastos.dao.impl
 
 #Convenciones de carpetas Front-End
 Template/
+
+├── abogado/
+
+│   ├── abogado_index.html
+
+│   ├── abogado_form.html
+
+│   ├── abogado_otros.html
+
+├── botones/
+
+│   ├── form_botones.html
+
+│   ├── modal_botones.html
+
+│   ├── otros_botones.html
+
+├── botones/
+
+│   ├── form_botones.html
+
+│   ├── modal_botones.html
+│   ├── otros_botones.html
+
+Template/
+
 ├── abogado/
 │   ├── abogado_index.html
 │   ├── abogado_form.html
