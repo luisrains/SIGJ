@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import py.com.sigj.dao.UsuarioDao;
-import py.com.sigj.domain.Usuario;
+import py.com.sigj.expediente.domain.Usuario;
 import py.com.sigj.util.Util;
 
 @Repository

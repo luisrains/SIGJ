@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import py.com.sigj.dao.Dao;
-import py.com.sigj.domain.GenericEntity;
+import py.com.sigj.expediente.domain.GenericEntity;
 import py.com.sigj.main.Message;
 import py.com.sigj.validation.ErrorCampo;
 

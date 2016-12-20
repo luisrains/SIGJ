@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import py.com.sigj.controllers.list.IvaListController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.dao.IvaDao;
-import py.com.sigj.domain.Iva;
+import py.com.sigj.expediente.domain.Iva;
 
 @Controller
 @Scope("request")

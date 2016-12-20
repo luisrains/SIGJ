@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import py.com.sigj.dao.IvaDao;
-import py.com.sigj.domain.Iva;
+import py.com.sigj.expediente.domain.Iva;
 
 @Repository
 @Scope("session")

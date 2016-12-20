@@ -1,4 +1,4 @@
-package py.com.sigj.domain;
+package py.com.sigj.expediente.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,9 +13,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "tipo_cliente_codigo_uk", columnNames = { "codigo" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "tipoCliente_codigo_uk", columnNames = { "codigo" }) })
 public class TipoCliente extends GenericEntity {
-	private static final String SECUENCIA = "cliente_id_seq";
+	private static final String SECUENCIA = "tipoCliente_id_seq";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
@@ -24,13 +24,13 @@ public class TipoCliente extends GenericEntity {
 
 	@NotNull(message = "tipoCliente.codigo.notNull")
 	@NotBlank(message = "tipoCliente.codigo.notBlank")
-	@Size(max = 5, message = "tipoCliente.codigo.size")
+	@Size(max = 2, message = "tipoCliente.codigo.size")
 	private String codigo;
 
 	@NotNull(message = "tipoCliente.nombre.notNull")
 	@NotBlank(message = "tipoCliente.nombre.notBlank")
 	@Size(max = 100, message = "tipoCliente.nombre.size")
-	private String nombre;
+	private String descripcion;
 
 	public TipoCliente() {
 
@@ -40,7 +40,7 @@ public class TipoCliente extends GenericEntity {
 		super();
 		this.id = id;
 		this.codigo = codigo;
-		this.nombre = nombre;
+		this.descripcion = nombre;
 	}
 
 	@Override
@@ -62,16 +62,16 @@ public class TipoCliente extends GenericEntity {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return descripcion;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.descripcion = nombre;
 	}
 
 	@Override
 	public String toString() {
-		return "TipoCliente [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
+		return "TipoCliente [id=" + id + ", codigo=" + codigo + ", nombre=" + descripcion + "]";
 	}
 
 }

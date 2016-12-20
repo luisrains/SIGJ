@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.dao.TipoClienteDao;
-import py.com.sigj.domain.TipoCliente;
+import py.com.sigj.expediente.domain.TipoCliente;
 
 @Controller
 @Scope("session")

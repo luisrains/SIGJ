@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import py.com.sigj.dao.ClienteDao;
-import py.com.sigj.domain.Cliente;
+import py.com.sigj.expediente.domain.Cliente;
 
 @Repository
 @Scope("session")

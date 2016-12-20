@@ -1,4 +1,4 @@
-package py.com.sigj.domain;
+package py.com.sigj.expediente.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,26 +13,27 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "permiso_codigo_uk", columnNames = { "codigo" }) })
-public class Permiso extends GenericEntity {
-	private static final String SECUENCIA = "permiso_id_seq";
+@Table(uniqueConstraints = { @UniqueConstraint(name = "materia_codigo_uk", columnNames = { "codigo" }) })
+public class Materia extends GenericEntity {
+	private static final String SECUENCIA = "materia_id_seq";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "permiso.codigo.notNull")
-	@NotBlank(message = "permiso.codigo.notBlank")
-	@Size(max = 20, message = "permiso.codigo.size")
+	@NotNull(message = "tomo.codigo.notNull")
+	@NotBlank(message = "tomo.codigo.notBlank")
+	@Size(max = 5, message = "tomo.codigo.size")
 	private String codigo;
 
-	@NotNull(message = "permiso.descripcion.notNull")
-	@NotBlank(message = "permiso.descripcion.notBlank")
-	@Size(max = 100, message = "permiso.descripcion.size")
-	private String desccripcion;
+	@NotNull(message = "tomo.descripcion.notNull")
+	@NotBlank(message = "tomo.descripcion.notBlank")
+	@Size(max = 20, message = "tomo.descripcion.size")
+	private String Descripcion;
 
-	public Permiso() {
+	public Materia() {
+
 	}
 
 	@Override
@@ -53,17 +54,17 @@ public class Permiso extends GenericEntity {
 		this.codigo = codigo;
 	}
 
-	public String getDesccripcion() {
-		return desccripcion;
+	public String getDescripcion() {
+		return Descripcion;
 	}
 
-	public void setDesccripcion(String desccripcion) {
-		this.desccripcion = desccripcion;
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
 	}
 
 	@Override
 	public String toString() {
-		return "Permiso [id=" + id + ", codigo=" + codigo + ", desccripcion=" + desccripcion + "]";
+		return "Materia [id=" + id + ", codigo=" + codigo + ", Descripcion=" + Descripcion + "]";
 	}
 
 }

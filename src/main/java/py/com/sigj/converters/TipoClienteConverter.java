@@ -3,7 +3,7 @@ package py.com.sigj.converters;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import py.com.sigj.domain.TipoCliente;
+import py.com.sigj.expediente.domain.TipoCliente;
 
 @Component
 public class TipoClienteConverter implements Converter<String, TipoCliente> {

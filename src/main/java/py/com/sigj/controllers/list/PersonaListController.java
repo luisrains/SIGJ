@@ -6,12 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.dao.PersonaDao;
-import py.com.sigj.domain.Persona;
+import py.com.sigj.expediente.domain.PersonaFisica;
 
 @Controller
 @Scope("session")
 @RequestMapping("persona")
-public class PersonaListController extends ListController<Persona> {
+public class PersonaListController extends ListController<PersonaFisica> {
 
 	@Autowired
 	private PersonaDao personaDao;

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import py.com.sigj.controllers.list.PersonaListController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.dao.PersonaDao;
-import py.com.sigj.domain.Persona;
+import py.com.sigj.expediente.domain.PersonaFisica;
 
 @Controller
 @Scope("request")
 @RequestMapping("persona")
-public class PersonaFormController extends FormController<Persona> {
+public class PersonaFormController extends FormController<PersonaFisica> {
 
 	@Autowired
 	private PersonaDao personaDao;
@@ -34,13 +34,13 @@ public class PersonaFormController extends FormController<Persona> {
 	}
 
 	@Override
-	public Persona getNuevaInstancia() {
+	public PersonaFisica getNuevaInstancia() {
 		// TODO Auto-generated method stub
-		return new Persona();
+		return new PersonaFisica();
 	}
 
 	@Override
-	public Dao<Persona> getDao() {
+	public Dao<PersonaFisica> getDao() {
 		// TODO Auto-generated method stub
 		return personaDao;
 	}

@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import py.com.sigj.domain.Usuario;
+import py.com.sigj.expediente.domain.Usuario;
 
 @Component
 @Scope(WebApplicationContext.SCOPE_SESSION)

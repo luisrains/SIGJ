@@ -1,4 +1,4 @@
-package py.com.sigj.domain;
+package py.com.sigj.expediente.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;

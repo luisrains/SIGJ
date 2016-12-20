@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import py.com.sigj.dao.PermisoDao;
-import py.com.sigj.domain.Permiso;
-import py.com.sigj.domain.Rol;
-import py.com.sigj.domain.RolPermiso;
+import py.com.sigj.expediente.domain.Permiso;
+import py.com.sigj.expediente.domain.Rol;
+import py.com.sigj.expediente.domain.RolPermiso;
 
 @Repository
 @Scope("request")

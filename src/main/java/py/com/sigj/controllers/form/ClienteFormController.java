@@ -13,8 +13,8 @@ import py.com.sigj.controllers.list.ClienteListController;
 import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.dao.TipoClienteDao;
-import py.com.sigj.domain.Cliente;
-import py.com.sigj.domain.TipoCliente;
+import py.com.sigj.expediente.domain.Cliente;
+import py.com.sigj.expediente.domain.TipoCliente;
 
 @Controller
 @Scope("request")
