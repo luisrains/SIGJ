@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.2" last-position="683,519" last-zoom="0.8"
+	 default-schema="public" default-owner="postgres">
+<database name="new_database">
+</database>
+
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Expediente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780" y="660"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_tipo_demanda">
+		<type name="integer"/>
+	</column>
+	<column name="id_estado_interno">
+		<type name="integer"/>
+	</column>
+	<column name="id_estado_externo">
+		<type name="integer"/>
+	</column>
+	<column name="caratula">
+		<type name="character" length="100"/>
+	</column>
+	<column name="numero_exp">
+		<type name="integer"/>
+	</column>
+	<column name="anho">
+		<type name="integer"/>
+	</column>
+	<column name="fecha_sello_cargo">
+		<type name="date"/>
+	</column>
+	<column name="monto">
+		<type name="integer"/>
+	</column>
+	<column name="moneda">
+		<type name="integer"/>
+	</column>
+	<column name="objeto_causa">
+		<type name="character" length="60"/>
+	</column>
+	<column name="nro_liquidacion">
+		<type name="character"/>
+	</column>
+	<constraint name="pk_expediente" type="pk-constr" table="public.&quot;Expediente&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Despacho">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="320" y="160"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente">
+		<type name="integer"/>
+	</column>
+	<column name="id_materia">
+		<type name="integer"/>
+	</column>
+	<column name="nombre_secretaria">
+		<type name="character" length="60"/>
+	</column>
+	<column name="turno">
+		<type name="character" length="60"/>
+	</column>
+	<column name="juez">
+		<type name="character" length="60"/>
+	</column>
+	<constraint name="pk_despacho" type="pk-constr" table="public.&quot;Despacho&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Carpeta_Digital">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="720" y="220"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente">
+		<type name="integer"/>
+	</column>
+	<column name="url">
+		<type name="character" length="80"/>
+	</column>
+	<column name="correo">
+		<type name="character" length="60"/>
+	</column>
+	<constraint name="pk_carpeta_digital" type="pk-constr" table="public.&quot;Carpeta_Digital&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Expediente_Cliente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1120" y="60"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente">
+		<type name="integer"/>
+	</column>
+	<column name="id_cliente">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_expediente_cliente" type="pk-constr" table="public.&quot;Expediente_Cliente&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Materia">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="40"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="nombre">
+		<type name="character" length="20"/>
+	</column>
+	<constraint name="pk_materia" type="pk-constr" table="public.&quot;Materia&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Proceso">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="280"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_materia">
+		<type name="integer"/>
+	</column>
+	<column name="nombre">
+		<type name="character" length="60"/>
+	</column>
+	<constraint name="pk_proceso" type="pk-constr" table="public.&quot;Proceso&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Tipo_demanda">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="140" y="500"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_proceso">
+		<type name="integer"/>
+	</column>
+	<column name="nombre">
+		<type name="character" length="30"/>
+	</column>
+	<constraint name="pk_tipo_demanda" type="pk-constr" table="public.&quot;Tipo_demanda&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Expediente_abogado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1120" y="540"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente">
+		<type name="integer"/>
+	</column>
+	<column name="id_abogado">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_cliente_abogado" type="pk-constr" table="public.&quot;Expediente_abogado&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Estado_interno">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="220" y="820"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="nombre">
+		<type name="character" length="40"/>
+	</column>
+	<constraint name="pk_estado_interno" type="pk-constr" table="public.&quot;Estado_interno&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Estado_externo">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="460" y="940"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="nombre">
+		<type name="integer"/>
+	</column>
+	<column name="fecha">
+		<type name="date"/>
+	</column>
+	<constraint name="pk_estado" type="pk-constr" table="public.&quot;Estado_externo&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Tomo_expediente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="180" y="620"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente">
+		<type name="integer"/>
+	</column>
+	<column name="id_tomo">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_tomo_expediente" type="pk-constr" table="public.&quot;Tomo_expediente&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Tomo">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="760"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente_padre">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_tomo" type="pk-constr" table="public.&quot;Tomo&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Actuacion">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780" y="900"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_documento">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente">
+		<type name="integer"/>
+	</column>
+	<column name="id_tipo_actuacion">
+		<type name="integer"/>
+	</column>
+	<column name="descripcion">
+		<type name="character" length="100"/>
+	</column>
+	<column name="fecha">
+		<type name="date"/>
+	</column>
+	<constraint name="pk_actuacion" type="pk-constr" table="public.&quot;Actuacion&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Tipo_actuacion">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780" y="1100"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_modelo_hoja">
+		<type name="integer"/>
+	</column>
+	<column name="nombre">
+		<type name="character" length="40"/>
+	</column>
+	<constraint name="pk_tipo_actuacion" type="pk-constr" table="public.&quot;Tipo_actuacion&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Persona">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1420" y="360"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="nombre_razonSocial">
+		<type name="character" length="30"/>
+	</column>
+	<column name="apellido">
+		<type name="character" length="30"/>
+	</column>
+	<column name="cedula_ruc">
+		<type name="character"/>
+	</column>
+	<column name="fecha_nacimiento">
+		<type name="date"/>
+	</column>
+	<column name="edad">
+		<type name="integer"/>
+	</column>
+	<column name="sexo">
+		<type name="character"/>
+	</column>
+	<column name="estado_civil">
+		<type name="character" length="20"/>
+	</column>
+	<column name="ocupacion">
+		<type name="character" length="20"/>
+	</column>
+	<column name="correoElectronico">
+		<type name="smallint"/>
+	</column>
+	<column name="tipoPersona">
+		<type name="character"/>
+	</column>
+	<column name="telefono">
+		<type name="character" length="15"/>
+	</column>
+	<constraint name="pk_persona" type="pk-constr" table="public.&quot;Persona&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Cliente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1400" y="120"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_persona">
+		<type name="integer"/>
+	</column>
+	<column name="id_tipo_cliente">
+		<type name="integer"/>
+	</column>
+	<column name="domicilio_laboral">
+		<type name="character" length="50"/>
+	</column>
+	<column name="domicilio_procesal">
+		<type name="character" length="60"/>
+	</column>
+	<column name="domicilio_actual">
+		<type name="character" length="60"/>
+	</column>
+	<constraint name="pk_cliente" type="pk-constr" table="public.&quot;Cliente&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Tipo_cliente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1800" y="500"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tipo">
+		<type name="character" length="15"/>
+	</column>
+	<constraint name="pk_tipo_cliente" type="pk-constr" table="public.&quot;Tipo_cliente&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Abogado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1420" y="600"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_tipo_abogado">
+		<type name="integer"/>
+	</column>
+	<column name="id_empleado">
+		<type name="integer"/>
+	</column>
+	<column name="domicilioLaboral">
+		<type name="character" length="100"/>
+	</column>
+	<column name="domicilioActual">
+		<type name="character" length="100"/>
+	</column>
+	<constraint name="pk_abogado" type="pk-constr" table="public.&quot;Abogado&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Tipo_abogado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1120" y="660"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tipo">
+		<type name="character" length="15"/>
+	</column>
+	<constraint name="pk_tipo_abogado" type="pk-constr" table="public.&quot;Tipo_abogado&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Empleado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1760" y="780"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="salario">
+		<type name="integer"/>
+	</column>
+	<column name="id_persona">
+		<type name="integer"/>
+	</column>
+	<column name="id_planilla">
+		<type name="integer"/>
+	</column>
+	<column name="fecha_ingreso">
+		<type name="smallint"/>
+		<comment><![CDATA[NUEVO]]></comment>
+	</column>
+	<constraint name="pk_empleado" type="pk-constr" table="public.&quot;Empleado&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Movimiento_empleado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1740" y="1040"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_empleado">
+		<type name="integer"/>
+	</column>
+	<column name="ingreso">
+		<type name="integer"/>
+	</column>
+	<column name="egreso">
+		<type name="integer"/>
+	</column>
+	<column name="fecha">
+		<type name="date"/>
+	</column>
+	<constraint name="pk_movimiento_empleado" type="pk-constr" table="public.&quot;Movimiento_empleado&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Factura_cabecera">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2140" y="540"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_cliente">
+		<type name="integer"/>
+	</column>
+	<column name="id_caja">
+		<type name="integer"/>
+	</column>
+	<column name="id_abogado">
+		<type name="integer"/>
+	</column>
+	<column name="fecha">
+		<type name="date"/>
+	</column>
+	<constraint name="pk_factura_cabecera" type="pk-constr" table="public.&quot;Factura_cabecera&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Factura_detalle">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2120" y="340"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_cabecera">
+		<type name="integer"/>
+	</column>
+	<column name="id_servicio">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_factura_detalle" type="pk-constr" table="public.&quot;Factura_detalle&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Servicio">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2140" y="220"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tipo_servicio">
+		<type name="character" length="30"/>
+	</column>
+	<column name="costo">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_servicio" type="pk-constr" table="public.&quot;Servicio&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Caja">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2160" y="860"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="fecha">
+		<type name="date"/>
+	</column>
+	<constraint name="pk_caja" type="pk-constr" table="public.&quot;Caja&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Ingreso_egreso">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2080" y="940"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_caja">
+		<type name="integer"/>
+	</column>
+	<column name="id_tipo">
+		<type name="integer"/>
+	</column>
+	<column name="descripcion">
+		<type name="character" length="60"/>
+	</column>
+	<constraint name="pk_ingreso_egreso" type="pk-constr" table="public.&quot;Ingreso_egreso&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Tipo_ingreso_egreso">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2120" y="1120"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tipo">
+		<type name="character" length="10"/>
+	</column>
+	<constraint name="pk_tipo_ingreso_egreso" type="pk-constr" table="public.&quot;Tipo_ingreso_egreso&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Planilla_salario">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="980"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="fecha">
+		<type name="date"/>
+	</column>
+	<constraint name="pk_planilla_salario" type="pk-constr" table="public.&quot;Planilla_salario&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Documento">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="460" y="1100"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="descripcion">
+		<type name="character" length="30"/>
+	</column>
+	<column name="link_documentoPDF">
+		<type name="text"/>
+	</column>
+	<constraint name="pk_documento" type="pk-constr" table="public.&quot;Documento&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Modelo_hoja">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1220" y="1120"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="documento_html">
+		<type name="text"/>
+		<comment><![CDATA[el documento seria un html que tendra un fomulario a llenar]]></comment>
+	</column>
+	<constraint name="pk_modelo_hoja" type="pk-constr" table="public.&quot;Modelo_hoja&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="planilla_empleado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1460" y="940"/>
+	<column name="id_empleado" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_planilla" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="fkplanillaempleado" type="pk-constr" table="public.planilla_empleado">
+		<columns names="id_empleado,id_planilla" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_tipo_demanda" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_demanda&quot;" table="public.&quot;Expediente&quot;">
+	<columns names="id_tipo_demanda" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_estado_interno" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_interno&quot;" table="public.&quot;Expediente&quot;">
+	<columns names="id_estado_interno" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_estado_externo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_externo&quot;" table="public.&quot;Expediente&quot;">
+	<columns names="id_estado_externo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Despacho&quot;">
+	<columns names="id_expediente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_materia" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Materia&quot;" table="public.&quot;Despacho&quot;">
+	<columns names="id_materia" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Carpeta_Digital&quot;">
+	<columns names="id_expediente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Expediente_Cliente&quot;">
+	<columns names="id_expediente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_cliente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente&quot;" table="public.&quot;Expediente_Cliente&quot;">
+	<columns names="id_cliente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_materia" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Materia&quot;" table="public.&quot;Proceso&quot;">
+	<columns names="id_materia" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_proceso" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Proceso&quot;" table="public.&quot;Tipo_demanda&quot;">
+	<columns names="id_proceso" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Expediente_abogado&quot;">
+	<columns names="id_expediente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_abogado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Abogado&quot;" table="public.&quot;Expediente_abogado&quot;">
+	<columns names="id_abogado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Tomo_expediente&quot;">
+	<columns names="id_expediente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_tomo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tomo&quot;" table="public.&quot;Tomo_expediente&quot;">
+	<columns names="id_tomo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_documento" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Documento&quot;" table="public.&quot;Actuacion&quot;">
+	<columns names="id_documento" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Actuacion&quot;">
+	<columns names="id_expediente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_tipo_actuacion" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_actuacion&quot;" table="public.&quot;Actuacion&quot;">
+	<columns names="id_tipo_actuacion" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_modelo_hoja" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Modelo_hoja&quot;" table="public.&quot;Tipo_actuacion&quot;">
+	<columns names="id_modelo_hoja" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_persona" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Persona&quot;" table="public.&quot;Cliente&quot;">
+	<columns names="id_persona" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_tipo_cliente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_cliente&quot;" table="public.&quot;Cliente&quot;">
+	<columns names="id_tipo_cliente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_empleado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado&quot;" table="public.&quot;Abogado&quot;">
+	<columns names="id_empleado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_tipo_abogado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_abogado&quot;" table="public.&quot;Abogado&quot;">
+	<columns names="id_tipo_abogado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_persona" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Persona&quot;" table="public.&quot;Empleado&quot;">
+	<columns names="id_persona" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_empleado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado&quot;" table="public.&quot;Movimiento_empleado&quot;">
+	<columns names="id_empleado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_cliente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente&quot;" table="public.&quot;Factura_cabecera&quot;">
+	<columns names="id_cliente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_abogado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Abogado&quot;" table="public.&quot;Factura_cabecera&quot;">
+	<columns names="id_abogado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_caja" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Caja&quot;" table="public.&quot;Factura_cabecera&quot;">
+	<columns names="id_caja" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_factura_cabecera" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Factura_cabecera&quot;" table="public.&quot;Factura_detalle&quot;">
+	<columns names="id_cabecera" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_servicio" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Servicio&quot;" table="public.&quot;Factura_detalle&quot;">
+	<columns names="id_servicio" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_caja" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Caja&quot;" table="public.&quot;Ingreso_egreso&quot;">
+	<columns names="id_caja" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_tipo" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_ingreso_egreso&quot;" table="public.&quot;Ingreso_egreso&quot;">
+	<columns names="id_tipo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkempleado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado&quot;" table="public.planilla_empleado">
+	<columns names="id_empleado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_planilla" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Planilla_salario&quot;" table="public.planilla_empleado">
+	<columns names="id_planilla" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="&quot;rel_Expediente_Tipo_demanda&quot;" type="relfk"
+	 src-table="public.&quot;Expediente&quot;"
+	 dst-table="public.&quot;Tipo_demanda&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Expediente_Estado_interno&quot;" type="relfk"
+	 src-table="public.&quot;Expediente&quot;"
+	 dst-table="public.&quot;Estado_interno&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Expediente_Estado_externo&quot;" type="relfk"
+	 src-table="public.&quot;Expediente&quot;"
+	 dst-table="public.&quot;Estado_externo&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Despacho_Expediente&quot;" type="relfk"
+	 src-table="public.&quot;Despacho&quot;"
+	 dst-table="public.&quot;Expediente&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Despacho_Materia&quot;" type="relfk"
+	 src-table="public.&quot;Despacho&quot;"
+	 dst-table="public.&quot;Materia&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Abogado_Empleado&quot;" type="relfk"
+	 src-table="public.&quot;Abogado&quot;"
+	 dst-table="public.&quot;Empleado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_Tomo_expediente_Expediente" type="relfk"
+	 src-table="public.&quot;Tomo_expediente&quot;"
+	 dst-table="public.&quot;Expediente&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="20.09" y="38.8"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Tomo_expediente_Tomo&quot;" type="relfk"
+	 src-table="public.&quot;Tomo_expediente&quot;"
+	 dst-table="public.&quot;Tomo&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Proceso_Materia&quot;" type="relfk"
+	 src-table="public.&quot;Proceso&quot;"
+	 dst-table="public.&quot;Materia&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Tipo_demanda_Proceso&quot;" type="relfk"
+	 src-table="public.&quot;Tipo_demanda&quot;"
+	 dst-table="public.&quot;Proceso&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_Carpeta_Digital_Expediente" type="relfk"
+	 src-table="public.&quot;Carpeta_Digital&quot;"
+	 dst-table="public.&quot;Expediente&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0.09" y="-1.2"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Expediente_Cliente_Expediente&quot;" type="relfk"
+	 src-table="public.&quot;Expediente_Cliente&quot;"
+	 dst-table="public.&quot;Expediente&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Expediente_Cliente_Cliente&quot;" type="relfk"
+	 src-table="public.&quot;Expediente_Cliente&quot;"
+	 dst-table="public.&quot;Cliente&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Expediente_abogado_Expediente&quot;" type="relfk"
+	 src-table="public.&quot;Expediente_abogado&quot;"
+	 dst-table="public.&quot;Expediente&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Expediente_abogado_Abogado&quot;" type="relfk"
+	 src-table="public.&quot;Expediente_abogado&quot;"
+	 dst-table="public.&quot;Abogado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Actuacion_Documento&quot;" type="relfk"
+	 src-table="public.&quot;Actuacion&quot;"
+	 dst-table="public.&quot;Documento&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_Actuacion_Expediente" type="relfk"
+	 src-table="public.&quot;Actuacion&quot;"
+	 dst-table="public.&quot;Expediente&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0.09" y="-1.2"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Actuacion_Tipo_actuacion&quot;" type="relfk"
+	 src-table="public.&quot;Actuacion&quot;"
+	 dst-table="public.&quot;Tipo_actuacion&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Abogado_Tipo_abogado&quot;" type="relfk"
+	 src-table="public.&quot;Abogado&quot;"
+	 dst-table="public.&quot;Tipo_abogado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Tipo_actuacion_Modelo_hoja&quot;" type="relfk"
+	 src-table="public.&quot;Tipo_actuacion&quot;"
+	 dst-table="public.&quot;Modelo_hoja&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Cliente_Persona&quot;" type="relfk"
+	 src-table="public.&quot;Cliente&quot;"
+	 dst-table="public.&quot;Persona&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_Cliente_Tipo_cliente" type="relfk"
+	 src-table="public.&quot;Cliente&quot;"
+	 dst-table="public.&quot;Tipo_cliente&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-5.35708" y="-40.9485"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Empleado_Persona&quot;" type="relfk"
+	 src-table="public.&quot;Empleado&quot;"
+	 dst-table="public.&quot;Persona&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Movimiento_empleado_Empleado&quot;" type="relfk"
+	 src-table="public.&quot;Movimiento_empleado&quot;"
+	 dst-table="public.&quot;Empleado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Factura_detalle_Factura_cabecera&quot;" type="relfk"
+	 src-table="public.&quot;Factura_detalle&quot;"
+	 dst-table="public.&quot;Factura_cabecera&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Factura_detalle_Servicio&quot;" type="relfk"
+	 src-table="public.&quot;Factura_detalle&quot;"
+	 dst-table="public.&quot;Servicio&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Factura_cabecera_Cliente&quot;" type="relfk"
+	 src-table="public.&quot;Factura_cabecera&quot;"
+	 dst-table="public.&quot;Cliente&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Factura_cabecera_Abogado&quot;" type="relfk"
+	 src-table="public.&quot;Factura_cabecera&quot;"
+	 dst-table="public.&quot;Abogado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_Factura_cabecera_Caja" type="relfk"
+	 src-table="public.&quot;Factura_cabecera&quot;"
+	 dst-table="public.&quot;Caja&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="2.08375" y="-1.2"/>
+	</label>
+	<label ref-type="name-label">
+		<position x="41.596" y="19.0515"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Ingreso_egreso_Caja&quot;" type="relfk"
+	 src-table="public.&quot;Ingreso_egreso&quot;"
+	 dst-table="public.&quot;Caja&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Ingreso_egreso_Tipo_ingreso_egreso&quot;" type="relfk"
+	 src-table="public.&quot;Ingreso_egreso&quot;"
+	 dst-table="public.&quot;Tipo_ingreso_egreso&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_planilla_empleado_Empleado&quot;" type="relfk"
+	 src-table="public.planilla_empleado"
+	 dst-table="public.&quot;Empleado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_planilla_empleado_Planilla_salario&quot;" type="relfk"
+	 src-table="public.planilla_empleado"
+	 dst-table="public.&quot;Planilla_salario&quot;"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
