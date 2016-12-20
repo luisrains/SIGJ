@@ -1,0 +1,20 @@
+git checkout -b nombre rama    ---> es para crear y posicionarse sobre la rama creada
+git checkout nombre rama     ----> es para posicionarse sobre una rama especifica
+git checkout -b nombre rama origin/nombre rama es para copiar todo el contenido de origin/ nombre rama en nombre rama sin afectar otras ramas
+
+git branch   ----> es para saber en que rama estas actualmente
+
+git status   -----> para saber que tenes para hacer commit
+
+1. git add .     ---->  es para agregar/preparar todo los archivos a comitear en el index
+
+2. git commit -m "aqui colocar mensaje de lo actualizado"
+
+3. git push origin/url git nombre rama    -----> aqui para poder alzar al servidor mis cambios
+
+git fetch origin  ------> es para traer los datos del servidor para luego mezclarlo con merge a mi rama master local
+
+git merge origin/master -----> es para mezclar lo que esta en mi servidor con lo que esta en mi rama local
+
+git pull origin master     -----> es para tra er y mezclar los datos del servidor con mi rama master local
+  
