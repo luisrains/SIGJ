@@ -19,6 +19,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.com.sigj.rrhh.domain.Empleado;
+
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "abogado_empleado_tipoAbogado_uk", columnNames = { "empleado_id",
 		"tipoAbogado_id" }) })
@@ -75,14 +77,6 @@ public class Abogado extends GenericEntity {
 		this.domicilioLaboral = domicilioLaboral;
 	}
 
-	public String getDomicilioProcesal() {
-		return domicilioProcesal;
-	}
-
-	public void setDomicilioProcesal(String domicilioProcesal) {
-		this.domicilioProcesal = domicilioProcesal;
-	}
-
 	public String getDomicilioActual() {
 		return domicilioActual;
 	}
@@ -91,12 +85,20 @@ public class Abogado extends GenericEntity {
 		this.domicilioActual = domicilioActual;
 	}
 
-	public TipoCliente getTipoCliente() {
-		return tipoCliente;
+	public Empleado getEmpleado() {
+		return empleado;
 	}
 
-	public void setTipoCliente(TipoCliente tipoCliente) {
-		this.tipoCliente = tipoCliente;
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+
+	public TipoAbogado getTipoAbogado() {
+		return tipoAbogado;
+	}
+
+	public void setTipoAbogado(TipoAbogado tipoAbogado) {
+		this.tipoAbogado = tipoAbogado;
 	}
 
 	public Date getFechaNacimiento() {
@@ -107,19 +109,11 @@ public class Abogado extends GenericEntity {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Persona getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
-	}
-
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", domicilioLaboral=" + domicilioLaboral + ", domicilioProcesal="
-				+ domicilioProcesal + ", domicilioActual=" + domicilioActual + ", tipoCliente=" + tipoCliente
-				+ ", persona=" + persona + ", fechaNacimiento=" + fechaNacimiento + "]";
+		return "Abogado [id=" + id + ", domicilioLaboral=" + domicilioLaboral + ", domicilioActual=" + domicilioActual
+				+ ", empleado=" + empleado + ", tipoAbogado=" + tipoAbogado + ", fechaNacimiento=" + fechaNacimiento
+				+ "]";
 	}
 
 }

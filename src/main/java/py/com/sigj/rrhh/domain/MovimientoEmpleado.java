@@ -20,20 +20,22 @@ public class MovimientoEmpleado extends GenericEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
+
 	@NotNull(message = "movimientoEmpleado.ingreso.notNull")
 	private int ingreso;
+
 	@NotNull(message = "movimientoEmpleado.egreso.notNull")
 	private int egreso;
+
 	@NotNull(message = "movimientoEmpleado.fecha.notNull")
 	private Date fecha;
+
 	@ManyToOne
 	@NotNull(message = "MovimientoEmpleado.empleado.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimientoEmpleado_empleado_fk"))
 	private Empleado empleado;
 
 	public MovimientoEmpleado() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

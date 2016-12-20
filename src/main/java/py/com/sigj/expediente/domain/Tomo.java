@@ -8,9 +8,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(uniqueConstraints = {
@@ -24,7 +21,7 @@ public class Tomo extends GenericEntity {
 	private Long id;
 
 	@NotNull(message = "tomo.codigo.notNull")
-	private Expediente ExpedientePadre;
+	private Expediente expedientePadre;
 
 	public Tomo() {
 
@@ -41,16 +38,16 @@ public class Tomo extends GenericEntity {
 	}
 
 	public Expediente getExpedientePadre() {
-		return ExpedientePadre;
+		return expedientePadre;
 	}
 
 	public void setExpedientePadre(Expediente expedientePadre) {
-		ExpedientePadre = expedientePadre;
+		expedientePadre = expedientePadre;
 	}
 
 	@Override
 	public String toString() {
-		return "Tomo [id=" + id + expedientePadre=" + expedientePadre + "]";
+		return "Tomo [id=" + id + ", expedientePadre=" + expedientePadre + "]";
 	}
 
 }

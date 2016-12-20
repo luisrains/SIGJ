@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import py.com.sigj.controllers.list.PersonaListController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.dao.PersonaDao;
-import py.com.sigj.expediente.domain.PersonaFisica;
+import py.com.sigj.expediente.domain.Persona;
 
 @Controller
 @Scope("request")
 @RequestMapping("persona")
-public class PersonaFormController extends FormController<PersonaFisica> {
+public class PersonaFormController extends FormController<Persona> {
 
 	@Autowired
 	private PersonaDao personaDao;
@@ -34,15 +34,9 @@ public class PersonaFormController extends FormController<PersonaFisica> {
 	}
 
 	@Override
-	public PersonaFisica getNuevaInstancia() {
+	public Persona getNuevaInstancia() {
 		// TODO Auto-generated method stub
-		return new PersonaFisica();
-	}
-
-	@Override
-	public Dao<PersonaFisica> getDao() {
-		// TODO Auto-generated method stub
-		return personaDao;
+		return new Persona();
 	}
 
 	@Override
@@ -50,6 +44,12 @@ public class PersonaFormController extends FormController<PersonaFisica> {
 		map.addAttribute("columnas", personaList.getColumnas());
 		map.addAttribute("columnasStr", personaList.getColumnasStr());
 		super.agregarValoresAdicionales(map);
+	}
+
+	@Override
+	public Dao<Persona> getDao() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/*

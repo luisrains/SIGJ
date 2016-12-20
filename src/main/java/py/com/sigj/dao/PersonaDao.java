@@ -1,7 +1,7 @@
 package py.com.sigj.dao;
 
-import py.com.sigj.expediente.domain.PersonaFisica;
+import py.com.sigj.expediente.domain.Persona;
 
-public interface PersonaDao extends Dao<PersonaFisica> {
+public interface PersonaDao extends Dao<Persona> {
 
 }

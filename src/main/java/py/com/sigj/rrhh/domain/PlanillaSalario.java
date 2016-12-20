@@ -23,7 +23,7 @@ public class PlanillaSalario extends GenericEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
-
+	
 	@NotNull(message = "planillaSalario.codigo.notNull")
 	@NotBlank(message = "planillaSalario.codigo.notBlank")
 	@Size(max = 20, message = "planillaSalario.codigo.size")
@@ -33,8 +33,6 @@ public class PlanillaSalario extends GenericEntity {
 	private Date fecha;
 
 	public PlanillaSalario() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

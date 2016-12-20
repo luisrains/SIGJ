@@ -1,5 +1,7 @@
 package py.com.sigj.rrhh.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -9,14 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
+import py.com.sigj.expediente.domain.Persona;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "empleado_codigo_uk", columnNames = { "codigo" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "empleado_persona_uk", columnNames = { "persona_id" }) })
 public class Empleado extends GenericEntity {
 	private static final String SECUENCIA = "empleado_id_seq";
 
@@ -25,11 +28,6 @@ public class Empleado extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "empleado.codigo.notNull")
-	@NotBlank(message = "empleado.codigo.notBlank")
-	@Size(max = 20, message = "empleado.codigo.size")
-	private String codigo;
-
 	@NotNull(message = "empleado.salario.notNull")
 	private int salario;
 
@@ -37,15 +35,12 @@ public class Empleado extends GenericEntity {
 	@ManyToOne
 	@NotNull(message = "empleado.persona.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "empleado_persona_fk"))
-	private PersonaFisica persona;
-	@ManyToOne
-	@NotNull(message = "empleado.planillaSalario.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "empleado_planillaSalario_fk"))
-	private PlanillaSalario planillaSalario;
+	private Persona persona;
+
+	@Temporal(TemporalType.DATE)
+	private Date fechaIngreso;
 
 	public Empleado() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -58,14 +53,6 @@ public class Empleado extends GenericEntity {
 		this.id = id;
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
 	public int getSalario() {
 		return salario;
 	}
@@ -74,25 +61,26 @@ public class Empleado extends GenericEntity {
 		this.salario = salario;
 	}
 
-	public PersonaFisica getPersona() {
+	public Persona getPersona() {
 		return persona;
 	}
 
-	public void setPersona(PersonaFisica persona) {
+	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
 
-	public PlanillaSalario getPlanillaSalario() {
-		return planillaSalario;
+	public Date getFechaIngreso() {
+		return fechaIngreso;
 	}
 
-	public void setPlanillaSalario(PlanillaSalario planillaSalario) {
-		this.planillaSalario = planillaSalario;
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
 
 	@Override
 	public String toString() {
-		return "Empleado [id=" + id + ", codigo=" + codigo + ", salario=" + salario + "]";
+		return "Empleado [id=" + id + ", salario=" + salario + ", persona=" + persona + ", fechaIngreso=" + fechaIngreso
+				+ "]";
 	}
 
 }
