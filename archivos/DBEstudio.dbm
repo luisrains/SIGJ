@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="683,519" last-zoom="0.8"
+<dbmodel pgmodeler-ver="0.8.2" last-position="328,340" last-zoom="0.9"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database">
 </database>
@@ -11,11 +11,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="Expediente">
+<table name="Expediente - MEDIAS">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="780" y="660"/>
 	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_despacho_actual">
 		<type name="integer"/>
 	</column>
 	<column name="id_tipo_demanda">
@@ -51,19 +54,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="nro_liquidacion">
 		<type name="character"/>
 	</column>
-	<constraint name="pk_expediente" type="pk-constr" table="public.&quot;Expediente&quot;">
+	<constraint name="pk_expediente" type="pk-constr" table="public.&quot;Expediente - MEDIAS&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Despacho">
+<table name="Despacho-Ok">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="320" y="160"/>
 	<column name="id" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="id_expediente">
 		<type name="integer"/>
 	</column>
 	<column name="id_materia">
@@ -78,7 +78,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="juez">
 		<type name="character" length="60"/>
 	</column>
-	<constraint name="pk_despacho" type="pk-constr" table="public.&quot;Despacho&quot;">
+	<constraint name="pk_despacho" type="pk-constr" table="public.&quot;Despacho-Ok&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -104,7 +104,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="Expediente_Cliente">
+<table name="Expediente_Cliente - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1120" y="60"/>
@@ -117,12 +117,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id_cliente">
 		<type name="integer"/>
 	</column>
-	<constraint name="pk_expediente_cliente" type="pk-constr" table="public.&quot;Expediente_Cliente&quot;">
+	<constraint name="pk_expediente_cliente" type="pk-constr" table="public.&quot;Expediente_Cliente - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Materia">
+<table name="Materia -OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="80" y="40"/>
@@ -132,14 +132,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="nombre">
 		<type name="character" length="20"/>
 	</column>
-	<constraint name="pk_materia" type="pk-constr" table="public.&quot;Materia&quot;">
+	<constraint name="pk_materia" type="pk-constr" table="public.&quot;Materia -OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Proceso">
+<table name="Proceso -OK">
 	<schema name="public"/>
 	<role name="postgres"/>
+	<comment><![CDATA[ej: ejc-civil, ejc-letrada]]></comment>
 	<position x="80" y="280"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
@@ -150,30 +151,30 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="nombre">
 		<type name="character" length="60"/>
 	</column>
-	<constraint name="pk_proceso" type="pk-constr" table="public.&quot;Proceso&quot;">
+	<column name="codigo">
+		<type name="character" length="5"/>
+	</column>
+	<constraint name="pk_proceso" type="pk-constr" table="public.&quot;Proceso -OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Tipo_demanda">
+<table name="Tipo_demanda-ok">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="140" y="500"/>
+	<position x="100" y="540"/>
 	<column name="id" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="id_proceso">
 		<type name="integer"/>
 	</column>
 	<column name="nombre">
 		<type name="character" length="30"/>
 	</column>
-	<constraint name="pk_tipo_demanda" type="pk-constr" table="public.&quot;Tipo_demanda&quot;">
+	<constraint name="pk_tipo_demanda" type="pk-constr" table="public.&quot;Tipo_demanda-ok&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Expediente_abogado">
+<table name="Expediente_abogado - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1120" y="540"/>
@@ -186,12 +187,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id_abogado">
 		<type name="integer"/>
 	</column>
-	<constraint name="pk_cliente_abogado" type="pk-constr" table="public.&quot;Expediente_abogado&quot;">
+	<constraint name="pk_cliente_abogado" type="pk-constr" table="public.&quot;Expediente_abogado - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Estado_interno">
+<table name="Estado_interno - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="220" y="820"/>
@@ -201,12 +202,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="nombre">
 		<type name="character" length="40"/>
 	</column>
-	<constraint name="pk_estado_interno" type="pk-constr" table="public.&quot;Estado_interno&quot;">
+	<constraint name="pk_estado_interno" type="pk-constr" table="public.&quot;Estado_interno - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Estado_externo">
+<table name="Estado_externo - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="460" y="940"/>
@@ -219,12 +220,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fecha">
 		<type name="date"/>
 	</column>
-	<constraint name="pk_estado" type="pk-constr" table="public.&quot;Estado_externo&quot;">
+	<constraint name="pk_estado" type="pk-constr" table="public.&quot;Estado_externo - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Tomo_expediente">
+<table name="Tomo_expediente - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="180" y="620"/>
@@ -237,12 +238,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id_tomo">
 		<type name="integer"/>
 	</column>
-	<constraint name="pk_tomo_expediente" type="pk-constr" table="public.&quot;Tomo_expediente&quot;">
+	<constraint name="pk_tomo_expediente" type="pk-constr" table="public.&quot;Tomo_expediente - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Tomo">
+<table name="Tomo - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="60" y="760"/>
@@ -252,7 +253,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id_expediente_padre">
 		<type name="integer"/>
 	</column>
-	<constraint name="pk_tomo" type="pk-constr" table="public.&quot;Tomo&quot;">
+	<constraint name="pk_tomo" type="pk-constr" table="public.&quot;Tomo - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -302,7 +303,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="Persona">
+<table name="Persona - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1420" y="360"/>
@@ -342,12 +343,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="telefono">
 		<type name="character" length="15"/>
 	</column>
-	<constraint name="pk_persona" type="pk-constr" table="public.&quot;Persona&quot;">
+	<constraint name="pk_persona" type="pk-constr" table="public.&quot;Persona - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Cliente">
+<table name="Cliente - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1400" y="120"/>
@@ -369,12 +370,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="domicilio_actual">
 		<type name="character" length="60"/>
 	</column>
-	<constraint name="pk_cliente" type="pk-constr" table="public.&quot;Cliente&quot;">
+	<constraint name="pk_cliente" type="pk-constr" table="public.&quot;Cliente - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Tipo_cliente">
+<table name="Tipo_cliente - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1800" y="500"/>
@@ -384,12 +385,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="tipo">
 		<type name="character" length="15"/>
 	</column>
-	<constraint name="pk_tipo_cliente" type="pk-constr" table="public.&quot;Tipo_cliente&quot;">
+	<constraint name="pk_tipo_cliente" type="pk-constr" table="public.&quot;Tipo_cliente - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Abogado">
+<table name="Abogado - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1420" y="600"/>
@@ -408,12 +409,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="domicilioActual">
 		<type name="character" length="100"/>
 	</column>
-	<constraint name="pk_abogado" type="pk-constr" table="public.&quot;Abogado&quot;">
+	<constraint name="pk_abogado" type="pk-constr" table="public.&quot;Abogado - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Tipo_abogado">
+<table name="Tipo_abogado -OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1120" y="660"/>
@@ -423,12 +424,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="tipo">
 		<type name="character" length="15"/>
 	</column>
-	<constraint name="pk_tipo_abogado" type="pk-constr" table="public.&quot;Tipo_abogado&quot;">
+	<constraint name="pk_tipo_abogado" type="pk-constr" table="public.&quot;Tipo_abogado -OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Empleado">
+<table name="Empleado - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1760" y="780"/>
@@ -448,12 +449,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="smallint"/>
 		<comment><![CDATA[NUEVO]]></comment>
 	</column>
-	<constraint name="pk_empleado" type="pk-constr" table="public.&quot;Empleado&quot;">
+	<constraint name="pk_empleado" type="pk-constr" table="public.&quot;Empleado - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Movimiento_empleado">
+<table name="Movimiento_empleado - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1740" y="1040"/>
@@ -472,12 +473,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fecha">
 		<type name="date"/>
 	</column>
-	<constraint name="pk_movimiento_empleado" type="pk-constr" table="public.&quot;Movimiento_empleado&quot;">
+	<constraint name="pk_movimiento_empleado" type="pk-constr" table="public.&quot;Movimiento_empleado - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Factura_cabecera">
+<table name="Factura_cabecera - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="2140" y="540"/>
@@ -496,12 +497,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fecha">
 		<type name="date"/>
 	</column>
-	<constraint name="pk_factura_cabecera" type="pk-constr" table="public.&quot;Factura_cabecera&quot;">
+	<constraint name="pk_factura_cabecera" type="pk-constr" table="public.&quot;Factura_cabecera - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Factura_detalle">
+<table name="Factura_detalle - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="2120" y="340"/>
@@ -514,12 +515,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id_servicio">
 		<type name="integer"/>
 	</column>
-	<constraint name="pk_factura_detalle" type="pk-constr" table="public.&quot;Factura_detalle&quot;">
+	<constraint name="pk_factura_detalle" type="pk-constr" table="public.&quot;Factura_detalle - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Servicio">
+<table name="Servicio - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="2140" y="220"/>
@@ -532,12 +533,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="costo">
 		<type name="integer"/>
 	</column>
-	<constraint name="pk_servicio" type="pk-constr" table="public.&quot;Servicio&quot;">
+	<constraint name="pk_servicio" type="pk-constr" table="public.&quot;Servicio - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="Caja">
+<table name="Caja - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="2160" y="860"/>
@@ -547,7 +548,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fecha">
 		<type name="date"/>
 	</column>
-	<constraint name="pk_caja" type="pk-constr" table="public.&quot;Caja&quot;">
+	<constraint name="pk_caja" type="pk-constr" table="public.&quot;Caja - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -588,7 +589,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="Planilla_salario">
+<table name="Planilla_salario - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1160" y="980"/>
@@ -598,7 +599,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fecha">
 		<type name="date"/>
 	</column>
-	<constraint name="pk_planilla_salario" type="pk-constr" table="public.&quot;Planilla_salario&quot;">
+	<constraint name="pk_planilla_salario" type="pk-constr" table="public.&quot;Planilla_salario - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -637,7 +638,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="planilla_empleado">
+<table name="planilla_empleado - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1460" y="940"/>
@@ -647,91 +648,103 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id_planilla" not-null="true">
 		<type name="integer"/>
 	</column>
-	<constraint name="fkplanillaempleado" type="pk-constr" table="public.planilla_empleado">
+	<constraint name="fkplanillaempleado" type="pk-constr" table="public.&quot;planilla_empleado - OK&quot;">
 		<columns names="id_empleado,id_planilla" ref-type="src-columns"/>
 	</constraint>
 </table>
 
+<table name="proceso_tipoDemanda - Ok">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="100" y="400"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_proceso">
+		<type name="integer"/>
+	</column>
+	<column name="id_tipo_demanda">
+		<type name="integer"/>
+	</column>
+	<constraint name="okprocesotipoDemanda" type="pk-constr" table="public.&quot;proceso_tipoDemanda - Ok&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
 <constraint name="fk_tipo_demanda" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_demanda&quot;" table="public.&quot;Expediente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_demanda-ok&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
 	<columns names="id_tipo_demanda" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_estado_interno" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_interno&quot;" table="public.&quot;Expediente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_interno - OK&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
 	<columns names="id_estado_interno" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_estado_externo" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_externo&quot;" table="public.&quot;Expediente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_externo - OK&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
 	<columns names="id_estado_externo" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Despacho&quot;">
-	<columns names="id_expediente" ref-type="src-columns"/>
+<constraint name="fk_despacho" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Despacho-Ok&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
+	<columns names="id_despacho_actual" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_materia" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Materia&quot;" table="public.&quot;Despacho&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Materia -OK&quot;" table="public.&quot;Despacho-Ok&quot;">
 	<columns names="id_materia" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Carpeta_Digital&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente - MEDIAS&quot;" table="public.&quot;Carpeta_Digital&quot;">
 	<columns names="id_expediente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Expediente_Cliente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente - MEDIAS&quot;" table="public.&quot;Expediente_Cliente - OK&quot;">
 	<columns names="id_expediente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_cliente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente&quot;" table="public.&quot;Expediente_Cliente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente - OK&quot;" table="public.&quot;Expediente_Cliente - OK&quot;">
 	<columns names="id_cliente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_materia" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Materia&quot;" table="public.&quot;Proceso&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Materia -OK&quot;" table="public.&quot;Proceso -OK&quot;">
 	<columns names="id_materia" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="fk_proceso" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Proceso&quot;" table="public.&quot;Tipo_demanda&quot;">
-	<columns names="id_proceso" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Expediente_abogado&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente - MEDIAS&quot;" table="public.&quot;Expediente_abogado - OK&quot;">
 	<columns names="id_expediente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_abogado" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Abogado&quot;" table="public.&quot;Expediente_abogado&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Abogado - OK&quot;" table="public.&quot;Expediente_abogado - OK&quot;">
 	<columns names="id_abogado" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Tomo_expediente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente - MEDIAS&quot;" table="public.&quot;Tomo_expediente - OK&quot;">
 	<columns names="id_expediente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_tomo" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tomo&quot;" table="public.&quot;Tomo_expediente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tomo - OK&quot;" table="public.&quot;Tomo_expediente - OK&quot;">
 	<columns names="id_tomo" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
@@ -743,7 +756,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </constraint>
 
 <constraint name="fk_expediente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente&quot;" table="public.&quot;Actuacion&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente - MEDIAS&quot;" table="public.&quot;Actuacion&quot;">
 	<columns names="id_expediente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
@@ -761,73 +774,73 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </constraint>
 
 <constraint name="fk_persona" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Persona&quot;" table="public.&quot;Cliente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Persona - OK&quot;" table="public.&quot;Cliente - OK&quot;">
 	<columns names="id_persona" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_tipo_cliente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_cliente&quot;" table="public.&quot;Cliente&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_cliente - OK&quot;" table="public.&quot;Cliente - OK&quot;">
 	<columns names="id_tipo_cliente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_empleado" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado&quot;" table="public.&quot;Abogado&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado - OK&quot;" table="public.&quot;Abogado - OK&quot;">
 	<columns names="id_empleado" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_tipo_abogado" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_abogado&quot;" table="public.&quot;Abogado&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_abogado -OK&quot;" table="public.&quot;Abogado - OK&quot;">
 	<columns names="id_tipo_abogado" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_persona" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Persona&quot;" table="public.&quot;Empleado&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Persona - OK&quot;" table="public.&quot;Empleado - OK&quot;">
 	<columns names="id_persona" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_empleado" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado&quot;" table="public.&quot;Movimiento_empleado&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado - OK&quot;" table="public.&quot;Movimiento_empleado - OK&quot;">
 	<columns names="id_empleado" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_cliente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente&quot;" table="public.&quot;Factura_cabecera&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente - OK&quot;" table="public.&quot;Factura_cabecera - OK&quot;">
 	<columns names="id_cliente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_abogado" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Abogado&quot;" table="public.&quot;Factura_cabecera&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Abogado - OK&quot;" table="public.&quot;Factura_cabecera - OK&quot;">
 	<columns names="id_abogado" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_caja" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Caja&quot;" table="public.&quot;Factura_cabecera&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Caja - OK&quot;" table="public.&quot;Factura_cabecera - OK&quot;">
 	<columns names="id_caja" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_factura_cabecera" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Factura_cabecera&quot;" table="public.&quot;Factura_detalle&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Factura_cabecera - OK&quot;" table="public.&quot;Factura_detalle - OK&quot;">
 	<columns names="id_cabecera" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_servicio" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Servicio&quot;" table="public.&quot;Factura_detalle&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Servicio - OK&quot;" table="public.&quot;Factura_detalle - OK&quot;">
 	<columns names="id_servicio" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_caja" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Caja&quot;" table="public.&quot;Ingreso_egreso&quot;">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Caja - OK&quot;" table="public.&quot;Ingreso_egreso&quot;">
 	<columns names="id_caja" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
@@ -839,50 +852,57 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </constraint>
 
 <constraint name="fkempleado" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado&quot;" table="public.planilla_empleado">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado - OK&quot;" table="public.&quot;planilla_empleado - OK&quot;">
 	<columns names="id_empleado" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk_planilla" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Planilla_salario&quot;" table="public.planilla_empleado">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Planilla_salario - OK&quot;" table="public.&quot;planilla_empleado - OK&quot;">
 	<columns names="id_planilla" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="fkProceso" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Proceso -OK&quot;" table="public.&quot;proceso_tipoDemanda - Ok&quot;">
+	<columns names="id_proceso" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fktipoDemanda" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_demanda-ok&quot;" table="public.&quot;proceso_tipoDemanda - Ok&quot;">
+	<columns names="id_tipo_demanda" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
 <relationship name="&quot;rel_Expediente_Tipo_demanda&quot;" type="relfk"
-	 src-table="public.&quot;Expediente&quot;"
-	 dst-table="public.&quot;Tipo_demanda&quot;"
+	 src-table="public.&quot;Expediente - MEDIAS&quot;"
+	 dst-table="public.&quot;Tipo_demanda-ok&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Expediente_Estado_interno&quot;" type="relfk"
-	 src-table="public.&quot;Expediente&quot;"
-	 dst-table="public.&quot;Estado_interno&quot;"
+	 src-table="public.&quot;Expediente - MEDIAS&quot;"
+	 dst-table="public.&quot;Estado_interno - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Expediente_Estado_externo&quot;" type="relfk"
-	 src-table="public.&quot;Expediente&quot;"
-	 dst-table="public.&quot;Estado_externo&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="&quot;rel_Despacho_Expediente&quot;" type="relfk"
-	 src-table="public.&quot;Despacho&quot;"
-	 dst-table="public.&quot;Expediente&quot;"
+	 src-table="public.&quot;Expediente - MEDIAS&quot;"
+	 dst-table="public.&quot;Estado_externo - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Despacho_Materia&quot;" type="relfk"
-	 src-table="public.&quot;Despacho&quot;"
-	 dst-table="public.&quot;Materia&quot;"
+	 src-table="public.&quot;Despacho-Ok&quot;"
+	 dst-table="public.&quot;Materia -OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Abogado_Empleado&quot;" type="relfk"
-	 src-table="public.&quot;Abogado&quot;"
-	 dst-table="public.&quot;Empleado&quot;"
+	 src-table="public.&quot;Abogado - OK&quot;"
+	 dst-table="public.&quot;Empleado - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_Tomo_expediente_Expediente" type="relfk"
-	 src-table="public.&quot;Tomo_expediente&quot;"
-	 dst-table="public.&quot;Expediente&quot;"
+	 src-table="public.&quot;Tomo_expediente - OK&quot;"
+	 dst-table="public.&quot;Expediente - MEDIAS&quot;"
 	 src-required="false" dst-required="false">
 	<label ref-type="dst-label">
 		<position x="20.09" y="38.8"/>
@@ -890,23 +910,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </relationship>
 
 <relationship name="&quot;rel_Tomo_expediente_Tomo&quot;" type="relfk"
-	 src-table="public.&quot;Tomo_expediente&quot;"
-	 dst-table="public.&quot;Tomo&quot;"
+	 src-table="public.&quot;Tomo_expediente - OK&quot;"
+	 dst-table="public.&quot;Tomo - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Proceso_Materia&quot;" type="relfk"
-	 src-table="public.&quot;Proceso&quot;"
-	 dst-table="public.&quot;Materia&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="&quot;rel_Tipo_demanda_Proceso&quot;" type="relfk"
-	 src-table="public.&quot;Tipo_demanda&quot;"
-	 dst-table="public.&quot;Proceso&quot;"
+	 src-table="public.&quot;Proceso -OK&quot;"
+	 dst-table="public.&quot;Materia -OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_Carpeta_Digital_Expediente" type="relfk"
 	 src-table="public.&quot;Carpeta_Digital&quot;"
-	 dst-table="public.&quot;Expediente&quot;"
+	 dst-table="public.&quot;Expediente - MEDIAS&quot;"
 	 src-required="false" dst-required="false">
 	<label ref-type="dst-label">
 		<position x="0.09" y="-1.2"/>
@@ -914,23 +929,23 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </relationship>
 
 <relationship name="&quot;rel_Expediente_Cliente_Expediente&quot;" type="relfk"
-	 src-table="public.&quot;Expediente_Cliente&quot;"
-	 dst-table="public.&quot;Expediente&quot;"
+	 src-table="public.&quot;Expediente_Cliente - OK&quot;"
+	 dst-table="public.&quot;Expediente - MEDIAS&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Expediente_Cliente_Cliente&quot;" type="relfk"
-	 src-table="public.&quot;Expediente_Cliente&quot;"
-	 dst-table="public.&quot;Cliente&quot;"
+	 src-table="public.&quot;Expediente_Cliente - OK&quot;"
+	 dst-table="public.&quot;Cliente - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Expediente_abogado_Expediente&quot;" type="relfk"
-	 src-table="public.&quot;Expediente_abogado&quot;"
-	 dst-table="public.&quot;Expediente&quot;"
+	 src-table="public.&quot;Expediente_abogado - OK&quot;"
+	 dst-table="public.&quot;Expediente - MEDIAS&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Expediente_abogado_Abogado&quot;" type="relfk"
-	 src-table="public.&quot;Expediente_abogado&quot;"
-	 dst-table="public.&quot;Abogado&quot;"
+	 src-table="public.&quot;Expediente_abogado - OK&quot;"
+	 dst-table="public.&quot;Abogado - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Actuacion_Documento&quot;" type="relfk"
@@ -940,7 +955,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <relationship name="rel_Actuacion_Expediente" type="relfk"
 	 src-table="public.&quot;Actuacion&quot;"
-	 dst-table="public.&quot;Expediente&quot;"
+	 dst-table="public.&quot;Expediente - MEDIAS&quot;"
 	 src-required="false" dst-required="false">
 	<label ref-type="dst-label">
 		<position x="0.09" y="-1.2"/>
@@ -953,8 +968,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Abogado_Tipo_abogado&quot;" type="relfk"
-	 src-table="public.&quot;Abogado&quot;"
-	 dst-table="public.&quot;Tipo_abogado&quot;"
+	 src-table="public.&quot;Abogado - OK&quot;"
+	 dst-table="public.&quot;Tipo_abogado -OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Tipo_actuacion_Modelo_hoja&quot;" type="relfk"
@@ -963,13 +978,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Cliente_Persona&quot;" type="relfk"
-	 src-table="public.&quot;Cliente&quot;"
-	 dst-table="public.&quot;Persona&quot;"
+	 src-table="public.&quot;Cliente - OK&quot;"
+	 dst-table="public.&quot;Persona - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_Cliente_Tipo_cliente" type="relfk"
-	 src-table="public.&quot;Cliente&quot;"
-	 dst-table="public.&quot;Tipo_cliente&quot;"
+	 src-table="public.&quot;Cliente - OK&quot;"
+	 dst-table="public.&quot;Tipo_cliente - OK&quot;"
 	 src-required="false" dst-required="false">
 	<label ref-type="name-label">
 		<position x="-5.35708" y="-40.9485"/>
@@ -977,38 +992,38 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </relationship>
 
 <relationship name="&quot;rel_Empleado_Persona&quot;" type="relfk"
-	 src-table="public.&quot;Empleado&quot;"
-	 dst-table="public.&quot;Persona&quot;"
+	 src-table="public.&quot;Empleado - OK&quot;"
+	 dst-table="public.&quot;Persona - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Movimiento_empleado_Empleado&quot;" type="relfk"
-	 src-table="public.&quot;Movimiento_empleado&quot;"
-	 dst-table="public.&quot;Empleado&quot;"
+	 src-table="public.&quot;Movimiento_empleado - OK&quot;"
+	 dst-table="public.&quot;Empleado - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Factura_detalle_Factura_cabecera&quot;" type="relfk"
-	 src-table="public.&quot;Factura_detalle&quot;"
-	 dst-table="public.&quot;Factura_cabecera&quot;"
+	 src-table="public.&quot;Factura_detalle - OK&quot;"
+	 dst-table="public.&quot;Factura_cabecera - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Factura_detalle_Servicio&quot;" type="relfk"
-	 src-table="public.&quot;Factura_detalle&quot;"
-	 dst-table="public.&quot;Servicio&quot;"
+	 src-table="public.&quot;Factura_detalle - OK&quot;"
+	 dst-table="public.&quot;Servicio - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Factura_cabecera_Cliente&quot;" type="relfk"
-	 src-table="public.&quot;Factura_cabecera&quot;"
-	 dst-table="public.&quot;Cliente&quot;"
+	 src-table="public.&quot;Factura_cabecera - OK&quot;"
+	 dst-table="public.&quot;Cliente - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Factura_cabecera_Abogado&quot;" type="relfk"
-	 src-table="public.&quot;Factura_cabecera&quot;"
-	 dst-table="public.&quot;Abogado&quot;"
+	 src-table="public.&quot;Factura_cabecera - OK&quot;"
+	 dst-table="public.&quot;Abogado - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_Factura_cabecera_Caja" type="relfk"
-	 src-table="public.&quot;Factura_cabecera&quot;"
-	 dst-table="public.&quot;Caja&quot;"
+	 src-table="public.&quot;Factura_cabecera - OK&quot;"
+	 dst-table="public.&quot;Caja - OK&quot;"
 	 src-required="false" dst-required="false">
 	<label ref-type="dst-label">
 		<position x="2.08375" y="-1.2"/>
@@ -1020,7 +1035,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <relationship name="&quot;rel_Ingreso_egreso_Caja&quot;" type="relfk"
 	 src-table="public.&quot;Ingreso_egreso&quot;"
-	 dst-table="public.&quot;Caja&quot;"
+	 dst-table="public.&quot;Caja - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Ingreso_egreso_Tipo_ingreso_egreso&quot;" type="relfk"
@@ -1029,13 +1044,28 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_planilla_empleado_Empleado&quot;" type="relfk"
-	 src-table="public.planilla_empleado"
-	 dst-table="public.&quot;Empleado&quot;"
+	 src-table="public.&quot;planilla_empleado - OK&quot;"
+	 dst-table="public.&quot;Empleado - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_planilla_empleado_Planilla_salario&quot;" type="relfk"
-	 src-table="public.planilla_empleado"
-	 dst-table="public.&quot;Planilla_salario&quot;"
+	 src-table="public.&quot;planilla_empleado - OK&quot;"
+	 dst-table="public.&quot;Planilla_salario - OK&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_proceso_tipoDemanda_Proceso -OK&quot;" type="relfk"
+	 src-table="public.&quot;proceso_tipoDemanda - Ok&quot;"
+	 dst-table="public.&quot;Proceso -OK&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_proceso_tipoDemanda_Tipo_demanda&quot;" type="relfk"
+	 src-table="public.&quot;proceso_tipoDemanda - Ok&quot;"
+	 dst-table="public.&quot;Tipo_demanda-ok&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Expediente - MEDIAS_Despacho&quot;" type="relfk"
+	 src-table="public.&quot;Expediente - MEDIAS&quot;"
+	 dst-table="public.&quot;Despacho-Ok&quot;"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

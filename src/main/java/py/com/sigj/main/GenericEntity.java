@@ -1,4 +1,4 @@
-package py.com.sigj.expediente.domain;
+package py.com.sigj.main;
 
 public abstract class GenericEntity {
 	private static final int RESULT = 1;

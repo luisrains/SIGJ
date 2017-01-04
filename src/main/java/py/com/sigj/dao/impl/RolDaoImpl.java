@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import py.com.sigj.dao.RolDao;
-import py.com.sigj.expediente.domain.Rol;
+import py.com.sigj.security.Rol;
 
 @Repository
 @Scope("session")

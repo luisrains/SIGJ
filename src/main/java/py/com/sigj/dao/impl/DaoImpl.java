@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.domain.GenericEntity;
+import py.com.sigj.main.GenericEntity;
 
 //para que po lo menos tenga emetodo getId()
 public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {

@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.com.sigj.main.GenericEntity;
+
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "materia_codigo_uk", columnNames = { "codigo" }) })
 public class Materia extends GenericEntity {
@@ -22,14 +24,14 @@ public class Materia extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "tomo.codigo.notNull")
-	@NotBlank(message = "tomo.codigo.notBlank")
-	@Size(max = 5, message = "tomo.codigo.size")
+	@NotNull(message = "materia.codigo.notNull")
+	@NotBlank(message = "materia.codigo.notBlank")
+	@Size(max = 5, message = "materia.codigo.size")
 	private String codigo;
 
-	@NotNull(message = "tomo.descripcion.notNull")
-	@NotBlank(message = "tomo.descripcion.notBlank")
-	@Size(max = 20, message = "tomo.descripcion.size")
+	@NotNull(message = "materia.descripcion.notNull")
+	@NotBlank(message = "materia.descripcion.notBlank")
+	@Size(max = 20, message = "materia.descripcion.size")
 	private String Descripcion;
 
 	public Materia() {

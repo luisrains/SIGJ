@@ -17,6 +17,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import py.com.sigj.expediente.domain.Persona;
+import py.com.sigj.main.GenericEntity;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "empleado_persona_uk", columnNames = { "persona_id" }) })

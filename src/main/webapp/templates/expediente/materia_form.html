@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="materia">
+<head>
+<title>APP</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<link rel="shortcut icon" href="/images/favicon.ico"
+	th:href="@{/images/favicon.ico}" type="image/x-icon" />
+<script src="../../js/jquery-2.2.3.min.js"
+	th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script src="../../js/jquery-ui.js" th:src="@{/js/jquery-ui.js}"></script>
+<script src="../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../../js/app.min.js" th:src="@{/js/app.min.js}"></script>
+<script th:src="@{/js/plugins/dataTables/jquery.dataTables.min.js}"></script>
+<link th:href="@{/css/plugins/dataTables.bootstrap.min.css}"
+	rel="stylesheet" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	href="../../css/bootstrap.min.css" />
+<link href="../../css/font-awesome.min.css"
+	th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+<link rel="stylesheet" th:href="@{/css/AdminLTE.min.css}"
+	href="../../css/AdminLTE.min.css" />
+<link th:href="@{/css/plugins/responsive.bootstrap.min.css}"
+	href="../../css/plugins/responsive.bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini ">
+
+
+
+	<div th:fragment="contenido">
+
+		<script type="text/javascript">
+function limpiarForm() {
+$("#id").val("");
+$("#cedula").val("");
+$("#nombre").val("");
+$("#apellido").val("");
+$("#direccion").val("");
+}
+function nuevoRegistro() {
+limpiarForm();
+$("#botonNuevo").hide();
+$("#cedula").focus();
+}
+</script>
+		<h4 class="page-header" th:text="#{persona.form.titulo}">Detalles
+			de clientes</h4>
+		<span th:text="${error}" style="color: red"> Ocurrió un error
+			en la base de datos</span> <span th:text="${msgExito}" style="color: green">Registro
+			Guardado</span>
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+				style="color: red">Debe ingresar codigo</li>
+		</ul>
+		<!-- Inicio del Formulario -->
+		<form th:action="@{/persona/save}" th:object="${persona}"
+				method="post" role="form">
+				<input type="hidden" th:field="*{id}" />
+				<div class="form-group">
+				
+					<label for="codigo" th:text="#{persona.cedula.lbl}"
+						class="field-label">Cédula:</label> 
+						<input type="text"
+						th:field="*{cedula}" maxlength="18" class="form-control"
+						autofocus="autofocus" />
+				</div>
+				<div class="form-group">
+					<label for="nombre" th:text="#{persona.nombre.lbl}"
+						class="field-label">Nombre:</label> <input type="text"
+						th:field="*{nombre}" maxlength="60" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="apellido" th:text="#{persona.apellido.lbl}"
+						class="field-label">Apellido:</label> <input type="text"
+						th:field="*{apellido}" maxlength="60" class="form-control" />
+				</div>
+				<div class="form-group"></div>
+				<label for="direccion" th:text="#{persona.direccion.lbl}"
+					class="field-label">Dirección:</label> <input type="text"
+					th:field="*{direccion}" maxlength="100" class="form-control" />
+					
+				<!-- Inicio panel botones -->
+				<div th:replace="botones::form_botones">
+				   aqui van los botones
+			</div>
+			</form>
+		<!-- Fin panel botones -->
+	</div>
+</body>
+</html>

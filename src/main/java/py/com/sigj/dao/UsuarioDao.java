@@ -1,6 +1,6 @@
 package py.com.sigj.dao;
 
-import py.com.sigj.expediente.domain.Usuario;
+import py.com.sigj.security.Usuario;
 
 public interface UsuarioDao extends Dao<Usuario> {
 	/**

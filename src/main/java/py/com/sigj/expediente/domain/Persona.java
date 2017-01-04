@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.com.sigj.main.GenericEntity;
+
 //convención para los constrains, nombreTabla + _ + nombreCampo +UK (unit)
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "persona_cedula_ruc_uk", columnNames = { "cedula_ruc" }) })
@@ -76,8 +78,6 @@ public class Persona extends GenericEntity {
 	private String telefono;
 
 	@NotNull(message = "persona.cedula.notNull")
-	@NotBlank(message = "persona.cedula.notBlank")
-	@Size(max = 1, message = "persona.cedula.size")
 	private char tipoPersona;
 
 	public Persona() {

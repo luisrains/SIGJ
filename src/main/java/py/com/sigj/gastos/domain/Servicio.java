@@ -19,8 +19,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import py.com.sigj.expediente.domain.GenericEntity;
 import py.com.sigj.expediente.domain.Persona;
+import py.com.sigj.main.GenericEntity;
 
 /**
  * Clase que registra los tipos de servicios, los cuales pueden ser: consultas,

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.dao.RolDao;
 import py.com.sigj.dao.UsuarioDao;
-import py.com.sigj.expediente.domain.Usuario;
+import py.com.sigj.security.Usuario;
 
 @Controller
 @Scope("session")

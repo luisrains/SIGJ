@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import py.com.sigj.dao.PermisoDao;
 import py.com.sigj.dao.UsuarioDao;
-import py.com.sigj.expediente.domain.Permiso;
-import py.com.sigj.expediente.domain.Usuario;
 import py.com.sigj.main.Contexto;
 import py.com.sigj.main.SesionUsuario;
 

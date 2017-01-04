@@ -1,4 +1,4 @@
-package py.com.sigj.expediente.domain;
+package py.com.sigj.security;
 
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -11,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import py.com.sigj.main.GenericEntity;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "rol_permiso_uk", columnNames = { "rol_id", "permiso_id" }) })

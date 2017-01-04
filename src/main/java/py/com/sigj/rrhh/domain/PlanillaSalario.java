@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.com.sigj.main.GenericEntity;
+
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "planillaSalario_codigo_uk", columnNames = { "codigo" }) })
 public class PlanillaSalario extends GenericEntity {
@@ -23,7 +25,7 @@ public class PlanillaSalario extends GenericEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
-	
+
 	@NotNull(message = "planillaSalario.codigo.notNull")
 	@NotBlank(message = "planillaSalario.codigo.notBlank")
 	@Size(max = 20, message = "planillaSalario.codigo.size")
