@@ -42,7 +42,7 @@ public class Caja extends GenericEntity {
 	@NotNull(message = "caja.codigo.notNull")
 	@NotBlank(message = "caja.codigo.notBlank")
 	@Size(max = 5, message = "caja.codigo.size")
-	private String caja;
+	private String codigo;
 	
 	@NotNull(message = "caja.monto.notNull")
 	private int monto;
@@ -62,13 +62,13 @@ public class Caja extends GenericEntity {
 
 	public Caja() {
 	}
-
-	public String getCaja() {
-		return caja;
+	
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCaja(String caja) {
-		this.caja = caja;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public int getMonto() {
@@ -89,7 +89,7 @@ public class Caja extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Caja [id=" + id + ", caja=" + caja + ", monto=" + monto + ", fecha=" + fecha + "]";
+		return "Caja [id=" + id + ", codigo=" + codigo + ", monto=" + monto + ", fecha=" + fecha + "]";
 	}
 	
 }
