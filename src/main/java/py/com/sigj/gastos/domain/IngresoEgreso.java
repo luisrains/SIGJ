@@ -1,7 +1,5 @@
 package py.com.sigj.gastos.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -11,17 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import py.com.sigj.expediente.domain.Abogado;
-import py.com.sigj.expediente.domain.Cliente;
-import py.com.sigj.expediente.domain.GenericEntity;
+import org.hibernate.validator.constraints.NotBlank;
+
+import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(name ="ingreso_egreso")
+@Table(name = "ingreso_egreso")
 public class IngresoEgreso extends GenericEntity {
 	private static final String SECUENCIA = "ingresoEgreso_id_seq";
 
@@ -35,15 +31,18 @@ public class IngresoEgreso extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "ingresoEgreso_cliente_fk"))
 	private Caja caja;
 
-	//@ManyToOne
-	//@NotNull(message = "ingresoEgreso.tipoIngresoEgreso.notNull")
-	//@JoinColumn(foreignKey = @ForeignKey(name = "ingresoEgreso_tipoIngresoEgreso_fk"))
-	//private TipoIngresoEgreso tipoIngresoEgreso;
-	
-	
-	
-	@Temporal(TemporalType.DATE)
-	private Date fecha;
+	@ManyToOne
+	@NotNull(message = "ingresoEgreso.tipoIngresoEgreso.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "ingresoEgreso_tipoIngresoEgreso_fk"))
+	private TipoIngresoEgreso tipoIngresoEgreso;
+
+	@NotNull(message = "ingresoEgreso.descripcion.notNull")
+	@NotBlank(message = "ingresoEgreso.descripcion.notBlank")
+	@Size(max = 15, message = "ingresoEgreso.descripcion.size")
+	private String descripcion;
+
+	public IngresoEgreso() {
+	}
 
 	@Override
 	public Long getId() {
@@ -55,17 +54,6 @@ public class IngresoEgreso extends GenericEntity {
 		this.id = id;
 	}
 
-	public IngresoEgreso() {
-	}
-
-	/*public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	public Caja getCaja() {
 		return caja;
 	}
@@ -74,26 +62,26 @@ public class IngresoEgreso extends GenericEntity {
 		this.caja = caja;
 	}
 
-	public Abogado getAbogado() {
-		return abogado;
+	public TipoIngresoEgreso getTipoIngresoEgreso() {
+		return tipoIngresoEgreso;
 	}
 
-	public void setAbogado(Abogado abogado) {
-		this.abogado = abogado;
+	public void setTipoIngresoEgreso(TipoIngresoEgreso tipoIngresoEgreso) {
+		this.tipoIngresoEgreso = tipoIngresoEgreso;
 	}
 
-	public Date getFecha() {
-		return fecha;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	@Override
 	public String toString() {
-		return "FacturaCabecera [id=" + id + ", cliente=" + cliente + ", caja=" + caja + ", abogado=" + abogado
-				+ ", fecha=" + fecha + "]";
+		return "IngresoEgreso [id=" + id + ", caja=" + caja + ", tipoIngresoEgreso=" + tipoIngresoEgreso
+				+ ", descripcion=" + descripcion + "]";
 	}
-*/
+
 }

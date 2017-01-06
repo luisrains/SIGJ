@@ -1,0 +1,85 @@
+package py.com.sigj.expediente.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import py.com.sigj.main.GenericEntity;
+
+@Entity
+public class Despacho extends GenericEntity {
+	private static final String SECUENCIA = "despacho_id_seq";
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
+	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
+	private Long id;
+
+	@NotNull(message = "despacho.descripcion.notNull")
+	@NotBlank(message = "despacho.descripcion.notBlank")
+	@Size(max = 20, message = "despacho.descripcion.size")
+	private String Descripcion;
+
+	@NotNull(message = "despacho.juez.notNull")
+	@NotBlank(message = "despacho.juez.notBlank")
+	@Size(max = 20, message = "despacho.juez.size")
+	private String Juez;
+
+	@ManyToOne
+	@NotNull(message = "despacho.materia.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "despacho_materia_fk"))
+	private Materia materia;
+
+	public Despacho() {
+
+	}
+
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescripcion() {
+		return Descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+
+	public String getJuez() {
+		return Juez;
+	}
+
+	public void setJuez(String juez) {
+		Juez = juez;
+	}
+
+	public Materia getMateria() {
+		return materia;
+	}
+
+	public void setMateria(Materia materia) {
+		this.materia = materia;
+	}
+
+	@Override
+	public String toString() {
+		return "Despacho [id=" + id + ", Descripcion=" + Descripcion + ", Juez=" + Juez + ", materia=" + materia + "]";
+	}
+
+}

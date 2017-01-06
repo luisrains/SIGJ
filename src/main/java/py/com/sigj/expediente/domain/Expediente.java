@@ -10,17 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.com.sigj.main.GenericEntity;
+
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "expediente_uk", columnNames = { "persona_id" }) })
 public class Expediente extends GenericEntity {
 
 	private static final String SECUENCIA = "expediente_id_seq";
@@ -77,14 +76,15 @@ public class Expediente extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estadoExterno_fk"))
 	private EstadoExterno estadoExterno;
 
-	/*
-	 * @ManyToOne
-	 *
-	 * @NotNull(message = "expediente.tipoDemanda.notNull")
-	 *
-	 * @JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipoDemanda_fk"))
-	 * private TipoDemanda tipoDemanda;
-	 */
+	@ManyToOne
+	@NotNull(message = "expediente.tipoDemanda.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipoDemanda_fk"))
+	private TipoDemanda tipoDemanda;
+
+	@ManyToOne
+	@NotNull(message = "expediente.despacho.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
+	private Despacho despacho;
 
 	public Expediente() {
 	}
@@ -179,12 +179,28 @@ public class Expediente extends GenericEntity {
 		this.estadoExterno = estadoExterno;
 	}
 
+	public TipoDemanda getTipoDemanda() {
+		return tipoDemanda;
+	}
+
+	public void setTipoDemanda(TipoDemanda tipoDemanda) {
+		this.tipoDemanda = tipoDemanda;
+	}
+
+	public Despacho getDespacho() {
+		return despacho;
+	}
+
+	public void setDespacho(Despacho despacho) {
+		this.despacho = despacho;
+	}
+
 	@Override
 	public String toString() {
 		return "Expediente [id=" + id + ", caratula=" + caratula + ", nroExpediente=" + nroExpediente + ", anho=" + anho
 				+ ", monto=" + monto + ", moneda=" + moneda + ", objetoCausa=" + objetoCausa + ", nroLiquidación="
 				+ nroLiquidación + ", fechaSelloCargo=" + fechaSelloCargo + ", estadoInterno=" + estadoInterno
-				+ ", estadoExterno=" + estadoExterno + "]";
+				+ ", estadoExterno=" + estadoExterno + ", tipoDemanda=" + tipoDemanda + ", despacho=" + despacho + "]";
 	}
 
 }

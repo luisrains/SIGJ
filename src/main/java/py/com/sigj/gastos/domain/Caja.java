@@ -3,30 +3,25 @@ package py.com.sigj.gastos.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import py.com.sigj.expediente.domain.GenericEntity;
-import py.com.sigj.expediente.domain.Persona;
+import py.com.sigj.main.GenericEntity;
 
 /**
  * Clase que registra los tipos de servicios, los cuales pueden ser: consultas,
- * gestiones varias. 
- * @author ariquelme
+ * gestiones varias.
  *
+ * @author ariquelme
  */
 
 @Entity
@@ -43,12 +38,15 @@ public class Caja extends GenericEntity {
 	@NotBlank(message = "caja.codigo.notBlank")
 	@Size(max = 5, message = "caja.codigo.size")
 	private String codigo;
-	
+
 	@NotNull(message = "caja.monto.notNull")
 	private int monto;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
+
+	public Caja() {
+	}
 
 	@Override
 	public Long getId() {
@@ -60,9 +58,6 @@ public class Caja extends GenericEntity {
 		this.id = id;
 	}
 
-	public Caja() {
-	}
-	
 	public String getCodigo() {
 		return codigo;
 	}
@@ -91,5 +86,5 @@ public class Caja extends GenericEntity {
 	public String toString() {
 		return "Caja [id=" + id + ", codigo=" + codigo + ", monto=" + monto + ", fecha=" + fecha + "]";
 	}
-	
+
 }

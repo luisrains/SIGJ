@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import py.com.sigj.main.GenericEntity;
+
 @Entity
 @Table(uniqueConstraints = {
 		@UniqueConstraint(name = "planilla_empleado_uk", columnNames = { "planillaSalario_id", "empleado_id" }) })
@@ -33,6 +35,10 @@ public class PlanillaEmpleado extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "PlanillaEmpleado_empleado_fk"))
 	private Empleado empleado;
 
+	public PlanillaEmpleado() {
+
+	}
+
 	@Override
 	public Long getId() {
 		return id;
@@ -41,10 +47,6 @@ public class PlanillaEmpleado extends GenericEntity {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public PlanillaEmpleado() {
-
 	}
 
 	public PlanillaSalario getPlanillaSalario() {

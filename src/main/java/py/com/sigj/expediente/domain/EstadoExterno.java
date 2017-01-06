@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.com.sigj.main.GenericEntity;
+
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "estadoExterno_codigo_uk", columnNames = { "codigo" }) })
 public class EstadoExterno extends GenericEntity {

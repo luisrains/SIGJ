@@ -2,7 +2,7 @@ package py.com.sigj.converters;
 
 import org.springframework.core.convert.converter.Converter;
 
-import py.com.sigj.expediente.domain.Rol;
+import py.com.sigj.security.Rol;
 
 public class RolConverter implements Converter<String, Rol> {
 

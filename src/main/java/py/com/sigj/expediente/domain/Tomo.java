@@ -1,13 +1,18 @@
 package py.com.sigj.expediente.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import py.com.sigj.main.GenericEntity;
 
 @Entity
 @Table(uniqueConstraints = {
@@ -20,7 +25,9 @@ public class Tomo extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "tomo.codigo.notNull")
+	@ManyToOne
+	@NotNull(message = "tomo.expediente.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "tomo_expedientePadre_fk"))
 	private Expediente expedientePadre;
 
 	public Tomo() {

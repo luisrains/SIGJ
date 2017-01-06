@@ -1,36 +1,25 @@
 package py.com.sigj.gastos.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotBlank;
-
-import py.com.sigj.expediente.domain.GenericEntity;
-import py.com.sigj.expediente.domain.Persona;
+import py.com.sigj.main.GenericEntity;
 
 /**
  * Clase que registra los tipos de servicios, los cuales pueden ser: consultas,
  * gestiones varias. 
  * @author ariquelme
- *
  */
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "servicio_codigo_uk", columnNames = { "codigo" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "servicio_codigo_uk", columnNames = { "codigo" })})
 public class Servicio extends GenericEntity {
 	private static final String SECUENCIA = "servicio_id_seq";
 

@@ -19,11 +19,11 @@
 	<!-- RESOURCE FOLDERS CONFIGURATION -->
 	<!-- Dispatcher configuration for serving static resources -->
 	<!-- **************************************************************** -->
-	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/img/" mapping="/img/**" />
 	<mvc:resources location="/css/" mapping="/css/**" />
-	<mvc:resources location="/icons/" mapping="/icons/**" />
+	<mvc:resources location="/less/" mapping="/less/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
-	<mvc:resources location="/fonts/" mapping="/fonts/**" />
+	<mvc:resources location="/vendor/" mapping="/vendor/**" />
 
 
 	<!-- **************************************************************** -->

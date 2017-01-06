@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import py.com.sigj.main.GenericEntity;
 import py.com.sigj.rrhh.dao.RrhhDao;
-import py.com.sigj.rrhh.domain.GenericEntity;
 
 public abstract class RrhhDaoImpl<T extends GenericEntity> implements RrhhDao<T> {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

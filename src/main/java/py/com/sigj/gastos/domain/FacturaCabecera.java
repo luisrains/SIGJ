@@ -13,15 +13,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import py.com.sigj.expediente.domain.Abogado;
 import py.com.sigj.expediente.domain.Cliente;
-import py.com.sigj.expediente.domain.GenericEntity;
+import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(name ="factura_cabecera")
+@Table(name = "factura_cabecera")
 public class FacturaCabecera extends GenericEntity {
 	private static final String SECUENCIA = "facturaCabecera_id_seq";
 
@@ -32,21 +31,24 @@ public class FacturaCabecera extends GenericEntity {
 
 	@ManyToOne
 	@NotNull(message = "facturaCabecera.cliente.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "facturaDetalle_cliente_fk"))
+	@JoinColumn(foreignKey = @ForeignKey(name = "facturaCabecera_cliente_fk"))
 	private Cliente cliente;
 
 	@ManyToOne
 	@NotNull(message = "facturaCabecera.caja.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "facturaCabecera_caja_fk"))
 	private Caja caja;
-		
+
 	@ManyToOne
 	@NotNull(message = "facturaCabecera.abogado.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "facturaCabecera_abogado_fk"))
 	private Abogado abogado;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
+
+	public FacturaCabecera() {
+	}
 
 	@Override
 	public Long getId() {
@@ -56,9 +58,6 @@ public class FacturaCabecera extends GenericEntity {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public FacturaCabecera() {
 	}
 
 	public Cliente getCliente() {

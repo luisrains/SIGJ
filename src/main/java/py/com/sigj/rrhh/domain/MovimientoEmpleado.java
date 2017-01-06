@@ -10,9 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import py.com.sigj.main.GenericEntity;
+
 @Entity
+@Table
 public class MovimientoEmpleado extends GenericEntity {
 	private static final String SECUENCIA = "movimientoEmpleado_id_seq";
 

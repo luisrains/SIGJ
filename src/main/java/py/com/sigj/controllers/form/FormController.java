@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import py.com.sigj.controllers.PersistController;
 import py.com.sigj.controllers.Respuesta;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.domain.GenericEntity;
-import py.com.sigj.expediente.domain.Usuario;
+import py.com.sigj.main.GenericEntity;
 import py.com.sigj.main.Message;
 import py.com.sigj.main.SesionUsuario;
+import py.com.sigj.security.Usuario;
 
 public abstract class FormController<T extends GenericEntity> extends PersistController<T> {
 

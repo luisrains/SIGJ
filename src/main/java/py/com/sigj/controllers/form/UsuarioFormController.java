@@ -10,7 +10,7 @@ import py.com.sigj.controllers.list.UsuarioListController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.dao.RolDao;
 import py.com.sigj.dao.UsuarioDao;
-import py.com.sigj.expediente.domain.Usuario;
+import py.com.sigj.security.Usuario;
 
 @Controller
 @Scope("request")

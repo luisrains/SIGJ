@@ -11,11 +11,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import py.com.sigj.expediente.domain.GenericEntity;
+import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(name ="factura_detalle", uniqueConstraints = { @UniqueConstraint(name = "factura_detalle_uk", columnNames = { "factura_cabecera_id", "servicio_id" }) })
+@Table(name = "factura_detalle", uniqueConstraints = {
+		@UniqueConstraint(name = "factura_detalle_uk", columnNames = { "facturacabecera_id", "servicio_id" }) })
 public class FacturaDetalle extends GenericEntity {
 	private static final String SECUENCIA = "facturaDetalle_id_seq";
 
@@ -37,10 +37,12 @@ public class FacturaDetalle extends GenericEntity {
 	public FacturaDetalle() {
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
