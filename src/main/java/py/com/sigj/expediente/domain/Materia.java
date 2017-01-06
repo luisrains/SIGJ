@@ -32,7 +32,7 @@ public class Materia extends GenericEntity {
 	@NotNull(message = "materia.descripcion.notNull")
 	@NotBlank(message = "materia.descripcion.notBlank")
 	@Size(max = 20, message = "materia.descripcion.size")
-	private String Descripcion;
+	private String descripcion;
 
 	public Materia() {
 
@@ -57,16 +57,16 @@ public class Materia extends GenericEntity {
 	}
 
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		descripcion = descripcion;
 	}
 
 	@Override
 	public String toString() {
-		return "Materia [id=" + id + ", codigo=" + codigo + ", Descripcion=" + Descripcion + "]";
+		return "Materia [id=" + id + ", codigo=" + codigo + ", Descripcion=" + descripcion + "]";
 	}
 
 }

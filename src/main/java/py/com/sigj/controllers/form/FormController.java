@@ -40,7 +40,9 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public String guardar(ModelMap map, @Valid T obj, BindingResult bindingResult) {
+		logger.info("parametros {}", obj);
 		Respuesta<T> resp = createOrUpdate(obj, bindingResult);
+
 		if (resp.isExito()) {
 			map.addAttribute("msgExito", resp.getMensajeExito());
 		} else {
@@ -66,6 +68,22 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 		// return "cliente/cliente_index";
+	}
+
+	@RequestMapping("delete/{id}") // "cliente/edit/{id}"
+	public String delete(ModelMap map, @PathVariable Long id) {
+		Respuesta<T> resp = destroy(id);
+		if (resp.isExito()) {
+			map.addAttribute(getNombreObjeto(), resp.getMensajeExito());
+			map.addAttribute("msgExito", resp.getMensajeExito());
+		} else {
+			map.addAttribute("error", resp.getMensajeError());
+			map.addAttribute("errorList", resp.getErrores());
+		}
+
+		map.addAttribute(getNombreObjeto(), resp.getDato());
+		agregarValoresAdicionales(map);
+		return getTemplatePath();
 	}
 
 	public abstract String getTemplatePath();

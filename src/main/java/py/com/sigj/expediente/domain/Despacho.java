@@ -26,13 +26,13 @@ public class Despacho extends GenericEntity {
 
 	@NotNull(message = "despacho.descripcion.notNull")
 	@NotBlank(message = "despacho.descripcion.notBlank")
-	@Size(max = 20, message = "despacho.descripcion.size")
-	private String Descripcion;
+	@Size(max = 100, message = "despacho.descripcion.size")
+	private String descripcion;
 
 	@NotNull(message = "despacho.juez.notNull")
 	@NotBlank(message = "despacho.juez.notBlank")
-	@Size(max = 20, message = "despacho.juez.size")
-	private String Juez;
+	@Size(max = 60, message = "despacho.juez.size")
+	private String juez;
 
 	@ManyToOne
 	@NotNull(message = "despacho.materia.notNull")
@@ -54,19 +54,19 @@ public class Despacho extends GenericEntity {
 	}
 
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 
 	public String getJuez() {
-		return Juez;
+		return juez;
 	}
 
 	public void setJuez(String juez) {
-		Juez = juez;
+		this.juez = juez;
 	}
 
 	public Materia getMateria() {
@@ -79,7 +79,7 @@ public class Despacho extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Despacho [id=" + id + ", Descripcion=" + Descripcion + ", Juez=" + Juez + ", materia=" + materia + "]";
+		return "Despacho [id=" + id + ", Descripcion=" + descripcion + ", Juez=" + juez + ", materia=" + materia + "]";
 	}
 
 }

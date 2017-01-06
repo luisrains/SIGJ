@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="328,340" last-zoom="0.9"
+<dbmodel pgmodeler-ver="0.8.2" last-position="108,745" last-zoom="1.1"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database">
 </database>
@@ -210,7 +210,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Estado_externo - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="460" y="940"/>
+	<position x="480" y="940"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>

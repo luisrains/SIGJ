@@ -8,46 +8,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.controllers.list.MateriaListController;
-import py.com.sigj.expediente.dao.MateriaDao;
-import py.com.sigj.expediente.domain.Materia;
+import py.com.sigj.expediente.controllers.list.PersonaListController;
+import py.com.sigj.expediente.dao.PersonaDao;
+import py.com.sigj.expediente.domain.Persona;
 
 @Controller
 @Scope("request")
-@RequestMapping("materia")
-public class MateriaFormController extends FormController<Materia> {
+@RequestMapping("persona")
+public class PersonaFormController extends FormController<Persona> {
 
 	@Autowired
-	private MateriaDao materiaDao;
+	private PersonaDao personaDao;
 
 	@Autowired
-	private MateriaListController materiaList;
+	private PersonaListController personaList;
 
 	@Override
 	public String getTemplatePath() {
-		return "test/materia_index";
+		return "test/persona_index";
 	}
 
 	@Override
 	public String getNombreObjeto() {
-		return "materia";
+		return "persona";
 	}
 
 	@Override
-	public Materia getNuevaInstancia() {
-		return new Materia();
+	public Persona getNuevaInstancia() {
+		return new Persona();
 	}
 
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
-		map.addAttribute("columnas", materiaList.getColumnas());
-		map.addAttribute("columnasStr", materiaList.getColumnasStr());
+		map.addAttribute("columnas", personaList.getColumnas());
+		map.addAttribute("columnasStr", personaList.getColumnasStr());
 		super.agregarValoresAdicionales(map);
 	}
 
 	@Override
-	public Dao<Materia> getDao() {
-		return materiaDao;
+	public Dao<Persona> getDao() {
+		return personaDao;
 	}
 
 }

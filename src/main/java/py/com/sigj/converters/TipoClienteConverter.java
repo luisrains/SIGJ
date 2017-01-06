@@ -10,6 +10,7 @@ public class TipoClienteConverter implements Converter<String, TipoCliente> {
 
 	@Override
 	public TipoCliente convert(String idStr) {
+
 		TipoCliente tipoCliente = new TipoCliente();
 		Long id = Long.parseLong(idStr);
 		tipoCliente.setId(id);

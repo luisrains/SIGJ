@@ -2,6 +2,11 @@
 Repositorio del Sistema Integral de Gestión Jurídica para el Estudio Jurídico de Carlos A. Méndez G. &amp; Asoc.
 modificado
 
+<----- COLORES ----->
+#9c1212 rojo granate
+color: #ff3300; rojo naranja
+<----- /COLORES ----->
+
 #Convenciones de carpetas Back-End
 
 <----- PARA EL MÓDULO DE RECURSOS HUMANOS ----->

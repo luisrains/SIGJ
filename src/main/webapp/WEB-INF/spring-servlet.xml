@@ -46,7 +46,8 @@
 		<property name="converters">
 			<set>
 				<bean class="py.com.sigj.converters.TipoClienteConverter" />
-				<bean class="py.com.sigj.converters.RolConverter" />
+				<bean class="py.com.sigj.converters.MateriaConverter" />
+				
 			</set>
 		</property>
 		

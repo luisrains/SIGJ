@@ -8,46 +8,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.controllers.list.MateriaListController;
-import py.com.sigj.expediente.dao.MateriaDao;
-import py.com.sigj.expediente.domain.Materia;
+import py.com.sigj.expediente.controllers.list.TipoDemandaListController;
+import py.com.sigj.expediente.dao.TipoDemandaDao;
+import py.com.sigj.expediente.domain.TipoDemanda;
 
 @Controller
 @Scope("request")
-@RequestMapping("materia")
-public class MateriaFormController extends FormController<Materia> {
+@RequestMapping("tipo_demanda")
+public class TipoDemandaFormController extends FormController<TipoDemanda> {
 
 	@Autowired
-	private MateriaDao materiaDao;
+	private TipoDemandaDao tipoDemandaDao;
 
 	@Autowired
-	private MateriaListController materiaList;
+	private TipoDemandaListController tipoDemandaList;
 
 	@Override
 	public String getTemplatePath() {
-		return "test/materia_index";
+		return "test/tipoDemanda_index";
 	}
 
 	@Override
 	public String getNombreObjeto() {
-		return "materia";
+		return "tipoDemanda";
 	}
 
 	@Override
-	public Materia getNuevaInstancia() {
-		return new Materia();
+	public TipoDemanda getNuevaInstancia() {
+		return new TipoDemanda();
 	}
 
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
-		map.addAttribute("columnas", materiaList.getColumnas());
-		map.addAttribute("columnasStr", materiaList.getColumnasStr());
+		map.addAttribute("columnas", tipoDemandaList.getColumnas());
+		map.addAttribute("columnasStr", tipoDemandaList.getColumnasStr());
 		super.agregarValoresAdicionales(map);
 	}
 
 	@Override
-	public Dao<Materia> getDao() {
-		return materiaDao;
+	public Dao<TipoDemanda> getDao() {
+		return tipoDemandaDao;
 	}
 
 }

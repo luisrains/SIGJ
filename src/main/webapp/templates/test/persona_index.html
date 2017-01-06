@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+<head>
+<title>APP</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+	
+<link rel="shortcut icon" href="/images/favicon.ico"
+	th:href="@{/images/favicon.ico}" type="image/x-icon" />
+	
+	<link rel="stylesheet" th:href="@{/css/plugins/dataTables.bootstrap.min.css}"  />
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"href="../../css/bootstrap.min.css" />
+
+<link href="../../css/font-awesome.min.css"
+	th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+
+<link th:href="@{/css/plugins/responsive.bootstrap.min.css}"
+	href="../../css/plugins/responsive.bootstrap.min.css" rel="stylesheet" />
+	
+<script src="../../js/jquery-1.12.4.js"
+	th:src="@{/js/jquery-1.12.4.js}"></script>
+
+<script src="../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
+<script src="../../js/app.min.js" th:src="@{/js/app.min.js}"></script>
+
+<script th:src="@{/js/plugin/jquery.dataTables.min.js}"></script>
+
+
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini ">
+	<script type="text/javascript">
+function limpiarForm() {
+$("#id").val("");
+$("#descripcion").val("");
+$("#juez").val("");
+$("#materia").val("");
+}
+function nuevoRegistro() {
+limpiarForm();
+$("#botonNuevo").hide();
+$("#codigo").focus();
+}
+</script>
+	<div class="row">
+		<div class="col-lg-4 col-md-4">
+			<h4 class="page-header" th:text="#{tipo_cliente.form.titulo}">Detalles
+				de personas</h4>
+			<span th:text="${error}" style="color: red"> Ocurrió un error</span>
+			<span th:text="${msgExito}" style="color: green">Registro
+				Guardado</span>
+			<ul>
+				<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+					style="color: red">Debe ingresar cédula</li>
+			</ul>
+			<form th:action="@{/persona/save}" th:object="${persona}"
+				method="post" role="form">
+				
+				<input type="hidden" th:field="*{id}" />
+				
+				
+				<div class="form-group">
+					<label for="cedula_ruc" th:text="#{persona.cedula_ruc.lbl}"
+						class="field-label">cedula_ruc:</label> <input type="text"
+						th:field="*{cedula_ruc}" maxlength="10" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="nombre_razonSocial" th:text="#{persona.nombre_razonSocial.lbl}"
+						class="field-label">nombre_razonSocial:</label> <input type="text"
+						th:field="*{nombre_razonSocial}" maxlength="60" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="descripcion" th:text="#{persona.apellido.lbl}"
+						class="field-label">apellido:</label> <input type="text"
+						th:field="*{apellido}" maxlength="60" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="edad" th:text="#{persona.edad.lbl}"
+						class="field-label">edad:</label> 
+						<input type="number" min="1" max="100" value="20"
+						th:field="*{edad}"class="form-control" />
+				</div>
+				
+				<div class="form-group">
+				<label for="fechaNacimiento" class="field-label">Fecha
+					Nacimiento:</label> <input placeholder="dd/mm/aaaa" type="text" th:field="*{fechaNacimiento}"
+					maxlength="10" class="form-control" />
+			</div>
+              
+				<div class="form-group">
+					<label for="estadoCivil" th:text="#{persona.estadoCivil.lbl}"
+						class="field-label">estadoCivil:</label> <input type="text"
+						th:field="*{estadoCivil}" maxlength="15" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="ocupacion" th:text="#{persona.ocupacion.lbl}"
+						class="field-label">ocupacion:</label> <input type="text"
+						th:field="*{ocupacion}" maxlength="100" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="correoElectronico" th:text="#{persona.correoElectronico.lbl}"
+						class="field-label">correoElectronico:</label> <input type="text"
+						th:field="*{correoElectronico}" maxlength="100" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="descripcion" th:text="#{persona.telefono.lbl}"
+						class="field-label">telefono:</label> <input type="text"
+						th:field="*{telefono}" maxlength="15" class="form-control" />
+				</div>
+				
+				 <div class="form-group">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Sexo</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="checkbox">
+							<label><input th:field="*{sexo}" type="checkbox" value="Masculino">
+							Masculino </label>
+						</div>
+
+						<div class="checkbox">
+						
+							<label> <input th:field="*{sexo}" type="checkbox"
+								value="Femenino">Femenino
+							</label>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+				</div>
+
+			<div class="form-group">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Tipo de Persona</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="checkbox">
+							<label><input th:field="*{tipoPersona}" type="checkbox" value="F">
+							Fisica </label>
+						</div>
+
+						<div class="checkbox">
+							<label> <input th:field="*{tipoPersona}" type="checkbox"
+								value="J">Juridica
+							</label>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+				</div>
+
+				<!-- Inicio panel botones -->
+				<div>
+					<p>
+						<button type="button" class="btn btn-default" id="botonNuevo"
+							onclick="nuevoRegistro()">
+							<i class="fa fa-plus-circle"></i> <span
+								th:text="#{form.boton.crear}">Nuevo</span>
+						</button>
+					</p>
+					<button type="submit" class="btn btn-default">
+						<i class="fa fa-save"></i> <span th:text="#{form.boton.guardar}">Guardar</span>
+					</button>
+				</div>
+			</form>
+			<!-- Fin panel botones -->
+		</div>
+
+		<!-- fin columna 1: Formulario -->
+		<div class="col-lg-8 col-md-8">
+			<table class="table table-bordered table-hover table-striped display"
+				id="personaDT">
+				<thead>
+					<tr>
+						<th></th>
+						<th>1</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+						<th>5</th>
+						<th>5</th>
+						<th>6</th>
+						<th>7</th>
+						<th>8</th>
+						<th>9</th>
+						<th>10</th>
+						
+					</tr>
+				</thead>
+
+			</table>
+		</div>
+		<script type="text/javascript">
+		$(document).ready(function() {
+				var config={};
+				config['processing'] = true;
+				config['sAjaxSource'] = "[[@{/persona/json}]]";
+				config['serverSide'] = true;
+				config['columns']= [{'data':'id'}, {'data':'descripcion'}, {'data':'juez'}, {'data':'materia.descripcion'}];
+
+				var dataTable = $('#personaDT').dataTable(config);
+				//Ocultamos la primera columna (id)
+				dataTable.fnSetColumnVis(0, false);
+				$('#personaDT tbody').on('click', 'tr', function() {
+				//Obtenemos el valor de la columna id
+				var id = dataTable.fnGetData(this, 0);
+				//Si id no es número, no hacemos nada
+				if (isNaN(id)) {
+				return;
+				}
+				window.location.href = "/sigj/persona/edit/" + id;
+				});
+		});
+</script>
+	</div>
+</body>
+</html>

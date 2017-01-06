@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
+import py.com.sigj.util.DateFormatter;
 
 //convención para los constrains, nombreTabla + _ + nombreCampo +UK (unit)
 @Entity
@@ -122,6 +123,7 @@ public class Persona extends GenericEntity {
 	}
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
+		
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -171,6 +173,22 @@ public class Persona extends GenericEntity {
 
 	public void setTipoPersona(char tipoPersona) {
 		this.tipoPersona = tipoPersona;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", cedula_ruc=" + cedula_ruc + ", nombre_razonSocial=" + nombre_razonSocial
+				+ ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", sexo="
+				+ sexo + ", estadoCivil=" + estadoCivil + ", ocupacion=" + ocupacion + ", correoElectronico="
+				+ correoElectronico + ", telefono=" + telefono + ", tipoPersona=" + tipoPersona + "]";
 	}
 
 }
