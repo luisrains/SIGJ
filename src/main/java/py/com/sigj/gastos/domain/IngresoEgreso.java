@@ -16,6 +16,12 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ *
+ * @author ariquelme
+ *
+ */
+
 @Entity
 @Table(name = "ingreso_egreso")
 public class IngresoEgreso extends GenericEntity {

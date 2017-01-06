@@ -14,6 +14,12 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ *
+ * @author ariquelme
+ *
+ */
+
 @Entity
 @Table(name = "tipo_ingreso_egreso", uniqueConstraints = {
 		@UniqueConstraint(name = "tipoIngresoEgreso_codigo_uk", columnNames = { "codigo" }) })
