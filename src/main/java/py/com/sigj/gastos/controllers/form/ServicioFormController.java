@@ -12,6 +12,12 @@ import py.com.sigj.gastos.controllers.list.ServicioListController;
 import py.com.sigj.gastos.dao.ServicioDao;
 import py.com.sigj.gastos.domain.Servicio;
 
+/**
+ *
+ * @author ariquelme
+ *
+ */
+
 @Controller
 @Scope("request")
 @RequestMapping("servicio")
