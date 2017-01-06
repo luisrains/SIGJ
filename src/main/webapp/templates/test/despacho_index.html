@@ -36,8 +36,9 @@
 	<script type="text/javascript">
 function limpiarForm() {
 $("#id").val("");
-$("#codigo").val("");
 $("#descripcion").val("");
+$("#juez").val("");
+$("#materia").val("");
 }
 function nuevoRegistro() {
 limpiarForm();
@@ -47,8 +48,8 @@ $("#codigo").focus();
 </script>
 	<div class="row">
 		<div class="col-lg-4 col-md-4">
-			<h4 class="page-header" th:text="#{materia.form.titulo}">Detalles
-				de Persona</h4>
+			<h4 class="page-header" th:text="#{tipo_cliente.form.titulo}">Detalles
+				de Despachos</h4>
 			<span th:text="${error}" style="color: red"> Ocurrió un error</span>
 			<span th:text="${msgExito}" style="color: green">Registro
 				Guardado</span>
@@ -56,23 +57,34 @@ $("#codigo").focus();
 				<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 					style="color: red">Debe ingresar cédula</li>
 			</ul>
-			<form th:action="@{/materia/save}" th:object="${materia}"
+			<form th:action="@{/despacho/save}" th:object="${despacho}"
 				method="post" role="form">
+				
 				<input type="hidden" th:field="*{id}" />
+				
+				
+				<div class="form-group">
+					<label for="descripcion" th:text="#{despacho.descripcion.lbl}"
+						class="field-label">Descripcion:</label> <input type="text"
+						th:field="*{descripcion}" maxlength="100" class="form-control" />
+				</div>
 				<div class="form-group">
 				
-					<label for="codigo" th:text="#{materia.codigo.lbl}"
-						class="field-label">Codigo:</label> 
+					<label for="juez" th:text="#{despacho.juez.lbl}"
+						class="field-label">juez:</label> 
 						<input type="text"
-						th:field="*{codigo}" maxlength="18" class="form-control"
+						th:field="*{juez}" maxlength="60" class="form-control"
 						autofocus="autofocus" />
 				</div>
 				<div class="form-group">
-					<label for="nombre" th:text="#{materia.descripcion.lbl}"
-						class="field-label">Descripcion:</label> <input type="text"
-						th:field="*{descripcion}" maxlength="60" class="form-control" />
-				</div>
-				
+				<label for="materia" th:text="#{despacho.materia.lbl}"
+					class="field-label">materia:</label> <select
+					th:field="*{materia}" class="form-control">
+					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
+						th:text="${tip.descripcion}">Excelente</option>
+				</select>
+
+			</div>
 				
 				<!-- Inicio panel botones -->
 				<div>
@@ -94,12 +106,13 @@ $("#codigo").focus();
 		<!-- fin columna 1: Formulario -->
 		<div class="col-lg-8 col-md-8">
 			<table class="table table-bordered table-hover table-striped display"
-				id="materiaDT">
+				id="despachoDT">
 				<thead>
 					<tr>
 						<th></th>
-						<th>codigo</th>
 						<th>descripcion</th>
+						<th>Juez</th>
+						<th>materia</th>
 					</tr>
 				</thead>
 
@@ -109,21 +122,21 @@ $("#codigo").focus();
 		$(document).ready(function() {
 				var config={};
 				config['processing'] = true;
-				config['sAjaxSource'] = "[[@{/materia/json}]]";
+				config['sAjaxSource'] = "[[@{/despacho/json}]]";
 				config['serverSide'] = true;
-				config['columns']= [{'data':'id'}, {'data':'codigo'}, {'data':'descripcion'}];
+				config['columns']= [{'data':'id'}, {'data':'descripcion'}, {'data':'juez'}, {'data':'materia.descripcion'}];
 
-				var dataTable = $('#materiaDT').dataTable(config);
+				var dataTable = $('#despachoDT').dataTable(config);
 				//Ocultamos la primera columna (id)
 				dataTable.fnSetColumnVis(0, false);
-				$('#materiaDT tbody').on('click', 'tr', function() {
+				$('#despachoDT tbody').on('click', 'tr', function() {
 				//Obtenemos el valor de la columna id
 				var id = dataTable.fnGetData(this, 0);
 				//Si id no es número, no hacemos nada
 				if (isNaN(id)) {
 				return;
 				}
-				window.location.href = "/sigj/materia/edit/" + id;
+				window.location.href = "/sigj/despacho/edit/" + id;
 				});
 		});
 </script>

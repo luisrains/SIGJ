@@ -1,12 +1,13 @@
-package py.com.sigj.controllers.list;
+package py.com.sigj.expediente.controllers.list;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import py.com.sigj.controllers.list.ListController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.dao.PersonaDao;
+import py.com.sigj.expediente.dao.PersonaDao;
 import py.com.sigj.expediente.domain.Persona;
 
 @Controller
@@ -19,12 +20,12 @@ public class PersonaListController extends ListController<Persona> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "cedula", "nombre", "apellido", "direccion" };
+		return new String[] { "id", "cedula_ruc", "nombre_razonSocial", "apellido", "fechaNacimiento", "edad", "sexo",
+				"estadoCivil", "ocupacion", "correoElectronico", "telefono", "tipoPersona" };
 	}
 
 	@Override
 	public Dao<Persona> getDao() {
-		// TODO Auto-generated method stub
 		return personaDao;
 	}
 

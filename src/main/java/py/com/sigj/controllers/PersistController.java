@@ -81,5 +81,28 @@ public abstract class PersistController<T extends GenericEntity> {
 		return resp;
 	}
 
+	@RequestMapping(value = "/destroy/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Respuesta<T> destroy(@PathVariable Long id) {
+		Respuesta<T> resp = new Respuesta<>();
+
+		try {
+			T obj = getDao().find(id);
+			if (obj == null) {
+				throw new Exception("No se encontró usuario");
+			}
+
+			resp.setDato(obj);
+			getDao().destroy(obj);
+			resp.setExito(true);
+			resp.setMensajeExito(msg.get("registro_borrado"));
+		} catch (Exception ex) {
+			resp.setExito(false);
+			resp.setMensajeError(ex.getMessage());
+
+		}
+		return resp;
+	}
+
 	public abstract Dao<T> getDao();
 }

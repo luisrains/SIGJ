@@ -38,13 +38,6 @@ public class TipoCliente extends GenericEntity {
 
 	}
 
-	public TipoCliente(Long id, String codigo, String nombre) {
-		super();
-		this.id = id;
-		this.codigo = codigo;
-		this.descripcion = nombre;
-	}
-
 	@Override
 	public Long getId() {
 		return id;
@@ -63,17 +56,17 @@ public class TipoCliente extends GenericEntity {
 		this.codigo = codigo;
 	}
 
-	public String getNombre() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setNombre(String nombre) {
-		this.descripcion = nombre;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	@Override
 	public String toString() {
-		return "TipoCliente [id=" + id + ", codigo=" + codigo + ", nombre=" + descripcion + "]";
+		return "TipoCliente [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + "]";
 	}
 
 }
