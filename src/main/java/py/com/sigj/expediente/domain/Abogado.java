@@ -33,7 +33,7 @@ import py.com.sigj.rrhh.domain.Empleado;
 		"tipoAbogado_id" }) })
 public class Abogado extends GenericEntity {
 
-	private static final String SECUENCIA = "cliente_id_seq";
+	private static final String SECUENCIA = "abogado_id_seq";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
