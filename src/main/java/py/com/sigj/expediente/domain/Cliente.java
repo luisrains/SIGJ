@@ -21,6 +21,13 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que registra datos de los clientes, de acuerdo a una persona que será
+ * importada.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "cliente_codigo_uk", columnNames = { "persona_id" }) })
 public class Cliente extends GenericEntity {

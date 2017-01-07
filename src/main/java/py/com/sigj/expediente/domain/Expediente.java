@@ -19,6 +19,12 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que mapea un expediente en papel a digital.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 public class Expediente extends GenericEntity {
 

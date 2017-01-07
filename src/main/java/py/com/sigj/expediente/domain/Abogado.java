@@ -22,6 +22,12 @@ import org.hibernate.validator.constraints.NotBlank;
 import py.com.sigj.main.GenericEntity;
 import py.com.sigj.rrhh.domain.Empleado;
 
+/**
+ * Clase que registra datos de los abogados.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "abogado_empleado_tipoAbogado_uk", columnNames = { "empleado_id",
 		"tipoAbogado_id" }) })

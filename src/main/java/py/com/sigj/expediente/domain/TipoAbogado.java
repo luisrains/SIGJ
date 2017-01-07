@@ -14,8 +14,15 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que registra la clasificación de abogados existentes.
+ * 
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "tipoAbogado_codigo_uk", columnNames = { "codigo" }) })
+@Table(name = "tipo_abogado", uniqueConstraints = {
+		@UniqueConstraint(name = "tipoAbogado_codigo_uk", columnNames = { "codigo" }) })
 public class TipoAbogado extends GenericEntity {
 	private static final String SECUENCIA = "tipoAbogado_id_seq";
 

@@ -15,6 +15,13 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que registra todos los despachos que se encuentran activos en el
+ * palacio de justicia.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 public class Despacho extends GenericEntity {
 	private static final String SECUENCIA = "despacho_id_seq";

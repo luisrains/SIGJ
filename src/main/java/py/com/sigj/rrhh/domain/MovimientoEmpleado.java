@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table
+@Table(name = "movimiento_empleado")
 public class MovimientoEmpleado extends GenericEntity {
 	private static final String SECUENCIA = "movimientoEmpleado_id_seq";
 

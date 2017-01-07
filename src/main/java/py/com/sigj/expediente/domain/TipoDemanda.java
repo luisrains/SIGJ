@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -12,7 +13,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que registra la clasificación de demandas existentes.
+ * 
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
+@Table(name = "tipo_demanda")
 public class TipoDemanda extends GenericEntity {
 	private static final String SECUENCIA = "tipoDemanda_id_seq";
 

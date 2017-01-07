@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="108,745" last-zoom="1.1"
+<dbmodel pgmodeler-ver="0.8.2" last-position="1037,501" last-zoom="0.9"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database">
 </database>
@@ -22,12 +22,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="id_tipo_demanda">
-		<type name="integer"/>
-	</column>
-	<column name="id_estado_interno">
-		<type name="integer"/>
-	</column>
-	<column name="id_estado_externo">
 		<type name="integer"/>
 	</column>
 	<column name="caratula">
@@ -86,7 +80,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Carpeta_Digital">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="220"/>
+	<position x="740" y="220"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -192,35 +186,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="Estado_interno - OK">
+<table name="Estado_externo_interno - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="220" y="820"/>
-	<column name="id" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="nombre">
-		<type name="character" length="40"/>
-	</column>
-	<constraint name="pk_estado_interno" type="pk-constr" table="public.&quot;Estado_interno - OK&quot;">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
-<table name="Estado_externo - OK">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="480" y="940"/>
+	<position x="180" y="920"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
 	<column name="nombre">
 		<type name="integer"/>
 	</column>
-	<column name="fecha">
-		<type name="date"/>
+	<column name="tipo_estado" default-value="I-E">
+		<type name="character"/>
 	</column>
-	<constraint name="pk_estado" type="pk-constr" table="public.&quot;Estado_externo - OK&quot;">
+	<constraint name="pk_estado" type="pk-constr" table="public.&quot;Estado_externo_interno - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -261,7 +240,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Actuacion">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="780" y="900"/>
+	<position x="800" y="960"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -288,7 +267,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Tipo_actuacion">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="780" y="1100"/>
+	<position x="720" y="1160"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -432,7 +411,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Empleado - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1760" y="780"/>
+	<position x="1780" y="740"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -607,7 +586,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Documento">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="460" y="1100"/>
+	<position x="320" y="1100"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -671,21 +650,30 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
+<table name="Estado_expediente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="480" y="820"/>
+	<column name="id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_estado">
+		<type name="integer"/>
+	</column>
+	<column name="id_expediente">
+		<type name="integer"/>
+	</column>
+	<column name="fecha">
+		<type name="smallint"/>
+	</column>
+	<constraint name="pkEstadoExpediente" type="pk-constr" table="public.&quot;Estado_expediente&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
 <constraint name="fk_tipo_demanda" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_demanda-ok&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
 	<columns names="id_tipo_demanda" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_estado_interno" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_interno - OK&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
-	<columns names="id_estado_interno" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_estado_externo" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_externo - OK&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
-	<columns names="id_estado_externo" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -875,19 +863,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="fkEstado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Estado_externo_interno - OK&quot;" table="public.&quot;Estado_expediente&quot;">
+	<columns names="id_estado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkExpediente" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Expediente - MEDIAS&quot;" table="public.&quot;Estado_expediente&quot;">
+	<columns names="id_expediente" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
 <relationship name="&quot;rel_Expediente_Tipo_demanda&quot;" type="relfk"
 	 src-table="public.&quot;Expediente - MEDIAS&quot;"
 	 dst-table="public.&quot;Tipo_demanda-ok&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="&quot;rel_Expediente_Estado_interno&quot;" type="relfk"
-	 src-table="public.&quot;Expediente - MEDIAS&quot;"
-	 dst-table="public.&quot;Estado_interno - OK&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="&quot;rel_Expediente_Estado_externo&quot;" type="relfk"
-	 src-table="public.&quot;Expediente - MEDIAS&quot;"
-	 dst-table="public.&quot;Estado_externo - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="&quot;rel_Despacho_Materia&quot;" type="relfk"
@@ -895,10 +885,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.&quot;Materia -OK&quot;"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="&quot;rel_Abogado_Empleado&quot;" type="relfk"
+<relationship name="rel_Abogado_Empleado" type="relfk"
 	 src-table="public.&quot;Abogado - OK&quot;"
 	 dst-table="public.&quot;Empleado - OK&quot;"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-356.843" y="349.051"/>
+	</label>
+</relationship>
 
 <relationship name="rel_Tomo_expediente_Expediente" type="relfk"
 	 src-table="public.&quot;Tomo_expediente - OK&quot;"
@@ -1066,6 +1060,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="&quot;rel_Expediente - MEDIAS_Despacho&quot;" type="relfk"
 	 src-table="public.&quot;Expediente - MEDIAS&quot;"
 	 dst-table="public.&quot;Despacho-Ok&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Estado_expediente_Estado_externo - OK&quot;" type="relfk"
+	 src-table="public.&quot;Estado_expediente&quot;"
+	 dst-table="public.&quot;Estado_externo_interno - OK&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Estado_expediente_Expediente - MEDIAS&quot;" type="relfk"
+	 src-table="public.&quot;Estado_expediente&quot;"
+	 dst-table="public.&quot;Expediente - MEDIAS&quot;"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
