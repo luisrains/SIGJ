@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(uniqueConstraints = {
+@Table(name="planilla_empleado", uniqueConstraints = {
 		@UniqueConstraint(name = "planilla_empleado_uk", columnNames = { "planillaSalario_id", "empleado_id" }) })
 public class PlanillaEmpleado extends GenericEntity {
 	private static final String SECUENCIA = "planillaEmpleado_id_seq";
@@ -27,12 +27,12 @@ public class PlanillaEmpleado extends GenericEntity {
 
 	@ManyToOne
 	@NotNull(message = "planillaEmpleado.planillaSalario.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "PlanillaEmpleado_planillaSalario_fk"))
+	@JoinColumn(foreignKey = @ForeignKey(name = "planillaEmpleado_planillaSalario_fk"))
 	private PlanillaSalario planillaSalario;
 
 	@ManyToOne
 	@NotNull(message = "planillaEmpleado.permiso.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "PlanillaEmpleado_empleado_fk"))
+	@JoinColumn(foreignKey = @ForeignKey(name = "planillaEmpleado_empleado_fk"))
 	private Empleado empleado;
 
 	public PlanillaEmpleado() {

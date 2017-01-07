@@ -4,14 +4,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import py.com.sigj.dao.impl.DaoImpl;
-import py.com.sigj.rrhh.dao.PlanillaSalarioDao;
-import py.com.sigj.rrhh.domain.PlanillaSalario;
+import py.com.sigj.rrhh.dao.MovimientoDao;
+import py.com.sigj.rrhh.domain.Movimiento;
 
 @Repository
 @Scope("session")
-public class PlanillaSalarioDaoImpl extends DaoImpl<PlanillaSalario> implements PlanillaSalarioDao {
+public class MovimientoDaoImpl extends DaoImpl<Movimiento> implements MovimientoDao {
 	@Override
 	public String getCamposFiltrables() {
-		return "codigo";
+		return "descripcion";
 	}
 }

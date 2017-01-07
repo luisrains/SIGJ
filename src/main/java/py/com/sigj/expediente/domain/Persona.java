@@ -21,7 +21,7 @@ import py.com.sigj.main.GenericEntity;
 /**
  * Clase que registra todos los datos de todas las personas tengan relacion con
  * el sistema.
- * 
+ *
  * @author Luis A. Méndez R.
  *
  */
@@ -47,8 +47,6 @@ public class Persona extends GenericEntity {
 	@Size(max = 60, message = "persona.nombre.size")
 	private String nombre_razonSocial;
 
-	@NotNull(message = "persona.apellido.notNull")
-	@NotBlank(message = "persona.apellido.notBlank")
 	@Size(max = 60, message = "persona.apellido.size")
 	private String apellido;
 

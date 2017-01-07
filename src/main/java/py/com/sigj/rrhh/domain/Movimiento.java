@@ -16,30 +16,33 @@ import javax.validation.constraints.NotNull;
 import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(name = "movimiento_empleado")
-public class MovimientoEmpleado extends GenericEntity {
-	private static final String SECUENCIA = "movimientoEmpleado_id_seq";
+@Table(name = "movimiento")
+public class Movimiento extends GenericEntity {
+	private static final String SECUENCIA = "movimiento_id_seq";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "movimientoEmpleado.ingreso.notNull")
+	@NotNull(message = "movimiento.ingreso.notNull")
 	private int ingreso;
 
-	@NotNull(message = "movimientoEmpleado.egreso.notNull")
+	@NotNull(message = "movimiento.egreso.notNull")
 	private int egreso;
 
-	@NotNull(message = "movimientoEmpleado.fecha.notNull")
+	@NotNull(message = "movimiento.fecha.notNull")
 	private Date fecha;
+	
+	@NotNull(message = "movimiento.descripcion.notNull")
+	private String descripcion;
 
 	@ManyToOne
-	@NotNull(message = "MovimientoEmpleado.empleado.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "movimientoEmpleado_empleado_fk"))
+	@NotNull(message = "movimiento.empleado.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_empleado_fk"))
 	private Empleado empleado;
 
-	public MovimientoEmpleado() {
+	public Movimiento() {
 	}
 
 	@Override
@@ -84,10 +87,21 @@ public class MovimientoEmpleado extends GenericEntity {
 		this.empleado = empleado;
 	}
 
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	@Override
 	public String toString() {
 		return "MovimientoEmpleado [id=" + id + ", ingreso=" + ingreso + ", egreso=" + egreso + ", fecha=" + fecha
-				+ ", empleado=" + empleado + "]";
+				+ ", descripcion=" + descripcion + ", empleado=" + empleado + "]";
 	}
+
+	
 
 }
