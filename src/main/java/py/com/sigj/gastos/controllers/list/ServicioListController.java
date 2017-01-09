@@ -10,6 +10,12 @@ import py.com.sigj.dao.Dao;
 import py.com.sigj.gastos.dao.ServicioDao;
 import py.com.sigj.gastos.domain.Servicio;
 
+/**
+ *
+ * @author ariquelme
+ *
+ */
+
 @Controller
 @Scope("session")
 @RequestMapping("servicio")

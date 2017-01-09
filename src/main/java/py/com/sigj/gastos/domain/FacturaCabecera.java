@@ -19,6 +19,12 @@ import py.com.sigj.expediente.domain.Abogado;
 import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.main.GenericEntity;
 
+/**
+ *
+ * @author ariquelme
+ *
+ */
+
 @Entity
 @Table(name = "factura_cabecera")
 public class FacturaCabecera extends GenericEntity {

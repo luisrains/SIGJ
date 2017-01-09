@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.controllers.list.ListController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.gastos.dao.CajaDao;
-import py.com.sigj.gastos.domain.Caja;
+import py.com.sigj.gastos.dao.FacturaDetalleDao;
+import py.com.sigj.gastos.domain.FacturaDetalle;
 
 /**
  *
@@ -19,19 +19,19 @@ import py.com.sigj.gastos.domain.Caja;
 @Controller
 @Scope("session")
 @RequestMapping("caja")
-public class CajaListController extends ListController<Caja> {
+public class FacturaDetalleListController extends ListController<FacturaDetalle> {
 
 	@Autowired
-	private CajaDao cajaDao;
+	private FacturaDetalleDao facturaDetalleDao;
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "codigo", "monto", "fecha" };
+		return new String[] { "id", "facturaCabecera", "servicio" };
 	}
 
 	@Override
-	public Dao<Caja> getDao() {
-		return cajaDao;
+	public Dao<FacturaDetalle> getDao() {
+		return facturaDetalleDao;
 	}
 
 }

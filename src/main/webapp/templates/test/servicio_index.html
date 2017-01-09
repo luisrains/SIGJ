@@ -37,7 +37,8 @@
 function limpiarForm() {
 $("#id").val("");
 $("#codigo").val("");
-$("#descripcion").val("");
+$("#tipo").val("");
+$("#costo").val("");
 }
 function nuevoRegistro() {
 limpiarForm();
@@ -47,7 +48,7 @@ $("#codigo").focus();
 </script>
 	<div class="row">
 		<div class="col-lg-4 col-md-4">
-			<h4 class="page-header" th:text="#{materia.form.titulo}">Servicios</h4>
+			<h4 class="page-header" th:text="#{servicio.form.titulo}">Servicios</h4>
 			<span th:text="${error}" style="color: red"> Ocurrió un error</span>
 			<span th:text="${msgExito}" style="color: green">Registro
 				Guardado</span>
@@ -61,14 +62,14 @@ $("#codigo").focus();
 				<div class="form-group">
 				
 					<label for="codigo" th:text="#{servicio.codigo.lbl}"
-						class="field-label">Codigo:</label> 
+						class="field-label">Código:</label> 
 						<input type="text"
 						th:field="*{codigo}" maxlength="18" class="form-control"
 						autofocus="autofocus" />
 				</div>
 				<div class="form-group">
 					<label for="tipoServicio" th:text="#{servicio.tipoServicio.lbl}"
-						class="field-label">Tipo de Servicio:</label> <input type="text"
+						class="field-label">Tipo:</label> <input type="text"
 						th:field="*{tipoServicio}" maxlength="60" class="form-control" />
 				</div>
 				

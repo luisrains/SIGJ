@@ -11,7 +11,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
 import py.com.sigj.main.GenericEntity;
+
+/**
+ *
+ * @author ariquelme
+ *
+ */
 
 @Entity
 @Table(name = "factura_detalle", uniqueConstraints = {

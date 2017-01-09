@@ -7,8 +7,14 @@ import py.com.sigj.dao.impl.DaoImpl;
 import py.com.sigj.gastos.dao.IngresoEgresoDao;
 import py.com.sigj.gastos.domain.IngresoEgreso;
 
+/**
+ *
+ * @author ariquelme
+ *
+ */
+
 @Repository
-@Scope("session") // para crear una nueva instancia para cada sesion
+@Scope("session") // Crea una nueva instancia para cada sesion.
 public class IngresoEgresoImpl extends DaoImpl<IngresoEgreso> implements IngresoEgresoDao {
 
 	@Override

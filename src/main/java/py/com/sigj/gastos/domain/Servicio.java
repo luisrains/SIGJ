@@ -9,17 +9,21 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotBlank;
+
 import py.com.sigj.main.GenericEntity;
 
 /**
  * Clase que registra los tipos de servicios, los cuales pueden ser: consultas,
- * gestiones varias. 
+ * gestiones varias.
+ * 
  * @author ariquelme
+ *
  */
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "servicio_codigo_uk", columnNames = { "codigo" })})
+@Table(uniqueConstraints = { @UniqueConstraint(name = "servicio_codigo_uk", columnNames = { "codigo" }) })
 public class Servicio extends GenericEntity {
 	private static final String SECUENCIA = "servicio_id_seq";
 
@@ -32,7 +36,7 @@ public class Servicio extends GenericEntity {
 	@NotBlank(message = "servicio.codigo.notBlank")
 	@Size(max = 5, message = "servicio.codigo.size")
 	private String codigo;
-	
+
 	@NotNull(message = "servicio.tipoServicio.notNull")
 	@NotBlank(message = "servicio.tipoServicio.notBlank")
 	@Size(max = 100, message = "servicio.tipoServicio.size")
@@ -44,10 +48,12 @@ public class Servicio extends GenericEntity {
 	public Servicio() {
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
