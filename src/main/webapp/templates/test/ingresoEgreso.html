@@ -36,7 +36,8 @@
 	<script type="text/javascript">
 function limpiarForm() {
 $("#id").val("");
-$("#codigo").val("");
+$("#caja").val("");
+$("#tipo").val("");
 $("#descripcion").val("");
 }
 function nuevoRegistro() {
@@ -47,8 +48,7 @@ $("#codigo").focus();
 </script>
 	<div class="row">
 		<div class="col-lg-4 col-md-4">
-			<h4 class="page-header" th:text="#{tipo_abogado.form.titulo}">Detalles
-				de Tipo de Abogados</h4>
+			<h4 class="page-header" th:text="#{ingreso_egreso.form.titulo}">Ingreso Egreso</h4>
 			<span th:text="${error}" style="color: red"> Ocurrió un error</span>
 			<span th:text="${msgExito}" style="color: green">Registro
 				Guardado</span>
@@ -56,23 +56,33 @@ $("#codigo").focus();
 				<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 					style="color: red">Debe ingresar cédula</li>
 			</ul>
-			<form th:action="@{/tipo_abogado/save}" th:object="${tipoAbogado}"
+			<form th:action="@{/despacho/save}" th:object="${despacho}"
 				method="post" role="form">
+				
 				<input type="hidden" th:field="*{id}" />
+				
+				
+				<div class="form-group">
+					<label for="caja" th:text="#{ingreso_egreso.caja.lbl}"
+						class="field-label">Caja:</label> <input type="text"
+						th:field="*{caja}" maxlength="100" class="form-control" />
+				</div>
 				<div class="form-group">
 				
-					<label for="codigo" th:text="#{tipo_abogado.codigo.lbl}"
-						class="field-label">Código:</label> 
+					<label for="tipo" th:text="#{ingreso_egreso.tipo.lbl}"
+						class="field-label">tipo:</label> 
 						<input type="text"
-						th:field="*{codigo}" maxlength="18" class="form-control"
+						th:field="*{tipo}" maxlength="60" class="form-control"
 						autofocus="autofocus" />
 				</div>
 				<div class="form-group">
-					<label for="nombre" th:text="#{tipo_abogado.descripcion.lbl}"
-						class="field-label">Descripción:</label> <input type="text"
-						th:field="*{descripcion}" maxlength="60" class="form-control" />
-				</div>
-				
+				<label for="descripcion" th:text="#{ingreso_egreso.descripcion.lbl}"
+					class="field-label">descripcion:</label> 
+					<input type="text"
+						th:field="*{tipo}" maxlength="60" class="form-control"
+						autofocus="autofocus" />
+
+			</div>
 				
 				<!-- Inicio panel botones -->
 				<div>
@@ -94,12 +104,13 @@ $("#codigo").focus();
 		<!-- fin columna 1: Formulario -->
 		<div class="col-lg-8 col-md-8">
 			<table class="table table-bordered table-hover table-striped display"
-				id="tipo_abogadoDT">
+				id="despachoDT">
 				<thead>
 					<tr>
 						<th></th>
-						<th>Código</th>
-						<th>Descripción</th>
+						<th>Caja</th>
+						<th>Tipo</th>
+						<th>Descripcion</th>
 					</tr>
 				</thead>
 
@@ -109,21 +120,21 @@ $("#codigo").focus();
 		$(document).ready(function() {
 				var config={};
 				config['processing'] = true;
-				config['sAjaxSource'] = "[[@{/tipo_abogado/json}]]";
+				config['sAjaxSource'] = "[[@{/ingreso_egreso/json}]]";
 				config['serverSide'] = true;
-				config['columns']= [{'data':'id'}, {'data':'codigo'}, {'data':'descripcion'}];
+				config['columns']= [{'data':'id'}, {'data':'caja'}, {'data':'tipo'}, {'data':'descripcion'}];
 
-				var dataTable = $('#tipo_abogadoDT').dataTable(config);
+				var dataTable = $('#ingreso_egresoDT').dataTable(config);
 				//Ocultamos la primera columna (id)
 				dataTable.fnSetColumnVis(0, false);
-				$('#tipo_abogadoDT tbody').on('click', 'tr', function() {
+				$('#ingreso_egresoDT tbody').on('click', 'tr', function() {
 				//Obtenemos el valor de la columna id
 				var id = dataTable.fnGetData(this, 0);
 				//Si id no es número, no hacemos nada
 				if (isNaN(id)) {
 				return;
 				}
-				window.location.href = "/sigj/tipo_abogado/edit/" + id;
+				window.location.href = "/sigj/ingreso_egreso/edit/" + id;
 				});
 		});
 </script>
