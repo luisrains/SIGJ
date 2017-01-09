@@ -29,6 +29,9 @@
        folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"
 	href="../dist/css/skins/_all-skins.min.css">
+	<!-- OWLP -->
+	<script type="text/javascript" src="../js/owlapp.js" 
+     th:src="@{/js/owlapp.js}"></script>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,7 +45,7 @@
 
 
 
-	<div th:fragment="contenido">
+	<div th:fragment="form">
 
 		<script type="text/javascript">
 function limpiarForm() {

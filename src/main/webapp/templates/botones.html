@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- http://200.10.231.201/rh/login -->
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+<head>
+<title>APP</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<link rel="shortcut icon" href="/images/favicon.ico"
+	th:href="@{/images/favicon.ico}" type="image/x-icon" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="../../js/jquery-2.2.3.min.js"
+	th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script src="../../js/jquery-ui.js" th:src="@{/js/jquery-ui.js}"></script>
+<script src="../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../../js/app.min.js" th:src="@{/js/app.min.js}"></script>
+<script th:src="@{/js/plugins/dataTables/jquery.dataTables.min.js}"></script>
+<link th:href="@{/css/plugins/dataTables.bootstrap.min.css}"
+	rel="stylesheet" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	href="../../css/bootstrap.min.css" />
+<link href="../../css/font-awesome.min.css"
+	th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+<link rel="stylesheet" th:href="@{/css/AdminLTE.min.css}"
+	href="../../css/AdminLTE.min.css" />
+<link th:href="@{/css/plugins/responsive.bootstrap.min.css}"
+	href="../../css/plugins/responsive.bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini ">
+
+	<div th:fragment="form_botones">
+
+        <div class="row">   
+            <div class="col-lg-4 col-md-3">
+					<button type="button" class="btn btn-default" id="botonNuevo"
+						onclick="nuevoRegistro()">
+						<i class="fa fa-plus-circle"></i> <span
+							th:text="#{form.boton.crear}">Nuevo</span>
+					</button>
+            </div>
+            
+            <div class="col-lg-4 col-md-3">
+				<button type="submit" class="btn btn-default" name="accion" value="save">
+					<i class="fa fa-save"></i> <span th:text="#{form.boton.guardar}">Guardar</span>
+				</button>
+				<button id="botonDelete" type="submit"  
+					name="accion" value="delete" hidden="true">
+				</button>
+			</div>
+			
+			<div class="col-lg-4 col-md-3">
+					<button type="button" class="btn btn-default" id="botonBorrar"
+						onclick="borrarRegistro()">
+						<i class="fa fa-trash-o"></i> <span th:text="#{form.boton.borrar}">Borrar</span>
+					</button>
+            </div>
+	    </div>
+	    <!-- Modal -->
+		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel"
+							>Borrado de Registro</h4>
+					</div>
+					<div class="modal-body">Desea
+						borrar registro de forma permanente?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							>Cancelar</button>
+						<button type="submit" class="btn btn-primary"
+						 name ="accion" value="delete">Aceptar</button><!-- onclick= "submitBorrado()" -->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+			<script type="text/javascript">
+			function borrarRegistro(){
+				$("#borradoPopup").modal("show");
+			}
+			function submitBorrado(){
+				console.log("Borrando registro...")
+			}
+
+			</script>
+		</div>
+    </div>
+
+</body>
+</html>
