@@ -24,6 +24,10 @@
 	<mvc:resources location="/less/" mapping="/less/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/vendor/" mapping="/vendor/**" />
+	<mvc:resources location="/bootstrap/" mapping="/bootstrap/**" />
+	<mvc:resources location="/build/" mapping="/build/**" />
+	<mvc:resources location="/dist/" mapping="/dist/**" />
+	<mvc:resources location="/plugins/" mapping="/plugins/**" />
 
 
 	<!-- **************************************************************** -->
