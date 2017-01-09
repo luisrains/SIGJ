@@ -17,6 +17,13 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que registra los procesos que existen de acuerdo al tipo de materia que
+ * se registran en el sistema.
+ * 
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "proceso_codigo_uk", columnNames = { "codigo" }) })
 public class Proceso extends GenericEntity {

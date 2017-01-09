@@ -14,8 +14,14 @@ import javax.validation.constraints.NotNull;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase intermedia entre el expediente y el o los abogado que lo atienden.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "expediente_abogado", uniqueConstraints = {
 		@UniqueConstraint(name = "expediente_abogado_uk", columnNames = { "expediente_id", "abogado_id" }) })
 public class ExpedienteAbogado extends GenericEntity {
 	private static final String SECUENCIA = "expedienteAbogado_id_seq";

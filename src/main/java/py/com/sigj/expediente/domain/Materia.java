@@ -14,6 +14,13 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase en el que se registrarán los tipos de materias que existen en el poder.
+ * judicial Ej: Civil y Comercial, Justicia Letrada,Laboral,Penal.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "materia_codigo_uk", columnNames = { "codigo" }) })
 public class Materia extends GenericEntity {
@@ -61,7 +68,7 @@ public class Materia extends GenericEntity {
 	}
 
 	public void setDescripcion(String descripcion) {
-		descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 
 	@Override

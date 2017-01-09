@@ -17,9 +17,14 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
-import py.com.sigj.util.DateFormatter;
 
-//convención para los constrains, nombreTabla + _ + nombreCampo +UK (unit)
+/**
+ * Clase que registra todos los datos de todas las personas tengan relacion con
+ * el sistema.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "persona_cedula_ruc_uk", columnNames = { "cedula_ruc" }) })
 public class Persona extends GenericEntity {
@@ -42,8 +47,6 @@ public class Persona extends GenericEntity {
 	@Size(max = 60, message = "persona.nombre.size")
 	private String nombre_razonSocial;
 
-	@NotNull(message = "persona.apellido.notNull")
-	@NotBlank(message = "persona.apellido.notBlank")
 	@Size(max = 60, message = "persona.apellido.size")
 	private String apellido;
 
@@ -123,7 +126,7 @@ public class Persona extends GenericEntity {
 	}
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
-		
+
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

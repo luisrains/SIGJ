@@ -14,8 +14,15 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que registra la clasificacion de clientes.
+ * 
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "tipoCliente_codigo_uk", columnNames = { "codigo" }) })
+@Table(name = "tipo_cliente", uniqueConstraints = {
+		@UniqueConstraint(name = "tipoCliente_codigo_uk", columnNames = { "codigo" }) })
 public class TipoCliente extends GenericEntity {
 	private static final String SECUENCIA = "tipoCliente_id_seq";
 

@@ -14,8 +14,15 @@ import javax.validation.constraints.NotNull;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que relaciona el expediente principal con los expedientes anidados a
+ * el, ante un caso que cuente con más de un exediente.
+ * 
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "tomo_expediente", uniqueConstraints = {
 		@UniqueConstraint(name = "tomo_expediente_uk", columnNames = { "tomo_id", "expediente_id" }) })
 public class TomoExpediente extends GenericEntity {
 	private static final String SECUENCIA = "tomoExpediente_id_seq";

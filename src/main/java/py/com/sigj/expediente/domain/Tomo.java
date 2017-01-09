@@ -14,6 +14,13 @@ import javax.validation.constraints.NotNull;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase que registra el expediente principal ante un caso que tenga más de un
+ * expediente anidado.
+ *
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
 @Table(uniqueConstraints = {
 		@UniqueConstraint(name = "tomo_expdientePadre_uk", columnNames = { "expedientePadre_id" }) })
@@ -49,7 +56,7 @@ public class Tomo extends GenericEntity {
 	}
 
 	public void setExpedientePadre(Expediente expedientePadre) {
-		expedientePadre = expedientePadre;
+		this.expedientePadre = expedientePadre;
 	}
 
 	@Override

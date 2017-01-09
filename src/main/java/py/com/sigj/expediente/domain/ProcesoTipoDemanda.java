@@ -14,8 +14,15 @@ import javax.validation.constraints.NotNull;
 
 import py.com.sigj.main.GenericEntity;
 
+/**
+ * Clase intermedia que relaciona los tipos de demandas de acuerdo a los
+ * procesos registrados.
+ * 
+ * @author Luis A. Méndez R.
+ *
+ */
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "proceso_tipo_demanda", uniqueConstraints = {
 		@UniqueConstraint(name = "proceso_tipoDemanda_uk", columnNames = { "proceso_id", "tipodemanda_id" }) })
 public class ProcesoTipoDemanda extends GenericEntity {
 	private static final String SECUENCIA = "procesoTipoDemanda_id_seq";
