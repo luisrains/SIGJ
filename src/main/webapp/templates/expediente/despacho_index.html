@@ -1,35 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
 
-<div th:fragment="contenido">
-		<div class="row">
-			<div class="col-lg-4 col-md-4">
-				<div th:replace="expediente/despacho_form::form">
-				   aqui va un fragmento de codigo del form
-			    </div>
-			</div>
-			<!-- fin columna 1: Formulario -->
+<body>
+	<div th:fragment="contenido">
+		<div class="container">
 
-			<div class="col-lg-8 col-md-8">
-				<table
-					class="table table-bordered table-hover table-striped display"
-					id="despachoDT">
-					<thead>
-						<tr>
-							<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
-						</tr>
-					</thead>
-				</table>
+			<div class="row">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#menu1">Menu 1</a></li>
+					<li><a href="#menu2">Menu 2</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div id="menu1" class="tab-pane fade in active">
+						<h3>HOME</h3>
+						<div th:replace="expediente/despacho_form::form">aqui va un
+							fragmento de codigo del form</div>
+					</div>
+					<div id="menu2" class="tab-pane fade">
+						<h3>Menu 1</h3>
+						<table
+							class="table table-bordered table-hover table-striped display"
+							id="despachoDT">
+							<thead>
+								<tr>
+									<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+								</tr>
+							</thead>
+						</table>
+						<script type="text/javascript">
+							$
+						 $(document).ready(function() {
+							 crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
+							 
+						});
+			 		</script>
+					</div>
+
+				</div>
 			</div>
 
-			<script type="text/javascript">
-			
-					 $(document).ready(function() {
-						 crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
-						 
-					});
-		 </script>
+			<script>
+	$(document).ready(function(){
+	    $(".nav-tabs a").click(function(){
+	        $(this).tab('show');
+	    });
+	});
+</script>
 		</div>
 	</div>
 
+
+</body>
 </html>

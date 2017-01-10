@@ -24,13 +24,69 @@
 		
 		function crearDataTable(dataTableId, ajaxSource, columnas, editUrl){
 			console.log("creando DT:", dataTableId, ajaxSource, columnas, editUrl)
-			 var config={};
+			
+			 /*var config={};
 			 config['processing'] = true;
 			 config['sAjaxSource'] = ajaxSource;
 			 config['serverSide'] = true;
-			 config['columns']= getColumnasArray(columnas);
-			
-			 var dataTable = $('#'+ dataTableId).dataTable(config);
+			 config['columns']= getColumnasArray(columnas);*/
+             var LENGUAJE = {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+			console.log("creando lenguaje:", LENGUAJE)
+			 //var dataTable = $('#'+ dataTableId).dataTable(config);
+			 var dataTable = $('#'+ dataTableId).dataTable({
+                'processing' : true,
+                'sAjaxSource' : ajaxSource,
+                'serverSide' : true,
+                'columns' : getColumnasArray(columnas),
+                'language' : {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "\n(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+             });
+			console.log("creando data:", dataTable)
 			 //Ocultamos la primera columna (id)
 			 dataTable.fnSetColumnVis(0, false);
 			 
@@ -56,7 +112,7 @@
 		 * @param pNameDisplay
 		 * @returns un listado de clientes, tipo cliente entre otros.
 		 */
-		function crearMagicSuggest(magicSuggestId, urlData, pValueField, pNameDisplay) {
+		/*function crearMagicSuggest(magicSuggestId, urlData, pValueField, pNameDisplay) {
 			var suggest = $('#'+ magicSuggestId).magicSuggest({
 				data : urlData,
 				useZebraStyle: true,
@@ -77,4 +133,4 @@
 				  console.log("cambió el valor del maicsuggest: " + this.getValue());
 				  
 				});
-	    }
+	    }*/
