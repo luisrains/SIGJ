@@ -21,7 +21,11 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}" href="../dist/css/skins/_all-skins.min.css">
-
+<!-- jQuery 2.2.3 -->
+<script th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}" src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- OWL -->
+<script type="text/javascript" src="../js/owlapp.js" 
+     th:src="@{/js/owlapp.js}"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -134,9 +138,9 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="pages/layout/top-nav.html"><i class="fa fa-graduation-cap"></i>Abogados</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-users"></i>Clientes</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-users" style="color:blue;"></i>Clientes</a></li>
             <li><a href="pages/layout/fixed.html"><i class="fa fa-newspaper-o"></i> Expediente Digital</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-calendar-plus-o"></i>Calendario</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-calendar-plus-o" style="color:red;"></i>Calendario</a></li>
           </ul>
         </li>
          <li class="active treeview">
@@ -246,8 +250,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 2.2.3 -->
-<script th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}" src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+
 <!-- Bootstrap 3.3.6 -->
 <script th:src="@{/bootstrap/js/bootstrap.min.js}" src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->
@@ -264,14 +267,9 @@
 <script th:src="@{/plugins/jvectormap/jquery-jvectormap-world-mill-en.js}" src="../plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 <!-- SlimScroll 1.3.0 -->
 <script th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}" src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS 1.0.1 -->
-<script th:src="@{/plugins/chartjs/Chart.min.js}" src="../plugins/chartjs/Chart.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script th:src="@{/dist/js/pages/dashboard2.js}" src="../dist/js/pages/dashboard2.js"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script th:src="@{/dist/js/demo.js}" src="../dist/js/demo.js"></script>
-<!-- OWL -->
-<script type="text/javascript" src="../js/owlapp.js" 
-     th:src="@{/js/owlapp.js}"></script>
+
 </body>
 </html>
