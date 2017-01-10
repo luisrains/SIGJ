@@ -18,7 +18,7 @@ import py.com.sigj.gastos.domain.FacturaCabecera;
 
 @Controller
 @Scope("session")
-@RequestMapping("caja")
+@RequestMapping("factura_cabecera")
 public class FacturaCabeceraListController extends ListController<FacturaCabecera> {
 
 	@Autowired
