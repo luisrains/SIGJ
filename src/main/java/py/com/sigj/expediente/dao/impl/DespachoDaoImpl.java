@@ -16,4 +16,5 @@ public class DespachoDaoImpl extends DaoImpl<Despacho> implements DespachoDao {
 	public String getCamposFiltrables() {
 		return "descripcion||juez";
 	}
+
 }

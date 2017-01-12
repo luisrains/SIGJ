@@ -80,7 +80,7 @@ public class Expediente extends GenericEntity {
 	@ManyToOne
 	@NotNull(message = "expediente.estadoExterno.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estadoExterno_fk"))
-	private EstadoExterno estadoExterno;
+	private EstadoExternoInterno estadoExterno;
 
 	@ManyToOne
 	@NotNull(message = "expediente.tipoDemanda.notNull")
@@ -177,11 +177,11 @@ public class Expediente extends GenericEntity {
 		this.estadoInterno = estadoInterno;
 	}
 
-	public EstadoExterno getEstadoExterno() {
+	public EstadoExternoInterno getEstadoExterno() {
 		return estadoExterno;
 	}
 
-	public void setEstadoExterno(EstadoExterno estadoExterno) {
+	public void setEstadoExterno(EstadoExternoInterno estadoExterno) {
 		this.estadoExterno = estadoExterno;
 	}
 

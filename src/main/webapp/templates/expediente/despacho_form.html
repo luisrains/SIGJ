@@ -87,12 +87,15 @@ function nuevoRegistro() {
 			</div>
 			<div class="form-group">
 				<label for="materia" th:text="#{despacho.materia.lbl}"
-					class="field-label">materia:</label> <select th:field="*{materia}"
+					class="field-label">materia:</label> 
+					<select th:field="*{materia}" class="form-control materia">
+						<option value="3620194" selected="selected">select2/select2</option>
+					</select> 
+					<!-- <select th:field="*{materia}"
 					class="form-control">
 					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
 						th:text="${tip.descripcion}">Excelente</option>
-				</select>
-
+				</select> -->
 			</div>
 
 			<!-- Inicio panel botones -->
@@ -100,6 +103,15 @@ function nuevoRegistro() {
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
+		$(function () {
+		    //Initialize Select2 Elements
+		    $(".materia").select2({
+		    	
+		    	  ajax: {
+		    		    url: "[[@{/despacho/suggest}]]",
+		    		    dataType: 'json'
+			    		 }
+   		 	});});
 			crearMagicSuggest('tclie', "[[@{/despacho/suggest}]]",'id','descripcion');
 		</script>
 	</div>
