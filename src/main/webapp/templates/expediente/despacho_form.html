@@ -62,14 +62,18 @@
 		</script>
 		<h4 class="page-header" th:text="#{despacho.form.titulo}">Detalles
 			de Despachos</h4>
-		<span th:text="${error}" style="color: red"> Ocurrió un error</span> 
-		<span  th:text="${msgExito}" style="color: green">
+		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
+		<span  style="color: green">
+			<div class="alert alert-success" role="alert" th:text="${msgExito}">
+				<strong>Well done!</strong> You successfully read this important
+				alert message.
+			</div>
 		</span>
 		<ul>
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar codigo</li>
 		</ul>
-		<form th:action="@{/despacho/save}" th:object="${despacho}"
+		<form th:action="@{/despacho/accion}" th:object="${despacho}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
