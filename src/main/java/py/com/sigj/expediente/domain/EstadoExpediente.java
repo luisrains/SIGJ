@@ -2,7 +2,6 @@ package py.com.sigj.expediente.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import py.com.sigj.main.GenericEntity;
@@ -27,8 +25,11 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
-@Table(name = "estado_expediente", uniqueConstraints = {
-		@UniqueConstraint(name = "estado_expediente_uk", columnNames = { "estado_id", "expediente_id" }) })
+@Table(name = "estado_expediente")
+// , uniqueConstraints = {
+// @UniqueConstraint(name = "estado_expediente_uk", columnNames = {
+// "estadoexternointerno_id",
+// "expediente_id" }) })
 public class EstadoExpediente extends GenericEntity {
 	private static final String SECUENCIA = "estadoExpediente_id_seq";
 
@@ -40,7 +41,6 @@ public class EstadoExpediente extends GenericEntity {
 	@ManyToOne
 	@NotNull(message = "estadoExpediente.tomo.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "estadoExpediente_estado_fk"))
-	@Column(name = "estado")
 	private EstadoExternoInterno estado;
 
 	@ManyToOne

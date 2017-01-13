@@ -72,10 +72,6 @@ public class Expediente extends GenericEntity {
 	private Date fechaSelloCargo;
 
 	// tabla dependencia , tabla que depende y fk
-	@ManyToOne
-	@NotNull(message = "expediente.estadoInterno.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estadoInterno_fk"))
-	private EstadoInterno estadoInterno;
 
 	@ManyToOne
 	@NotNull(message = "expediente.estadoExterno.notNull")
@@ -169,14 +165,6 @@ public class Expediente extends GenericEntity {
 		this.fechaSelloCargo = fechaSelloCargo;
 	}
 
-	public EstadoInterno getEstadoInterno() {
-		return estadoInterno;
-	}
-
-	public void setEstadoInterno(EstadoInterno estadoInterno) {
-		this.estadoInterno = estadoInterno;
-	}
-
 	public EstadoExternoInterno getEstadoExterno() {
 		return estadoExterno;
 	}
@@ -205,8 +193,8 @@ public class Expediente extends GenericEntity {
 	public String toString() {
 		return "Expediente [id=" + id + ", caratula=" + caratula + ", nroExpediente=" + nroExpediente + ", anho=" + anho
 				+ ", monto=" + monto + ", moneda=" + moneda + ", objetoCausa=" + objetoCausa + ", nroLiquidación="
-				+ nroLiquidación + ", fechaSelloCargo=" + fechaSelloCargo + ", estadoInterno=" + estadoInterno
-				+ ", estadoExterno=" + estadoExterno + ", tipoDemanda=" + tipoDemanda + ", despacho=" + despacho + "]";
+				+ nroLiquidación + ", fechaSelloCargo=" + fechaSelloCargo + ", estadoExterno=" + estadoExterno
+				+ ", tipoDemanda=" + tipoDemanda + ", despacho=" + despacho + "]";
 	}
 
 }

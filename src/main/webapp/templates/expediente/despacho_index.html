@@ -3,54 +3,64 @@
 
 <body>
 	<div th:fragment="contenido">
-		<div class="container box box-default">
 
-			<div class="row">
-				<ul class="nav nav-tabs">
-					<!-- Standard button -->
-<li class="active"><a href="#menu1"><button type="button" class="btn btn-default">Default</button></a></li>
-					<li><a href="#menu2">Menu 2</a></li>
-				</ul>
 
-				<div class="tab-content">
-					<div id="menu1" class="tab-pane fade in active">
-						<h3>HOME</h3>
-						<div th:replace="expediente/despacho_form::form">aqui va un
-							fragmento de codigo del form</div>
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Registrar</a></li>
+				<li><a href="#menu2">Listado</a></li>
+			</ul>
+
+			<div class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Listado de Despachos</h3>
+						</div>
+						<div class="box-body">
+							<div th:replace="expediente/despacho_form::form">aqui va un
+								fragmento de codigo del form</div>
+						</div>
 					</div>
-					<div id="menu2" class="tab-pane fade">
-						<h3>Menu 1</h3>
-						<table
-							class="table table-bordered table-hover table-striped display"
-							id="despachoDT">
-							<thead>
-								<tr>
-									<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
-								</tr>
-							</thead>
-						</table>
-						<script type="text/javascript">
-							$
-						 $(document).ready(function() {
-							 crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
-							 
-						});
-			 		</script>
-					</div>
+				</div>
 
+				<div id="menu2" class="tab-pane fade">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Listado de Despachos</h3>
+						</div>
+						<div class="box-body">
+
+							<table
+								class="table table-bordered table-hover table-striped display"
+								id="despachoDT">
+								<thead>
+									<tr>
+										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							 $(document).ready(function() {
+							    crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
+							 });
+			 			</script>
+						</div>
+					</div>
 				</div>
 			</div>
-
-			<script>
-	$(document).ready(function(){
-	    $(".nav-tabs a").click(function(){
-	        $(this).tab('show');
-	    });
-	});
-</script>
 		</div>
+
+		<script>
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				});
+			</script>
+
 	</div>
-
-
 </body>
 </html>
