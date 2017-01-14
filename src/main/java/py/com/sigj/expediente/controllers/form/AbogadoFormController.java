@@ -46,10 +46,10 @@ public class AbogadoFormController extends FormController<Abogado> {
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("tipoAbogadoList", tipoAbogadoDao.getList(0, 20, null));
 		map.addAttribute("columnas", abogadoList.getColumnas());
-		map.addAttribute("columnasStr", abogadoList.getColumnasStr(null));
-		String[] ve = { "id", "cedula_ruc", "nombre_razonSocial" };
-		map.addAttribute("columnasStrPersona", abogadoList.getColumnasStr(abogadoList.getColumnasPersona()));
 		map.addAttribute("columnasPersona", abogadoList.getColumnasPersona());
+		map.addAttribute("columnasStr", abogadoList.getColumnasStr(null));
+		map.addAttribute("columnasStrPersona", abogadoList.getColumnasStr(abogadoList.getColumnasPersona()));
+
 		super.agregarValoresAdicionales(map);
 	}
 

@@ -31,13 +31,13 @@
 										id="personaDT">
 										<thead>
 											<tr>
-												<th th:each=" col : ${columnasStrPersona}" th:text="${col}">colum1</th>
+												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
 											</tr>
 										</thead>
 									</table>
 									<script type="text/javascript">
 							 $(document).ready(function() {
-							    crearDataTable("personaDT", "[[@{/persona/json}]]", "[[${columnasPersona}]]", "[[@{/persona/edit/}]]");
+							    crearDataTable("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "[[@{/persona/edit/}]]");
 							 });
 			 			</script>
 								</div>

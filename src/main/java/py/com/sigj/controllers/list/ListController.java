@@ -78,7 +78,7 @@ public abstract class ListController<T> {
 
 			v = v.substring(0, v.length() - 1);
 			logger.info("la cadena v = {}", v);
-			return v;
+			return v; // id;cedula_ruc;nombre_razonSocial;apellido
 
 		}
 
