@@ -20,12 +20,17 @@ public class EmpleadoListController extends ListController<Empleado> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "persona.nombre", "fechaIngreso" };
+		return new String[] { "id", "persona.cedula_ruc", "persona.nombre_razonSocial", "persona.apellido", "salario",
+				"fechaIngreso" };
 	}
 
 	@Override
 	public Dao<Empleado> getDao() {
 		return empleadoDao;
+	}
+
+	public String[] getColumnasPersona() {
+		return new String[] { "id", "cedula_ruc", "nombre_razonSocial", "apellido" };
 	}
 
 }

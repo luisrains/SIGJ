@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+	<div th:fragment="contenido">
+
+
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Registrar</a></li>
+				<li><a href="#menu2">Listado</a></li>
+			</ul>
+
+			<div class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de Empleados</h3>
+						</div>
+						<div class="box-body">
+							<div class="row">
+								<div class="col-xs-8 col-sm-8">
+									<div class="col-xs-12 col-sm-12" th:replace="rrhh/empleado_form::form">aqui va un
+										fragmento de codigo del form</div>
+								</div>
+								<div class="col-xs-4 col-sm-4">
+									<table
+										class="table table-bordered table-hover table-striped display"
+										id="personaDT">
+										<thead>
+											<tr>
+												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTable("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "[[@{/persona/edit/}]]");
+									  });
+									   </script>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				<div id="menu2" class="tab-pane fade">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Listado de Empleados</h3>
+						</div>
+						<div class="box-body">
+
+							<table
+								class="table table-bordered table-hover table-striped display"
+								id="empleadoDT">
+								<thead>
+									<tr>
+										<th th:each="col : ${columnas}" th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							 $(document).ready(function() {
+							    crearDataTable("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStr}]]", "[[@{/empleado/edit/}]]");
+							 });
+			 			</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				});
+			</script>
+
+	</div>
+</body>
+</html>

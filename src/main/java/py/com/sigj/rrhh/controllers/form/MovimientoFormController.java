@@ -25,7 +25,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/movimiento_index";
+		return "rrhh/movimiento_index";
 	}
 
 	@Override

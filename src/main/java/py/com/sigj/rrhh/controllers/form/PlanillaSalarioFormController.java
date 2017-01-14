@@ -25,7 +25,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 	@Override
 	public String getTemplatePath() {
-		return "test/planillaSalario_index";
+		return "rrhh/planillaSalario_index";
 	}
 
 	@Override
