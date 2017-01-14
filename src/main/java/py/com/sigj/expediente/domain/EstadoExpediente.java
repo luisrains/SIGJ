@@ -13,7 +13,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import py.com.sigj.main.GenericEntity;
@@ -26,8 +25,11 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
-@Table(name = "estado_expediente", uniqueConstraints = {
-		@UniqueConstraint(name = "estado_expediente_uk", columnNames = { "estado_id", "expediente_id" }) })
+@Table(name = "estado_expediente")
+// , uniqueConstraints = {
+// @UniqueConstraint(name = "estado_expediente_uk", columnNames = {
+// "estadoexternointerno_id",
+// "expediente_id" }) })
 public class EstadoExpediente extends GenericEntity {
 	private static final String SECUENCIA = "estadoExpediente_id_seq";
 

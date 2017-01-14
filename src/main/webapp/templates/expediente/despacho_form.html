@@ -29,9 +29,9 @@
        folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"
 	href="../dist/css/skins/_all-skins.min.css">
-	<!-- OWLP -->
-	<script type="text/javascript" src="../js/owlapp.js" 
-     th:src="@{/js/owlapp.js}"></script>
+<!-- OWLP -->
+<script type="text/javascript" src="../js/owlapp.js"
+	th:src="@{/js/owlapp.js}"></script>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,27 +48,32 @@
 	<div th:fragment="form">
 
 		<script type="text/javascript">
-function limpiarForm() {
-	$("#id").val("");
-	$("#descripcion").val("");
-	$("#juez").val("");
-	$("#materia").val("");
-}
-function nuevoRegistro() {
-	limpiarForm();
-	$("#botonNuevo").hide();
-	$("#descripcion").focus();
-}
-</script>
+			function limpiarForm() {
+				$("#id").val("");
+				$("#descripcion").val("");
+				$("#juez").val("");
+				$("#materia1").val("");
+			}
+			function nuevoRegistro() {
+				limpiarForm();
+				$("#botonNuevo").hide();
+				$("#descripcion").focus();
+			}
+		</script>
 		<h4 class="page-header" th:text="#{despacho.form.titulo}">Detalles
 			de Despachos</h4>
-		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
-			th:text="${msgExito}" style="color: green">Registro Guardado</span>
+		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
+		<span  style="color: green">
+			<div class="alert alert-success" role="alert" th:text="${msgExito}">
+				<strong>Well done!</strong> You successfully read this important
+				alert message.
+			</div>
+		</span>
 		<ul>
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar codigo</li>
 		</ul>
-		<form th:action="@{/despacho/save}" th:object="${despacho}"
+		<form th:action="@{/despacho/accion}" th:object="${despacho}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
@@ -85,17 +90,14 @@ function nuevoRegistro() {
 				<input type="text" th:field="*{juez}" maxlength="60"
 					class="form-control" autofocus="autofocus" />
 			</div>
+
 			<div class="form-group">
-				<label for="materia" th:text="#{despacho.materia.lbl}"
-					class="field-label">materia:</label> 
-					<select th:field="*{materia}" class="form-control materia">
-						<option value="3620194" selected="selected">select2/select2</option>
-					</select> 
-					<!-- <select th:field="*{materia}"
-					class="form-control">
+				<label for="materia1" th:text="#{cliente.materia.lbl}"
+					class="field-label">materia1:</label> <select th:field="*{materia}"
+					class="form-control form-group materia1">
 					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Excelente</option>
-				</select> -->
+						th:text="${tip.descripcion}">Civil</option>
+				</select>
 			</div>
 
 			<!-- Inicio panel botones -->
@@ -104,15 +106,7 @@ function nuevoRegistro() {
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
 		$(function () {
-		    //Initialize Select2 Elements
-		    $(".materia").select2({
-		    	
-		    	  ajax: {
-		    		    url: "[[@{/despacho/suggest}]]",
-		    		    dataType: 'json'
-			    		 }
-   		 	});});
-			crearMagicSuggest('tclie', "[[@{/despacho/suggest}]]",'id','descripcion');
+			$(".materia1").select2();});
 		</script>
 	</div>
 </body>

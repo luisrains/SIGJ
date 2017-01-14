@@ -2,6 +2,7 @@ package py.com.sigj.controllers.form;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.PersistController;
 import py.com.sigj.controllers.Respuesta;
@@ -36,6 +38,17 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
 		return getTemplatePath();// "cliente/cliente_index";
+	}
+
+	@RequestMapping(value = "accion", method = RequestMethod.POST)
+	public String accion(ModelMap map, @Valid T obj, BindingResult bindingResult,
+			@RequestParam(required = false) String accion) {
+		if (StringUtils.equals(accion, "delete")) {
+			return delete(map, obj.getId());
+		} else {
+			return guardar(map, obj, bindingResult);
+		}
+
 	}
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
