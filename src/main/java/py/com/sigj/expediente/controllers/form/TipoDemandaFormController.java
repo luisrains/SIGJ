@@ -41,7 +41,7 @@ public class TipoDemandaFormController extends FormController<TipoDemanda> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", tipoDemandaList.getColumnas());
-		map.addAttribute("columnasStr", tipoDemandaList.getColumnasStr());
+		map.addAttribute("columnasStr", tipoDemandaList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

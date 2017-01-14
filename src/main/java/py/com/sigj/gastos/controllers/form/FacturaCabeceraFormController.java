@@ -47,7 +47,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", facturaCabeceraList.getColumnas());
-		map.addAttribute("columnasStr", facturaCabeceraList.getColumnasStr());
+		map.addAttribute("columnasStr", facturaCabeceraList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

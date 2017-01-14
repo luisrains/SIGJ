@@ -41,7 +41,7 @@ public class PersonaFormController extends FormController<Persona> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", personaList.getColumnas());
-		map.addAttribute("columnasStr", personaList.getColumnasStr());
+		map.addAttribute("columnasStr", personaList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

@@ -49,7 +49,7 @@ public class UsuarioFormController extends FormController<Usuario> {
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("rolList", rolDao.getList(0, 20, null));
 		map.addAttribute("columnas", usuarioList.getColumnas());
-		map.addAttribute("columnasStr", usuarioList.getColumnasStr());
+		map.addAttribute("columnasStr", usuarioList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 }
