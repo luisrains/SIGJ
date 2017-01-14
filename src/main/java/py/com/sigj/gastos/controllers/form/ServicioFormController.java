@@ -31,7 +31,7 @@ public class ServicioFormController extends FormController<Servicio> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/servicio_index";
+		return "gastos/servicio_index";
 	}
 
 	@Override

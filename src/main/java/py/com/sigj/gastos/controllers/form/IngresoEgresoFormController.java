@@ -31,7 +31,7 @@ public class IngresoEgresoFormController extends FormController<IngresoEgreso> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/ingresoEgreso_index";
+		return "gastos/ingresoEgreso_index";
 	}
 
 	@Override

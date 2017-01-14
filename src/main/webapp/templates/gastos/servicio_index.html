@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+	<div th:fragment="contenido">
+
+
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Registrar</a></li>
+				<li><a href="#menu2">Listado</a></li>
+			</ul>
+
+			<div class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de servicios</h3>
+						</div>
+						<div class="box-body">
+							<div th:replace="gastos/servicio_form::form_servicio">aqui va un
+								fragmento de codigo del form</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="menu2" class="tab-pane fade">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Listado de servicios</h3>
+						</div>
+						<div class="box-body">
+
+							<table
+								class="table table-bordered table-hover table-striped display"
+								id="servicioDT">
+								<thead>
+									<tr>
+										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							 $(document).ready(function() {
+							    crearDataTable("servicioDT", "[[@{/servicio/json}]]", "[[${columnasStr}]]", "[[@{/servicio/edit/}]]");
+							 });
+			 			</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				});
+			</script>
+
+	</div>
+</body>
+</html>

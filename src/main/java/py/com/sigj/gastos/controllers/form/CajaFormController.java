@@ -31,7 +31,7 @@ public class CajaFormController extends FormController<Caja> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/caja_index";
+		return "gastos/caja_index";
 	}
 
 	@Override
