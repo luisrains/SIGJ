@@ -2,7 +2,6 @@ package py.com.sigj.expediente.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -40,7 +39,6 @@ public class EstadoExpediente extends GenericEntity {
 	@ManyToOne
 	@NotNull(message = "estadoExpediente.tomo.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "estadoExpediente_estado_fk"))
-	@Column(name = "estado")
 	private EstadoExternoInterno estado;
 
 	@ManyToOne
