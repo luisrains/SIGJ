@@ -17,11 +17,31 @@
 				<div id="menu1" class="tab-pane fade in active">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
-							<h3>Registro de Despachos</h3>
+							<h3>Registro de Abogados</h3>
 						</div>
 						<div class="box-body">
-							<div th:replace="expediente/despacho_form::form">aqui va un
-								fragmento de codigo del form</div>
+							<div class="row">
+								<div class="col-xs-8">
+									<div th:replace="expediente/abogado_form::form">aqui va
+										un fragmento de codigo del form</div>
+								</div>
+								<div class="col-xs-4">
+									<table
+										class="table table-bordered table-hover table-striped display"
+										id="personaDT">
+										<thead>
+											<tr>
+												<th th:each=" col : ${columnasStrPersona}" th:text="${col}">colum1</th>
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+							 $(document).ready(function() {
+							    crearDataTable("personaDT", "[[@{/persona/json}]]", "[[${columnasPersona}]]", "[[@{/persona/edit/}]]");
+							 });
+			 			</script>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -35,16 +55,16 @@
 
 							<table
 								class="table table-bordered table-hover table-striped display"
-								id="despachoDT">
+								id="abogadoDT">
 								<thead>
 									<tr>
-										<th th:each="col : ${columnas}" th:text="#{'cliente.' + ${col} + '.header'}">CÓDIGO</th>
+										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
 									</tr>
 								</thead>
 							</table>
 							<script type="text/javascript">
 							 $(document).ready(function() {
-							    crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
+							    crearDataTable("abogadoDT", "[[@{/abogado/json}]]", "[[${columnasStr}]]", "[[@{/abogado/edit/}]]");
 							 });
 			 			</script>
 						</div>

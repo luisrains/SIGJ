@@ -51,20 +51,36 @@ public abstract class ListController<T> {
 		return json(q, 0, 20).getAaData();
 	}
 
-	public String getColumnasStr() {
+	public String getColumnasStr(String[] parametros) {
 
-		String v = null;
-		String[] ve = getColumnas();
+		if (parametros == null) {
+			String v = null;
+			String[] ve = getColumnas();
 
-		v = ve[0] + ";";
+			v = ve[0] + ";";
 
-		for (int i = 1; i < ve.length; i++) {
-			v += ve[i] + ";";
+			for (int i = 1; i < ve.length; i++) {
+				v += ve[i] + ";";
+			}
+
+			v = v.substring(0, v.length() - 1);
+			logger.info("la cadena v = {}", v);
+			return v;
+
+		} else {
+			String v = null;
+
+			v = parametros[0] + ";";
+
+			for (int i = 1; i < parametros.length; i++) {
+				v += parametros[i] + ";";
+			}
+
+			v = v.substring(0, v.length() - 1);
+			logger.info("la cadena v = {}", v);
+			return v;
+
 		}
-
-		v = v.substring(0, v.length() - 1);
-		logger.info("la cadena v = {}", v);
-		return v;
 
 	}
 
