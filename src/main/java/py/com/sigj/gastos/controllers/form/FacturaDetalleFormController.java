@@ -47,7 +47,7 @@ public class FacturaDetalleFormController extends FormController<FacturaDetalle>
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", facturaDetalleList.getColumnas());
-		map.addAttribute("columnasStr", facturaDetalleList.getColumnasStr());
+		map.addAttribute("columnasStr", facturaDetalleList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

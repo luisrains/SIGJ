@@ -41,7 +41,7 @@ public class TipoAbogadoFormController extends FormController<TipoAbogado> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", tipoAbogadoList.getColumnas());
-		map.addAttribute("columnasStr", tipoAbogadoList.getColumnasStr());
+		map.addAttribute("columnasStr", tipoAbogadoList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

@@ -41,7 +41,7 @@ public class MateriaFormController extends FormController<Materia> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", materiaList.getColumnas());
-		map.addAttribute("columnasStr", materiaList.getColumnasStr());
+		map.addAttribute("columnasStr", materiaList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

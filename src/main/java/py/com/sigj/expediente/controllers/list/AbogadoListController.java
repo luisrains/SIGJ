@@ -1,4 +1,4 @@
-package py.com.sigj.rrhh.controllers.list;
+package py.com.sigj.expediente.controllers.list;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -7,30 +7,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.controllers.list.ListController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.rrhh.dao.EmpleadoDao;
-import py.com.sigj.rrhh.domain.Empleado;
+import py.com.sigj.expediente.dao.AbogadoDao;
+import py.com.sigj.expediente.domain.Abogado;
 
 @Controller
 @Scope("session")
-@RequestMapping("empleado")
-public class EmpleadoListController extends ListController<Empleado> {
+@RequestMapping("abogado")
+public class AbogadoListController extends ListController<Abogado> {
 
 	@Autowired
-	private EmpleadoDao empleadoDao;
+	private AbogadoDao abogadoDao;
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "persona.cedula_ruc", "persona.nombre_razonSocial", "persona.apellido", "salario",
-				"fechaIngreso" };
+		return new String[] { "id", "domicilioLaboral", "domicilioActual", "empleado.salario",
+				"tipoAbogado.descripcion" };
 	}
 
 	@Override
-	public Dao<Empleado> getDao() {
-		return empleadoDao;
+	public Dao<Abogado> getDao() {
+		return abogadoDao;
 	}
 
 	public String[] getColumnasPersona() {
 		return new String[] { "id", "cedula_ruc", "nombre_razonSocial", "apellido" };
 	}
-
 }

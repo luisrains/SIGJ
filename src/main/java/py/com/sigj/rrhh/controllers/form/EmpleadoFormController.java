@@ -25,7 +25,7 @@ public class EmpleadoFormController extends FormController<Empleado> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/empleado_index";
+		return "rrhh/empleado_index";
 	}
 
 	@Override
@@ -41,7 +41,9 @@ public class EmpleadoFormController extends FormController<Empleado> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", empleadoList.getColumnas());
-		map.addAttribute("columnasStr", empleadoList.getColumnasStr());
+		map.addAttribute("columnasPersona", empleadoList.getColumnasPersona());
+		map.addAttribute("columnasStr", empleadoList.getColumnasStr(null));
+		map.addAttribute("columnasStrPersona", empleadoList.getColumnasStr(empleadoList.getColumnasPersona()));
 		super.agregarValoresAdicionales(map);
 	}
 

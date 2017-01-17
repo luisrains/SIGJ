@@ -46,7 +46,7 @@ public class DespachoFormController extends FormController<Despacho> {
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("materiaList", materiaDao.getList(0, 20, null));
 		map.addAttribute("columnas", despachoList.getColumnas());
-		map.addAttribute("columnasStr", despachoList.getColumnasStr());
+		map.addAttribute("columnasStr", despachoList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

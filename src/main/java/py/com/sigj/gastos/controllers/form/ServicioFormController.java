@@ -47,7 +47,7 @@ public class ServicioFormController extends FormController<Servicio> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", servicioList.getColumnas());
-		map.addAttribute("columnasStr", servicioList.getColumnasStr());
+		map.addAttribute("columnasStr", servicioList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

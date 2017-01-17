@@ -25,7 +25,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/movimiento_index";
+		return "rrhh/movimiento_index";
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", movimientoList.getColumnas());
-		map.addAttribute("columnasStr", movimientoList.getColumnasStr());
+		map.addAttribute("columnasStr", movimientoList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

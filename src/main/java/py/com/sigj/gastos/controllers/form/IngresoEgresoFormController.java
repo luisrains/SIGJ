@@ -47,7 +47,7 @@ public class IngresoEgresoFormController extends FormController<IngresoEgreso> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", ingresoEgresoList.getColumnas());
-		map.addAttribute("columnasStr", ingresoEgresoList.getColumnasStr());
+		map.addAttribute("columnasStr", ingresoEgresoList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 

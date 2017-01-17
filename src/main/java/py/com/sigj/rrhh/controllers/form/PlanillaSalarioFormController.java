@@ -25,7 +25,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 	@Override
 	public String getTemplatePath() {
-		return "test/planillaSalario_index";
+		return "rrhh/planillaSalario_index";
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", planillaSalarioList.getColumnas());
-		map.addAttribute("columnasStr", planillaSalarioList.getColumnasStr());
+		map.addAttribute("columnasStr", planillaSalarioList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 
