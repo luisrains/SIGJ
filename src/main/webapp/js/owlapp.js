@@ -56,7 +56,7 @@
                 }
 			console.log("creando lenguaje:", LENGUAJE)
 			 //var dataTable = $('#'+ dataTableId).dataTable(config);
-			 var dataTable = $('#'+ dataTableId).dataTable({
+			 var dataTable = $('#'+ dataTableId).DataTable({
                 'processing' : true,
                 'sAjaxSource' : ajaxSource,
                 'serverSide' : true,
@@ -88,7 +88,8 @@
              });
 			console.log("creando data:", dataTable)
 			 //Ocultamos la primera columna (id)
-			 dataTable.fnSetColumnVis(0, false);
+			 //dataTable.fnSetColumnVis(0, false);
+			dataTable.column( 0 ).visible( false );
 			 
 				 $('#'+ dataTableId + ' tbody').on('click', 'tr', function() {
 					 //Obtenemos el valor de la columna id
@@ -104,6 +105,80 @@
 		}
 		
 		
+		function crearDataTableEsp(dataTableId, ajaxSource, columnas){
+			console.log("creando DT:", dataTableId, ajaxSource, columnas)
+			
+			 /*var config={};
+			 config['processing'] = true;
+			 config['sAjaxSource'] = ajaxSource;
+			 config['serverSide'] = true;
+			 config['columns']= getColumnasArray(columnas);*/
+             var LENGUAJE = {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+			console.log("creando lenguaje:", LENGUAJE)
+			 //var dataTable = $('#'+ dataTableId).dataTable(config);
+			 var dataTable = $('#'+ dataTableId).DataTable({
+                'processing' : true,
+                'sAjaxSource' : ajaxSource,
+                'serverSide' : true,
+                'columns' : getColumnasArray(columnas),
+                'language' : {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "\n(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+             });
+			console.log("creando data:", dataTable)
+			 //Ocultamos la primera columna (id)
+			 //dataTable.fnSetColumnVis(0, false);
+			dataTable.column( 0 ).visible( false );
+			$('#personaDT tbody').on('click', 'tr', function () {
+		        var data = dataTable.row( this ).data();
+		        console.log("la fila seleccionada es:", data)
+		        alert( 'You clicked on '+data[0]+'\'s row' );
+		    } );
+		}
 		/**
 		 * 
 		 * @param magicSuggestId

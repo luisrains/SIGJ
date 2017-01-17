@@ -37,8 +37,11 @@
 									</table>
 									<script type="text/javascript">
 							 $(document).ready(function() {
-							    crearDataTable("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "[[@{/persona/edit/}]]");
+							    crearDataTableEsp("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]");
+							    
 							 });
+							 
+														 
 			 			</script>
 								</div>
 							</div>
@@ -79,6 +82,17 @@
 				        $(this).tab('show');
 				    });
 				});
+
+				/*$('#personaDT' + ' tbody').on('click', 'tr', function() {
+					 //Obtenemos el valor de la columna id
+					 var id = dataTable.fnGetData(this, 0);
+					 //Si id no es número, no hacemos nada
+					 if (isNaN(id)) {
+					 return;
+					 }
+					
+					 $('#persona.cedula_ruc').val(dataTable.fnGetData(this, 1));
+				 });*/
 			</script>
 
 	</div>
