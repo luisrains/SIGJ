@@ -86,14 +86,17 @@
                     }
                 }
              });
-			console.log("creando data:", dataTable)
+
 			 //Ocultamos la primera columna (id)
 			 //dataTable.fnSetColumnVis(0, false);
 			dataTable.column( 0 ).visible( false );
 			 
 				 $('#'+ dataTableId + ' tbody').on('click', 'tr', function() {
 					 //Obtenemos el valor de la columna id
-					 var id = dataTable.fnGetData(this, 0);
+					 //var id = dataTable.fnGetData(this, 0);
+					 var data = dataTable.row( this ).data();
+					 var id = data["id"];
+
 					 //Si id no es número, no hacemos nada
 					 if (isNaN(id)) {
 					 return;
@@ -105,8 +108,7 @@
 		}
 		
 		
-		function crearDataTableEsp(dataTableId, ajaxSource, columnas){
-			console.log("creando DT:", dataTableId, ajaxSource, columnas)
+		function crearDataTableEsp(dataTableId, ajaxSource, columnas, tipoObjeto){
 			
 			 /*var config={};
 			 config['processing'] = true;
@@ -169,14 +171,19 @@
                     }
                 }
              });
-			console.log("creando data:", dataTable)
 			 //Ocultamos la primera columna (id)
 			 //dataTable.fnSetColumnVis(0, false);
 			dataTable.column( 0 ).visible( false );
-			$('#personaDT tbody').on('click', 'tr', function () {
+			$('#'+ dataTableId + ' tbody').on('click', 'tr', function () {
 		        var data = dataTable.row( this ).data();
 		        console.log("la fila seleccionada es:", data)
-		        alert( 'You clicked on '+data[0]+'\'s row' );
+		        console.log("cedula:", data["id"]);
+		        console.log("nombre:", data["cedula_ruc"]);
+		        console.log("apellido:", data["nombre_razonSocial"]);
+		        $('#persona.cedula_ruc').val(data["cedula_ruc"]);
+		        $('#nombre').val(data["nombre_razonSocial"]);
+		        $('#apellido').val(data["apellido"]);
+		        $('#'+'[[persona.id]]').val(data["id"]);
 		    } );
 		}
 		/**

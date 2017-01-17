@@ -16,7 +16,7 @@ import py.com.sigj.main.GenericEntity;
 
 /**
  * Clase que registra la clasificación de abogados existentes.
- * 
+ *
  * @author Luis A. Méndez R.
  *
  */
@@ -70,17 +70,17 @@ public class TipoAbogado extends GenericEntity {
 		this.codigo = codigo;
 	}
 
-	public String getdescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setdescripcion(String descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
 	@Override
 	public String toString() {
-		return "tipoAbogado [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + "]";
+		return "TipoAbogado [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + "]";
 	}
 
 }
