@@ -28,7 +28,7 @@
 								<div class="col-xs-4">
 									<table
 										class="table table-bordered table-hover table-striped display"
-										id="personaDT">
+										id="empleadoDT">
 										<thead>
 											<tr>
 												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
@@ -37,8 +37,11 @@
 									</table>
 									<script type="text/javascript">
 							 $(document).ready(function() {
-							    crearDataTable("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "[[@{/persona/edit/}]]");
+							    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
+							    
 							 });
+							 
+														 
 			 			</script>
 								</div>
 							</div>
@@ -79,6 +82,17 @@
 				        $(this).tab('show');
 				    });
 				});
+
+				/*$('#personaDT' + ' tbody').on('click', 'tr', function() {
+					 //Obtenemos el valor de la columna id
+					 var id = dataTable.fnGetData(this, 0);
+					 //Si id no es número, no hacemos nada
+					 if (isNaN(id)) {
+					 return;
+					 }
+					
+					 $('#persona.cedula_ruc').val(dataTable.fnGetData(this, 1));
+				 });*/
 			</script>
 
 	</div>
