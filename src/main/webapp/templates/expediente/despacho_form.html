@@ -23,12 +23,7 @@ function nuevoRegistro() {
 </script>
 		<h4 class="page-header" th:text="#{despacho.form.titulo}">Detalles
 			de Despachos</h4>
-		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
-			th:text="${msgExito}" style="color: green">Registro Guardado</span>
-		<ul>
-			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
-				style="color: red">Debe ingresar codigo</li>
-		</ul>
+		
 		<form th:action="@{/despacho/save}" th:object="${despacho}"
 			method="post" role="form">
 
@@ -60,7 +55,7 @@ function nuevoRegistro() {
 			</div>
 
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::form_botones">aqui van los botones</div>
+			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
