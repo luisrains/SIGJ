@@ -30,6 +30,6 @@ public class AbogadoListController extends ListController<Abogado> {
 	}
 
 	public String[] getColumnasPersona() {
-		return new String[] { "id", "cedula_ruc", "nombre_razonSocial", "apellido" };
+		return new String[] { "id", "persona.cedula_ruc", "persona.nombre_razonSocial", "persona.apellido" };
 	}
 }
