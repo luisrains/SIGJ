@@ -27,11 +27,13 @@
 								</div>
 								<div class="col-xs-4 col-sm-4">
 									<table
-										class="table table-bordered table-hover table-striped display"
+										class="table table-bordered table-hover table-striped display" style="width:100%;"
 										id="personaDT">
 										<thead>
 											<tr>
+												
 												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
+												
 											</tr>
 										</thead>
 									</table>

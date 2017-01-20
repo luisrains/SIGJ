@@ -104,6 +104,7 @@
 					th:field="*{domicilioLaboral}" maxlength="100" class="form-control" />
 			</div>
 			<!-- seccion empleado -->
+			<input type="hidden" th:field="*{empleado.id}" />
             
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::form_botones">aqui van los botones</div>
