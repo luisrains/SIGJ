@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+
+
+
+	<div th:fragment="form">
+
+<script type="text/javascript">
+function limpiarForm() {
+	$("#id").val("");
+	$("#fecha").val("");
+	$("#egreso").val("");
+	$("#ingreso").val("");
+	$("#descripcion").val("");
+	
+}
+function nuevoRegistro() {
+	limpiarForm();
+	$("#botonNuevo").hide();
+	$("#salario").focus();
+}
+</script>
+		<h4 class="page-header" th:text="#{movimiento.form.titulo}">Detalles
+			de Movimientos de los Empleados</h4>
+		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
+			th:text="${msgExito}" style="color: green">Registro Guardado</span>
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+				style="color: red">Debe ingresar codigo</li>
+		</ul>
+		
+		
+		<form th:action="@{/movimiento/save}" th:object="${movimiento}"
+			method="post" role="form">
+
+			<input type="hidden" th:field="*{id}" />
+
+            
+			<div class="checkbox">
+			     <label for="egreso" th:text="#{movimiento.egreso.lbl}" class="field-label">
+			         <input type="checkbox">Egreso
+			         <input type="number" th:field="*{egreso}" maxlength="60"/>
+			     </label>
+			     <br>
+			     <label for="ingreso" th:text="#{movimiento.ingreso.lbl}" class="field-label">
+			         <input type="checkbox">Ingreso
+                     <input type="number" th:field="*{ingreso}" maxlength="60"/>
+                </label>
+			</div>
+			<div class="form-group col-xs-8 col-sm-8">
+
+				<label for="fecha" th:text="#{movimiento.fecha.lbl}" class="field-label">Fecha:</label>
+				<input type="text" th:field="*{fecha}" maxlength="60"
+					class="form-control"/>
+			</div>
+			<div class="form-group col-xs-8 col-sm-8">
+
+                <label for="descripcion" th:text="#{movimiento.descripcion.lbl}" class="field-label">Descripcion:</label>
+                <input type="text" th:field="*{descripcion}" maxlength="60"
+                    class="form-control"/>
+            </div>
+
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::form_botones">aqui van los botones</div>
+		</form>
+		<!-- Fin panel botones -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+	<div th:fragment="contenido">
+
+
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Registrar</a></li>
+				<li><a href="#menu2">Listado</a></li>
+			</ul>
+
+			<div class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de Movimientos de Empleados</h3>
+						</div>
+						<div class="box-body">
+							<div class="col-xs-12 col-sm-12 no-padding">
+								<div class="col-xs-6 col-sm-6 no-padding">
+									<div class="col-xs-12 col-sm-12" th:replace="rrhh/movimiento_form::form">aqui va un
+										fragmento de codigo del form
+									</div>
+								</div>
+								<!--  <div class="col-xs-6 col-sm-6 no-padding">
+									<table
+										class="table table-bordered table-hover table-striped display"
+										id="personaDT">
+										<thead>
+											<tr>
+												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTableEsp("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "persona");
+									  });
+									   </script>
+								</div>-->
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				<div id="menu2" class="tab-pane fade">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Listado de Movimientos de Empleados</h3>
+						</div>
+						<div class="box-body">
+
+							<table
+								class="table table-bordered table-hover table-striped display"
+								id="movimientoDT">
+								<thead>
+									<tr>
+										<th th:each="col : ${columnas}" th:text="#{'movimiento.' + ${col} + '.header'}">CÓDIGO</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							 $(document).ready(function() {
+							    crearDataTable("movimientoDT", "[[@{/movimiento/json}]]", "[[${columnasStr}]]", "[[@{/movimiento/edit/}]]");
+							 });
+			 			</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				});
+
+				
+
+				/* $('#personaDT' + ' tbody').on('click', 'tr', function() {
+                     //Obtenemos el valor de la columna id
+                     var id = dataTable.fnGetData(this, 0);
+                     //Si id no es número, no hacemos nada
+                     if (isNaN(id)) {
+                     return;
+                     }
+                     for i i
+                    $('.lbl-prueba').val(dataTable.fnGetData(this, i));
+                     
+                 });*/
+                 $("#persona.cedula_ruc").val("ola");
+			</script>
+
+	</div>
+</body>
+</html>
