@@ -1,0 +1,12 @@
+/*!
+ * Estilos propios del proyecto SIGJ
+ */
+ 
+ .alinear{
+    float:right;
+ }
+ .no-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+ 

@@ -104,25 +104,6 @@
 					th:field="*{domicilioLaboral}" maxlength="100" class="form-control" />
 			</div>
 			<!-- seccion empleado -->
-			<input type="hidden" th:field="*{empleado}" />
-			<div class="form-group col-xs-8 col-sm-8">
-
-                <label for="persona.cedula_ruc" th:text="#{empleado.persona.cedula.lbl}"
-                 class="field-label">Cedula:</label>
-                <input type="text" id="cedula_ruc" maxlength="60"
-                    class="form-control" />
-            </div>
-            <div class="form-group col-xs-8 col-sm-8">
-                <label for="persona.nombre_razonSocial" th:text="#{empleado.persona.nombre.lbl}"
-                    class="field-label">Nombre:</label> <input type="text"
-                    id="nombre" maxlength="60" class="form-control"/>
-            </div>
-            <div class="form-group col-xs-8 col-sm-8">
-                <label for="persona.apellido" th:text="#{empleado.persona.apellido.lbl}"
-                    class="field-label">Apellido:</label> <input type="text"
-                    id="apellido" maxlength="100" class="form-control"/>
-            </div>
-
             
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::form_botones">aqui van los botones</div>

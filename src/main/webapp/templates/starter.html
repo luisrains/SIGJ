@@ -23,7 +23,9 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}" href="../dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" th:href="@{/css/styles.css}" href="../css/styles.css">
+  <!-- Style Sigj -->
+  <link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css">
+  
 <!-- jQuery 2.2.3 -->
 <script th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}" src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- OWL -->
@@ -226,6 +228,42 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Gestion jurídica</li>
       </ol>
+      <div class="row">
+			<div class="alert alert-success alert-dismissable alinear col-sm-5" role="alert" id="alerta" style="display:none;">
+				<button type="button" class="close" data-dismiss="alert">x</button>
+				<strong th:text="${msgExito} ? ${msgExito} : ${error}">Well done!</strong>
+			</div>
+			
+			<div th:each=" err : ${errorList}" class="alert alert-danger alert-dismissable alinear errorEach col-sm-5" role="alert" id="alerta2" style="display:none; color: black;">
+				<button type="button" class="close" data-dismiss="alert">x</button>
+				<strong th:text="#{${err.defaultMessage}}">Well done!</strong>
+			</div>
+			
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		$(document).ready(function() {
+			console.log("entro aca");
+			if(/*[[${error}]]*/){
+				console.log("entro en error");
+				$("#alerta").removeClass("alert-success");
+				$("#alerta").addClass("alert-danger");
+				$("#alerta").fadeIn(5000);
+				$("#alerta").fadeOut(1000);
+
+				$(".errorEach").fadeIn(5000);
+				$(".errorEach").fadeOut(1000);
+			}
+
+			if(/*[[${msgExito}]]*/){
+				console.log("entro en exito");
+				$("#alerta").fadeIn(2000);
+				$("#alerta").fadeOut(1000);
+			}
+		});
+					/*]]>*/
+		</script>
+		</div>
     </section>
 
     <!-- Main content -->
