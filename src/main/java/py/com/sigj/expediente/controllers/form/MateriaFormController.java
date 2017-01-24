@@ -25,7 +25,7 @@ public class MateriaFormController extends FormController<Materia> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/materia_index";
+		return "expediente/materia_index";
 	}
 
 	@Override

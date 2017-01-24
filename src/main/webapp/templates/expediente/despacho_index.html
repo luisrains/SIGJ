@@ -2,65 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
 
 <body>
-	<div th:fragment="contenido">
 
-
-		<div class="bd-example-row box-shadow">
-			<ul class="nav nav-tabs">
-				<!-- Standard button -->
-				<li class="active"><a href="#menu1">Registrar</a></li>
-				<li><a href="#menu2">Listado</a></li>
-			</ul>
-
-			<div class="tab-content">
-
-				<div id="menu1" class="tab-pane fade in active">
-					<div class="box box-solid box-primary">
-						<div class="box-header">
-							<h3>Registro de Despachos</h3>
-						</div>
-						<div class="box-body">
-							<div th:replace="expediente/despacho_form::form">aqui va un
-								fragmento de codigo del form</div>
-						</div>
-					</div>
-				</div>
-
-				<div id="menu2" class="tab-pane fade">
+	<div class="row" th:fragment="contenido">
+		
+			<div class="col-xs-12">		
 					<div class="box box-solid box-primary">
 						<div class="box-header">
 							<h3>Listado de Despachos</h3>
 						</div>
 						<div class="box-body">
-
+							<button class="btn btn-success" id="botonAgregar"
+								 onclick="agregar()">
+								<i class="glyphicon glyphicon-plus"></i> Nuevo Despacho
+							</button>
+							<br>
 							<table
-								class="table table-bordered table-hover table-striped display"
+								class="table table-bordered table-striped"
 								id="despachoDT">
 								<thead>
 									<tr>
-										<th th:each="col : ${columnas}" th:text="#{'cliente.' + ${col} + '.header'}">CÓDIGO</th>
+										 <th th:each="col : ${columnas}" th:text="#{'despacho.' + ${col} + '.header'}">CÓDIGO</th>
+										
 									</tr>
 								</thead>
 							</table>
 							<script type="text/javascript">
+							
 							 $(document).ready(function() {
-							    crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
+							   crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
 							 });
 			 			</script>
 						</div>
+						<!-- /.box-body -->
 					</div>
+					<!-- /.box -->
+					</div>
+
+				<!-- Modal borrar -->
+		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel"
+							>Nuevo Registro</h4>
+					</div>
+					<div class="modal-body">
+						<div th:replace="expediente/despacho_form::form">aqui va un
+								fragmento de codigo del form</div>
+					</div>
+					
 				</div>
+				<!-- /.modal-content -->
 			</div>
-		</div>
-
-		<script>
-				$(document).ready(function(){
-				    $(".nav-tabs a").click(function(){
-				        $(this).tab('show');
-				    });
-				});
+			<!-- /.modal-dialog -->
+			<script type="text/javascript">
+			function agregar(){
+				$("#formModal").modal("show");
+			}
 			</script>
+			
+		</div>
+		<!-- Modal borrar -->
 
+			
 	</div>
+	
+	 
 </body>
 </html>

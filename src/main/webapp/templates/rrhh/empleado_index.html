@@ -68,23 +68,7 @@
 							<script type="text/javascript">
 							 $(document).ready(function() {
 							    crearDataTable("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStr}]]", "[[@{/empleado/edit/}]]");
-							    $('#personaDT tbody').on( 'click', 'tr', function () {
-								    if($("form input:last").val() == ""){
-											return;
-									    }else{
-
-										    }
-					         		if ( $(this).hasClass('selected') ) {
-					         			$(this).removeClass('selected');
-					         			$("form input:last").val("");
-					         		}
-					         		else {
-					         			dataTable.$('tr.selected').removeClass('selected');
-					         			$(this).addClass('selected');
-					         			var data = dataTable.row( this ).data();
-					         			$("form input:last").val(data["id"]);
-					         		}
-					         	} );
+							
 							 });
 			 			</script>
 						</div>
