@@ -41,7 +41,9 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", movimientoList.getColumnas());
+		map.addAttribute("columnasPersona", movimientoList.getColumnasPersona());
 		map.addAttribute("columnasStr", movimientoList.getColumnasStr(null));
+		map.addAttribute("columnasStrPersona", movimientoList.getColumnasStr(movimientoList.getColumnasPersona()));
 		super.agregarValoresAdicionales(map);
 	}
 

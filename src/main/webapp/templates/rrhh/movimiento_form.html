@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>AdminLTE 2 | Dashboard</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
+	href="../bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	th:href="@{/bootstrap/fonts/font-awesome.min.css}"
+	href="../bootstrap/fonts/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" th:href="@{/bootstrap/fonts/ionicons.min.css}"
+	href="../bootstrap/fonts/ionicons.min.css">
+<!-- jvectormap -->
+<link rel="stylesheet"
+	th:href="@{/plugins/jvectormap/jquery-jvectormap-1.2.2.css}"
+	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"
+	href="../dist/css/AdminLTE.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"
+	href="../dist/css/skins/_all-skins.min.css">
+<!-- OWLP -->
+<script type="text/javascript" src="../js/owlapp.js"
+	th:src="@{/js/owlapp.js}"></script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+
+
+
+	<div th:fragment="form">
+
+		<script type="text/javascript">
+			function limpiarForm() {
+				$("#id").val("");
+				$("#egreso").val("");
+				$("#ingreso").val("");
+				$("#fecha").val("");
+				$("#descripcion").val("");
+			}
+			function nuevoRegistro() {
+				limpiarForm();
+				$("#botonNuevo").hide();
+				$("#egreso").focus();
+			}
+		</script>
+		<h4 class="page-header" th:text="#{movimiento.form.titulo}">Detalles
+			de Movimientos</h4>
+		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
+            th:text="${msgExito}" style="color: green">Registro Guardado</span>
+        <ul>
+            <li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+                style="color: red">Debe ingresar codigo</li>
+        </ul>
+		<form th:action="@{/movimiento/accion}" th:object="${movimiento}"
+			method="post" role="form">
+
+			<input type="hidden" th:field="*{id}" />
+			
+			<div class="form-group col-xs-8 col-sm-8">
+				<label for="egreso" th:text="#{movimiento.egreso.lbl}" class="field-label">
+				Egreso:</label>
+				<input type="text" th:field="*{egreso}" maxlength="100"
+					class="form-control" autofocus="autofocus" />
+			</div>
+			<div class="form-group col-xs-8 col-sm-8">
+				<label for="ingreso" th:text="#{movimiento.ingreso.lbl}"
+					class="field-label">Ingreso:</label> <input type="text"
+					th:field="*{ingreso}" maxlength="100" class="form-control" />
+			</div>
+			<div class="form-group col-xs-8 col-sm-8">
+                <label for="fecha" th:text="#{movimiento.fecha.lbl}"
+                    class="field-label">Fecha:</label> <input type="text"
+                    th:field="*{fecha}" maxlength="100" class="form-control" />
+            </div>
+            <div class="form-group col-xs-8 col-sm-8">
+                <label for="descripcion" th:text="#{movimiento.descripcion.lbl}"
+                    class="field-label">Descripcion:</label> <input type="text"
+                    th:field="*{descripcion}" maxlength="100" class="form-control" />
+            </div>
+			<!-- seccion empleado -->
+			<input type="hidden" th:field="*{empleado.id}" />
+            
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::form_botones">aqui van los botones</div>
+		</form>
+		<!-- Fin panel botones -->
+		
+	</div>
+</body>
+</html>
