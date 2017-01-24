@@ -17,35 +17,35 @@
 				<div id="menu1" class="tab-pane fade in active">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
-							<h3>Registro de Empleados</h3>
+							<h3>Registro de Movimientos de Empleados</h3>
 						</div>
 						<div class="box-body">
 							<div class="col-xs-12 col-sm-12 no-padding">
 								<div class="col-xs-6 col-sm-6 no-padding">
-									<div class="col-xs-12 col-sm-12" th:replace="rrhh/empleado_form::form">aqui va un
-										fragmento de codigo del form</div>
+									<div class="col-xs-12 col-sm-12" th:replace="rrhh/movimiento_form::form">aqui va
+										un fragmento de codigo del form</div>
 								</div>
 								<div class="col-xs-6 col-sm-6 no-padding">
 									<table
-										class="table table-bordered table-hover table-striped display" style="width:100%;"
-										id="personaDT">
+                                        class="table table-bordered table-hover table-striped display" style="width:100%;"
+                                        id="empleadoDT">
 										<thead>
 											<tr>
-												
-												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
-												<th th:each="col : ${columnasPersona}" th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>
-												
+												<th th:each="col : ${columnasPersona}" th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
 											</tr>
 										</thead>
 									</table>
 									<script type="text/javascript">
-									   $(document).ready(function() {
-										   crearDataTableEsp("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "persona");
-									  });
-									   </script>
+							 $(document).ready(function() {
+							    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
+							    
+							    
+							 });
+							 
+														 
+			 			</script>
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
@@ -53,23 +53,23 @@
 				<div id="menu2" class="tab-pane fade">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
-							<h3>Listado de Empleados</h3>
+							<h3>Listado de Movimientos</h3>
 						</div>
 						<div class="box-body">
 
 							<table
 								class="table table-bordered table-hover table-striped display"
-								id="empleadoDT">
+								id="movimientoDT">
 								<thead>
 									<tr>
-										<th th:each="col : ${columnas}" th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
+									   <th th:each="col : ${columnas}" th:text="#{'movimiento.' + ${col} + '.header'}">CÓDIGO</th>
+										<!--  <th th:each=" col : ${columnas}" th:text="${col}">colum1</th>-->
 									</tr>
 								</thead>
 							</table>
 							<script type="text/javascript">
 							 $(document).ready(function() {
-							    crearDataTable("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStr}]]", "[[@{/empleado/edit/}]]");
-							
+							    crearDataTable("movimientoDT", "[[@{/movimiento/json}]]", "[[${columnasStr}]]", "[[@{/movimiento/edit/}]]");
 							 });
 			 			</script>
 						</div>
@@ -84,10 +84,6 @@
 				        $(this).tab('show');
 				    });
 				});
-
-				
-
-			
 			</script>
 
 	</div>

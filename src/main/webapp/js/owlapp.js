@@ -19,9 +19,35 @@
 								columnsArray.push( {"data" : val} );
 					});
 					console.log(colsStr, "->", columnsArray);
+					
 					return columnsArray;
 			}
 		
+		function getColumnasArrayEsp(colsStr){
+			/*
+			1. declarar un array para retornar
+			2. separar colsStr teniendo en cuenta ';''
+			3. iterar para crear el array
+			*/
+			    //1
+				var columnsArray = [];
+				//2
+				var arrayCol = colsStr.split(";");
+				//3 , se puede crear una funcion aparte en vez de hacer function
+				jQuery.each(arrayCol, function(i, val){
+					
+							if(val==true){val = "Si";}else if(val == false){val="No";}
+							columnsArray.push( {"data" : val} );
+				});
+				
+				/*columnsArray.push( {
+		            orderable: false,
+		            className: 'select-checkbox',
+		            targets:   0
+		        } );*/
+				console.log(colsStr, "->", columnsArray);
+				return columnsArray;
+		}
 		function crearDataTable(dataTableId, ajaxSource, columnas, editUrl){
 			console.log("creando DT:", dataTableId, ajaxSource, columnas, editUrl)
 			
@@ -54,10 +80,10 @@
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
                 }
-			console.log("creando lenguaje:", LENGUAJE)
 			 //var dataTable = $('#'+ dataTableId).dataTable(config);
 			 var dataTable = $('#'+ dataTableId).DataTable({
                 'processing' : true,
+                'responsive': true,
                 'sAjaxSource' : ajaxSource,
                 'serverSide' : true,
                 'columns' : getColumnasArray(columnas),
@@ -84,15 +110,6 @@
                         "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
-                },
-                columnDefs: [ {
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets:   0
-                } ],
-                select: {
-                    style:    'os',
-                    selector: 'td:first-child'
                 }
              });
 
@@ -112,8 +129,10 @@
 					 }
 					
 					 window.location.href = editUrl + id; //"/estudio/cliente/edit/" + id;
+					//codigo que selecciona la fila
+		            
 				 });
-			
+				 
 		}
 		
 		
@@ -148,13 +167,14 @@
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
                 }
-			console.log("creando lenguaje:", LENGUAJE)
+			
 			 //var dataTable = $('#'+ dataTableId).dataTable(config);
 			 var dataTable = $('#'+ dataTableId).DataTable({
                 'processing' : true,
+                'responsive': true,
                 'sAjaxSource' : ajaxSource,
                 'serverSide' : true,
-                'columns' : getColumnasArray(columnas),
+                'columns' : getColumnasArrayEsp(columnas),
                 'language' : {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
@@ -182,19 +202,23 @@
              });
 			 //Ocultamos la primera columna (id)
 			 //dataTable.fnSetColumnVis(0, false);
-			dataTable.column( 0 ).visible( false );
-			$('#'+ dataTableId + ' tbody').on('click', 'tr', function () {
-		        var data = dataTable.row( this ).data();
-		        console.log("la fila seleccionada es:", data)
-		        console.log("cedula:", data["id"]);
-		        console.log("nombre:", data["cedula_ruc"]);
-		        console.log("apellido:", data["nombre_razonSocial"]);
-		        $('#persona.cedula_ruc').val(data["cedula_ruc"]);
-		        $('#nombre').val(data["nombre_razonSocial"]);
-		        $('#apellido').val(data["apellido"]);
-		        $('#'+'[[persona.id]]').val(data["id"]);
-		    } );
-		}
+             dataTable.column( 0 ).visible( false );
+             console.log("creando data:", dataTable)
+             //codigo que selecciona la fila
+             $('#'+ dataTableId + ' tbody').on( 'click', 'tr', function () {
+         		if ( $(this).hasClass('selected') ) {
+         			$(this).removeClass('selected');
+         			$("form input:last").val("");
+         		}
+         		else {
+         			dataTable.$('tr.selected').removeClass('selected');
+         			$(this).addClass('selected');
+         			var data = dataTable.row( this ).data();
+         			$("form input:last").val(data["id"]);
+         		}
+         	} );
+             
+           }
 		/**
 		 * 
 		 * @param magicSuggestId
@@ -225,3 +249,5 @@
 				  
 				});
 	    }*/
+		
+		

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import py.com.sigj.main.GenericEntity;
@@ -25,15 +27,14 @@ public class Movimiento extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "movimiento.ingreso.notNull")
 	private int ingreso;
 
-	@NotNull(message = "movimiento.egreso.notNull")
 	private int egreso;
 
+	@Temporal(TemporalType.DATE)
 	@NotNull(message = "movimiento.fecha.notNull")
 	private Date fecha;
-	
+
 	@NotNull(message = "movimiento.descripcion.notNull")
 	private String descripcion;
 
@@ -87,7 +88,6 @@ public class Movimiento extends GenericEntity {
 		this.empleado = empleado;
 	}
 
-	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -101,7 +101,5 @@ public class Movimiento extends GenericEntity {
 		return "MovimientoEmpleado [id=" + id + ", ingreso=" + ingreso + ", egreso=" + egreso + ", fecha=" + fecha
 				+ ", descripcion=" + descripcion + ", empleado=" + empleado + "]";
 	}
-
-	
 
 }

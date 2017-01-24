@@ -50,59 +50,51 @@
 		<script type="text/javascript">
 			function limpiarForm() {
 				$("#id").val("");
+				$("#egreso").val("");
+				$("#ingreso").val("");
+				$("#fecha").val("");
 				$("#descripcion").val("");
-				$("#juez").val("");
-				$("#materia1").val("");
 			}
 			function nuevoRegistro() {
 				limpiarForm();
 				$("#botonNuevo").hide();
-				$("#descripcion").focus();
+				$("#egreso").focus();
 			}
 		</script>
-		<h4 class="page-header" th:text="#{despacho.form.titulo}">Detalles
-			de Abogados</h4>
-		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
-		<span  style="color: green">
-			<div class="alert alert-success" role="alert" th:text="${msgExito}">
-				<strong>Well done!</strong> You successfully read this important
-				alert message.
-			</div>
-		</span>
-		<ul>
-			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
-				style="color: red">Debe ingresar codigo</li>
-		</ul>
-		<form th:action="@{/abogado/accion}" th:object="${abogado}"
+		<h4 class="page-header" th:text="#{movimiento.form.titulo}">Detalles
+			de Movimientos</h4>
+		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
+            th:text="${msgExito}" style="color: green">Registro Guardado</span>
+        <ul>
+            <li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+                style="color: red">Debe ingresar codigo</li>
+        </ul>
+		<form th:action="@{/movimiento/accion}" th:object="${movimiento}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
-
-			<div class="form-group">
-				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}"
-					class="field-label">Tipo de Abogado:</label> 
-					
-					<select th:field="*{tipoAbogado}"
-					class="form-control form-group tipoAbogado">
-					<option th:each=" tip : ${tipoAbogadoList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Apoderado</option>
-				</select>
-				
-				
-			</div>
 			
-			<div class="form-group">
-				<label for="domicilioActual" th:text="#{abogado.domicilioActual.lbl}" class="field-label">
-				Domicilio Actual:</label>
-				<input type="text" th:field="*{domicilioActual}" maxlength="100"
+			<div class="form-group col-xs-8 col-sm-8">
+				<label for="egreso" th:text="#{movimiento.egreso.lbl}" class="field-label">
+				Egreso:</label>
+				<input type="text" th:field="*{egreso}" maxlength="100"
 					class="form-control" autofocus="autofocus" />
 			</div>
-			<!--REALIZAR CAMBIOS PARA EMPLEADO Y NO PERSONA  -->
-			<div class="form-group">
-				<label for="domicilioLaboral" th:text="#{abogado.domicilioLaboral.lbl}"
-					class="field-label">Domicilio Laboral:</label> <input type="text"
-					th:field="*{domicilioLaboral}" maxlength="100" class="form-control" />
+			<div class="form-group col-xs-8 col-sm-8">
+				<label for="ingreso" th:text="#{movimiento.ingreso.lbl}"
+					class="field-label">Ingreso:</label> <input type="text"
+					th:field="*{ingreso}" maxlength="100" class="form-control" />
 			</div>
+			<div class="form-group col-xs-8 col-sm-8">
+                <label for="fecha" th:text="#{movimiento.fecha.lbl}"
+                    class="field-label">Fecha:</label> <input type="text"
+                    th:field="*{fecha}" maxlength="100" class="form-control" />
+            </div>
+            <div class="form-group col-xs-8 col-sm-8">
+                <label for="descripcion" th:text="#{movimiento.descripcion.lbl}"
+                    class="field-label">Descripcion:</label> <input type="text"
+                    th:field="*{descripcion}" maxlength="100" class="form-control" />
+            </div>
 			<!-- seccion empleado -->
 			<input type="hidden" th:field="*{empleado.id}" />
             
@@ -110,13 +102,7 @@
 			<div th:replace="botones::form_botones">aqui van los botones</div>
 		</form>
 		<!-- Fin panel botones -->
-		<script type="text/javascript">
-		$(function () {
-			$(".tipoAbogado").select2();});
-
-
-		 
-		</script>
+		
 	</div>
 </body>
 </html>

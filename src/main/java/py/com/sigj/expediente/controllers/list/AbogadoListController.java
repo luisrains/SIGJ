@@ -21,7 +21,7 @@ public class AbogadoListController extends ListController<Abogado> {
 	@Override
 	public String[] getColumnas() {
 		return new String[] { "id", "domicilioLaboral", "domicilioActual", "empleado.salario",
-				"tipoAbogado.descripcion" };
+				"empleado.persona.nombre_razonSocial", "tipoAbogado.descripcion" };
 	}
 
 	@Override
