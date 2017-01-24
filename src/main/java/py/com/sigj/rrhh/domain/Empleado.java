@@ -39,6 +39,7 @@ public class Empleado extends GenericEntity {
 	private Persona persona;
 
 	@Temporal(TemporalType.DATE)
+	@NotNull(message = "empleado.fechaIngreso.notNull")
 	private Date fechaIngreso;
 
 	public Empleado() {

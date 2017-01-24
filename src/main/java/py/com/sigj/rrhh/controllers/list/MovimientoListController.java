@@ -20,12 +20,17 @@ public class MovimientoListController extends ListController<Movimiento> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "ingreso", "egreso", "fecha", "descripcion" };
+		return new String[] { "id", "empleado.persona.cedula_ruc", "empleado.persona.nombre_razonSocial",
+				"empleado.persona.apellido", "ingreso", "egreso", "fecha", "descripcion" };
 	}
 
 	@Override
 	public Dao<Movimiento> getDao() {
 		return movimientoDao;
+	}
+
+	public String[] getColumnasPersona() {
+		return new String[] { "id", "persona.cedula_ruc", "persona.nombre_razonSocial", "persona.apellido" };
 	}
 
 }

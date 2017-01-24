@@ -54,6 +54,7 @@
 				<bean class="py.com.sigj.converters.MateriaConverter" />
 				<bean class="py.com.sigj.converters.PersonaConverter" />
 				<bean class="py.com.sigj.converters.EmpleadoConverter" />
+				<bean class="py.com.sigj.converters.MovimientoConverter" />
 			</set>
 		</property>
 		
