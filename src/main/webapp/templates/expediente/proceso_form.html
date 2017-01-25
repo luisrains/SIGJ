@@ -12,8 +12,8 @@
 function limpiarForm() {
 	$("#id").val("");
 	$("#descripcion").val("");
-	$("#juez").val("");
-	$("#materia").val("");
+	$("#codigo").val("");
+	$("#proceso").val("");
 }
 function nuevoRegistro() {
 	limpiarForm();
@@ -21,28 +21,28 @@ function nuevoRegistro() {
 	$("#descripcion").focus();
 }
 </script>
-		<h4 class="page-header" th:text="#{despacho.form.titulo}">Detalles
-			de Despachos</h4>
+		<h4 class="page-header" th:text="#{proceso.form.titulo}">Detalles
+			de procesos</h4>
 		
-		<form th:action="@{/despacho/save}" th:object="${despacho}"
+		<form th:action="@{/proceso/save}" th:object="${proceso}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
 
-
 			<div class="form-group">
-				<label for="descripcion" th:text="#{despacho.descripcion.lbl}"
+				<label for="codigo" th:text="#{proceso.codigo.lbl}" class="field-label">Código:</label>
+				<input type="text" th:field="*{codigo}" maxlength="60"
+					class="form-control" autofocus="autofocus" />
+			</div>
+			
+			<div class="form-group">
+				<label for="descripcion" th:text="#{proceso.descripcion.lbl}"
 					class="field-label">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control" />
 			</div>
+			
 			<div class="form-group">
-
-				<label for="juez" th:text="#{despacho.juez.lbl}" class="field-label">juez:</label>
-				<input type="text" th:field="*{juez}" maxlength="60"
-					class="form-control" autofocus="autofocus" />
-			</div>
-			<div class="form-group">
-				<label for="materia" th:text="#{despacho.materia.lbl}"
+				<label for="materia" th:text="#{proceso.materia.lbl}"
 					class="field-label">materia:</label> 
 					
 					 <select th:field="*{materia}"
@@ -61,6 +61,7 @@ function nuevoRegistro() {
 		    //Initialize Select2 Elements
 		    $(".materia").select2();});
 		</script>
+
 	</div>
 </body>
 </html>
