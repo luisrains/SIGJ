@@ -2,11 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-
-
-
 	<div th:fragment="form_ingreso_egreso">
-
 		<script type="text/javascript">
 			function limpiarForm() {
 				$("#id").val("");
@@ -23,7 +19,7 @@
 		<h4 class="page-header" th:text="#{ingreso_egreso.form.titulo}">Detalles
 			de Ingresos y Egresos</h4>
 		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
-		<span  style="color: green">
+		<span style="color: green">
 			<div class="alert alert-success" role="alert" th:text="${msgExito}">
 				<strong>Well done!</strong> You successfully read this important
 				alert message.
@@ -33,8 +29,8 @@
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar caja</li>
 		</ul>
-		<form th:action="@{/ingreso_egreso/accion}" th:object="${ingreso_egreso}"
-			method="post" role="form">
+		<form th:action="@{/ingreso_egreso/accion}"
+			th:object="${ingreso_egreso}" method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
 
@@ -46,8 +42,10 @@
 			</div>
 			<div class="form-group">
 
-				<label for="tipoingreso_egreso" th:text="#{ingreso_egreso.tipoingreso_egreso.lbl}" class="field-label">tipoingreso_egreso:</label>
-				<input type="text" th:field="*{tipoingreso_egreso}" maxlength="60"
+				<label for="tipoingreso_egreso"
+					th:text="#{ingreso_egreso.tipoingreso_egreso.lbl}"
+					class="field-label">tipoingreso_egreso:</label> <input type="text"
+					th:field="*{tipoingreso_egreso}" maxlength="60"
 					class="form-control" autofocus="autofocus" />
 			</div>
 

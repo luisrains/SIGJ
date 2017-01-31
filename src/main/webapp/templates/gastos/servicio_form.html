@@ -2,11 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-
-
-
 	<div th:fragment="form_servicio">
-
 		<script type="text/javascript">
 			function limpiarForm() {
 				$("#id").val("");
@@ -23,16 +19,18 @@
 		<h4 class="page-header" th:text="#{servicio.form.titulo}">Detalles
 			de servicios</h4>
 		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
-		<span  style="color: green">
+		<span style="color: green">
 			<div class="alert alert-success" role="alert" th:text="${msgExito}">
 				<strong>Well done!</strong> You successfully read this important
 				alert message.
 			</div>
 		</span>
+
 		<ul>
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar codigo</li>
 		</ul>
+
 		<form th:action="@{/servicio/accion}" th:object="${servicio}"
 			method="post" role="form">
 
@@ -46,9 +44,10 @@
 			</div>
 			<div class="form-group">
 
-				<label for="tipoServicio" th:text="#{servicio.tipoServicio.lbl}" class="field-label">tipoServicio:</label>
-				<input type="text" th:field="*{tipoServicio}" maxlength="60"
-					class="form-control" autofocus="autofocus" />
+				<label for="tipoServicio" th:text="#{servicio.tipoServicio.lbl}"
+					class="field-label">tipoServicio:</label> <input type="text"
+					th:field="*{tipoServicio}" maxlength="60" class="form-control"
+					autofocus="autofocus" />
 			</div>
 
 			<!-- Inicio panel botones -->
