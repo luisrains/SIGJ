@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+
+
+
+	<div th:fragment="form_tipoIngresoEgreso">
+
+		<script type="text/javascript">
+			function limpiarForm() {
+				$("#id").val("");
+				$("#codigo").val("");
+				$("#descripcion").val("");
+			}
+			function nuevoRegistro() {
+				limpiarForm();
+				$("#botonNuevo").hide();
+				$("#descripcion").focus();
+			}
+		</script>
+		<h4 class="page-header" th:text="#{tipoIngresoEgreso.form.titulo}">Detalles
+			de Tipos de Ingresos y Egresos</h4>
+		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
+		<span  style="color: green">
+			<div class="alert alert-success" role="alert" th:text="${msgExito}">
+				<strong>Well done!</strong> You successfully read this important
+				alert message.
+			</div>
+		</span>
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+				style="color: red">Debe ingresar codigo</li>
+		</ul>
+		<form th:action="@{/tipo_ingreso_egreso/accion}" th:object="${tipoIngresoEgreso}"
+			method="post" role="form">
+
+			<input type="hidden" th:field="*{id}" />
+
+
+			<div class="form-group">
+				<label for="codigo" th:text="#{tipoIngresoEgreso.cogigo.lbl}"
+					class="field-label">Código:</label> <input type="text"
+					th:field="*{codigo}" maxlength="100" class="form-control" />
+			</div>
+			<div class="form-group">
+
+				<label for="descripcion" th:text="#{tipoIngresoEgreso.descripcion.lbl}" class="field-label">Descripción:</label>
+				<input type="text" th:field="*{descripcion}" maxlength="60"
+					class="form-control" autofocus="autofocus" />
+			</div>
+
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::form_botones">aqui van los botones</div>
+		</form>
+		<!-- Fin panel botones -->
+	</div>
+</body>
+</html>

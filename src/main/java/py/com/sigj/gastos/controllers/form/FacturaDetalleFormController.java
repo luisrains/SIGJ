@@ -31,7 +31,7 @@ public class FacturaDetalleFormController extends FormController<FacturaDetalle>
 
 	@Override
 	public String getTemplatePath() {
-		return "test/facturaDetalle_index";
+		return "gastos/facturaDetalle_index";
 	}
 
 	@Override
