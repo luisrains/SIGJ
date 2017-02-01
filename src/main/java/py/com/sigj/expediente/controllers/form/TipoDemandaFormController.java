@@ -29,7 +29,7 @@ public class TipoDemandaFormController extends FormController<TipoDemanda> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/tipoDemanda_index";
+		return "expediente/tipo_demanda_index";
 	}
 
 	@Override

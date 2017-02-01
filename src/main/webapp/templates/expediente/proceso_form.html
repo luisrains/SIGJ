@@ -23,9 +23,9 @@ function nuevoRegistro() {
 </script>
 		<h4 class="page-header" th:text="#{proceso.form.titulo}">Detalles
 			de procesos</h4>
-		
-		<form th:action="@{/proceso/save}" th:object="${proceso}"
-			method="post" role="form">
+		<!-- th:action="@{/proceso/accion}" -->
+		<form  th:object="${proceso}" th:action="@{/proceso/save_listado}"
+			method="post" role="form" id="idProceso">
 
 			<input type="hidden" th:field="*{id}" />
 
@@ -46,9 +46,20 @@ function nuevoRegistro() {
 					class="field-label">materia:</label> 
 					
 					 <select th:field="*{materia}"
-					class="form-control materia">
+					class="form-control materia" multiple="multiple">
 					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
 						th:text="${tip.descripcion}">Excelente</option>
+				</select> 
+			</div>
+			
+			<div class="form-group">
+				<label for="tipoDemanda" th:text="#{proceso.tipoDemanda.lbl}"
+					class="field-label">Tipos de Demandas:</label>
+					
+					 <select 
+					class="form-control tipoDemanda" multiple="multiple" id="tipoDemanda" name="selec">
+					<option th:each=" dem : ${tipoDemandaList}" th:value="${dem.id}"
+						th:text="${dem.descripcion}">Ejecutivo</option>
 				</select> 
 			</div>
 
@@ -57,9 +68,42 @@ function nuevoRegistro() {
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
+		/*function guardar(){
+			
+			var objeto = $("#idProceso").val();
+			console.log("form value ",$("#idProceso").val());
+			var listado = $( "#tipoDemanda" ).val();
+			console.log("selec",  listado);
+			$.ajax({
+				type: "POST",
+				url: "/proceso/accion",
+				data: { 
+					obj: objeto,
+					listado: listado
+				}
+			}).done(function(html){
+				console.log("html",html);
+				window.location.href = html
+			})
+			};*/
 		$(function () {
 		    //Initialize Select2 Elements
-		    $(".materia").select2();});
+		    $(".materia").select2();
+			$(".tipoDemanda").select2({
+					placeholder: "Seleccione los tipos de demandas..."
+			});
+			
+			$(".tipoDemanda").on('change', function() {
+			    
+			    console.log("prop->",$(this).prop('value') );
+			    console.log("selec tipo demanda",$(".tipoDemanda").val() );	
+				console.log("selec materia",$(".materia").val() );	
+				typeof ($(".materia").val());
+				console.log(($(".materia").val()));
+			  });
+				
+
+			});
 		</script>
 
 	</div>
