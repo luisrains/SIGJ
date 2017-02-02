@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -70,12 +71,12 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="hidden"><a href="#page-top"></a></li>
-						<li><a class="page-scroll" href="#services">PERFIL DEL
+						<li><a class="page-scroll" href="#about">PERFIL DEL
 								DESPACHO</a></li>
-						<li><a class="page-scroll" href="#portfolio">STAFF</a></li>
-						<li><a class="page-scroll" href="#about">GALERIA</a></li>
-						<li><a class="page-scroll" href="#team">ÁREAS JURÍDICAS</a></li>
-						<li><a class="page-scroll" href="#donde">NUESTROS CLIENTES</a></li>
+						<li><a class="page-scroll" href="#team">STAFF</a></li>
+						<li><a class="page-scroll" href="#portfolio">GALERIA</a></li>
+						<li><a class="page-scroll" href="#services">ÁREAS JURÍDICAS</a></li>
+						<li><a class="page-scroll" href="#clients">NUESTROS CLIENTES</a></li>
 						<li><a class="page-scroll" href="#contact">CONTACTO</a></li>
 					</ul>
 				</div>
@@ -113,8 +114,8 @@
 						<ul class="timeline">
 							<li>
 								<div class="timeline-image">
-									<img class="img-circle img-responsive" src="img/about/1.jpg"
-										alt="">
+									<img class="img-circle img-responsive" th:src="@{/img/logos/mision.png}" 
+										 src="img/logos/mision.png" alt="">
 								</div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
@@ -135,8 +136,8 @@
 							</li>
 							<li class="timeline-inverted">
 								<div class="timeline-image">
-									<img class="img-circle img-responsive" src="img/about/2.jpg"
-										alt="">
+									<img class="img-circle img-responsive" th:src="@{/img/logos/vision.png}" 
+										 src="img/logos/vision.png" alt="">
 								</div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
@@ -154,12 +155,12 @@
 							</li>
 							<li>
 								<div class="timeline-image">
-									<img class="img-circle img-responsive" src="img/about/3.jpg"
-										alt="">
+									<img class="img-circle img-responsive" th:src="@{/img/logos/valores.jpg}"
+										 src="img/logos/valores.jpg" alt="">
 								</div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
-										<h4 class="subheading">VALORES</h4>
+										<h4 class="subheading">VALORES</h4>		
 									</div>
 									<div class="timeline-body">
 										<p class="text-muted">
@@ -195,12 +196,13 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="team-member">
-							<img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
+							<img th:src="@{/img/team/carlos_mendez.jpg}" src="img/team/carlos_mendez.jpg" 
+								 class="img-responsive img-circle" alt="">
 							<h4>CARLOS MÉNDEZ</h4>
 							<p class="text-muted">Fundador - Abogado</p>
 							<ul class="list-inline social-buttons">
 								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="https://www.facebook.com/carlosalberto.mendezgonzalez.90"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 							</ul>
 						</div>
@@ -363,7 +365,7 @@
 		</section>
 	
 		<!-- Clients Aside -->
-		<aside class="clients">
+		<section id="clients">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-center">
@@ -373,16 +375,18 @@
 						<div class="timeline-body">
 							<p class="text-muted">
 							<ol>
-								<li>Cliente1</li>
-								<li>Cliente2</li>
-								<li>Cliente3</li>
+								<li>Andrés Luis Demestri Burian</li>	
+								<li>Automotor S.A.</li>
+								<li>Coop. Chaco Sur Ltda.</li>
+								<li>Coop. Mariano Roque Alonso Ltda.</li>								
+								<li>SENAVITAT.</li>																
 							</ol>
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
-		</aside>
+		</section>
 	
 		<!-- Donde Estamos Section -->
 		<section id="donde" class="bg-light-gray">
