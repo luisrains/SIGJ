@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import py.com.sigj.dao.impl.DaoImpl;
 import py.com.sigj.rrhh.dao.PlanillaSalarioDao;
@@ -20,16 +21,27 @@ public class PlanillaSalarioDaoImpl extends DaoImpl<PlanillaSalario> implements 
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional
 	@Override
 	public List<PlanillaSalario> lista_planilla(String fecha) {
 		String aux1 = null;
 		String aux2 = null;
 		aux1 = fecha.substring(0, 2);
 		aux2 = fecha.substring(3, 7);
-		String sql = "SELECT m.fecha FROM movimiento AS m" + " WHERE extract(year from m.fecha) =" + "'" + aux1 + "'"
-				+ " AND extract(month from m.fecha)=" + "'" + aux2 + "'";
+		String sql1 = "SELECT p.cedula_ruc, p.nombre_razonsocial,p.apellido, SUM(m.egreso) as Egreso,"
+				+ " SUM(m.ingreso) as Ingreso, e.salario,"
+				+ " (SUM(m.ingreso) - SUM(m.egreso) + e.salario) as TOTALCOBRAR FROM PERSONA p" + " JOIN empleado e"
+				+ " ON p.id = e.persona_id" + " JOIN movimiento m" + " ON m.empleado_id = e.id"
+				+ " WHERE extract(month from m.fecha)= " + "'" + aux1 + "'" + " AND extract(year from m.fecha)=" + "'"
+				+ aux2 + "'";
+		/*
+		 * String sql = "SELECT m.fecha FROM movimiento AS m" +
+		 * " WHERE extract(year from m.fecha) =" + "'" + aux1 + "'" +
+		 * " AND extract(month from m.fecha)=" + "'" + aux2 + "'";
+		 */
+		logger.info("Esto es la cagada de consulta:{}", sql1);
 		Query query = null;
-		query = entityManager.createQuery(sql);
+		query = entityManager.createQuery(sql1);
 		query.setFirstResult(1);
 		query.setMaxResults(10);
 		List<PlanillaSalario> list = query.getResultList();
