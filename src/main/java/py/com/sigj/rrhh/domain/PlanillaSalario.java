@@ -3,12 +3,14 @@ package py.com.sigj.rrhh.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,8 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(name = "planilla_salario", uniqueConstraints = {
-		@UniqueConstraint(name = "planilla_salario_codigo_uk", columnNames = { "codigo" }) })
+@Table(name = "planilla_salario")
 public class PlanillaSalario extends GenericEntity {
 	private static final String SECUENCIA = "planillaSalario_id_seq";
 
@@ -37,6 +38,31 @@ public class PlanillaSalario extends GenericEntity {
 
 	private int montoCobro; // este valor es el que define el total a cobrar por
 							// el empleado
+	@ManyToOne
+	@NotNull(message = "planillaSalario.movimiento.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "planillaSalario_movimiento_fk"))
+	private Movimiento movimiento;
+
+	@ManyToOne
+	@NotNull(message = "planillaSalario.empleado.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "planillaSalario_empleado_fk"))
+	private Empleado empleado;
+
+	public Movimiento getMovimiento() {
+		return movimiento;
+	}
+
+	public void setMovimiento(Movimiento movimiento) {
+		this.movimiento = movimiento;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
 
 	public PlanillaSalario() {
 	}
@@ -78,7 +104,7 @@ public class PlanillaSalario extends GenericEntity {
 	@Override
 	public String toString() {
 		return "PlanillaSalario [id=" + id + ", codigo=" + codigo + ", fecha=" + fecha + ", montoCobro=" + montoCobro
-				+ "]";
+				+ ", movimiento=" + movimiento + ", empleado=" + empleado + "]";
 	}
 
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+
+	<div class="row" th:fragment="contenido">
+
+		<div class="col-xs-12">
+			<div class="box box-solid box-primary">
+				<div class="box-header">
+					<h3>Listado de Planillas</h3>
+				</div>
+				<div class="box-body"></div>
+				<form th:action="@{/planilla_salario/validar_fecha}" method="post">
+					<div class="form-group">
+						<label>Seleccione la Fecha de la planilla:</label>
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control pull-right"
+								name="fecha" id="datepicker">
+						</div>
+						<!-- /.input group -->
+					</div>
+					<script type="text/javascript">
+        $(function () {
+        	 $('#datepicker').datepicker({       
+                 autoclose: true,
+                 format: 'mm/yyyy', 
+                 viewMode: "years",
+                 language: 'es',   
+                 minViewMode: "months",  
+                 monthNames:["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                 monthNamesShort:["Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+              });
+             
+        });
+       
+    </script>
+
+					<!--  <div>
+                                <label>Introducir año de la planilla</label>
+                                <input type="text" name="anho" id="anho">
+                           </div>
+				           <div>
+				                <label>Introducir mes de la planilla</label>
+				                <input type="text" name="mes" id="mes">
+				           </div>-->
+					<button type="submit">Enviar</button>
+				</form>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+</body>
+</html>

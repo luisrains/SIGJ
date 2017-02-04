@@ -33,7 +33,7 @@ function nuevoRegistro() {
 		</ul>
 		
 		
-		<form th:action="@{/empleado/save}" th:object="${empleado}"
+		<form th:action="@{/empleado/accion}" th:object="${empleado}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />

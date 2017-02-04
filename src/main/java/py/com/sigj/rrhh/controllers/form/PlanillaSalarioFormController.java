@@ -1,10 +1,14 @@
 package py.com.sigj.rrhh.controllers.form;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -48,6 +52,15 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	@Override
 	public Dao<PlanillaSalario> getDao() {
 		return planillaSalarioDao;
+	}
+
+	@RequestMapping(value = "/validar_fecha", method = RequestMethod.POST)
+	public List<PlanillaSalario> validar_fecha(ModelMap map, @RequestParam(required = true) String fecha) {
+		logger.info("Fecha:{}", fecha);
+		logger.info("Esto hay en map:{}", map);
+		List<PlanillaSalario> list = planillaSalarioDao.lista_planilla(fecha);
+		return list;
+
 	}
 
 }

@@ -1,5 +1,7 @@
 package py.com.sigj.controllers.form;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,13 +11,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import py.com.sigj.controllers.PersistController;
 import py.com.sigj.controllers.Respuesta;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.main.GenericEntity;
@@ -23,11 +26,14 @@ import py.com.sigj.main.Message;
 import py.com.sigj.main.SesionUsuario;
 import py.com.sigj.security.Usuario;
 
-public abstract class FormController<T extends GenericEntity> extends PersistController<T> {
+public abstract class FormController<T extends GenericEntity> {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	protected Message msg;
+
+	@Autowired
+	private SesionUsuario session;
 
 	@Autowired
 	private SesionUsuario sesionUsuario;
@@ -39,6 +45,17 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 		agregarValoresAdicionales(map);
 		return getTemplatePath();// "cliente/cliente_index";
 	}
+	/*
+	 * Este es para validar cuando un usuario quiera ingresar al sistema
+	 * 
+	 * @RequestMapping public String index2(ModelMap map) { if
+	 * (session.isLogger()) {
+	 * 
+	 * map.addAttribute(getNombreObjeto(), getNuevaInstancia());
+	 * agregarValoresAdicionales(map); return getTemplatePath();//
+	 * "cliente/cliente_index"; } else { return
+	 * "redirect:/login?next=/reserva/"; } }
+	 */
 
 	@RequestMapping(value = "accion", method = RequestMethod.POST)
 	public String accion(ModelMap map, @Valid T obj, BindingResult bindingResult,
@@ -53,29 +70,47 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public String guardar(ModelMap map, @Valid T obj, BindingResult bindingResult) {
-		logger.info("parametros {}", obj);
-		Respuesta<T> resp = createOrUpdate(obj, bindingResult);
+		try {
+			if (bindingResult.hasErrors()) {
+				map.addAttribute("error", msg.get("errores_validacion"));
+				List<FieldError> errores = bindingResult.getFieldErrors();
+				map.addAttribute("errorList", errores);
+			} else {
+				if (obj.getId() == null) {
+					getDao().create(obj);
+					map.addAttribute("msgExito", msg.get("Registro agregado"));
+				} else {
+					getDao().edit(obj);
+					map.addAttribute("msgExito", msg.get("Registro Actualizado"));
+				}
 
-		if (resp.isExito()) {
-			map.addAttribute("msgExito", resp.getMensajeExito());
-		} else {
-			map.addAttribute("error", resp.getMensajeError());
-			map.addAttribute("errorList", resp.getErrores());
+			}
+		} catch (Exception ex) {
+			// TODO: tener en cuenta si es nuevo o edit
+			obj.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+
 		}
-
-		map.addAttribute(getNombreObjeto(), resp.getDato());
+		map.addAttribute(getNombreObjeto(), obj);
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
+		/*
+		 * map.addAttribute("cliente",cliente); return"cliente/cliente_index";
+		 */
 	}
 
 	@RequestMapping("edit/{id}") // "cliente/edit/{id}"
 	public String edit(ModelMap map, @PathVariable Long id) {
-		Respuesta<T> resp = find(id);
-		if (resp.isExito()) {
-			map.addAttribute(getNombreObjeto(), resp.getDato());
-		} else {
+		try {
+			T obj = getDao().find(id);
+			if (obj == null) {
+				map.addAttribute("error", "No se encontró registros con el id " + id);
+				obj = getNuevaInstancia();
+			}
+			map.addAttribute(getNombreObjeto(), obj);
+		} catch (Exception ex) {
+			map.addAttribute("error", "Error al buscar registro. " + ex.getMessage());
 			map.addAttribute(getNombreObjeto(), getNuevaInstancia());
-			map.addAttribute("error", resp.getMensajeError());
 		}
 
 		agregarValoresAdicionales(map);
@@ -85,18 +120,25 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 
 	@RequestMapping("delete/{id}") // "cliente/edit/{id}"
 	public String delete(ModelMap map, @PathVariable Long id) {
-		Respuesta<T> resp = destroy(id);
-		if (resp.isExito()) {
-			map.addAttribute(getNombreObjeto(), resp.getMensajeExito());
-			map.addAttribute("msgExito", resp.getMensajeExito());
-		} else {
-			map.addAttribute("error", resp.getMensajeError());
-			map.addAttribute("errorList", resp.getErrores());
-		}
+		try {
+			T obj = getDao().find(id);
+			if (obj == null) {
+				map.addAttribute("error", "No se encontró registros con el id " + id);
+			} else {
+				getDao().destroy(obj);
+				obj = getNuevaInstancia();
+				map.addAttribute(getNombreObjeto(), obj);
+				map.addAttribute("msgExito", msg.get("Registro eliminado"));
+				logger.info("registro eliminado");
+			}
+		} catch (Exception ex) {
+			map.addAttribute("error", "Error al eliminar registro. " + ex.getMessage());
 
-		map.addAttribute(getNombreObjeto(), resp.getDato());
+		}
 		agregarValoresAdicionales(map);
+		logger.info("registro retorna {}", getTemplatePath());
 		return getTemplatePath();
+
 	}
 
 	public abstract String getTemplatePath();
@@ -104,9 +146,6 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 	public abstract String getNombreObjeto();
 
 	public abstract T getNuevaInstancia();
-
-	@Override
-	public abstract Dao<T> getDao();
 
 	/**
 	 * Cuando ocurre una excepción, el error que se muestra es muy genérico. Se
@@ -137,5 +176,27 @@ public abstract class FormController<T extends GenericEntity> extends PersistCon
 		}
 		return "Anónimo";
 	}
+	/* Desde aca es Persist */
 
+	@RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Respuesta<T> find(@PathVariable Long id) {
+		Respuesta<T> resp = new Respuesta<>();
+
+		try {
+			T obj = getDao().find(id);
+			if (obj == null) {
+				throw new Exception("No se encontró usuario");
+			}
+			resp.setDato(obj);
+			resp.setExito(true);
+		} catch (Exception ex) {
+			resp.setExito(false);
+			resp.setMensajeError(ex.getMessage());
+
+		}
+		return resp;
+	}
+
+	public abstract Dao<T> getDao();
 }
