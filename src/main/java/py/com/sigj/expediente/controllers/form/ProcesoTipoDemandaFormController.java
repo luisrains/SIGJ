@@ -8,28 +8,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.controllers.list.ProcesoListController;
 import py.com.sigj.expediente.controllers.list.TipoDemandaListController;
-import py.com.sigj.expediente.dao.TipoDemandaDao;
-import py.com.sigj.expediente.domain.TipoDemanda;
+import py.com.sigj.expediente.dao.ProcesoTipoDemandaDao;
+import py.com.sigj.expediente.domain.ProcesoTipoDemanda;
 
 @Controller
 @Scope("request")
-@RequestMapping("tipo_demanda")
-public class TipoDemandaFormController extends FormController<TipoDemanda> {
+@RequestMapping("proceso_tipo_demanda")
+public class ProcesoTipoDemandaFormController extends FormController<ProcesoTipoDemanda> {
 
 	@Autowired
-	private TipoDemandaDao tipoDemandaDao;
+	private ProcesoTipoDemandaDao procesoTipoDemandaDao;
 
 	@Autowired
 	private TipoDemandaListController tipoDemandaList;
 
-	@Autowired
-	private ProcesoListController procesoList;
-
 	@Override
 	public String getTemplatePath() {
-		return "expediente/tipo_demanda_index";
+		return "test/tipoDemanda_index";
 	}
 
 	@Override
@@ -38,21 +34,20 @@ public class TipoDemandaFormController extends FormController<TipoDemanda> {
 	}
 
 	@Override
-	public TipoDemanda getNuevaInstancia() {
-		return new TipoDemanda();
+	public ProcesoTipoDemanda getNuevaInstancia() {
+		return new ProcesoTipoDemanda();
 	}
 
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", tipoDemandaList.getColumnas());
 		map.addAttribute("columnasStr", tipoDemandaList.getColumnasStr(null));
-		map.addAttribute("columnasStr", procesoList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 
 	@Override
-	public Dao<TipoDemanda> getDao() {
-		return tipoDemandaDao;
+	public Dao<ProcesoTipoDemanda> getDao() {
+		return procesoTipoDemandaDao;
 	}
 
 }

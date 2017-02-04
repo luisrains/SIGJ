@@ -29,7 +29,7 @@ public class DespachoFormController extends FormController<Despacho> {
 
 	@Override
 	public String getTemplatePath() {
-		return "expediente/despacho_index_p";
+		return "expediente/despacho_index";
 	}
 
 	@Override

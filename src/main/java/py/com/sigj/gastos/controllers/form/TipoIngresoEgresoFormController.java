@@ -31,7 +31,7 @@ public class TipoIngresoEgresoFormController extends FormController<TipoIngresoE
 
 	@Override
 	public String getTemplatePath() {
-		return "test/tipoIngresoEgreso_index";
+		return "gastos/tipoIngresoEgreso_index";
 	}
 
 	@Override

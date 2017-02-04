@@ -12,8 +12,7 @@
 function limpiarForm() {
 	$("#id").val("");
 	$("#descripcion").val("");
-	$("#juez").val("");
-	$("#materia").val("");
+
 }
 function nuevoRegistro() {
 	limpiarForm();
@@ -21,37 +20,30 @@ function nuevoRegistro() {
 	$("#descripcion").focus();
 }
 </script>
-		<h4 class="page-header" th:text="#{despacho.form.titulo}">Detalles
-			de Despachos</h4>
-		
-		<form th:action="@{/despacho/save}" th:object="${despacho}"
+		<h4 class="page-header" th:text="#{tipoDemanda.form.titulo}">Detalles
+			de Demandas</h4>
+
+		<form th:action="@{/tipo_Demanda/save}" th:object="${tipoDemanda}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
 
-
 			<div class="form-group">
-				<label for="descripcion" th:text="#{despacho.descripcion.lbl}"
+				<label for="descripcion" th:text="#{tipoDemanda.descripcion.lbl}"
 					class="field-label">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control" />
 			</div>
-			<div class="form-group">
 
-				<label for="juez" th:text="#{despacho.juez.lbl}" class="field-label">juez:</label>
-				<input type="text" th:field="*{juez}" maxlength="60"
-					class="form-control" autofocus="autofocus" />
-			</div>
 			<div class="form-group">
-				<label for="materia" th:text="#{despacho.materia.lbl}"
-					class="field-label">materia:</label> 
-					
-					 <select th:field="*{materia}"
-					class="form-control materia">
-					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
+				<label for="proceso" th:text="#{tipoDemanda.proceso.lbl}"
+					class="field-label">Proceso:</label> <select th:field="*{proceso}"
+					class="form-control proceso">
+					<option th:each=" tip : ${procesoList}" th:value="${tip.id}"
 						th:text="${tip.descripcion}">Excelente</option>
-				</select> 
+				</select>
 			</div>
-
+			
+			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
@@ -59,8 +51,10 @@ function nuevoRegistro() {
 		<script type="text/javascript">
 		$(function () {
 		    //Initialize Select2 Elements
-		    $(".materia").select2();});
+		    $(".proceso").select2();
+		 });
 		</script>
+
 	</div>
 </body>
 </html>

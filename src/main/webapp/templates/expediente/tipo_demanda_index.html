@@ -8,20 +8,20 @@
 			<div class="col-xs-12">		
 					<div class="box box-solid box-primary">
 						<div class="box-header">
-							<h3>Listado de Despachos</h3>
+							<h3>Listado de Procesos</h3>
 						</div>
 						<div class="box-body">
 							<button class="btn btn-success" id="botonAgregar"
 								 onclick="agregar()">
-								<i class="glyphicon glyphicon-plus"></i> Nuevo Despacho
+								<i class="glyphicon glyphicon-plus"></i> Nueva Demanda
 							</button>
-							<br>
+							<br><br>
 							<table
 								class="table table-bordered table-striped"
-								id="despachoDT">
+								id="tipoDemandaoDT">
 								<thead>
 									<tr>
-										 <th th:each="col : ${columnas}" th:text="#{'despacho.' + ${col} + '.header'}">CÓDIGO</th>
+										 <th th:each="col : ${columnas}" th:text="#{'tipoDemanda.' + ${col} + '.header'}">CÓDIGO</th>
 										
 									</tr>
 								</thead>
@@ -29,7 +29,7 @@
 							<script type="text/javascript">
 							
 							 $(document).ready(function() {
-							   crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
+							   crearDataTable("tipoDemandaDT", "[[@{/tipo_demanda/json}]]", "[[${columnasStr}]]", "[[@{/tipo_demanda/edit/}]]");
 							 });
 			 			</script>
 						</div>
@@ -50,7 +50,7 @@
 							>Nuevo Registro</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/despacho_form::form">aqui va un
+						<div th:replace="expediente/proceso_form::form">aqui va un
 								fragmento de codigo del form</div>
 					</div>
 					

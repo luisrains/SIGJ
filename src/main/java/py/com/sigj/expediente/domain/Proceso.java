@@ -20,7 +20,7 @@ import py.com.sigj.main.GenericEntity;
 /**
  * Clase que registra los procesos que existen de acuerdo al tipo de materia que
  * se registran en el sistema.
- * 
+ *
  * @author Luis A. Méndez R.
  *
  */
@@ -42,7 +42,7 @@ public class Proceso extends GenericEntity {
 	@NotNull(message = "proceso.descripcion.notNull")
 	@NotBlank(message = "proceso.descripcion.notBlank")
 	@Size(max = 20, message = "proceso.descripcion.size")
-	private String Descripcion;
+	private String descripcion;
 
 	@ManyToOne
 	@NotNull(message = "proceso.materia.notNull")
@@ -72,11 +72,11 @@ public class Proceso extends GenericEntity {
 	}
 
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 
 	public Materia getMateria() {
@@ -89,7 +89,7 @@ public class Proceso extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Proceso [id=" + id + ", codigo=" + codigo + ", Descripcion=" + Descripcion + ", materia=" + materia
+		return "Proceso [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", materia=" + materia
 				+ "]";
 	}
 
