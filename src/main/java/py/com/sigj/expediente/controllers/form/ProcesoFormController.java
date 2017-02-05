@@ -1,5 +1,7 @@
 package py.com.sigj.expediente.controllers.form;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import py.com.sigj.controllers.Respuesta;
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.ProcesoListController;
@@ -20,7 +20,6 @@ import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.ProcesoTipoDemandaDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
 import py.com.sigj.expediente.domain.Proceso;
-import py.com.sigj.expediente.domain.ProcesoTipoDemanda;
 
 @Controller
 @Scope("request")
@@ -81,27 +80,25 @@ public class ProcesoFormController extends FormController<Proceso> {
 	 */
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map, @Valid Proceso obj, BindingResult bindingResult,
-			@RequestParam("selec") String[] arr) {
-		logger.info("PARAMETROS arr {}", arr);
+			Map<String, String> param) {
+		logger.info("PARAMETROS arr {}", param);
+		String tipos = param.get("selec");
 
-		Respuesta<Proceso> resp = createOrUpdate(obj, bindingResult);
-
-		ProcesoTipoDemanda ptd = procesoTipoDemandaDao.find(Long.valueOf(arr[0]));
-		Respuesta<ProcesoTipoDemanda> ptdr = procesoTipoDemandaForm.createOrUpdate(ptd, bindingResult);
-		if (ptdr.isExito()) {
-			logger.info("exitoso se agreggo", ptdr.getMensajeExito());
-		} else {
-			logger.info("no fue exitoso", ptdr.getMensajeError());
-		}
-		if (resp.isExito()) {
-			map.addAttribute("msgExito", resp.getMensajeExito());
-		} else {
-			map.addAttribute("error", resp.getMensajeError());
-			map.addAttribute("errorList", resp.getErrores());
-		}
-
-		map.addAttribute(getNombreObjeto(), resp.getDato());
-		agregarValoresAdicionales(map);
+		// ProcesoTipoDemanda ptd =
+		// procesoTipoDemandaDao.find(Long.valueOf(arr[0]));
+		/*
+		 * Respuesta<ProcesoTipoDemanda> ptdr =
+		 * procesoTipoDemandaForm.createOrUpdate(ptd, bindingResult); if
+		 * (ptdr.isExito()) { logger.info("exitoso se agreggo",
+		 * ptdr.getMensajeExito()); } else { logger.info("no fue exitoso",
+		 * ptdr.getMensajeError()); } if (resp.isExito()) {
+		 * map.addAttribute("msgExito", resp.getMensajeExito()); } else {
+		 * map.addAttribute("error", resp.getMensajeError());
+		 * map.addAttribute("errorList", resp.getErrores()); }
+		 * 
+		 * map.addAttribute(getNombreObjeto(), resp.getDato());
+		 * agregarValoresAdicionales(map);
+		 */
 		return getTemplatePath();
 	}
 

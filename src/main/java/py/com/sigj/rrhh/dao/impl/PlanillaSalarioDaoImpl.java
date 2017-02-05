@@ -1,5 +1,6 @@
 package py.com.sigj.rrhh.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -23,17 +24,17 @@ public class PlanillaSalarioDaoImpl extends DaoImpl<PlanillaSalario> implements 
 	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
-	public List<PlanillaSalario> lista_planilla(String fecha) {
+	public String lista_planilla(String fecha) {
 		String aux1 = null;
 		String aux2 = null;
 		aux1 = fecha.substring(0, 2);
 		aux2 = fecha.substring(3, 7);
-		String sql1 = "SELECT p.cedula_ruc, p.nombre_razonsocial,p.apellido, SUM(m.egreso) as Egreso,"
+		String sql1 = "SELECT p.cedula_ruc, p.nombre_razonSocial,p.apellido, SUM(m.egreso) as Egreso,"
 				+ " SUM(m.ingreso) as Ingreso, e.salario,"
-				+ " (SUM(m.ingreso) - SUM(m.egreso) + e.salario) as TOTALCOBRAR FROM PERSONA p" + " JOIN empleado e"
-				+ " ON p.id = e.persona_id" + " JOIN movimiento m" + " ON m.empleado_id = e.id"
+				+ " (SUM(m.ingreso) - SUM(m.egreso) + e.salario) as TOTALCOBRAR FROM Persona p" + " JOIN Empleado e"
+				+ " ON p.id = e.persona_id" + " JOIN Movimiento m" + " ON m.empleado_id = e.id"
 				+ " WHERE extract(month from m.fecha)= " + "'" + aux1 + "'" + " AND extract(year from m.fecha)=" + "'"
-				+ aux2 + "'";
+				+ aux2 + "'" + " GROUP BY p.cedula_ruc, p.nombre_razonsocial, p.apellido, e.salario";
 		/*
 		 * String sql = "SELECT m.fecha FROM movimiento AS m" +
 		 * " WHERE extract(year from m.fecha) =" + "'" + aux1 + "'" +
@@ -42,10 +43,9 @@ public class PlanillaSalarioDaoImpl extends DaoImpl<PlanillaSalario> implements 
 		logger.info("Esto es la cagada de consulta:{}", sql1);
 		Query query = null;
 		query = entityManager.createQuery(sql1);
-		query.setFirstResult(1);
-		query.setMaxResults(10);
-		List<PlanillaSalario> list = query.getResultList();
-		logger.info("Esto es la lista:{}", list);
-		return list;
+		List<Object[]> resultList = new ArrayList();
+		resultList = query.getResultList();
+		logger.info("Esto es la lista:{}", resultList);
+		return "si";
 	}
 }
