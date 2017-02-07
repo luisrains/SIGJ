@@ -29,10 +29,10 @@ public class TipoActuacion extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "tipoActuacion.nombre.notNull")
-	@NotBlank(message = "tipoActuacion.nombre.notBlank")
-	@Size(max = 60, message = "tipoActuacion.nombre.size")
-	private String nombre;
+	@NotNull(message = "tipoActuacion.descripcion.notNull")
+	@NotBlank(message = "tipoActuacion.descripcion.notBlank")
+	@Size(max = 60, message = "tipoActuacion.descripcion.size")
+	private String descripcion;
 
 	@NotNull(message = "tipoActuacion.modeloHoja.notNull")
 	@NotBlank(message = "tipoActuacion.modeloHoja.notBlank")
@@ -54,11 +54,11 @@ public class TipoActuacion extends GenericEntity {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return descripcion;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getModeloHoja() {
@@ -71,7 +71,7 @@ public class TipoActuacion extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "TipoActuacion [id=" + id + ", nombre=" + nombre + ", modeloHoja=" + modeloHoja + "]";
+		return "TipoActuacion [id=" + id + ", descripcion=" + descripcion + ", modeloHoja=" + modeloHoja + "]";
 	}
 
 }

@@ -12,6 +12,7 @@
 function limpiarForm() {
 	$("#id").val("");
 	$("#descripcion").val("");
+	$("#modeloHoja").val("");
 
 }
 function nuevoRegistro() {
@@ -20,27 +21,24 @@ function nuevoRegistro() {
 	$("#descripcion").focus();
 }
 </script>
-		<h4 class="page-header" th:text="#{tipoDemanda.form.titulo}">Detalles
-			de Demandas</h4>
+		<h4 class="page-header" th:text="#{tipoActuacion.form.titulo}">Detalles
+			de Tipo de Actuaciones</h4>
 
-		<form th:action="@{/tipo_demanda/accion}" th:object="${tipoDemanda}"
+		<form th:action="@{/tipo_actuacion/accion}" th:object="${tipoActuacion}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
 
 			<div class="form-group">
-				<label for="descripcion" th:text="#{tipoDemanda.descripcion.lbl}"
+				<label for="descripcion" th:text="#{tipoActuacion.descripcion.lbl}"
 					class="field-label">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control" />
 			</div>
 
 			<div class="form-group">
-				<label for="proceso" th:text="#{tipoDemanda.proceso.lbl}"
-					class="field-label">Proceso:</label> <select th:field="*{proceso}"
-					class="form-control proceso">
-					<option th:each=" tip : ${procesoList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Excelente</option>
-				</select>
+				<label for="descripcion" th:text="#{tipoActuacion.modeloHoja.lbl}"
+					class="field-label">Modelo de la hoja de actuacion:</label> <input type="text"
+					th:field="*{modeloHoja}" maxlength="100" class="form-control" />
 			</div>
 			
 			
@@ -51,7 +49,7 @@ function nuevoRegistro() {
 		<script type="text/javascript">
 		$(function () {
 		    //Initialize Select2 Elements
-		    $(".proceso").select2();
+		    
 		 });
 		</script>
 

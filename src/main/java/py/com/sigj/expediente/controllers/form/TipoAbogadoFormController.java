@@ -25,7 +25,7 @@ public class TipoAbogadoFormController extends FormController<TipoAbogado> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/tipoAbogado_index";
+		return "expediente/tipoAbogado_index";
 	}
 
 	@Override
