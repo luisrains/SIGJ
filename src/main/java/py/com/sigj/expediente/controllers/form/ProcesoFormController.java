@@ -1,5 +1,7 @@
 package py.com.sigj.expediente.controllers.form;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,7 @@ import py.com.sigj.expediente.dao.ProcesoTipoDemandaDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
 import py.com.sigj.expediente.domain.Proceso;
 import py.com.sigj.expediente.domain.ProcesoTipoDemanda;
+import py.com.sigj.expediente.domain.TipoDemanda;
 
 @Controller
 @Scope("request")
@@ -35,9 +39,6 @@ public class ProcesoFormController extends FormController<Proceso> {
 
 	@Autowired
 	private TipoDemandaDao tipoDemandaDao;
-
-	@Autowired
-	private ProcesoTipoDemandaFormController procesoTipoDemandaForm;
 
 	@Autowired
 	private ProcesoTipoDemandaDao procesoTipoDemandaDao;
@@ -80,29 +81,46 @@ public class ProcesoFormController extends FormController<Proceso> {
 	 * proceso y un tipo de demanda y asi cargar la tabla intermedia
 	 */
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
-	public String guardar_listado(ModelMap map, @Valid Proceso obj, BindingResult bindingResult,
-			@RequestParam("selec") String[] arr) {
-		logger.info("PARAMETROS arr {}", arr);
+	public String guardar_listado(ModelMap map, @RequestParam("selec") List<String> selec, @Valid Proceso obj,
+			BindingResult bindingResult) {
+		try {
+			if (bindingResult.hasErrors()) {
+				map.addAttribute("error", msg.get("errores_validacion"));
+				List<FieldError> errores = bindingResult.getFieldErrors();
+				map.addAttribute("errorList", errores);
+			} else {
+				if (obj.getId() == null) {
+					getDao().create(obj);
+					for (String idLong : selec) {
+						Long idFormat = Long.parseLong(idLong);
+						// creamos un tipoDemanda con el proceso y el tipo de
+						// demanda seleccionado
+						ProcesoTipoDemanda tipo = new ProcesoTipoDemanda();
+						tipo.setProceso(obj);
+						// buscamos el tipoDemanda
+						TipoDemanda tipoDemanda = tipoDemandaDao.find(idFormat);
+						tipo.setTipoDemanda(tipoDemanda);
+						procesoTipoDemandaDao.create(tipo);
+						logger.info("procesoTipoDemanda Creado {}", tipo);
+					}
 
-		Respuesta<Proceso> resp = createOrUpdate(obj, bindingResult);
+					map.addAttribute("msgExito", msg.get("Registro agregado"));
+				} else {
+					getDao().edit(obj);
+					map.addAttribute("msgExito", msg.get("Registro Actualizado"));
+				}
 
-		ProcesoTipoDemanda ptd = procesoTipoDemandaDao.find(Long.valueOf(arr[0]));
-		Respuesta<ProcesoTipoDemanda> ptdr = procesoTipoDemandaForm.createOrUpdate(ptd, bindingResult);
-		if (ptdr.isExito()) {
-			logger.info("exitoso se agreggo", ptdr.getMensajeExito());
-		} else {
-			logger.info("no fue exitoso", ptdr.getMensajeError());
+			}
+		} catch (Exception ex) {
+			// TODO: tener en cuenta si es nuevo o edit
+			obj.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+
 		}
-		if (resp.isExito()) {
-			map.addAttribute("msgExito", resp.getMensajeExito());
-		} else {
-			map.addAttribute("error", resp.getMensajeError());
-			map.addAttribute("errorList", resp.getErrores());
-		}
-
-		map.addAttribute(getNombreObjeto(), resp.getDato());
+		map.addAttribute(getNombreObjeto(), obj);
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
+
 	}
 
 }

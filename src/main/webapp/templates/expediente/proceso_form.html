@@ -46,7 +46,7 @@ function nuevoRegistro() {
 					class="field-label">materia:</label> 
 					
 					 <select th:field="*{materia}"
-					class="form-control materia" multiple="multiple">
+					class="form-control">
 					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
 						th:text="${tip.descripcion}">Excelente</option>
 				</select> 
@@ -57,12 +57,13 @@ function nuevoRegistro() {
 					class="field-label">Tipos de Demandas:</label>
 					
 					 <select 
-					class="form-control tipoDemanda" multiple="multiple" id="tipoDemanda" name="selec">
+					class="form-control tipoDemanda" multiple="multiple" id="tipoDemanda" name="selec" 
+					style="width: 50%;">
 					<option th:each=" dem : ${tipoDemandaList}" th:value="${dem.id}"
 						th:text="${dem.descripcion}">Ejecutivo</option>
 				</select> 
 			</div>
-
+			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
@@ -94,16 +95,24 @@ function nuevoRegistro() {
 			});
 			
 			$(".tipoDemanda").on('change', function() {
-			    
-			    console.log("prop->",$(this).prop('value') );
-			    console.log("selec tipo demanda",$(".tipoDemanda").val() );	
-				console.log("selec materia",$(".materia").val() );	
-				typeof ($(".materia").val());
-				console.log(($(".materia").val()));
+				console.log(($(".tipoDemanda").val()));
 			  });
 				
 
 			});
+
+		/*	$("#bo").on('click', function(){
+				var je = $(".tipoDemanda").val();
+				$.ajax({
+					type:'POST',
+					url: 'sigj/proceso/prueba',
+					data:{
+						selec : je
+						}
+					}).done(function(json_data){
+						console.log(json_data);
+						});
+				});*/
 		</script>
 
 	</div>

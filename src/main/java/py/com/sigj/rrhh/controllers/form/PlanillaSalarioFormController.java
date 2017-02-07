@@ -1,7 +1,5 @@
 package py.com.sigj.rrhh.controllers.form;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -55,10 +53,12 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	}
 
 	@RequestMapping(value = "/validar_fecha", method = RequestMethod.POST)
-	public List<Object[]> validar_fecha(ModelMap map, @RequestParam(required = true) String fecha) {
+
+	public String validar_fecha(ModelMap map, @RequestParam(required = true) String fecha) {
 		logger.info("Fecha:{}", fecha);
 		logger.info("Esto hay en map:{}", map);
-		List<Object[]> list = planillaSalarioDao.lista_planilla(fecha);
+		String list = planillaSalarioDao.lista_planilla(fecha);
+
 		return list;
 
 	}

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="1037,501" last-zoom="0.9"
+<dbmodel pgmodeler-ver="0.8.2" last-position="0,72" last-zoom="0.9"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database">
 </database>
@@ -571,12 +571,24 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Planilla_salario - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="980"/>
+	<position x="1280" y="880"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
 	<column name="fecha">
 		<type name="date"/>
+	</column>
+	<column name="codigo">
+		<type name="character" length="20"/>
+	</column>
+	<column name="montocobro">
+		<type name="integer"/>
+	</column>
+	<column name="empleado_id">
+		<type name="bigint"/>
+	</column>
+	<column name="movimiento_id">
+		<type name="bigint"/>
 	</column>
 	<constraint name="pk_planilla_salario" type="pk-constr" table="public.&quot;Planilla_salario - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
@@ -614,21 +626,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<constraint name="pk_modelo_hoja" type="pk-constr" table="public.&quot;Modelo_hoja&quot;">
 		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
-<table name="planilla_empleado - OK">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="1460" y="940"/>
-	<column name="id_empleado" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="id_planilla" not-null="true">
-		<type name="integer"/>
-	</column>
-	<constraint name="fkplanillaempleado" type="pk-constr" table="public.&quot;planilla_empleado - OK&quot;">
-		<columns names="id_empleado,id_planilla" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -839,15 +836,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="fkempleado" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado - OK&quot;" table="public.&quot;planilla_empleado - OK&quot;">
-	<columns names="id_empleado" ref-type="src-columns"/>
+<constraint name="pkempleado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Empleado - OK&quot;" table="public.&quot;Planilla_salario - OK&quot;">
+	<columns names="empleado_id" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="fk_planilla" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Planilla_salario - OK&quot;" table="public.&quot;planilla_empleado - OK&quot;">
-	<columns names="id_planilla" ref-type="src-columns"/>
+<constraint name="fkmovimiento" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Movimiento_empleado - OK&quot;" table="public.&quot;Planilla_salario - OK&quot;">
+	<columns names="movimiento_id" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -1037,16 +1034,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.&quot;Tipo_ingreso_egreso&quot;"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="&quot;rel_planilla_empleado_Empleado&quot;" type="relfk"
-	 src-table="public.&quot;planilla_empleado - OK&quot;"
-	 dst-table="public.&quot;Empleado - OK&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="&quot;rel_planilla_empleado_Planilla_salario&quot;" type="relfk"
-	 src-table="public.&quot;planilla_empleado - OK&quot;"
-	 dst-table="public.&quot;Planilla_salario - OK&quot;"
-	 src-required="false" dst-required="false"/>
-
 <relationship name="&quot;rel_proceso_tipoDemanda_Proceso -OK&quot;" type="relfk"
 	 src-table="public.&quot;proceso_tipoDemanda - Ok&quot;"
 	 dst-table="public.&quot;Proceso -OK&quot;"
@@ -1070,6 +1057,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="&quot;rel_Estado_expediente_Expediente - MEDIAS&quot;" type="relfk"
 	 src-table="public.&quot;Estado_expediente&quot;"
 	 dst-table="public.&quot;Expediente - MEDIAS&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Planilla_salario - OK_Empleado - OK&quot;" type="relfk"
+	 src-table="public.&quot;Planilla_salario - OK&quot;"
+	 dst-table="public.&quot;Empleado - OK&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Planilla_salario - OK_Movimiento_empleado - OK&quot;" type="relfk"
+	 src-table="public.&quot;Planilla_salario - OK&quot;"
+	 dst-table="public.&quot;Movimiento_empleado - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

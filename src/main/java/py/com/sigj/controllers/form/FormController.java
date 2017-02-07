@@ -47,10 +47,10 @@ public abstract class FormController<T extends GenericEntity> {
 	}
 	/*
 	 * Este es para validar cuando un usuario quiera ingresar al sistema
-	 * 
+	 *
 	 * @RequestMapping public String index2(ModelMap map) { if
 	 * (session.isLogger()) {
-	 * 
+	 *
 	 * map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 	 * agregarValoresAdicionales(map); return getTemplatePath();//
 	 * "cliente/cliente_index"; } else { return
@@ -152,7 +152,7 @@ public abstract class FormController<T extends GenericEntity> {
 	 * debe recorrer el stack de error y verificar si no fue error de constraint
 	 * (valores duplicados, etc.)
 	 */
-	private String getErrorFromException(final Exception exception) {
+	protected String getErrorFromException(final Exception exception) {
 		Throwable th = exception;
 		while (th != null) {
 			if (th.getClass().equals(org.hibernate.exception.ConstraintViolationException.class)) {
