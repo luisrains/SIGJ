@@ -13,23 +13,24 @@ function limpiarForm() {
 	$("#id").val("");
 	$("#descripcion").val("");
 	$("#codigo").val("");
+	$("#tipoEstado").val("");
 }
 function nuevoRegistro() {
 	limpiarForm();
 	$("#botonNuevo").hide();
-	$("#descripcion").focus();
+	$("#codigo").focus();
 }
 </script>
 		<h4 class="page-header" th:text="#{materia.form.titulo}">Detalles
-			de Materias</h4>
+			de Estado</h4>
 		
-		<form th:action="@{/materia/accion}" th:object="${materia}"
+		<form th:action="@{/estado_externo_interno/accion}" th:object="${estado_externo_interno}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
 
 			<div class="form-group">
-				<label for="codigo" th:text="#{materia.codigo.lbl}" class="field-label">Código:</label>
+				<label for="codigo" th:text="#{estado_externo_interno.codigo.lbl}" class="field-label">Código:</label>
 				<input type="text" th:field="*{codigo}" maxlength="60"
 					class="form-control" autofocus="autofocus" />
 			</div>
@@ -39,6 +40,11 @@ function nuevoRegistro() {
 					class="field-label">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control" />
 			</div>
+			<div class="form-group">
+                <label for="tipo_estado" th:text="#{estado_externo_interno.tipo_estado.lbl}"
+                    class="field-label">Tipo Estado:</label> <input type="text"
+                    th:field="*{tipo_estado}" maxlength="100" class="form-control" />
+            </div>
 
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>

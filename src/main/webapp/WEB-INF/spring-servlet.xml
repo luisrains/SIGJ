@@ -55,6 +55,7 @@
 				<bean class="py.com.sigj.converters.PersonaConverter" />
 				<bean class="py.com.sigj.converters.EmpleadoConverter" />
 				<bean class="py.com.sigj.converters.MovimientoConverter" />
+				<bean class="py.com.sigj.converters.EstadoExternoInternoConverter" />
 			</set>
 		</property>
 		
@@ -73,11 +74,12 @@
 	<!-- **************************************************************** -->
 	<bean id="templateResolver"
 		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+         	
 		<property name="prefix" value="/templates/" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="HTML5" />
 	</bean>
-
+	
 
 	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />

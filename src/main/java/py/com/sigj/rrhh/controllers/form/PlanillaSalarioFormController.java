@@ -55,10 +55,10 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	}
 
 	@RequestMapping(value = "/validar_fecha", method = RequestMethod.POST)
-	public List<PlanillaSalario> validar_fecha(ModelMap map, @RequestParam(required = true) String fecha) {
+	public List<Object[]> validar_fecha(ModelMap map, @RequestParam(required = true) String fecha) {
 		logger.info("Fecha:{}", fecha);
 		logger.info("Esto hay en map:{}", map);
-		List<PlanillaSalario> list = planillaSalarioDao.lista_planilla(fecha);
+		List<Object[]> list = planillaSalarioDao.lista_planilla(fecha);
 		return list;
 
 	}
