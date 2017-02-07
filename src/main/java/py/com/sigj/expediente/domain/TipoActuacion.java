@@ -53,11 +53,11 @@ public class TipoActuacion extends GenericEntity {
 		this.id = id;
 	}
 
-	public String getNombre() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setNombre(String descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 

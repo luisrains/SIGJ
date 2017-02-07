@@ -25,7 +25,7 @@ public class TipoActuacionFormController extends FormController<TipoActuacion> {
 
 	@Override
 	public String getTemplatePath() {
-		return "expediente/tipoAactuacion_index";
+		return "expediente/tipo_actuacion_index";
 	}
 
 	@Override
