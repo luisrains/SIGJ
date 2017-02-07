@@ -32,7 +32,7 @@ public class EstadoExternoInternoFormController extends FormController<EstadoExt
 	@Override
 	public String getNombreObjeto() {
 
-		return "EstadoExternoInterno";
+		return "estadoExternoInterno";
 	}
 
 	@Override
