@@ -60,9 +60,9 @@
 						<span class="sr-only">Toggle navigation</span> Menu <i
 							class="fa fa-bars"></i>
 					</button>
-					<a class="navbar-brand " href="#page-top">Carlos A. Méndez &
+					<a class="navbar-brand page-scroll" href="#page-top">Carlos A. Méndez &
 						Asoc.</a>
-					<h5 class="text-muted text-center" style="color: white;">Cel.:(+595
+					<h5 class="text-muted text-center" style="color: #fed136;">Cel.:(+595
 						981)576 488</h5>
 				</div>
 	
@@ -123,7 +123,7 @@
 									</div>
 									<div class="timeline-body">
 										<p class="text-muted">
-										<ul class="text-muted">
+										<ul class="list-unstyled">
 											<li>Brindar soluciones efectivas a las necesidades de
 												nuestros clientes y procurando su completa satisfacción.
 												Asimismo, lograr la realización personal y profesional de los
@@ -145,10 +145,10 @@
 									</div>
 									<div class="timeline-body">
 										<p class="text-muted">
-										<ul>
-											<li>Ser líderes en la calidad del servicio y satisfacción
-												del cliente a través de un grupo humano calificado.</li>
-										</ul>
+											<ul class="list-unstyled">
+												<li>Ser líderes en la calidad del servicio y satisfacción
+													del cliente a través de un grupo humano calificado.</li>
+											</ul>
 										</p>
 									</div>
 								</div>
@@ -164,15 +164,15 @@
 									</div>
 									<div class="timeline-body">
 										<p class="text-muted">
-										<ol>
-											<li>Confiabilidad</li>
-											<li>Confidencialidad</li>
-											<li>Compromiso</li>
-											<li>Excelencia</li>
-											<li>Independencia</li>
-											<li>Integridad</li>
-											<li>Respeto</li>
-										</ol>
+											<ul class="list-unstyled">
+												<li>Confiabilidad</li>
+												<li>Confidencialidad</li>
+												<li>Compromiso</li>
+												<li>Excelencia</li>
+												<li>Independencia</li>
+												<li>Integridad</li>
+												<li>Respeto</li>
+											</ul>
 										</p>
 									</div>
 								</div>
@@ -209,7 +209,7 @@
 					</div>
 					<div class="col-sm-4">
 						<div class="team-member">
-							<img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
+							<img th:src="@{/img/team/3.jpg}" src="img/team/3.jpg" class="img-responsive img-circle" alt="">
 							<h4>JUAN HOSPITAL</h4>
 							<p class="text-muted">Abogado</p>
 							<ul class="list-inline social-buttons">
@@ -219,11 +219,9 @@
 							</ul>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<div class="team-member">
-							<img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+							<img th:src="@{/img/team/rodolfo_rains.jpeg}" src="img/team/rodolfo_rains.jpeg.jpg" class="img-responsive img-circle" alt="">
 							<h4>RODOLFO RAINS</h4>
 							<p class="text-muted">Abogado</p>
 							<ul class="list-inline social-buttons">
@@ -235,8 +233,20 @@
 					</div>
 				</div>
 				<div class="col-sm-4">
+						<div class="team-member">
+							<img th:src="@{/img/team/2.jpg}" src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+							<h4>PEDRO FIGARI</h4>
+							<p class="text-muted">Abogado</p>
+							<ul class="list-inline social-buttons">
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				<div class="col-sm-4">
 					<div class="team-member">
-						<img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+						<img th:src="@{/img/team/tomas_gonzalez.jpg}" src="img/team/tomas_gonzalez.jpg" class="img-responsive img-circle" alt="">
 						<h4>TOMÁS GONZÁLEZ</h4>
 						<p class="text-muted">Gestor</p>
 						<ul class="list-inline social-buttons">
@@ -246,9 +256,9 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-4">
 					<div class="team-member">
-						<img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+						<img th:src="@{/img/team/hugo_alfonso.jpeg}" src="img/team/hugo_alfonso.jpeg" class="img-responsive img-circle" alt="">
 						<h4>HUGO ALFONSO</h4>
 						<p class="text-muted">Oficial de Justicia</p>
 						<ul class="list-inline social-buttons">
@@ -295,8 +305,8 @@
 								<div class="portfolio-hover-content">
 									<i class="fa fa-plus fa-3x"></i>
 								</div>
-							</div> <img src="img/portfolio/pj_asuncion_front.jpg"
-							class="img-responsive" alt="">
+							</div> <img th:src="@{/img/portfolio/pj_asuncion_front.jpg}" src="img/portfolio/pj_asuncion_front.jpg"
+							       class="img-responsive" alt="">
 						</a>
 						<div class="portfolio-caption">
 							<h4>Palacio de justicia</h4>
@@ -310,7 +320,7 @@
 								<div class="portfolio-hover-content">
 									<i class="fa fa-plus fa-3x"></i>
 								</div>
-							</div> <img src="img/portfolio/pj_luque_front1.jpeg"
+							</div> <img th:src="@{/img/portfolio/pj_luque_front1.jpeg}" src="img/portfolio/pj_luque_front1.jpeg"
 							class="img-responsive" alt="">
 						</a>
 						<div class="portfolio-caption">
@@ -338,27 +348,42 @@
 							class="fa fa-circle fa-stack-2x text-primary"></i> <i
 							class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
 						</span>
-						<h4 class="service-heading">JUICIOS LABORALES</h4>
-						<p class="text-muted">Gestionamos todo tipo de juicios
-							laborales.</p>
+						<h4 class="service-heading">JUICIOS CIVIL Y COMERCIALES</h4>
+						<p class="text-muted">
+							<ul class="list-unstyled">
+								<li>Cobro de documentos</li>
+								<li>Ind. de daños y perjuicios</li>
+								<li>Sucesión</li>
+								<li>Divorcio y disolución</li>
+								<li>Reconocimiento de matrimonio aparente</li>
+							</ul>
+						</p>
 					</div>
 					<div class="col-md-4">
 						<span class="fa-stack fa-4x"> <i
-							class="fa fa-circle fa-stack-2x text-primary"></i> <i
-							class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+							  class="fa fa-circle fa-stack-2x text-primary"></i> <i
+							  class="fa fa-laptop fa-stack-1x fa-inverse"></i>
 						</span>
-						<h4 class="service-heading">ASISTENCIA ALIMENTICIA</h4>
-						<p class="text-muted">Gestionamos demanda de prestación
-							alimentaria.</p>
+						<h4 class="service-heading">JUICIOS DE LA NIÑEZ Y ADOLESCENCIA</h4>
+						<p class="text-muted">
+							<ul class="list-unstyled">
+								<li>Cobro de documentos</li>							
+								<li>Reconocimiento y desconocimiento de filiación</li>
+							</ul>
+						</p>
 					</div>
 					<div class="col-md-4">
 						<span class="fa-stack fa-4x"> <i
 							class="fa fa-circle fa-stack-2x text-primary"></i> <i
 							class="fa fa-lock fa-stack-1x fa-inverse"></i>
 						</span>
-						<h4 class="service-heading">JUICIOS CIVILES</h4>
-						<p class="text-muted">Gestionamos todo tipo de juicios civiles
-							.</p>
+						<h4 class="service-heading">JUICIOS LABORALES</h4>
+						<p class="text-muted">
+							<ul class="list-unstyled">
+								<li>Cobro de Gs. por despido injustificado</li>
+								<li>Reposición laboral</li>
+							</ul>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -371,19 +396,36 @@
 					<div class="col-lg-12 text-center">
 						<h2 class="section-heading">NUESTROS CLIENTES</h2>
 					</div>
-					<div class="timeline-panel">
-						<div class="timeline-body">
-							<p class="text-muted">
-							<ol>
-								<li>Andrés Luis Demestri Burian</li>	
-								<li>Automotor S.A.</li>
-								<li>Coop. Chaco Sur Ltda.</li>
-								<li>Coop. Mariano Roque Alonso Ltda.</li>								
-								<li>SENAVITAT.</li>																
-							</ol>
-							</p>
-						</div>
-					</div>
+					<div class="col-md-3 col-sm-6">
+						<a href="http://www.automotor.com.py/">
+                        	<img th:src="@{/img/logos/automotor.png}" src="img/logos/automotor.png" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="http://www.senavitat.gov.py/">
+                        	<img th:src="@{/img/logos/senavitat.jpg}" src="img/logos/senavitat.jpg" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="#">
+                        	<img th:src="@{/img/logos/cmra.jpg}" src="img/logos/cmra.jpg" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="#">
+                        	<img th:src="@{/img/logos/ccs.png}" src="img/logos/ccs.png" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="#">
+                        	<img th:src="@{/img/logos/cmra.jpg}" src="img/logos/cmra.jpg" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
 				</div>
 			</div>
 		</section>
@@ -514,6 +556,7 @@
 									<p class="item-intro text-muted">Expedientes más seguros,
 										ante cualquier tipo de pérdidas.</p>
 									<img class="img-responsive img-centered"
+										th:src="@{/img/portfolio/caratula_ditigal.png}"
 										src="img/portfolio/caratula_ditigal.png" alt="">
 									<p>Contamos con el sistema más sofisticado de gestión
 										jurídica de expedientes digitales para estudios jurídicos.</p>
@@ -551,14 +594,15 @@
 						<div class="row">
 							<div class="col-lg-8 col-lg-offset-2">
 								<div class="modal-body">
-									<h2>Palacio de justicia</h2>
+									<h2>Palacio de Justicia</h2>
 									<p class="item-intro text-muted">Asunción - Paraguay</p>
 									<img class="img-responsive img-centered"
-										src="img/portfolio/pj_asuncion.jpeg" alt="">
+										 th:src="@{/img/portfolio/pj_asuncion.jpeg}"
+										 src="img/portfolio/pj_asuncion.jpeg" alt="">
 									<p>
-										<a href="http://www.pj.gov.py">El palacio de justicia</a> de la
-										ciudad de Asunción es donde se centra la mayor actividad de
-										casos llevados a cabo por la <strong>Corte Suprema de
+										<a href="http://www.pj.gov.py">El Palacio de Justicia</a> de la
+											ciudad de Asunción es donde se centra la mayor actividad de
+										   	casos llevados a cabo por la <strong>Corte Suprema de
 											Justicia</strong>, casos que son gestionados por el <a href="#team"
 											data-dismiss="modal">staff</a> del estudio jurídico.
 										<button type="button" class="btn btn-primary"
@@ -592,13 +636,14 @@
 									<p class="item-intro text-muted">Juzgado de 1° Instancia -
 										Luque.</p>
 									<img class="img-responsive img-centered"
+									    th:src="@{/img/portfolio/pj_luque.jpeg}"
 										src="img/portfolio/pj_luque.jpeg" alt="">
 									<p>Realizamos gestiones en las distintas cedes del palacio
 										de justicia, tratamos de abarcar la mayor cantidad de distritos
 										posibles para poder cumplir con nuestra labor.</p>
 									<p>Todos los juicios que sean de la ciudad de Mariano Roque
 										Alonso como los propios de la ciudad de Luque son tratados en
-										el juzgado de 1° Instancia de dicha si cudad.</p>
+										el juzgado de 1° Instancia de dicha ciudad.</p>
 									<button type="button" class="btn btn-primary"
 										data-dismiss="modal">
 										<i class="fa fa-times"></i> Cerrar
