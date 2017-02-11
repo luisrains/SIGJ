@@ -35,6 +35,8 @@
 												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
 												<th th:each="col : ${columnasPersona}" th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>
 												
+												
+												
 											</tr>
 										</thead>
 									</table>
@@ -63,6 +65,8 @@
 								<thead>
 									<tr>
 										<th th:each="col : ${columnas}" th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
+										
+										
 									</tr>
 								</thead>
 							</table>
@@ -80,6 +84,8 @@
 
 		<script>
 				$(document).ready(function(){
+					var data = $('#empleadoDT').DataTable();
+					data.column( 0 ).visible( false );
 				    $(".nav-tabs a").click(function(){
 				        $(this).tab('show');
 				    });
