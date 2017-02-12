@@ -103,7 +103,7 @@
 
 			 //Ocultamos la primera columna (id)
 			 //dataTable.fnSetColumnVis(0, false);
-			dataTable.column( 0 ).visible( false );		
+			dataTable.column(0).visible(false);		
 			
 				$('#'+ dataTableId + ' tbody').on('click','button.editar', function(){
 					/*Con esto tenemos un objeto de tipo {id: 1, codigo: "ejc", descripcion: "Ejecutivo", materia: Object}
