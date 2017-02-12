@@ -30,6 +30,8 @@ public class PlanillaSalario extends GenericEntity {
 
 	private int egresoTotal;
 
+	private String observacion;
+
 	@ManyToOne
 	@NotNull(message = "planillaSalario.empleado.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "planillaSalario_empleado_fk"))
@@ -95,11 +97,19 @@ public class PlanillaSalario extends GenericEntity {
 		this.planillaSueldo = planillaSueldo;
 	}
 
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
 	@Override
 	public String toString() {
 		return "PlanillaSalario [id=" + id + ", montoCobro=" + montoCobro + ", ingresoTotal=" + ingresoTotal
-				+ ", egresoTotal=" + egresoTotal + ", empleado=" + empleado + ", planillaSueldo=" + planillaSueldo
-				+ "]";
+				+ ", egresoTotal=" + egresoTotal + ", observacion=" + observacion + ", empleado=" + empleado
+				+ ", planillaSueldo=" + planillaSueldo + "]";
 	}
 
 }

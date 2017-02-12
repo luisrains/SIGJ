@@ -11,7 +11,7 @@
 					<h3>Listado de Planillas</h3>
 				</div>
 				<div class="box-body"></div>
-				<form th:action="@{/planilla_salario/validar_fecha}" method="post">
+				    
 					<div class="form-group">
 						<label>Seleccione la Fecha de la planilla:</label>
 						<div class="input-group date">
@@ -47,15 +47,39 @@
 				                <label>Introducir mes de la planilla</label>
 				                <input type="text" name="mes" id="mes">
 				           </div>-->
-					<button type="submit">Enviar</button>
-				</form>
+					<button id="btn-planilla" type="button">Enviar</button>
+					<script type="text/javascript">
+       
+          
+       $("#btn-planilla").on('click',function(e){
+           console.log("entro en el onclick");
+            var fecha_rec = $('input[name=fecha]').val();
+           
+       $.ajax({
+           type: "POST",
+           url: "sigj/planilla_salario/validar_fecha",
+           data: { 
+               fecha:fecha_rec
+           }
+       }).done(function(data){
+           console.log("entro en el ajax");
+           console.log(data);
+           $("#planilla_body").html(data);
+       });
+       });
+      
+       </script>
+				
+				<div id="planilla_body">
+                    
+               </div>
 			</div>
 		</div>
 
 
 
 	</div>
-
+       
 
 </body>
 </html>

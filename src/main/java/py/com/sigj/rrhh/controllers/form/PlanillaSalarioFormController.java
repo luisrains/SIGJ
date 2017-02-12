@@ -72,7 +72,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 	@RequestMapping(value = "/validar_fecha", method = RequestMethod.POST)
 
-	public String validar_fecha(ModelMap map, @RequestParam(required = true) String fecha) {
+	public String validar_fecha(ModelMap map, @RequestParam(value = "fecha", required = true) String fecha) {
 
 		String aux1 = null;
 		String aux2 = null;
@@ -88,6 +88,8 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 		}
 		if (p1 != null) {
 			psx = planillaSalarioDao.buscar(p1.getId());
+			logger.info("Probando con la planilla ya cargada en bd:{}", psx);
+			map.addAttribute("planilla_salario", psx);
 		} else {
 			PlanillaSueldo planillaSueldo = new PlanillaSueldo();
 			planillaSueldo.setAnho(aux2);
@@ -151,6 +153,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 				// for (Movimiento m1 : auxiliar) {
 				int egreso = 0;
 				int ingreso = 0;
+				int ganancia = 0;
 				logger.info("La lista de no repetidos tiene elementos:{}", auxiliar.size());
 				logger.info("recorremos la lista, itereacion:{}", cont);
 				int sueldo = auxiliar.get(i).getEmpleado().getSalario();
@@ -167,13 +170,14 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 				}
 				if (ingreso > egreso) {
 					logger.info("Entra en el if de ingreso > egreso");
-					sueldo = sueldo + ((ingreso - egreso) * 50) / 100;
+					ganancia = ((ingreso - egreso) * 50) / 100;
+					sueldo = sueldo + ganancia;
 					PlanillaSalario ps = new PlanillaSalario();
 
 					ps.setMontoCobro(sueldo);
 					ps.setIngresoTotal(ingreso);
 					ps.setEgresoTotal(egreso);
-
+					ps.setObservacion("El empleado tuvo una ganancia de " + ganancia);
 					ps.setEmpleado(auxiliar.get(i).getEmpleado());
 					ps.setPlanillaSueldo(psu1);
 					logger.info("Esto tiene ps:{}", ps);
@@ -181,12 +185,14 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 				} else if (ingreso < egreso) {
 					logger.info("Entra en el if de egreso > ingreso");
+					ganancia = egreso - ingreso;
 					sueldo = sueldo + (egreso - ingreso);
 					PlanillaSalario ps = new PlanillaSalario();
 
 					ps.setMontoCobro(sueldo);
 					ps.setIngresoTotal(ingreso);
 					ps.setEgresoTotal(egreso);
+					ps.setObservacion("Se debe devolver al empleado la cantidad de " + ganancia);
 
 					ps.setEmpleado(auxiliar.get(i).getEmpleado());
 					ps.setPlanillaSueldo(psu1);
@@ -195,10 +201,11 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 				} else {
 					PlanillaSalario ps = new PlanillaSalario();
-
+					ganancia = 0;
 					ps.setMontoCobro(sueldo);
 					ps.setIngresoTotal(ingreso);
 					ps.setEgresoTotal(egreso);
+					ps.setObservacion("");
 					ps.setEmpleado(auxiliar.get(i).getEmpleado());
 					ps.setPlanillaSueldo(psu1);
 					logger.info("Esto tiene ps:{}", ps);
@@ -207,10 +214,11 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 				cont++;
 			}
 			logger.info("La planilla queda asi:{}", planillaSalarioDao.getList(0, 10, null));
-			map.addAttribute("planilla_salario", planillaSalarioDao.getList(0, 10, null));
+			List<PlanillaSalario> listResult = planillaSalarioDao.getList(0, 10, null);
+			map.addAttribute("planilla_salario", listResult);
 
 		}
-		return null;
 
+		return "rrhh/planillaSalario_form";
 	}
 }

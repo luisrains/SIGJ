@@ -20,6 +20,7 @@ public class PlanillaSalarioDaoImpl extends DaoImpl<PlanillaSalario> implements 
 		return null;
 	}
 
+	@Override
 	public List<PlanillaSalario> buscar(Long id) {
 
 		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
@@ -30,9 +31,10 @@ public class PlanillaSalarioDaoImpl extends DaoImpl<PlanillaSalario> implements 
 		if (id == null) {
 			query = entityManager.createQuery(sql);
 		} else {
-			sql = sql + " WHERE planillasueldo_id LIKE ?1)";
+			sql = sql + " WHERE planillasueldo_id = ?1)";
 			query = entityManager.createQuery(sql);
 			query.setParameter(1, id);
+
 		}
 
 		List<PlanillaSalario> list = query.getResultList();
