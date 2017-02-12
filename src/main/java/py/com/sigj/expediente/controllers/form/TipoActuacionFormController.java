@@ -22,6 +22,8 @@ public class TipoActuacionFormController extends FormController<TipoActuacion> {
 
 	@Autowired
 	private TipoActuacionListController tipoActuacionList;
+	
+
 
 	@Override
 	public String getTemplatePath() {

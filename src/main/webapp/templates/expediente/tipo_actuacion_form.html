@@ -40,7 +40,15 @@ function nuevoRegistro() {
 					class="field-label">Modelo de la hoja de actuacion:</label> <input type="text"
 					th:field="*{modeloHoja}" maxlength="100" class="form-control" />
 			</div>
-			
+			<!--  HACER UN FOR EACH PARA MOSTRAR LOS MODELOS DE HOJA-->
+			<div class="form-group">
+                <label>
+                  <input type="checkbox" class="flat-red" checked>
+                </label>
+                <label>
+                  Flat green skin checkbox
+                </label>
+              </div>
 			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
