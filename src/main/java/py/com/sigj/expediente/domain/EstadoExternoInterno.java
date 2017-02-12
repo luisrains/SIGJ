@@ -42,8 +42,6 @@ public class EstadoExternoInterno extends GenericEntity {
 	private String descripcion;
 
 	@NotNull(message = "estadoExternoInterno.tipoEstado.notNull")
-	@NotBlank(message = "estadoExternoInterno.tipoEstado.notBlank")
-	@Size(max = 1, message = "estadoExternoInterno.tipoEstado.size")
 	private char tipoEstado;
 
 	public EstadoExternoInterno() {
