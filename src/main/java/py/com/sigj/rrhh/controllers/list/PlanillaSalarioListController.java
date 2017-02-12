@@ -20,7 +20,7 @@ public class PlanillaSalarioListController extends ListController<PlanillaSalari
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "codigo", "fecha", "montoCobro" };
+		return new String[] { "id", "mes", "anho", "ingresoTotal", "egresoTotal", "montoCobro" };
 	}
 
 	@Override

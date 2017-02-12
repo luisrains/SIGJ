@@ -1,7 +1,5 @@
 package py.com.sigj.rrhh.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -12,9 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
@@ -28,43 +23,28 @@ public class PlanillaSalario extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "planillaSalario.codigo.notNull")
-	@NotBlank(message = "planillaSalario.codigo.notBlank")
-	@Size(max = 20, message = "planillaSalario.codigo.size")
-	private String codigo;
-
-	@NotNull(message = "planillaSalario.fecha.notNull")
-	private Date fecha;
-
 	private int montoCobro; // este valor es el que define el total a cobrar por
 							// el empleado
-	@ManyToOne
-	@NotNull(message = "planillaSalario.movimiento.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "planillaSalario_movimiento_fk"))
-	private Movimiento movimiento;
+
+	private int ingresoTotal;
+
+	private int egresoTotal;
+
+	private String observacion;
 
 	@ManyToOne
 	@NotNull(message = "planillaSalario.empleado.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "planillaSalario_empleado_fk"))
 	private Empleado empleado;
 
-	public Movimiento getMovimiento() {
-		return movimiento;
-	}
-
-	public void setMovimiento(Movimiento movimiento) {
-		this.movimiento = movimiento;
-	}
-
-	public Empleado getEmpleado() {
-		return empleado;
-	}
-
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
-	}
+	@ManyToOne
+	@NotNull(message = "planillaSalario.planillaSueldo.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "planillaSalario_planillaSueldo_fk"))
+	private PlanillaSueldo planillaSueldo;
 
 	public PlanillaSalario() {
+		super();
+
 	}
 
 	@Override
@@ -77,22 +57,6 @@ public class PlanillaSalario extends GenericEntity {
 		this.id = id;
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
 	public int getMontoCobro() {
 		return montoCobro;
 	}
@@ -101,10 +65,51 @@ public class PlanillaSalario extends GenericEntity {
 		this.montoCobro = montoCobro;
 	}
 
+	public int getIngresoTotal() {
+		return ingresoTotal;
+	}
+
+	public void setIngresoTotal(int ingresoTotal) {
+		this.ingresoTotal = ingresoTotal;
+	}
+
+	public int getEgresoTotal() {
+		return egresoTotal;
+	}
+
+	public void setEgresoTotal(int egresoTotal) {
+		this.egresoTotal = egresoTotal;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+
+	public PlanillaSueldo getPlanillaSueldo() {
+		return planillaSueldo;
+	}
+
+	public void setPlanillaSueldo(PlanillaSueldo planillaSueldo) {
+		this.planillaSueldo = planillaSueldo;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
 	@Override
 	public String toString() {
-		return "PlanillaSalario [id=" + id + ", codigo=" + codigo + ", fecha=" + fecha + ", montoCobro=" + montoCobro
-				+ ", movimiento=" + movimiento + ", empleado=" + empleado + "]";
+		return "PlanillaSalario [id=" + id + ", montoCobro=" + montoCobro + ", ingresoTotal=" + ingresoTotal
+				+ ", egresoTotal=" + egresoTotal + ", observacion=" + observacion + ", empleado=" + empleado
+				+ ", planillaSueldo=" + planillaSueldo + "]";
 	}
 
 }
