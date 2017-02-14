@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Carlos A. Méndez & Asoc.</title>		
+		<!-- Bootstrap Core CSS -->
+		<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+			href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">		
+		<!-- Custom Fonts -->
+		<link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}"
+			href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+			type="text/css">
+		<link
+			th:href="@{/https://fonts.googleapis.com/css?family=Montserrat:400,700}"
+			href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+			rel="stylesheet" type="text/css">
+		<link
+			th:href="@{/https://fonts.googleapis.com/css?family=Kaushan+Script}"
+			href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+			rel='stylesheet' type='text/css'>
+		<link
+			th:href="@{/https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic}"
+			href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+			rel='stylesheet' type='text/css'>
+		<link
+			th:href="@{/http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300|Roboto+Slab:400,300}"
+			href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300|Roboto+Slab:400,300'
+			rel='stylesheet' type='text/css'>
+		<link
+			th:href="@{/https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700}"
+			href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+			rel='stylesheet' type='text/css'>	
+		<!-- Theme CSS -->
+		<link th:href="@{/css/agency.css}" href="css/agency.css"
+			rel="stylesheet">
+		
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			    <![endif]-->		
+	</head>
+	
+	
+	<body id="page-top" class="index">	
+		<!-- Navigation -->
+		<nav id="mainNav"
+			class="navbar navbar-default navbar-custom navbar-fixed-top ">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header page-scroll">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> Menu <i
+							class="fa fa-bars"></i>
+					</button>
+					<a class="navbar-brand page-scroll" href="#page-top">Carlos A. Méndez &
+						Asoc.</a>
+				</div>
+	
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="hidden"><a href="#page-top"></a></li>
+						<li><a class="page-scroll" href="#about">NOSOTROS</a></li>
+						<li><a class="page-scroll" href="#team">STAFF</a></li>
+						<li><a class="page-scroll" href="#portfolio">GALERIA</a></li>
+						<li><a class="page-scroll" href="#services">SERVICIOS</a></li>
+						<li><a class="page-scroll" href="#clients">CLIENTES</a></li>
+						<li><a class="page-scroll" href="#where">DÓNDE ESTAMOS</a></li>
+						<li><a class="page-scroll" href="#contact">CONTACTO</a></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+	
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<div class="intro-text">
+					<div class="intro-lead-in">Bienvenido al Estudio Jurídico de</div>
+					<div class="intro-heading">
+						Carlos A. Méndez G.<br>&<br> Asoc.
+					</div>
+					<a href="#services" class="page-scroll btn btn-xl">Saber más...</a>
+				</div>
+			</div>
+		</header>
+	
+		<!-- About Section -->
+		<section id="about">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">NOSOTROS</h2>
+						<h3 class="section-subheading text-muted">Misión, Visión y
+							Valores.</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<ul class="timeline">
+							<li>
+								<div class="timeline-image">
+									<img class="img-circle img-responsive" th:src="@{/img/logos/mision.png}" 
+										 src="img/logos/mision.png" alt="">
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="subheading">MISIÓN</h4>
+									</div>
+									<div class="timeline-body">
+										<p class="text-muted">
+										<ul class="list-unstyled">
+											<li>Brindar soluciones efectivas a las necesidades de
+												nuestros clientes y procurando su completa satisfacción.
+												Asimismo, lograr la realización personal y profesional de los
+												miembros del Estudio, dentro de los más altos estándares
+												éticos y de excelencia.</li>
+										</ul>
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="timeline-inverted">
+								<div class="timeline-image">
+									<img class="img-circle img-responsive" th:src="@{/img/logos/vision.png}" 
+										 src="img/logos/vision.png" alt="">
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="subheading">VISIÓN</h4>
+									</div>
+									<div class="timeline-body">
+										<p class="text-muted">
+											<ul class="list-unstyled">
+												<li>Ser líderes en la calidad del servicio y satisfacción
+													del cliente a través de un grupo humano calificado.</li>
+											</ul>
+										</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="timeline-image">
+									<img class="img-circle img-responsive" th:src="@{/img/logos/valores.jpg}"
+										 src="img/logos/valores.jpg" alt="">
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="subheading">VALORES</h4>		
+									</div>
+									<div class="timeline-body">
+										<p class="text-muted">
+											<ul class="list-unstyled">
+												<li>Confiabilidad</li>
+												<li>Confidencialidad</li>
+												<li>Compromiso</li>
+												<li>Excelencia</li>
+												<li>Independencia</li>
+												<li>Integridad</li>
+												<li>Respeto</li>
+											</ul>
+										</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<!-- Team Section, 1 -->
+		<section id="team" class="bg-light-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">NUESTRO EQUIPO DE TRABAJO</h2>
+						<h3 class="section-subheading text-muted">El grupo humano que
+							hace justicia.</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="team-member">
+							<img th:src="@{/img/team/carlos_mendez.jpg}" src="img/team/carlos_mendez.jpg" 
+								 class="img-responsive img-circle" alt="">
+							<h4>CARLOS MÉNDEZ</h4>
+							<p class="text-muted">Fundador - Abogado</p>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="team-member">
+							<img th:src="@{/img/team/3.jpg}" src="img/team/3.jpg" class="img-responsive img-circle" alt="">
+							<h4>JUAN HOSPITAL</h4>
+							<p class="text-muted">Abogado</p>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="team-member">
+							<img th:src="@{/img/team/rodolfo_rains.jpeg}" src="img/team/rodolfo_rains.jpeg.jpg" class="img-responsive img-circle" alt="">
+							<h4>RODOLFO RAINS</h4>
+							<p class="text-muted">Abogado</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+						<div class="team-member">
+							<img th:src="@{/img/team/2.jpg}" src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+							<h4>PEDRO FIGARI</h4>
+							<p class="text-muted">Abogado</p>
+						</div>
+					</div>
+				<div class="col-sm-4">
+					<div class="team-member">
+						<img th:src="@{/img/team/tomas_gonzalez.jpg}" src="img/team/tomas_gonzalez.jpg" class="img-responsive img-circle" alt="">
+						<h4>TOMÁS GONZÁLEZ</h4>
+						<p class="text-muted">Gestor</p>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="team-member">
+						<img th:src="@{/img/team/hugo_alfonso.jpeg}" src="img/team/hugo_alfonso.jpeg" class="img-responsive img-circle" alt="">
+						<h4>HUGO ALFONSO</h4>
+						<p class="text-muted">Oficial de Justicia</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<!-- Portfolio Grid Section -->
+		<section id="portfolio">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">GALERIA</h2>
+						<h3 class="section-subheading text-muted">Un paneo general del
+							ambiente laboral de la empresa donde serán gestionados sus casos.</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a href="#portfolioModal1" class="portfolio-link"
+							data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div> <img th:src="@{/img/portfolio/poder_juidicial.png}"
+							src="../img/portfolio/poder_juidicial.png" class="img-responsive"
+							alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>Expediente Digital</h4>
+							<p class="text-muted">Caratula Digital</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a href="#portfolioModal2" class="portfolio-link"
+							data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div> <img th:src="@{/img/portfolio/pj_asuncion_front.jpg}" src="img/portfolio/pj_asuncion_front.jpg"
+							       class="img-responsive" alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>Palacio de justicia</h4>
+							<p class="text-muted">Asunción - Paraguay</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a href="#portfolioModal3" class="portfolio-link"
+							data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div> <img th:src="@{/img/portfolio/pj_luque_front1.jpeg}" src="img/portfolio/pj_luque_front1.jpeg"
+							class="img-responsive" alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>Palacio de Justicia</h4>
+							<p class="text-muted">Luque - Paraguay</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+				<!-- Portfolio Modals -->
+		<!-- Use the modals below to showcase details about your portfolio projects! -->
+	
+		<!-- Portfolio Modal 1 -->
+		<div class="portfolio-modal modal fade" id="portfolioModal1"
+			tabindex="-1" role="dialog" aria-hidden="true" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="close-modal" data-dismiss="modal">
+						<div class="lr">
+							<div class="rl"></div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-8 col-lg-offset-2">
+								<div class="modal-body">
+									<!-- Project Details Go Here -->
+									<h2>Expedientes Digitales</h2>
+									<p class="item-intro text-muted">Expedientes más seguros,
+										ante cualquier tipo de pérdidas.</p>
+									<img class="img-responsive img-centered"
+										th:src="@{/img/portfolio/caratula_ditigal.png}"
+										src="img/portfolio/caratula_ditigal.png" alt="">
+									<p>Contamos con el sistema más sofisticado de gestión
+										jurídica de expedientes digitales para estudios jurídicos.</p>
+									<p>
+										<strong>¿Puedo consultar el estado de mi juicio a
+											través de este sistema?</strong> Próximamente este servicio estará
+										disponible para todos los clientes que estén registrados en el
+										sistema, una vez disponible el servicio, informaremos del mismo
+										por esta vía, para que así usted pueda realizar consultar del
+										estado actual de sus expedientes.
+									</p>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal">
+										<i class="fa fa-times"></i> Cerrar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Portfolio Modal 2 -->
+		<div class="portfolio-modal modal fade" id="portfolioModal2"
+			tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="close-modal" data-dismiss="modal">
+						<div class="lr">
+							<div class="rl"></div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-8 col-lg-offset-2">
+								<div class="modal-body">
+									<h2>Palacio de Justicia</h2>
+									<p class="item-intro text-muted">Asunción - Paraguay</p>
+									<img class="img-responsive img-centered"
+										 th:src="@{/img/portfolio/pj_asuncion.jpeg}"
+										 src="img/portfolio/pj_asuncion.jpeg" alt="">
+									<p>
+										<a href="http://www.pj.gov.py">El Palacio de Justicia</a> de la
+											ciudad de Asunción es donde se centra la mayor actividad de
+										   	casos llevados a cabo por la <strong>Corte Suprema de
+											Justicia</strong>, casos que son gestionados por el <a href="#team"
+											data-dismiss="modal">staff</a> del estudio jurídico.
+										<button type="button" class="btn btn-primary"
+											data-dismiss="modal">
+											<i class="fa fa-times"></i> Cerrar
+										</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Portfolio Modal 3 -->
+		<div class="portfolio-modal modal fade" id="portfolioModal3"
+			tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="close-modal" data-dismiss="modal">
+						<div class="lr">
+							<div class="rl"></div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-8 col-lg-offset-2">
+								<div class="modal-body">
+									<!-- Project Details Go Here -->
+									<h2>Palacio de justicia</h2>
+									<p class="item-intro text-muted">Juzgado de 1° Instancia -
+										Luque.</p>
+									<img class="img-responsive img-centered"
+									    th:src="@{/img/portfolio/pj_luque.jpeg}"
+										src="img/portfolio/pj_luque.jpeg" alt="">
+									<p>Realizamos gestiones en las distintas cedes del palacio
+										de justicia, tratamos de abarcar la mayor cantidad de distritos
+										posibles para poder cumplir con nuestra labor.</p>
+									<p>Todos los juicios que sean de la ciudad de Mariano Roque
+										Alonso como los propios de la ciudad de Luque son tratados en
+										el juzgado de 1° Instancia de dicha ciudad.</p>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal">
+										<i class="fa fa-times"></i> Cerrar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Services Section -->
+		<section id="services" class="bg-light-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">SERVICIOS</h2>
+						<h3 class="section-subheading text-muted">Ofrecemos el mejor
+							servicio en cada área.</h3>
+					</div>
+				</div>
+				<div class="row text-center">
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"> <i
+							class="fa fa-circle fa-stack-2x text-primary"></i> <i
+							class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+						</span>
+						<h4 class="service-heading">JUICIOS CIVIL Y COMERCIALES</h4>
+						<p class="text-muted">
+							<ul class="list-unstyled">
+								<li>Cobro de documentos</li>
+								<li>Ind. de daños y perjuicios</li>
+								<li>Sucesión</li>
+								<li>Divorcio y disolución</li>
+								<li>Reconocimiento de matrimonio aparente</li>
+							</ul>
+						</p>
+					</div>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"> <i
+							  class="fa fa-circle fa-stack-2x text-primary"></i> <i
+							  class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+						</span>
+						<h4 class="service-heading">JUICIOS DE LA NIÑEZ Y ADOLESCENCIA</h4>
+						<p class="text-muted">
+							<ul class="list-unstyled">
+								<li>Cobro de documentos</li>							
+								<li>Reconocimiento y desconocimiento de filiación</li>
+							</ul>
+						</p>
+					</div>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"> <i
+							class="fa fa-circle fa-stack-2x text-primary"></i> <i
+							class="fa fa-lock fa-stack-1x fa-inverse"></i>
+						</span>
+						<h4 class="service-heading">JUICIOS LABORALES</h4>
+						<p class="text-muted">
+							<ul class="list-unstyled">
+								<li>Cobro de Gs. por despido injustificado</li>
+								<li>Reposición laboral</li>
+							</ul>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<!-- Clients Aside -->
+		<section id="clients">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">CLIENTES</h2>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<a href="http://www.automotor.com.py/">
+                        	<img th:src="@{/img/logos/automotor.png}" src="img/logos/automotor.png" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="http://www.senavitat.gov.py/">
+                        	<img th:src="@{/img/logos/senavitat.jpg}" src="img/logos/senavitat.jpg" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="#">
+                        	<img th:src="@{/img/logos/cmra.jpg}" src="img/logos/cmra.jpg" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="#">
+                        	<img th:src="@{/img/logos/ccs.png}" src="img/logos/ccs.png" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+						<a href="#">
+                        	<img th:src="@{/img/logos/cmra.jpg}" src="img/logos/cmra.jpg" 
+                        		 class="img-responsive img-centered" alt="">
+                    	</a>
+                    </div>
+				</div>
+			</div>
+		</section>
+	
+		<!-- Donde Estamos Section -->
+		<section id="where" class="bg-light-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">DÓNDE ESTAMOS</h2>
+						<h3 class="section-subheading text-muted" style="color: black">Nos
+							ubicamos en el centro mismo de Asunción para estar más cerca de
+							usted.</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<section class="mainContent googleMap">
+							<div
+								class="col-xs-12 col-sm-12 col-md-12 col-lg-12 map google-map-canvas">
+								
+								<iframe src="https://www.google.com/maps/d/embed?mid=1XHCmQAZ7HpwDHJxAE54pCMNM4xw" 
+								width="100%" height="480"></iframe>
+								
+								<!-- <iframe
+									src="https://www.google.com/maps/d/embed?mid=1j-ggI3iBV1PxbjwMxQB1DUgUhCQ"
+									width="100%" height="350"></iframe> -->
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<!-- Contact Section -->
+		<section id="contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">CONTACTO</h2>
+						<h3 class="section-subheading text-muted" style="color: white">
+							<ul class="list-unstyled">
+								<li>Luis Alberto de Herrera C/ Yegros - Edificio InterExpress, Piso 14, Of.
+									1401.</li>
+								<li>Email: estudiocm@outlook.es</li>
+								<li>Cel.: (+595 981) 576 488</li>
+								<li>Fax: </li>
+							</ul>
+						</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<form name="sentMessage" id="contactForm" novalidate>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Nombre *"
+											id="name" required
+											data-validation-required-message="Please enter your name.">
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="form-group">
+										<input type="email" class="form-control"
+											placeholder="Teléfono *" id="phone" required
+											data-validation-required-message="Please enter your phone number.">
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="form-group">
+										<input type="tel" class="form-control"
+											placeholder="Correo electrónico *" id="email" required
+											data-validation-required-message="Please enter your email address.">
+										<p class="help-block text-danger"></p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<textarea class="form-control"
+											placeholder="Escriba su mensaje... *" id="message" required
+											data-validation-required-message="Please enter a message."></textarea>
+										<p class="help-block text-danger"></p>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+								<div class="col-lg-12 text-center">
+									<div id="success"></div>
+									<button type="submit" class="btn btn-xl">Enviar mensaje</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<span class="copyright">Copyright &copy; SoftCiety 2016</span>
+					</div>
+					<div class="col-md-4">
+						<ul class="list-inline social-buttons">
+							<li><a href="https://www.facebook.com/estudiocarlosmendez"><i class="fa fa-facebook"></i></a></li>				
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<ul class="list-inline quicklinks">
+							<li><a href="#">Politica de Privacidad</a></li>
+						</ul>
+					</div>
+				</div>
+				<!--<a class="navbar-btn" href="#">Intranet</a>-->
+			</div>
+		</footer>
+		
+		<!-- jQuery -->
+		<script th:src="@{/vendor/jquery/jquery.min.js}"
+			    src="/vendor/jquery/jquery.min.js"></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"
+			    src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Plugin JavaScript -->
+		<script th:src="@{/vendor/jquery/jquery.easing.min.js}"
+			    src="vendor/jquery/jquery.easing.min.js"></script>
+		<!-- Contact Form JavaScript -->
+		<script th:src="@{/js/jqBootstrapValidation.js}"
+				src="js/jqBootstrapValidation.js"></script>
+		<script th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>
+		<!-- Theme JavaScript -->
+		<script th:src="@{/js/agency.min.js}" src="js/agency.min.js"></script>	
+	</body>
+
+</html>
