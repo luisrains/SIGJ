@@ -9,4 +9,12 @@
     padding-left: 0px;
     padding-right: 0px;
 }
+
+/*Para movil*/
+@media screen and (min-device-width: 320px) and (max-device-width: 768px) { 
+   .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter{
+        float:none;
+        text-align: left;
+   }
+}
  
