@@ -195,7 +195,7 @@ fieldset[disabled] .btn-xl.active {
 }
 .navbar-custom .navbar-nav > .active > a:hover,
 .navbar-custom .navbar-nav > .active > a:focus {
-  color: red;
+  color: #FFD700;
   background-color: #ffffff;
 }
 @media (min-width: 768px) {
@@ -607,7 +607,7 @@ section#contact :-ms-input-placeholder {
   color: #eeeeee;
 }
 section#contact .text-danger {
-  color: #e74c3c;
+  color: #FF0000;
 }
 footer {
   padding: 25px 0;
