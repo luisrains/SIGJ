@@ -23,6 +23,9 @@
 						</div>
 						<!-- /.input group -->
 					</div>
+					<div id="planilla_body">
+                    
+               		</div>	
 					<script type="text/javascript">
         $(function () {
         	 $('#datepicker').datepicker({       
@@ -56,8 +59,8 @@
             var fecha_rec = $('input[name=fecha]').val();
            
        $.ajax({
-           type: "POST",
-           url: "sigj/planilla_salario/validar_fecha",
+           type: "GET",
+           url: "planilla_salario/validar_fecha",
            data: { 
                fecha:fecha_rec
            }
@@ -70,9 +73,7 @@
       
        </script>
 				
-				<div id="planilla_body">
-                    
-               </div>
+				
 			</div>
 		</div>
 

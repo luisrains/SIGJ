@@ -1,6 +1,7 @@
 
 <div class="col-sm-12">
     <table id="planilla_bodyDT">
+    <thead>
         <th>Cedula</th>
         <th>Nombre</th>
         <th>Apellido</th>
@@ -9,8 +10,13 @@
         <th>Egreso Total</th>
         <th>Observación</th>
         <th>Salario Neto</th>
+        </thead>
+        <tbody>
+        <tr><td th:text="${planilla_salario}"></td></tr>
+        
         <tr th:each="ps : ${planilla_salario}">
             <td th:text="${ps.empleado.persona.cedula_ruc}"></td>
+            <!-- <td th:text="#{ps.empleado.persona.cedula_ruc}"></td> -->
             <td th:text="${ps.empleado.persona.nombre_razonSocial}"></td>
             <td th:text="${ps.empleado.persona.apellido}"></td>
             <td th:text="${ps.empleado.salario}"></td>
@@ -19,5 +25,13 @@
             <td th:text="${ps.observacion}"></td>
             <td th:text="${ps.montoCobro}"></td>
         </tr>
+        </tbody>
     </table>
+    <!-- <script type="text/javascript">
+		 $(document).ready(function() {
+		    crearDataTableEsp("planilla_bodyDT", "[[@{/planilla_bodyDT/json}]]", "[[${columnasStrPersona}]]", "empleado");
+		    
+		    
+		 });
+	</script> -->
 </div>
