@@ -431,7 +431,7 @@ Responsive.prototype = {
 
 		// The inline type always uses the first child as the target
 		if ( details.type === 'inline' ) {
-			details.target = 'td:first-child';
+			details.target = 'td:nth-child(2)';
 		}
 
 		// type.target can be a string jQuery selector or a column index
@@ -592,7 +592,9 @@ Responsive.prototype = {
 
 		dt.columns().eq(0).each( function ( colIdx, i ) {
 			dt.column( colIdx ).visible( columnsVis[i] );
+			
 		} );
+		
 	},
 
 
@@ -606,6 +608,7 @@ Responsive.prototype = {
 	 */
 	_resizeAuto: function ()
 	{
+		
 		var dt = this.s.dt;
 		var columns = this.s.columns;
 
