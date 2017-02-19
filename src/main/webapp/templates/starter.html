@@ -144,11 +144,10 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">Menú Principal</li>
-       
         <li class="treeview">
           <a href="#">
             <i class="fa fa-balance-scale"></i>
-            <span th:text="@{menu.gestion.expediente}">Gestión Jurídica</span>
+            <span th:text="@{menu.gestion.expediente}">Gestión de Expedientes</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -160,21 +159,29 @@
             <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-calendar-plus-o" style="color:red;"></i>Calendario</a></li>
           </ul>
         </li>
+         
          <li class="active treeview">
           <a href="#">
-            <i class="fa fa-money"></i> <span th:text="@{menu.gestion.gastos}">Gestión de Gastos</span>
+            <i class="fa fa-briefcase"></i> 
+            <span th:text="@{menu.gestion.gastos}"></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-files-o"></i> Facturas </a></li>
+          	<li><a href="index.html"><i class="fa fa-gavel"></i>Servicios</a></li>
+          	<li><a href="index.html"><i class="fa  fa-bars"></i>Tipos de Servicios</a></li>
+          	<li><a href="index.html"><i class="fa fa-calculator"></i>Ingresos y Egresos</a></li>
+          	<li><a href="index.html"><i class="fa  fa-filter"></i>Tipos de Ingresos y Egresos</a></li>
+            <li><a href="index.html"><i class="fa fa-files-o"></i>Facturas</a></li>
+            <li><a href="index.html"><i class="fa fa-money"></i>Caja</a></li>
           </ul>
         </li>
        
          <li class="treeview">
           <a href="#">
-            <i class="fa fa-sitemap"></i> <span>R.R.H.H</span>
+            <i class="fa fa-sitemap"></i> 
+            <span th:text="@{menu.gestion.rrhh}"></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -212,7 +219,8 @@
         <li class="header" th:text="@{menu.gestio.seguridad}">Seguridad</li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-lock"></i> <span>Gestión de Usuarios</span>
+            <i class="fa fa-lock"></i> 
+            <span th:text="@{menu.gestion.usuario}"></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
