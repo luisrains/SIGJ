@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
-
+<link rel="stylesheet" th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}">
 <body>
 
 	<div class="row" th:fragment="contenido">
@@ -16,9 +16,10 @@
 								<i class="glyphicon glyphicon-plus"></i> Nuevo Proceso
 							</button>
 							<br><br>
-							<table
-								class="table table-bordered table-striped"
-								id="procesoDT">
+							<!-- <table
+								class="gdisplay responsive nowrap"
+								id="procesoDT"> -->
+								<table id="procesoDT" class="display nowrap" cellspacing="0" width="100%">
 								<thead>
 									<tr>
 										 <th th:each="col : ${columnas}" th:text="#{'proceso.' + ${col} + '.header'}">CÓDIGO</th>
@@ -71,6 +72,6 @@
 			
 	</div>
 	
-	 
+	 <script th:src="@{/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js}" src="../plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
 </body>
 </html>

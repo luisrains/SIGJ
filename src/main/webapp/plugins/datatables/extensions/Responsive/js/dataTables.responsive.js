@@ -431,7 +431,7 @@ Responsive.prototype = {
 
 		// The inline type always uses the first child as the target
 		if ( details.type === 'inline' ) {
-			details.target = 'td:first-child';
+			details.target = 'td:nth-child(2)';
 		}
 
 		// type.target can be a string jQuery selector or a column index

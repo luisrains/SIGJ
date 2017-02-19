@@ -24,7 +24,7 @@
   <!-- <link rel="stylesheet" th:href="@{/plugins/datatables/dataTables.bootstrap.css}" href="../plugins/datatables/dataTables.bootstrap.css"> -->
   <link rel="stylesheet" th:href="@{/plugins/datatables/jquery.dataTables.min.css}" href="../plugins/datatables/jquery.dataTables.min.css">
   <!-- <link rel="stylesheet" th:href="@{/plugins/datatables/select.dataTables.min.css}" href="../plugins/datatables/select.dataTables.min.css"> -->
-  <!-- <link rel="stylesheet" th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}"> -->
+  <link rel="stylesheet" th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}">
   <!-- Select2 -->
   <link rel="stylesheet" th:href="@{/plugins/select2/select2.min.css}" href="../plugins/select2/select2.min.css">
   <!-- Theme style -->
@@ -38,9 +38,7 @@
 <!-- jQuery 2.2.3 -->
 <script th:src="@{/plugins/jQuery/jquery-1.12.4.js}" src="../plugins/jQuery/jquery-1.12.4.js"></script>
 
-<!-- OWL -->
-<script type="text/javascript" src="../js/owlapp.js" 
-     th:src="@{/js/owlapp.js}"></script>
+
  <!-- Select2 -->
 <script th:src="@{/plugins/select2/select2.full.min.js}" src="../plugins/select2/select2.full.min.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -321,10 +319,10 @@
 <script th:src="@{/plugins/colorpicker/bootstrap-colorpicker.min.js}" src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 <script th:src="@{/plugins/timepicker/bootstrap-timepicker.min.js}" src="../plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- DataTables -->
-<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}" src="../plugins/datatables/jquery.dataTables.min.js"></script>
-<!-- <script th:src="@{/plugins/datatables/dataTables.bootstrap.min.js}" src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script th:src="@{/plugins/datatables/dataTables.select.min.js}" src="../plugins/datatables/dataTables.select.min.js"></script> -->
-<!-- <script th:src="@{/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js}" src="../plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script> -->
+<script th:src="@{/plugins/datatables/jquery.dataTables.js}" src="../plugins/datatables/jquery.dataTables.js"></script>
+<!-- <script th:src="@{/plugins/datatables/dataTables.bootstrap.js}" src="../plugins/datatables/dataTables.bootstrap.js"></script>
+<script th:src="@{/plugins/datatables/dataTables.select.js}" src="../plugins/datatables/dataTables.select.js"></script> -->
+ <script th:src="@{/plugins/datatables/extensions/Responsive/js/dataTables.responsive.js}" src="../plugins/datatables/extensions/Responsive/js/dataTables.responsive.js"></script>
 
 <!-- FastClick -->
 <script th:src="@{/plugins/fastclick/fastclick.js}" src="../plugins/fastclick/fastclick.js"></script>
@@ -340,6 +338,8 @@
 
 <!-- AdminLTE for demo purposes -->
 <script th:src="@{/dist/js/demo.js}" src="../dist/js/demo.js"></script>
-
+<!-- OWL -->
+<script type="text/javascript" src="../js/owlapp.js" 
+     th:src="@{/js/owlapp.js}"></script>
 </body>
 </html>
