@@ -22,6 +22,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th:nth-child(2):before {
   content: '+';
   background-color: #31b131;
 }
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+	display: none;
+}
 
 table.dataTable.dtr-inline.collapsed > tbody > tr > td:nth-child(2).dataTables_empty:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr > th:nth-child(2).dataTables_empty:before {

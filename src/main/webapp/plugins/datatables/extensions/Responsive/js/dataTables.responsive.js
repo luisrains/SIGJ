@@ -592,9 +592,7 @@ Responsive.prototype = {
 
 		dt.columns().eq(0).each( function ( colIdx, i ) {
 			dt.column( colIdx ).visible( columnsVis[i] );
-			
 		} );
-		
 	},
 
 
@@ -608,7 +606,6 @@ Responsive.prototype = {
 	 */
 	_resizeAuto: function ()
 	{
-		
 		var dt = this.s.dt;
 		var columns = this.s.columns;
 
