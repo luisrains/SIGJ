@@ -25,7 +25,7 @@ import py.com.sigj.rrhh.domain.PlanillaSueldo;
 
 @Controller
 @Scope("request")
-@RequestMapping("planilla_salario")
+//@RequestMapping("planilla_salario")
 public class PlanillaSalarioFormController extends FormController<PlanillaSalario> {
 
 	@Autowired
@@ -69,9 +69,14 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	public Dao<PlanillaSalario> getDao() {
 		return planillaSalarioDao;
 	}
+	@RequestMapping(value = "planilla_salario", method = RequestMethod.GET)
+	public String index(ModelMap map) {
+		return super.index(map);
+		
+	}
 
-	@RequestMapping(value = "/validar_fecha", method = RequestMethod.POST)
-
+		
+	@RequestMapping(value = "planilla_salario/validar_fecha", method = RequestMethod.GET)
 	public String validar_fecha(ModelMap map, @RequestParam(value = "fecha", required = true) String fecha) {
 
 		String aux1 = null;
@@ -87,6 +92,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 			}
 		}
 		if (p1 != null) {
+			logger.info("P1d:{}", p1);
 			psx = planillaSalarioDao.buscar(p1.getId());
 			logger.info("Probando con la planilla ya cargada en bd:{}", psx);
 			map.addAttribute("planilla_salario", psx);
@@ -221,4 +227,6 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 		return "rrhh/planillaSalario_form";
 	}
+	
+	
 }

@@ -163,7 +163,7 @@ Responsive.prototype = {
 				} );
 			} );
 
-			$(dt.table().node()).addClass( 'dtr-'+details.type );
+			$(dt.table().node()).addClass( 'dtr-'+details.type);
 		}
 
 		// First pass - draw the table for the current viewport size
@@ -742,9 +742,12 @@ Responsive.defaults = {
 	details: {
 		renderer: function ( api, rowIdx ) {
 			var data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
+				
 				var header = $( api.column( cell.column ).header() );
+				
 				var idx = api.cell( cell ).index();
-
+				console.log("esto hay en idx");
+				console.log(idx);
 				if ( header.hasClass( 'control' ) || header.hasClass( 'never' ) ) {
 					return '';
 				}
@@ -755,12 +758,17 @@ Responsive.defaults = {
 				var dtPrivate = api.settings()[0];
 				var cellData = dtPrivate.oApi._fnGetCellData(
 					dtPrivate, idx.row, idx.column, 'display'
+					
 				);
+				
 				var title = header.text();
-				if ( title ) {
+				if ( title != "Id" ) {
 					title = title + ':';
 				}
-
+				if(idx.column != 0){
+				
+				
+				
 				return '<li data-dtr-index="'+idx.column+'">'+
 						'<span class="dtr-title">'+
 							title+
@@ -769,8 +777,9 @@ Responsive.defaults = {
 							cellData+
 						'</span>'+
 					'</li>';
+				}
 			} ).toArray().join('');
-
+			
 			return data ?
 				$('<ul data-dtr-index="'+rowIdx+'"/>').append( data ) :
 				false;

@@ -109,8 +109,9 @@
 					/*Con esto tenemos un objeto de tipo {id: 1, codigo: "ejc", descripcion: "Ejecutivo", materia: Object}
 					 teniendo en cuenta que ejecutamos http://localhost:8090/sigj/proceso/ 
 					 entonces para obtener el id de este objeto accedemos por su llave "id"*/
-					
-					var ob = dataTable.rows( 0 ).data()[0];
+					console.log($('#'+dataTableId+ ' tbody tr'));
+					var ob = dataTable.row( $(this).parents('tr') ).data()[0];
+					console.log(ob);
 					console.log( ob["id"] );
 					// var dat = dataTable.api().row( $(this).parents('tr') ).data();
 					
