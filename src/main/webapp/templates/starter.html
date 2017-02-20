@@ -4,42 +4,53 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>SIGJ</title>
+  
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" href="../bootstrap/css/bootstrap.min.css">
-  <!-- Moments -->
   
+  <!-- Moments -->
   <link rel="stylesheet" th:href="@{/plugins/daterangepicker/daterangepicker.css}" href="../plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" th:href="@{/plugins/datepicker/datepicker3.css}" href="../plugins/datepicker/datepicker3.css">
   <link rel="stylesheet" th:href="@{/plugins/colorpicker/bootstrap-colorpicker.css}" href="../plugins/colorpicker/bootstrap-colorpicker.css">
   <link rel="stylesheet" th:href="@{/plugins/timepicker/bootstrap-timepicker.min.css}" href="../plugins/timepicker/bootstrap-timepicker.min.css">
+  
   <!-- Font Awesome -->
   <link rel="stylesheet" th:href="@{/bootstrap/fonts/font-awesome.min.css}" href="../bootstrap/fonts/font-awesome.min.css">
+  
   <!-- Ionicons -->
   <link rel="stylesheet" th:href="@{/bootstrap/fonts/ionicons.min.css}" href="../bootstrap/fonts/ionicons.min.css">
+  
   <!-- jvectormap -->
   <link rel="stylesheet" th:href="@{/plugins/jvectormap/jquery-jvectormap-1.2.2.css}" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+  
   <!-- DataTables -->
   <!-- <link rel="stylesheet" th:href="@{/plugins/datatables/dataTables.bootstrap.css}" href="../plugins/datatables/dataTables.bootstrap.css"> -->
   <link rel="stylesheet" th:href="@{/plugins/datatables/jquery.dataTables.min.css}" href="../plugins/datatables/jquery.dataTables.min.css">
   <!-- <link rel="stylesheet" th:href="@{/plugins/datatables/select.dataTables.min.css}" href="../plugins/datatables/select.dataTables.min.css"> -->
   <link rel="stylesheet" th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}">
+  
   <!-- Select2 -->
   <link rel="stylesheet" th:href="@{/plugins/select2/select2.min.css}" href="../plugins/select2/select2.min.css">
+  
   <!-- Theme style -->
   <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}" href="../dist/css/AdminLTE.min.css">
+ 
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}" href="../dist/css/skins/_all-skins.min.css">
+ 
   <!-- Style Sigj -->
   <link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css">
+  
   
 <!-- jQuery 2.2.3 -->
 <script th:src="@{/plugins/jQuery/jquery-1.12.4.js}" src="../plugins/jQuery/jquery-1.12.4.js"></script>
 
 
- <!-- Select2 -->
+<!-- Select2 -->
 <script th:src="@{/plugins/select2/select2.full.min.js}" src="../plugins/select2/select2.full.min.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,11 +59,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
 <body class="hold-transition skin-red-light sidebar-mini">
 <div class="wrapper">
-
   <header class="main-header">
-
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -138,14 +148,16 @@
               </span>
         </div>
       </form>-->
+      
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">Menú Principal</li>
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-balance-scale"></i>
-            <span th:text="@{menu.gestion.expediente}">Gestión de Expedientes</span>
+            <span>Menú de Expedientes</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -158,10 +170,10 @@
           </ul>
         </li>
          
-         <li class="active treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> 
-            <span th:text="@{menu.gestion.gastos}"></span>
+            <span>Menú de Gastos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -176,56 +188,54 @@
           </ul>
         </li>
        
-         <li class="treeview">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-sitemap"></i> 
-            <span th:text="@{menu.gestion.rrhh}"></span>
+            <span>Menú de R.R.H.H.</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-user"></i> Empleados</a></li>
-            <li><a href="#"><i class="fa fa-file-text-o"></i> Planillas Salariales</a></li>
+            <li><a href="#"><i class="fa fa-user"></i>Empleados</a></li>
+            <li><a href="#"><i class="fa fa-file-text-o"></i>Planillas Salariales</a></li>
             <li>
-              <a href="#"><i class="fa fa-pie-chart"></i> Movimiento
+              <a href="#"><i class="fa fa-pie-chart"></i>Movimiento
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Ingresos</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Egresos</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Ingresos</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Egresos</a></li>
               </ul>
             </li>
           </ul>
         </li>
        
-       <li class="header" th:text="@{menu.calendario}">Actividades</li>
+        <li class="header">Actividades</li>
         <li>
           <a href="pages/calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <i class="fa fa-calendar"></i> <span>Calendario</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
             </span>
           </a>
-        </li>
-        
-       
-        
-        <li class="header" th:text="@{menu.gestio.seguridad}">Seguridad</li>
+        </li> 
+              
+        <li class="header">Seguridad</li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-lock"></i> 
-            <span th:text="@{menu.gestion.usuario}"></span>
+            <span>Menú de Usuario</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-user-plus"></i> Usuario</a></li>
-            <li><a href="#"><i class="fa fa-user-secret"></i> Roles</a></li>
+            <li><a href="#"><i class="fa fa-user-plus"></i>Usuario</a></li>
+            <li><a href="#"><i class="fa fa-user-secret"></i>Roles</a></li>
           </ul>
         </li>
       </ul>
@@ -237,11 +247,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1 th:text="@{menu.titulo}">
-        Gestión Jurídica
-      </h1>
+      <h1>Sistema Integral de Gestión Jurídica</h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li class="active">Gestion jurídica</li>
       </ol>
       <div class="row">

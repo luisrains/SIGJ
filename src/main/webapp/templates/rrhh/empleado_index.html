@@ -3,17 +3,13 @@
 
 <body>
 	<div th:fragment="contenido">
-
-
 		<div class="bd-example-row box-shadow">
 			<ul class="nav nav-tabs">
 				<!-- Standard button -->
 				<li class="active"><a href="#menu1">Registrar</a></li>
 				<li><a href="#menu2">Listar</a></li>
 			</ul>
-
 			<div class="tab-content">
-
 				<div id="menu1" class="tab-pane fade in active">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
@@ -30,13 +26,9 @@
 										class="table table-bordered table-hover table-striped display" style="width:100%;"
 										id="personaDT">
 										<thead>
-											<tr>
-												
+											<tr>											
 												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
-												<th th:each="col : ${columnasPersona}" th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>
-												
-												
-												
+												<th th:each="col : ${columnasPersona}" th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>												
 											</tr>
 										</thead>
 									</table>
