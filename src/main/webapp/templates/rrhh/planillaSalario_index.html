@@ -52,17 +52,18 @@
 				           </div>-->
 					
 						<button id="btn-planilla" type="button" class="btn btn-primary col-xs-3 col-sm-3"
-						style="padding:5px;">Mostrar Planilla</button>
+						style="padding:5px; margin:10px;">Mostrar Planilla</button>
 						<button id="btn-informe" type="button" class="btn btn-primary col-xs-3 col-sm-3"
 						style="padding:5px; margin:10px;">Generar Planilla</button>
-					
+					<input id="error_planilla" type="hidden" th:value="${error_planilla}">
 					<script type="text/javascript">
        
           
        $("#btn-planilla").on('click',function(e){
            console.log("entro en el onclick");
             var fecha_rec = $('input[name=fecha]').val();
-           
+            var error = $("#error_planilla").val();
+            alert(error);
        $.ajax({
            type: "GET",
            url: "planilla_salario/validar_fecha",
@@ -74,6 +75,10 @@
            console.log(data);
            $("#planilla_body").load();
            $("#planilla_body").html(data);
+       }).fail(function(error){
+    	   if(error === 0){
+    		   alert("No hubo movimientos ese mes");
+    	   }
        });
        });
       

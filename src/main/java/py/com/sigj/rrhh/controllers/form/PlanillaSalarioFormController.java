@@ -91,15 +91,38 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 				logger.info("Se carga la planilla");
 				p1 = p;
 			}
+			
 		}
-		if (p1 != null) {
+		List<Movimiento> mb = movimientoDao.getList(0, 10, null);
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+		int val=0;
+		for (Movimiento ml : mb) {
+			String fechaCad1 = sdf1.format(ml.getFecha());
+			logger.info("Lee el fechaCad que pusimos para mes:{}", fechaCad1.substring(3, 5));
+			logger.info("Lee el fechaCad que pusimos para año:{}", fechaCad1.substring(6, 10));
+			if (fechaCad1.substring(3, 5).equals(aux1) && fechaCad1.substring(6, 10).equals(aux2)) {
+				logger.info("Esto compara:{}", fechaCad1.substring(3, 5), fechaCad1.substring(6, 10));
+				val=1;
+				break;
+				
+			}else{
+				val=0;
+			}
+			
+		}
+		if (p1 != null && val==1) {
 			logger.info("P1d:{}", p1);
 			psx = planillaSalarioDao.buscar(p1.getId());
 			logger.info("Probando con la planilla ya cargada en bd:{}", psx);
 			map.addAttribute("planilla_salario", psx);
+			logger.info("Entre en el primer if con val = 1");
+		}else if(val == 0){
+			logger.info("Entre en el else del error");
+			map.addAttribute("error_planilla",val);
 		} else { 
 			/* aca tenemos que controlar que si aun no existe planilla de sueldo no se deberia
 			crear si es que no hay movimientos en ese mes introducido*/
+			logger.info("Entre en el else donde creamos una nueva planilla");
 			logger.info("Se va a crear la planilla sin valores");
 			PlanillaSueldo planillaSueldo = new PlanillaSueldo();
 			planillaSueldo.setAnho(aux2);
