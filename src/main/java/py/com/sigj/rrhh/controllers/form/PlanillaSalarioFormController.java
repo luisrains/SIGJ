@@ -25,7 +25,7 @@ import py.com.sigj.rrhh.domain.PlanillaSueldo;
 
 @Controller
 @Scope("request")
-//@RequestMapping("planilla_salario")
+@RequestMapping("planilla_salario")
 public class PlanillaSalarioFormController extends FormController<PlanillaSalario> {
 
 	@Autowired
@@ -69,14 +69,14 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	public Dao<PlanillaSalario> getDao() {
 		return planillaSalarioDao;
 	}
-	@RequestMapping(value = "planilla_salario", method = RequestMethod.GET)
+	/*@RequestMapping(value = "planilla_salario", method = RequestMethod.GET)
 	public String index(ModelMap map) {
 		return super.index(map);
 		
-	}
+	}*/
 
 		
-	@RequestMapping(value = "planilla_salario/validar_fecha", method = RequestMethod.GET)
+	@RequestMapping(value = "/validar_fecha", method = RequestMethod.GET)
 	public String validar_fecha(ModelMap map, @RequestParam(value = "fecha", required = true) String fecha) {
 
 		String aux1 = null;
@@ -88,6 +88,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 		PlanillaSueldo p1 = null;
 		for (PlanillaSueldo p : planillaSueldoDao.getList(0, 20, null)) {
 			if (p.getAnho().equals(aux2) && p.getMes().equals(aux1)) {
+				logger.info("Se carga la planilla");
 				p1 = p;
 			}
 		}
@@ -96,7 +97,10 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 			psx = planillaSalarioDao.buscar(p1.getId());
 			logger.info("Probando con la planilla ya cargada en bd:{}", psx);
 			map.addAttribute("planilla_salario", psx);
-		} else {
+		} else { 
+			/* aca tenemos que controlar que si aun no existe planilla de sueldo no se deberia
+			crear si es que no hay movimientos en ese mes introducido*/
+			logger.info("Se va a crear la planilla sin valores");
 			PlanillaSueldo planillaSueldo = new PlanillaSueldo();
 			planillaSueldo.setAnho(aux2);
 			planillaSueldo.setMes(aux1);

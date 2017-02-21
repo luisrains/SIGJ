@@ -1,6 +1,6 @@
 
-<div class="col-sm-12">
-    <table id="planilla_bodyDT">
+<div class="col-xs-12 col-sm-12 no-padding">
+    <table id="planilla_bodyDT" class="no-padding">
     <thead>
         <th>Cedula</th>
         <th>Nombre</th>
@@ -11,8 +11,8 @@
         <th>Observación</th>
         <th>Salario Neto</th>
         </thead>
-        <tbody>
-        <tr><td th:text="${planilla_salario}"></td></tr>
+        <tbody id="table-body">
+       <!--  <tr><td th:text="${planilla_salario}"></td></tr>--> 
         
         <tr th:each="ps : ${planilla_salario}">
             <td th:text="${ps.empleado.persona.cedula_ruc}"></td>
@@ -34,4 +34,13 @@
 		    
 		 });
 	</script> -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#planilla_bodyDT').dataTable( {
+	        "sScrollX": "100%",
+	        "sScrollXInner": "110%",
+	        "bScrollCollapse": true
+	    } );
+	} );
+	</script>
 </div>
