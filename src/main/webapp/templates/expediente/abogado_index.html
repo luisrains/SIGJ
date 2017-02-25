@@ -3,17 +3,13 @@
 
 <body>
 	<div th:fragment="contenido">
-
-
 		<div class="bd-example-row box-shadow">
 			<ul class="nav nav-tabs">
 				<!-- Standard button -->
 				<li class="active"><a href="#menu1">Registrar</a></li>
-				<li><a href="#menu2">Listado</a></li>
+				<li><a href="#menu2">Listar</a></li>
 			</ul>
-
 			<div class="tab-content">
-
 				<div id="menu1" class="tab-pane fade in active">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
@@ -37,20 +33,15 @@
 										</thead>
 									</table>
 									<script type="text/javascript">
-							 $(document).ready(function() {
-							    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
-							    
-							    
-							 });
-							 
-														 
-			 			</script>
+										$(document).ready(function() {
+										    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
+										 });													 
+			 						</script>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div id="menu2" class="tab-pane fade">
 					<div class="box box-solid box-primary">
 						<div class="box-header">

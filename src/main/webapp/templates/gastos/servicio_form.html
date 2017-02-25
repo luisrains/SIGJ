@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
@@ -17,10 +16,9 @@
 				$("#descripcion").focus();
 			}
 		</script>
-		<h4 class="page-header" th:text="#{servicio.form.titulo}">Detalles
-			de Servicios</h4>
-		<span th:text="${error}" style="color: red">Ocurrió un error</span>
-		<span style="color: green">
+		<h4 class="page-header">Detalles de Servicios</h4>
+		<span th:text="${error}" style="color: red">Ocurrió un error</span> <span
+			style="color: green">
 			<div class="alert alert-success" role="alert" th:text="${msgExito}">
 				<strong>Well done!</strong> You successfully read this important
 				alert message.
@@ -57,4 +55,5 @@
 		<!-- Fin panel botones -->
 	</div>
 </body>
+
 </html>
