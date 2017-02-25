@@ -2,34 +2,38 @@
 <div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
     <table id="planilla_bodyDT" class="no-padding">
     <thead>
-        <th>Cedula</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Salario Base</th>
-        <th>Ingreso Total</th>
-        <th>Egreso Total</th>
-        <th>Observación</th>
-        <th>Salario Neto</th>
+    	<th class="hidden">Id</th>
+        <th class="th-pc">Cedula</th>
+        <th class="th-pc">Nombre</th>
+        <th class="th-pc">Apellido</th>
+        <th class="th-pc">Salario Base</th>
+        <th class="th-pc">Ingreso Total</th>
+        <th class="th-pc">Egreso Total</th>
+        <th class="th-pc">Observación</th>
+        <th class="th-pc">Salario Neto</th>
         </thead>
         <tbody id="table-body">
        <!--  <tr><td th:text="${planilla_salario}"></td></tr>--> 
         
-        <tr th:each="ps : ${planilla_salario}">
-            <td th:text="${ps.empleado.persona.cedula_ruc}"></td>
+        <tr th:each="ps : ${planilla_salario}" class="body-movil">
+        	<td th:text="${ps.id}" class="hidden"></td>
+            <td th:text="${ps.empleado.persona.cedula_ruc}" class="td-body-movil"></td>
             <!-- <td th:text="#{ps.empleado.persona.cedula_ruc}"></td> -->
-            <td th:text="${ps.empleado.persona.nombre_razonSocial}"></td>
-            <td th:text="${ps.empleado.persona.apellido}"></td>
-            <td th:text="${ps.empleado.salario}"></td>
-            <td th:text="${ps.ingresoTotal}"></td>
-            <td th:text="${ps.egresoTotal}"></td>
-            <td th:text="${ps.observacion}"></td>
-            <td th:text="${ps.montoCobro}"></td>
+            <td th:text="${ps.empleado.persona.nombre_razonSocial}" class="td-body-movil"></td>
+            <td th:text="${ps.empleado.persona.apellido}" class="td-body-movil"></td>
+            <td th:text="${ps.empleado.salario}" class="td-body-movil"></td>
+            <td th:text="${ps.ingresoTotal}" class="td-body-movil"></td>
+            <td th:text="${ps.egresoTotal}" class="td-body-movil"></td>
+            <td th:text="${ps.observacion}" class="td-body-movil"></td>
+            <td th:text="${ps.montoCobro}" class="td-body-movil"></td>
         </tr>
         </tbody>
     </table>
+   
     <!-- <script type="text/javascript">
 		 $(document).ready(function() {
 		    crearDataTableEsp("planilla_bodyDT", "[[@{/planilla_bodyDT/json}]]", "[[${columnasStrPersona}]]", "empleado");
+		
 		    
 		    
 		 });
@@ -39,8 +43,34 @@
 	    $('#planilla_bodyDT').dataTable( {
 	        "sScrollX": "100%",
 	        "sScrollXInner": "110%",
-	        "bScrollCollapse": true
+	        "bScrollCollapse": true,
+	        'language' : {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "No se realizaron Movimientos en ese Mes",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando _MAX_ registros",
+                "sInfoFiltered": " ",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
 	    } );
+	    
 	} );
+	 
 	</script>
 </div>

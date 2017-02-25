@@ -95,7 +95,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 		}
 		List<Movimiento> mb = movimientoDao.getList(0, 10, null);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
-		int val=0;
+		int val=2;
 		for (Movimiento ml : mb) {
 			String fechaCad1 = sdf1.format(ml.getFecha());
 			logger.info("Lee el fechaCad que pusimos para mes:{}", fechaCad1.substring(3, 5));
@@ -210,7 +210,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 					ps.setMontoCobro(sueldo);
 					ps.setIngresoTotal(ingreso);
 					ps.setEgresoTotal(egreso);
-					ps.setObservacion("El empleado tuvo una ganancia de " + ganancia);
+					ps.setObservacion("El empleado tuvo una ganancia de " + ganancia + "GS");
 					ps.setEmpleado(auxiliar.get(i).getEmpleado());
 					ps.setPlanillaSueldo(psu1);
 					logger.info("Esto tiene ps:{}", ps);
@@ -225,7 +225,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 					ps.setMontoCobro(sueldo);
 					ps.setIngresoTotal(ingreso);
 					ps.setEgresoTotal(egreso);
-					ps.setObservacion("Se debe devolver al empleado la cantidad de " + ganancia);
+					ps.setObservacion("Se debe devolver al empleado la cantidad de " + ganancia + "GS");
 
 					ps.setEmpleado(auxiliar.get(i).getEmpleado());
 					ps.setPlanillaSueldo(psu1);
@@ -251,6 +251,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 			map.addAttribute("planilla_salario", listResult);
 
 		}
+		map.addAttribute("error_planilla",val);
 
 		return "rrhh/planillaSalario_form";
 	}

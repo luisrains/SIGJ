@@ -9,9 +9,25 @@
     padding-left: 0px;
     padding-right: 0px;
 }
-
+.btn-primary{
+	    background-color: #0000ff;
+	    border-color: #0000ff;
+}
+@media screen and (min-device-width: 768px){
+	.th-pc{
+		width: 40px !important;
+		padding-left: 15px !important;
+	}
+	.td-body-movil {
+		width: 40px !important;
+		padding-left: 15px !important;
+	}
+	.sorting_asc{
+		display:none;
+	}
+}
 /*Para movil*/
-@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+@media screen and (min-device-width: 320px) and (max-device-width: 767px) {
 	table.dataTable thead .sorting_asc{
 		display:none;
 	}
@@ -20,6 +36,12 @@
 	}
 	table.dataTable.display tbody tr.even>.sorting_1, table.dataTable.order-column.stripe tbody tr.even>.sorting_1{
 		display:none;
+	}
+	.sorting_1{
+		display:none;
+	}
+	.body-movil{
+		font-size: 12px;
 	}
 }
  
