@@ -10,19 +10,19 @@
 						<div class="box-header">
 							<h3>Listado de Tipo de Abogados</h3>
 						</div>
-						<div class="box-body">
+						<div class="box-body no-padding">
 							<button class="btn btn-success" id="botonAgregar"
 								 onclick="agregar()">
 								<i class="glyphicon glyphicon-plus"></i> Nueva Tipo de Abogado
 							</button>
 							<br><br>
 							<table
-								class="table table-bordered table-striped"
+								class="table table-bordered table-striped col-xs-12 no-padding table-esp"
 								id="tipoAbogadoDT">
 								<thead>
 									<tr>
 										 <th th:each="col : ${columnas}" th:text="#{'tipoAbogado.' + ${col} + '.header'}">CÓDIGO</th>
-										
+										<th>Accion</th>
 									</tr>
 								</thead>
 							</table>
