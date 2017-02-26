@@ -53,11 +53,15 @@
 				</select>
 			</div>
 
-			<div class="form-group">
-				<label for="domicilioActual"
-					th:text="#{abogado.domicilioActual.lbl}" class="field-label">
-					Domicilio Actual</label> <input type="text" th:field="*{domicilioActual}"
-					maxlength="100" class="form-control" autofocus="autofocus" />
+
+
+			
+			<div class="form-group hidden-xs col-sm-12">
+				<label for="domicilioActual" th:text="#{abogado.domicilioActual.lbl}" class="field-label col-sm-7">
+				Domicilio Actual:</label>
+				<input type="text" th:field="*{domicilioActual}" maxlength="100"
+					class="form-control col-sm-6" autofocus="autofocus" />
+
 			</div>
 			<!--REALIZAR CAMBIOS PARA EMPLEADO Y NO PERSONA  -->
 			<div class="form-group">
