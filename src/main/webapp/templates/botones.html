@@ -2,68 +2,85 @@
 <!-- http://200.10.231.201/rh/login -->
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SIGJ</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" href="../bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" th:href="@{/bootstrap/fonts/font-awesome.min.css}" href="../bootstrap/fonts/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" th:href="@{/bootstrap/fonts/ionicons.min.css}" href="../bootstrap/fonts/ionicons.min.css">
-  <!-- jvectormap -->
-  <link rel="stylesheet" th:href="@{/plugins/jvectormap/jquery-jvectormap-1.2.2.css}" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" th:href="@{/plugins/datatables/dataTables.bootstrap.css}" href="../plugins/datatables/dataTables.bootstrap.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}" href="../dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>SIGJ</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
+	href="../bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	th:href="@{/bootstrap/fonts/font-awesome.min.css}"
+	href="../bootstrap/fonts/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" th:href="@{/bootstrap/fonts/ionicons.min.css}"
+	href="../bootstrap/fonts/ionicons.min.css">
+<!-- jvectormap -->
+<link rel="stylesheet"
+	th:href="@{/plugins/jvectormap/jquery-jvectormap-1.2.2.css}"
+	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/plugins/datatables/dataTables.bootstrap.css}"
+	href="../plugins/datatables/dataTables.bootstrap.css">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"
+	href="../dist/css/AdminLTE.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}" href="../dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"
+	href="../dist/css/skins/_all-skins.min.css">
 <!-- jQuery 2.2.3 -->
-<script th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}" src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}"
+	src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- OWL -->
-<script type="text/javascript" src="../js/owlapp.js" 
-     th:src="@{/js/owlapp.js}"></script>
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+<script type="text/javascript" src="../js/owlapp.js"
+	th:src="@{/js/owlapp.js}"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
 <body class="hold-transition skin-blue-light sidebar-mini ">
-
 	<div th:fragment="form_botones">
-
-        <div class="row  col-xs-12 col-sm-12">   
-            <div class="col-xs-4 col-lg-4 col-sm-4">
-					<button type="button" class="btn btn-default" id="botonNuevo"
-						onclick="nuevoRegistro()">
-						<i class="fa fa-plus-circle"></i> <span
-							th:text="#{form.boton.crear}">Nuevo</span>
-					</button>
-            </div>
-            
-            <div class="col-lg-4 col-xs-4 col-sm-4">
-				<button type="submit" class="btn btn-default" name="accion" value="save">
-					<i class="fa fa-save"></i> <span th:text="#{form.boton.guardar}">Guardar</span>
-				</button>
-				<button id="botonDelete" type="submit"  
-					name="accion" value="delete" hidden="true">
+		<div class="row  col-xs-12 col-sm-12">
+			<div class="col-xs-3 col-lg-3 col-sm-2">
+				<button type="button" class="btn btn-default" id="botonNuevo"
+					onclick="nuevoRegistro()">
+					<i class="fa fa-plus-circle"></i> <span
+						th:text="#{form.boton.crear}">Nuevo</span>
 				</button>
 			</div>
-			
-			<div class="col-xs-4 col-lg-4 col-sm-4">
-					<button type="button" class="btn btn-default" id="botonBorrar"
-						onclick="borrarRegistro()">
-						<i class="fa fa-trash-o"></i> <span th:text="#{form.boton.borrar}">Borrar</span>
-					</button>
-            </div>
-	    </div>
-	    <!-- Modal borrar -->
+
+
+			<div class="col-lg-3 col-xs-3 col-sm-2">
+				<button type="submit" class="btn btn-default" name="accion"
+					value="save">
+
+					<i class="fa fa-save"></i> <span th:text="#{form.boton.guardar}">Guardar</span>
+				</button>
+				<button id="botonDelete" type="submit" name="accion" value="delete"
+					hidden="true"></button>
+			</div>
+
+
+			<div class="col-xs-3 col-lg-3 col-sm-2">
+				<button type="button" class="btn btn-default" id="botonBorrar"
+					onclick="borrarRegistro()">
+					<i class="fa fa-trash-o"></i> <span th:text="#{form.boton.borrar}">Borrar</span>
+				</button>
+			</div>
+		</div>
+		
+		<!-- Modal borrar -->
+
 		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -71,17 +88,16 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"
-							>Borrado de Registro</h4>
+						<h4 class="modal-title" id="myModalLabel">Borrado de
+							Registro</h4>
 					</div>
-					<div class="modal-body">Desea
-						borrar registro de forma permanente?
-					</div>
+					<div class="modal-body">Desea borrar registro de forma
+						permanente?</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							>Cancelar</button>
-						<button type="submit" class="btn btn-primary"
-						 name ="accion" value="delete">Aceptar</button><!-- onclick= "submitBorrado()" -->
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary" name="accion"
+							value="delete">Aceptar</button>
+						<!-- onclick= "submitBorrado()" -->
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -98,19 +114,18 @@
 			</script>
 		</div>
 		<!-- Modal borrar -->
-		
 
-    </div>
-    
-    <div class="modal-footer" th:fragment ="footerModal">
-						<button type="button" class="btn btn-danger" data-dismiss="modal"
-							>Cancelar</button>
-						<button type="submit" class="btn btn-primary"
-						 name ="accion" value="save">Guardar</button>
-					</div>
-					
-					
-					
+
+	</div>
+
+	<div class="modal-footer" th:fragment="footerModal">
+		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		<button type="submit" class="btn btn-primary" name="accion"
+			value="save">Guardar</button>
+	</div>
+
+
+
 
 </body>
 </html>

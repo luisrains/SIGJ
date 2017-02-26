@@ -1,17 +1,32 @@
 package py.com.sigj.rrhh.controllers.form;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.rrhh.controllers.list.PlanillaSalarioListController;
@@ -22,6 +37,7 @@ import py.com.sigj.rrhh.dao.PlanillaSueldoDao;
 import py.com.sigj.rrhh.domain.Movimiento;
 import py.com.sigj.rrhh.domain.PlanillaSalario;
 import py.com.sigj.rrhh.domain.PlanillaSueldo;
+import py.com.sigj.util.WebUtils;
 
 @Controller
 @Scope("request")
@@ -39,6 +55,9 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 	@Autowired
 	PlanillaSueldoDao planillaSueldoDao;
+
+	@Autowired
+	ResourceLoader loader;
 
 	@Autowired
 	private PlanillaSalarioListController planillaSalarioList;
@@ -69,59 +88,69 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	public Dao<PlanillaSalario> getDao() {
 		return planillaSalarioDao;
 	}
-	/*@RequestMapping(value = "planilla_salario", method = RequestMethod.GET)
-	public String index(ModelMap map) {
-		return super.index(map);
-		
-	}*/
+	/*
+	 * @RequestMapping(value = "planilla_salario", method = RequestMethod.GET)
+	 * public String index(ModelMap map) { return super.index(map);
+	 *
+	 * }
+	 */
 
-		
 	@RequestMapping(value = "/validar_fecha", method = RequestMethod.GET)
 	public String validar_fecha(ModelMap map, @RequestParam(value = "fecha", required = true) String fecha) {
+		List<PlanillaSalario> lista = obtenerListaPlanilla(fecha);
+		map.addAttribute("planilla_salario", lista);
+		return "rrhh/planillaSalario_form";
+	}
+
+	private List<PlanillaSalario> obtenerListaPlanilla(String fecha) {
 
 		String aux1 = null;
 		String aux2 = null;
 		aux1 = fecha.substring(0, 2);
 		aux2 = fecha.substring(3, 7);
-		List<PlanillaSalario> psx = new ArrayList<PlanillaSalario>();
+		List<PlanillaSalario> listResult = new ArrayList<PlanillaSalario>();
 		PlanillaSueldo psu1 = null;
 		PlanillaSueldo p1 = null;
+
 		for (PlanillaSueldo p : planillaSueldoDao.getList(0, 20, null)) {
 			if (p.getAnho().equals(aux2) && p.getMes().equals(aux1)) {
 				logger.info("Se carga la planilla");
 				p1 = p;
 			}
-			
+
 		}
 		List<Movimiento> mb = movimientoDao.getList(0, 10, null);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
-		int val=2;
+		int val = 2;
 		for (Movimiento ml : mb) {
 			String fechaCad1 = sdf1.format(ml.getFecha());
 			logger.info("Lee el fechaCad que pusimos para mes:{}", fechaCad1.substring(3, 5));
 			logger.info("Lee el fechaCad que pusimos para año:{}", fechaCad1.substring(6, 10));
 			if (fechaCad1.substring(3, 5).equals(aux1) && fechaCad1.substring(6, 10).equals(aux2)) {
 				logger.info("Esto compara:{}", fechaCad1.substring(3, 5), fechaCad1.substring(6, 10));
-				val=1;
+				val = 1;
 				break;
-				
-			}else{
-				val=0;
+
+			} else {
+				val = 0;
 			}
-			
+
 		}
-		if (p1 != null && val==1) {
+		if (p1 != null && val == 1) {
 			logger.info("P1d:{}", p1);
-			psx = planillaSalarioDao.buscar(p1.getId());
-			logger.info("Probando con la planilla ya cargada en bd:{}", psx);
-			map.addAttribute("planilla_salario", psx);
-			logger.info("Entre en el primer if con val = 1");
-		}else if(val == 0){
+			listResult = planillaSalarioDao.buscar(p1.getId());
+			logger.info("Probando con la planilla ya cargada en bd:{}", listResult);
+			return listResult;
+
+		} else if (val == 0) {
 			logger.info("Entre en el else del error");
-			map.addAttribute("error_planilla",val);
-		} else { 
-			/* aca tenemos que controlar que si aun no existe planilla de sueldo no se deberia
-			crear si es que no hay movimientos en ese mes introducido*/
+			// map.addAttribute("error_planilla", val);
+		} else {
+			/*
+			 * aca tenemos que controlar que si aun no existe planilla de sueldo
+			 * no se deberia crear si es que no hay movimientos en ese mes
+			 * introducido
+			 */
 			logger.info("Entre en el else donde creamos una nueva planilla");
 			logger.info("Se va a crear la planilla sin valores");
 			PlanillaSueldo planillaSueldo = new PlanillaSueldo();
@@ -247,14 +276,63 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 				cont++;
 			}
 			logger.info("La planilla queda asi:{}", planillaSalarioDao.getList(0, 10, null));
-			List<PlanillaSalario> listResult = planillaSalarioDao.getList(0, 10, null);
-			map.addAttribute("planilla_salario", listResult);
-
+			listResult = planillaSalarioDao.getList(0, 10, null);
 		}
-		map.addAttribute("error_planilla",val);
+		return listResult;
 
-		return "rrhh/planillaSalario_form";
 	}
-	
-	
+	// < ----------------- JASPER ------------------>
+
+	@RequestMapping(value = "/reporte_planilla_salario", method = RequestMethod.GET)
+	public void getComprobanteAhorroProgramado(HttpServletResponse response,
+			@RequestParam(value = "fecha", required = false) String fecha) throws Exception {
+		final String FOLDER = "/reporJaspert/panilla_salario";
+		List<PlanillaSalario> lista = obtenerListaPlanilla(fecha);
+		logger.info("llega hasta aca");
+
+		logger.info(loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper")
+				.getInputStream().toString());
+		try {
+			InputStream jasperStream = null;
+			Map<String, Object> params = new HashMap<>();
+
+			Date ahora = Calendar.getInstance().getTime();
+			// params.put("LOGO", loader.getResource("classpath:" +
+			// "/logo_regional.jpg").getInputStream());
+			// params.put("USUARIO" , session.getAttribute("nombre_completo"));
+			// logger.info(loader.getResource("classpath:" +
+			// "/logo_regional.jpg").toString());
+			params.put("FECHA", WebUtils.getStringFromDate(ahora, "dd/MM/yyyy"));
+			params.put("HORA", WebUtils.getStringFromDate(ahora, "HH:mm:ss"));
+			Date fecha1 = WebUtils.getDateFromString(fecha, WebUtils.DATETIME_PATTERN);
+			params.put("FECHA_SOLICITUD", WebUtils.getStringFromDate(fecha1, "dd/MM/yyyy"));
+			params.put("HORA_SOLICITUD", WebUtils.getStringFromDate(fecha1, "HH:mm:ss"));
+			params.put("LISTA_PLANILLA", lista);
+
+			jasperStream = loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper")
+					.getInputStream();
+			logger.info(jasperStream.toString());
+			if (jasperStream != null) {
+				JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+				byte[] pdfReport = JasperExportManager.exportReportToPdf(jasperPrint);
+				response.setContentType("application/x-pdf");
+				response.setHeader("Content-disposition", "inline; filename=comprobante.pdf");
+				response.reset();
+				response.setContentType("application/pdf");
+				response.setHeader("Cache-Control", "no-store");
+				response.setHeader("Cache-Control", "private");
+				response.setHeader("Pragma", "no-store");
+				response.setContentLength(pdfReport.length);
+				response.getOutputStream().write(pdfReport);
+				response.getOutputStream().flush();
+				response.getOutputStream().close();
+			}
+
+		} catch (IOException e) {
+
+			throw new Exception("Error al obtener Comprobante");
+		}
+	}
 }

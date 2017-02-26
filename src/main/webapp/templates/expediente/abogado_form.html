@@ -42,15 +42,17 @@
 
 			<input type="hidden" th:field="*{id}" />
 
-			<div class="form-group hidden-xs col-sm-12">
-				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}" class="field-label col-sm-7">Tipo de Abogado:</label> 
-					
-					<select th:field="*{tipoAbogado}"
-					class="form-control form-group tipoAbogado hidden-xs col-sm-6">
-						<option th:each=" tip : ${tipoAbogadoList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Apoderado</option>
+
+			<div class="form-group">
+				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}"
+					class="field-label">Tipo de Abogado</label> <select
+					th:field="*{tipoAbogado}"
+					class="form-control form-group tipoAbogado">
+					<option th:each=" tip : ${tipoAbogadoList}" th:value="${tipoAbogado.id}"
+						th:text="${tipoAbogado.descripcion}">Apoderado</option>
 				</select>
 			</div>
+
 
 
 			
@@ -59,31 +61,30 @@
 				Domicilio Actual:</label>
 				<input type="text" th:field="*{domicilioActual}" maxlength="100"
 					class="form-control col-sm-6" autofocus="autofocus" />
+
 			</div>
 			<!--REALIZAR CAMBIOS PARA EMPLEADO Y NO PERSONA  -->
-			<div class="form-group  hidden-xs col-sm-12">
-				<label for="domicilioLaboral" th:text="#{abogado.domicilioLaboral.lbl}"
-					class="field-label col-sm-7">Domicilio Laboral:</label> <input type="text"
-					th:field="*{domicilioLaboral}" maxlength="100" class="form-control col-sm-6" />
+			<div class="form-group">
+				<label for="domicilioLaboral"
+					th:text="#{abogado.domicilioLaboral.lbl}" class="field-label">Domicilio
+					Laboral</label> <input type="text" th:field="*{domicilioLaboral}"
+					maxlength="100" class="form-control" />
+
 			</div>
 			<!-- seccion empleado -->
 			<input type="hidden" th:field="*{empleado.id}" />
 
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::form_botones">aqui van los botones</div>
+			<div th:replace="botones::form_botones"></div>
 		</form>
 		<!-- Fin panel botones -->
+		
 		<script type="text/javascript">
 
-		$(function () {
-			
-			$(".tipoAbogado").select2();});
-
-
-		 
+			$(function () {
+				$(".tipoAbogado").select2();});			 
 		</script>
 
-		
 	</div>
 </body>
 </html>
