@@ -6,12 +6,15 @@
     float:right;
  }
  .no-padding{
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 .btn-primary{
 	    background-color: #0000ff;
 	    border-color: #0000ff;
+}
+.select2{
+	width:100% !important;
 }
 @media screen and (min-device-width: 768px){
 	.th-pc{
@@ -23,6 +26,9 @@
 		padding-left: 15px !important;
 	}
 	.sorting_asc{
+		display:none;
+	}
+	.sorting_1{
 		display:none;
 	}
 }
@@ -42,6 +48,9 @@
 	}
 	.body-movil{
 		font-size: 12px;
+	}
+	.table-esp{
+		width: 100% !important;
 	}
 }
  

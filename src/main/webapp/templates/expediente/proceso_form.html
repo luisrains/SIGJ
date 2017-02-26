@@ -1,69 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
-
 <body class="hold-transition skin-blue-light sidebar-mini ">
-
-
-
 	<div th:fragment="form">
-
 		<script type="text/javascript">
-function limpiarForm() {
-	$("#id").val("");
-	$("#descripcion").val("");
-	$("#codigo").val("");
-	$("#proceso").val("");
-}
-function nuevoRegistro() {
-	limpiarForm();
-	$("#botonNuevo").hide();
-	$("#descripcion").focus();
-}
-</script>
+			function limpiarForm() {
+				$("#id").val("");
+				$("#descripcion").val("");
+				$("#codigo").val("");
+				$("#proceso").val("");
+			}
+			function nuevoRegistro() {
+				limpiarForm();
+				$("#botonNuevo").hide();
+				$("#descripcion").focus();
+			}
+		</script>
 		<h4 class="page-header" th:text="#{proceso.form.titulo}">Detalles
-			de procesos</h4>
-		<!-- th:action="@{/proceso/accion}" -->
-		<form  th:object="${proceso}" th:action="@{/proceso/save_listado}"
-			method="post" role="form" id="idProceso">
-
+			de Procesos</h4>
+		<form th:action="@{/proceso/accion}" th:object="${proceso}"
+			th:action="@{/proceso/save_listado}" method="post" role="form"
+			id="idProceso">
+			
 			<input type="hidden" th:field="*{id}" />
 
 			<div class="form-group">
-				<label for="codigo" th:text="#{proceso.codigo.lbl}" class="field-label">Código:</label>
-				<input type="text" th:field="*{codigo}" maxlength="60"
-					class="form-control" autofocus="autofocus" />
+				<label for="codigo" th:text="#{proceso.codigo.lbl}"
+					class="field-label">Código:</label> <input type="text"
+					th:field="*{codigo}" maxlength="60" class="form-control"
+					autofocus="autofocus" />
 			</div>
-			
+
 			<div class="form-group">
 				<label for="descripcion" th:text="#{proceso.descripcion.lbl}"
 					class="field-label">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control" />
 			</div>
-			
+
 			<div class="form-group">
 				<label for="materia" th:text="#{proceso.materia.lbl}"
-					class="field-label">materia:</label> 
-					
-					 <select th:field="*{materia}"
+					class="field-label">materia:</label> <select th:field="*{materia}"
 					class="form-control">
 					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
 						th:text="${tip.descripcion}">Excelente</option>
-				</select> 
+				</select>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="tipoDemanda" th:text="#{proceso.tipoDemanda.lbl}"
-					class="field-label">Tipos de Demandas:</label>
-					
-					 <select 
-					class="form-control tipoDemanda" multiple="multiple" id="tipoDemanda" name="selec" 
-					style="width: 50%;">
+					class="field-label">Tipos de Demandas:</label> <select
+					class="form-control tipoDemanda" multiple="multiple"
+					id="tipoDemanda" name="selec" style="width: 50%;">
 					<option th:each=" dem : ${tipoDemandaList}" th:value="${dem.id}"
 						th:text="${dem.descripcion}">Ejecutivo</option>
-				</select> 
+				</select>
 			</div>
-			
+
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>

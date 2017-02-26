@@ -16,14 +16,14 @@
 							<h3>Registro de Empleados</h3>
 						</div>
 						<div class="box-body">
-							<div class="col-xs-12 col-sm-12 no-padding">
-								<div class="col-xs-6 col-sm-6 no-padding">
-									<div class="col-xs-12 col-sm-12" th:replace="rrhh/empleado_form::form">aqui va un
+							<div class="hidden-xs col-sm-4 no-padding">
+								
+									<div th:replace="rrhh/empleado_form::form">aqui va un
 										fragmento de codigo del form</div>
 								</div>
-								<div class="col-xs-6 col-sm-6 no-padding">
+								<div class="col-xs-12 col-sm-8">
 									<table
-										class="table table-bordered table-hover table-striped display" style="width:100%;"
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
 										id="personaDT">
 										<thead>
 											<tr>											
@@ -38,7 +38,7 @@
 									  });
 									   </script>
 								</div>
-							</div>
+							
 							
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 						<div class="box-body">
 
 							<table
-								class="table table-bordered table-hover table-striped display"
+								class="table table-bordered table-hover table-striped display col-xs-12 table-esp no-padding"
 								id="empleadoDT">
 								<thead>
 									<tr>

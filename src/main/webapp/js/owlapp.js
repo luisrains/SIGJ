@@ -212,7 +212,7 @@
              });
 			 //Ocultamos la primera columna (id)
 			 //dataTable.fnSetColumnVis(0, false);
-             dataTable.column( 0 ).visible( false );
+             //dataTable.column( 0 ).visible( false );
              console.log("creando data:", dataTable)
              //codigo que selecciona la fila
              $('#'+ dataTableId + ' tbody').on( 'click', 'tr', function () {
