@@ -16,6 +16,10 @@
 .select2{
 	width:100% !important;
 }
+.btn-success{
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
 @media screen and (min-device-width: 768px){
 	.th-pc{
 		width: 40px !important;
