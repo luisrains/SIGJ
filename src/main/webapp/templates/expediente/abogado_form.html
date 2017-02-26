@@ -18,11 +18,31 @@
 		</script>
 		<h4 class="page-header" th:text="#{abogado.form.titulo}">Detalles
 			de Abogados</h4>
+
+		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
+		<span  style="color: green">
+			<!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
+				<strong>Well done!</strong> You successfully read this important
+				alert message.
+			</div>
+			<div class="alert alert-warning alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>¡Cuidado!</strong> Es muy importante que leas este mensaje
+				de alerta.
+			</div>-->
+			
+		</span>
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+				style="color: red">Debe ingresar codigo</li>
+		</ul>
+
 		<form th:action="@{/abogado/accion}" th:object="${abogado}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
 
+<<<<<<< HEAD
 			<div class="form-group">
 				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}"
 					class="field-label">Tipo de Abogado</label> <select
@@ -45,6 +65,30 @@
 					th:text="#{abogado.domicilioLaboral.lbl}" class="field-label">Domicilio
 					Laboral</label> <input type="text" th:field="*{domicilioLaboral}"
 					maxlength="100" class="form-control" />
+=======
+			<div class="form-group hidden-xs col-sm-12">
+				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}" class="field-label col-sm-7">Tipo de Abogado:</label> 
+					
+					<select th:field="*{tipoAbogado}"
+					class="form-control form-group tipoAbogado hidden-xs col-sm-6">
+						<option th:each=" tip : ${tipoAbogadoList}" th:value="${tip.id}"
+						th:text="${tip.descripcion}">Apoderado</option>
+				</select>
+			</div>
+
+			
+			<div class="form-group hidden-xs col-sm-12">
+				<label for="domicilioActual" th:text="#{abogado.domicilioActual.lbl}" class="field-label col-sm-7">
+				Domicilio Actual:</label>
+				<input type="text" th:field="*{domicilioActual}" maxlength="100"
+					class="form-control col-sm-6" autofocus="autofocus" />
+			</div>
+			<!--REALIZAR CAMBIOS PARA EMPLEADO Y NO PERSONA  -->
+			<div class="form-group  hidden-xs col-sm-12">
+				<label for="domicilioLaboral" th:text="#{abogado.domicilioLaboral.lbl}"
+					class="field-label col-sm-7">Domicilio Laboral:</label> <input type="text"
+					th:field="*{domicilioLaboral}" maxlength="100" class="form-control col-sm-6" />
+>>>>>>> d2c995d42173f880c1a609cb80f053b225902d54
 			</div>
 			<!-- seccion empleado -->
 			<input type="hidden" th:field="*{empleado.id}" />
@@ -55,9 +99,22 @@
 		<!-- Fin panel botones -->
 		
 		<script type="text/javascript">
+<<<<<<< HEAD
 			$(function () {
 				$(".tipoAbogado").select2();});			 
 		</script>
+=======
+
+		$(function () {
+			
+			$(".tipoAbogado").select2();});
+
+
+		 
+		</script>
+
+		
+>>>>>>> d2c995d42173f880c1a609cb80f053b225902d54
 	</div>
 </body>
 </html>
