@@ -21,18 +21,18 @@
 						</div>
 						<div class="box-body">
 							<div class="row">
-								<div class="col-xs-8">
+								<div class="hidden-xs col-sm-4">
 									<div th:replace="expediente/abogado_form::form">aqui va
 										un fragmento de codigo del form</div>
 								</div>
-								<div class="col-xs-4">
+								<div class="col-xs-12 col-sm-8">
 									<table
-										class="table table-bordered table-hover table-striped display"
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
 										id="empleadoDT">
 										<thead>
 											<tr>
 												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
-												<th>Acción</th>
+												
 											</tr>
 										</thead>
 									</table>
@@ -64,6 +64,7 @@
 								<thead>
 									<tr>
 										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+										<th>Accion</th>
 									</tr>
 								</thead>
 							</table>
