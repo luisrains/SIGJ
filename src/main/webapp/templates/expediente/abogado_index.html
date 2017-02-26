@@ -1,75 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+<link rel="stylesheet"
+	th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}">
 
 <body>
-	<div th:fragment="contenido">
-		<div class="bd-example-row box-shadow">
-			<ul class="nav nav-tabs">
-				<!-- Standard button -->
-				<li class="active"><a href="#menu1">Registrar</a></li>
-				<li><a href="#menu2">Listar</a></li>
-			</ul>
-			<div class="tab-content">
-				<div id="menu1" class="tab-pane fade in active">
-					<div class="box box-solid box-primary">
-						<div class="box-header">
-							<h3>Registro de Abogados</h3>
-						</div>
-						<div class="box-body">
-							<div class="row">
-								<div class="col-xs-8">
-									<div th:replace="expediente/abogado_form::form">aqui va
-										un fragmento de codigo del form</div>
-								</div>
-								<div class="col-xs-4">
-									<table
-										class="table table-bordered table-hover table-striped display"
-										id="empleadoDT">
-										<thead>
-											<tr>
-												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
-												<th>Acción</th>
-											</tr>
-										</thead>
-									</table>
-									<script type="text/javascript">
-										$(document).ready(function() {
-										    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
-										 });													 
-			 						</script>
-								</div>
-							</div>
-						</div>
-					</div>
+	<div class="row" th:fragment="contenido">
+		<div class="col-xs-12">
+			<div class="box box-solid box-primary">
+				<div class="box-header">
+					<h3>Listado de Abogados</h3>
 				</div>
-				<div id="menu2" class="tab-pane fade">
-					<div class="box box-solid box-primary">
-						<div class="box-header">
-							<h3>Listado de Despachos</h3>
-						</div>
-						<div class="box-body">
+				<div class="box-body">
+					<button class="btn btn-success" id="botonAgregar"
+						onclick="agregar()">
+						<i class="glyphicon glyphicon-plus"></i> Nuevo Agobado
+					</button>
+					<br> <br>
+					<!-- <table
+								class="gdisplay responsive nowrap"
+								id="procesoDT"> -->
+					<table id="abogadoDT" class="display nowrap" cellspacing="0"
+						width="100%">
+						<thead>
+							<tr>
+								<th th:each="col : ${columnas}"
+									th:text="#{'proceso.' + ${col} + '.header'}">CÓDIGO</th>
+								<th>Acción</th>
+							</tr>
+						</thead>
+					</table>
+					<script type="text/javascript">
+						$(document).ready(function() {
+					    	crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
+						});													 
+			 		</script>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</div>
 
-							<table
-								class="table table-bordered table-hover table-striped display"
-								id="abogadoDT">
-								<thead>
-									<tr>
-										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
-									</tr>
-								</thead>
-							</table>
-							<script type="text/javascript">
+		<div id="menu2" class="tab-pane fade">
+			<div class="box box-solid box-primary">
+				<div class="box-header">
+					<h3>Listado de Despachos</h3>
+				</div>
+				<div class="box-body">
+
+					<table
+						class="table table-bordered table-hover table-striped display"
+						id="abogadoDT">
+						<thead>
+							<tr>
+								<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+							</tr>
+						</thead>
+					</table>
+					<script type="text/javascript">
 							 $(document).ready(function() {
 							    crearDataTable("abogadoDT", "[[@{/abogado/json}]]", "[[${columnasStr}]]", "[[@{/abogado/edit/}]]");
 							 });
 			 			</script>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
-
-		<script>
+	</div>
+	</div>
+	<script>
 				$(document).ready(function(){
 				    $(".nav-tabs a").click(function(){
 				        $(this).tab('show');
@@ -78,5 +75,9 @@
 			</script>
 
 	</div>
+
+	<script
+		th:src="@{/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js}"
+		src="../plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
 </body>
 </html>

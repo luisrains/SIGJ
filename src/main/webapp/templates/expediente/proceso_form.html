@@ -22,13 +22,13 @@
 			th:action="@{/proceso/save_listado}" method="post" role="form"
 			id="idProceso">
 			
-			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{id}"/>
 
 			<div class="form-group">
 				<label for="codigo" th:text="#{proceso.codigo.lbl}"
 					class="field-label">Código:</label> <input type="text"
 					th:field="*{codigo}" maxlength="60" class="form-control"
-					autofocus="autofocus" />
+					autofocus="autofocus"/>
 			</div>
 
 			<div class="form-group">
@@ -57,7 +57,7 @@
 			</div>
 
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal">aqui van los botones</div>
+			<div th:replace="botones::footerModal"></div>
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
