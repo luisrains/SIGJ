@@ -11,8 +11,13 @@ import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.ActuacionListController;
 import py.com.sigj.expediente.controllers.list.ExpedienteListController;
 import py.com.sigj.expediente.dao.ActuacionDao;
+import py.com.sigj.expediente.dao.DespachoDao;
+import py.com.sigj.expediente.dao.EstadoExternoInternoDao;
 import py.com.sigj.expediente.dao.ExpedienteDao;
+import py.com.sigj.expediente.dao.MateriaDao;
+import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoActuacionDao;
+import py.com.sigj.expediente.dao.TipoDemandaDao;
 import py.com.sigj.expediente.domain.Expediente;
 
 @Controller
@@ -34,6 +39,21 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private TipoActuacionDao tipoActuacionDao;
+
+	@Autowired
+	private MateriaDao materiaDao;
+
+	@Autowired
+	private ProcesoDao procesoDao;
+
+	@Autowired
+	private EstadoExternoInternoDao estadoDao;
+
+	@Autowired
+	private TipoDemandaDao tipoDemandaDao;
+
+	@Autowired
+	private DespachoDao despachoDao;
 
 	// @Autowired
 	// private DocumentoDao documentoDao;
@@ -61,6 +81,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStr", expedienteList.getColumnasStr(null));
 		map.addAttribute("columnasStrActuacion", expedienteList.getColumnasStr(actuacionList.getColumnas()));
 
+		map.addAttribute("estadoExternoList", estadoDao.getList(0, 20, null));
+		map.addAttribute("materiaList", materiaDao.getList(0, 20, null));
+		map.addAttribute("tipoProcesoList", materiaDao.getList(0, 20, null));
+		map.addAttribute("tipoDemandaList", tipoDemandaDao.getList(0, 20, null));
+		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));
+		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));
 		super.agregarValoresAdicionales(map);
 	}
 

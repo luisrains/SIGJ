@@ -43,7 +43,7 @@
 
 							<table
 								class="table table-bordered table-hover table-striped display"
-								id="abogadoDT">
+								id="partesDT">
 								<thead>
 									<tr>
 										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
@@ -51,9 +51,9 @@
 								</thead>
 							</table>
 							<script type="text/javascript">
-							 $(document).ready(function() {
-							    crearDataTable("abogadoDT", "[[@{/abogado/json}]]", "[[${columnasStr}]]", "[[@{/abogado/edit/}]]");
-							 });
+							 /* $(document).ready(function() {
+							    crearDataTable("partesDT", "[[@{/partes/json}]]", "[[${columnasStr}]]", "[[@{/partes/edit/}]]");
+							 }); */
 			 			</script>
 						</div>
 					</div>
@@ -68,16 +68,17 @@
 
 							<table
 								class="table table-bordered table-hover table-striped display"
-								id="abogadoDT">
+								id="expedienteDT">
 								<thead>
 									<tr>
 										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+										<th>Accion</th>
 									</tr>
 								</thead>
 							</table>
 							<script type="text/javascript">
 							 $(document).ready(function() {
-							    crearDataTable("abogadoDT", "[[@{/abogado/json}]]", "[[${columnasStr}]]", "[[@{/abogado/edit/}]]");
+								 crearDataTable("expedienteDT", "[[@{/expediente/json}]]", "[[${columnasStr}]]", "[[@{/expediente/edit/}]]");
 							 });
 			 			</script>
 						</div>
