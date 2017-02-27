@@ -10,7 +10,7 @@
 				<!-- Standard button -->
 				<li class="active"><a href="#menu1">Caso Judicial</a></li>
 				<li><a href="#menu2">Partes del caso</a></li>
-				<li><a href="#menu3">Listado de Expedientes</a></li>
+				<li ><a href="#menu3">Listado de Expedientes</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -34,28 +34,66 @@
 					</div>
 				</div>
 
-				<div id="menu2" class="tab-pane fade">
+				<div id="menu2" class="tab-pane fade ">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
 							<h3>Partes</h3>
 						</div>
 						<div class="box-body">
 
-							<table
-								class="table table-bordered table-hover table-striped display"
-								id="partesDT">
-								<thead>
-									<tr>
-										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
-									</tr>
-								</thead>
-							</table>
-							<script type="text/javascript">
-							 /* $(document).ready(function() {
-							    crearDataTable("partesDT", "[[@{/partes/json}]]", "[[${columnasStr}]]", "[[@{/partes/edit/}]]");
-							 }); */
-			 			</script>
+							<div class="hidden-xs col-sm-4 no-padding">
+								
+								
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
+										id="materiaDT1">
+										<thead>
+											<tr>											
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th th:each="col : ${columnasMateria}" th:text="#{'materia.' + ${col} + '.header'}">CÓDIGO</th>												
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTableEsp("materiaDT1", "[[@{/materia/json}]]", "[[${columnasStrMateria}]]", "materia");
+									  });
+									   </script>
+								</div>
+								
 						</div>
+						
+						<div class="box box-success">
+				            <div class="box-header with-border">
+				              <h3 class="box-title">Different Height</h3>
+				            </div>
+				            <div class="box-body">
+				              <div class="hidden-xs col-sm-4 no-padding">
+								
+								
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
+										id="materiaDT">
+										<thead>
+											<tr>											
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th th:each="col : ${columnasMateria}" th:text="#{'materia.' + ${col} + '.header'}">CÓDIGO</th>												
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTableEsp("materiaDT", "[[@{/materia/json}]]", "[[${columnasStrMateria}]]", "materia");
+									  });
+									   </script>
+								</div>
+				            </div>
+				            <!-- /.box-body -->
+				          </div>
 					</div>
 				</div>
 				<!--LISTADO DE EXPEDIENTES  -->

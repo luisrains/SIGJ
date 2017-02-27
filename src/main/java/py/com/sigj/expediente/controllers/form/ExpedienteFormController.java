@@ -10,6 +10,7 @@ import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.ActuacionListController;
 import py.com.sigj.expediente.controllers.list.ExpedienteListController;
+import py.com.sigj.expediente.controllers.list.MateriaListController;
 import py.com.sigj.expediente.dao.ActuacionDao;
 import py.com.sigj.expediente.dao.DespachoDao;
 import py.com.sigj.expediente.dao.EstadoExternoInternoDao;
@@ -42,6 +43,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private MateriaDao materiaDao;
+
+	@Autowired
+	private MateriaListController materiaList;
 
 	@Autowired
 	private ProcesoDao procesoDao;
@@ -87,6 +91,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("tipoDemandaList", tipoDemandaDao.getList(0, 20, null));
 		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));
 		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));
+
+		map.addAttribute("columnasMateria", materiaList.getColumnas());
+		map.addAttribute("columnasStrMateria", materiaList.getColumnasStr(materiaList.getColumnas()));
 		super.agregarValoresAdicionales(map);
 	}
 
