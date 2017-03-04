@@ -61,24 +61,7 @@
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
-		/*function guardar(){
-			
-			var objeto = $("#idProceso").val();
-			console.log("form value ",$("#idProceso").val());
-			var listado = $( "#tipoDemanda" ).val();
-			console.log("selec",  listado);
-			$.ajax({
-				type: "POST",
-				url: "/proceso/accion",
-				data: { 
-					obj: objeto,
-					listado: listado
-				}
-			}).done(function(html){
-				console.log("html",html);
-				window.location.href = html
-			})
-			};*/
+		
 		$(function () {
 		    //Initialize Select2 Elements
 		    $(".materia").select2();
@@ -93,18 +76,7 @@
 
 			});
 
-		/*	$("#bo").on('click', function(){
-				var je = $(".tipoDemanda").val();
-				$.ajax({
-					type:'POST',
-					url: 'sigj/proceso/prueba',
-					data:{
-						selec : je
-						}
-					}).done(function(json_data){
-						console.log(json_data);
-						});
-				});*/
+		
 		</script>
 
 	</div>

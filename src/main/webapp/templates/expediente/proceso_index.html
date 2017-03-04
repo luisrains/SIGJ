@@ -12,7 +12,7 @@
 				</div>
 				<div class="box-body">
 					<button class="btn btn-success" id="botonAgregar"
-						onclick="agregar()">
+						onclick="agregar('','r')">
 						<i class="glyphicon glyphicon-plus"></i> Nuevo Proceso
 					</button>
 					<br> <br>
@@ -40,7 +40,38 @@
 			<!-- /.box -->
 		</div>
 
-		<!-- Modal borrar -->
+
+<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${proceso}" th:action="@{/proceso/accion}" method="post" role="form"
+						id="idProceso">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Borrado de
+							Registro</h4>
+					</div>
+					<div class="modal-body">Está seguro que desea borrar registro de forma
+						permanente?
+						<input type="hidden" th:field="*{id}"/></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary" name="accion"
+							value="delete">Confirmar</button>
+							
+						<!-- onclick= "submitBorrado()" -->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			</form>
+			<!-- /.modal-dialog -->
+			</div>
+<!-- FIN Modal borrar -->
+
+		<!-- Modal  -->
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -59,9 +90,60 @@
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
+			
+			
+			<!-- Modal borrar -->
+
+		
+			
+			
 			<script type="text/javascript">
-			function agregar(){
-				$("#formModal").modal("show");
+			function agregar(obj, accion){
+				if(accion === 'd'){
+					if(id !== null || id !== undefined || id !== "" ){
+						$('#delete').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#id').val(obj["id"]);
+						$("#borradoPopup").modal("show");
+					}	
+				}else if(accion === 'e'){
+					if(id !== null || id !== undefined || id !== "" ){
+						$('#edit').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#delete').addClass('hidden');
+						$('#id').val(obj["id"]);
+						$('#codigo').val(obj["codigo"]);
+						$('#descripcion').val(obj["descripcion"]);
+						var materia = obj["materia"]["id"];
+						$('#materia').find('option[value='+materia+']').prop('selected','true');
+						var id = obj["id"];
+						$.ajax({
+							type: "POST",
+							url: "/sigj/proceso/editar",
+							data: { 
+								demanda_id: id
+							}
+						}).done(function(data){
+							console.log(data)
+							
+						}).fail(function(jqXHR, textStatus){
+							console.log("error");
+						});
+						
+						var tipoDemanda = obj["tipoDemanda"]["id"];
+						$('#tipoDemanda').find('option[value='+tipoDemanda+']').prop('selected','true');
+						
+						$("#formModal").modal("show");
+					}	
+				}else if(accion === 'r'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').removeClass('hidden');
+					$("#formModal").modal("show");
+				}
+				
+				
 			}
 			
 			</script>

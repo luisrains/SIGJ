@@ -13,8 +13,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import py.com.sigj.controllers.Respuesta;
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.ProcesoListController;
@@ -117,10 +117,26 @@ public class ProcesoFormController extends FormController<Proceso> {
 			map.addAttribute("error", getErrorFromException(ex));
 
 		}
+
 		map.addAttribute(getNombreObjeto(), obj);
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 
+	}
+
+	@RequestMapping(value = "editar", method = RequestMethod.POST)
+	public @ResponseBody List<TipoDemanda> getListaTipoDemanda(ModelMap map,
+			@RequestParam(value = "demanda_id", required = true) Long id, BindingResult bindingResult) {
+		List<TipoDemanda> tipoDemandaList = null;
+		try {
+
+			tipoDemandaList = procesoDao.getListaTipoDemanda(id);
+
+		} catch (Exception ex) {
+			map.addAttribute("error", getErrorFromException(ex));
+
+		}
+		return tipoDemandaList;
 	}
 
 }
