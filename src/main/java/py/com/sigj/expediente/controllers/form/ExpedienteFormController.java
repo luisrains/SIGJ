@@ -87,7 +87,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 		map.addAttribute("estadoExternoList", estadoDao.getList(0, 20, null));
 		map.addAttribute("materiaList", materiaDao.getList(0, 20, null));
-		map.addAttribute("tipoProcesoList", materiaDao.getList(0, 20, null));
+		map.addAttribute("tipoProcesoList", procesoDao.getList(0, 20, null));
 		map.addAttribute("tipoDemandaList", tipoDemandaDao.getList(0, 20, null));
 		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));
 		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));

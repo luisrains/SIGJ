@@ -17,4 +17,13 @@ git fetch origin  ------> es para traer los datos del servidor para luego mezcla
 git merge origin/master -----> es para mezclar lo que esta en mi servidor con lo que esta en mi rama local
 
 git pull origin master     -----> es para tra er y mezclar los datos del servidor con mi rama master local
-  
+<--------------------------------      ANOTACIONES   -------------------------------------------------->
+1- MODULO ABM - TERMINADO (para luego no mirar otra vez en las revisiones).
+2- Validaciones
+3- Campos numericos, ajustados a la derecha
+    campos alfanumericos ajustados a la izquierda
+    campos tipo mondea a 2 decimales, puntos de miles
+4- diseño de interfaz mismo color todo.
+5- modulo seguridad poca prioridad
+6- ambiente web/mobile
+

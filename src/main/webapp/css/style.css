@@ -1,7 +1,18 @@
 /*!
  * Estilos propios del proyecto SIGJ
  */
+ .btn-siguiente{
+ 	    border-radius: 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #3c8dbc;
+ }
  
+  .btn-siguiente:hover{
+  	color: #ffffff;
+    text-decoration: none;
+    background-color: blue;
+  }
  .alinear{
     float:right;
  }
