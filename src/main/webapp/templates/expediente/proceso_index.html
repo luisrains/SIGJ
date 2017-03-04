@@ -10,7 +10,7 @@
 						<div class="box-header">
 							<h3>Listado de Procesos</h3>
 						</div>
-						<div class="box-body">
+						<div class="box-body no-padding">
 							<button class="btn btn-success" id="botonAgregar"
 								 onclick="agregar()">
 								<i class="glyphicon glyphicon-plus"></i> Nuevo Proceso
@@ -44,7 +44,7 @@
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-content col-xs-12">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
@@ -63,6 +63,7 @@
 			<script type="text/javascript">
 			function agregar(){
 				$("#formModal").modal("show");
+				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
 			}
 			
 			</script>

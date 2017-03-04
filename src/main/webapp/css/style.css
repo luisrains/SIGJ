@@ -19,7 +19,19 @@
 .btn-success{
 	margin-bottom: 10px;
 	margin-top: 10px;
+	margin-left: 5px;
 }
+#registrar-movil{
+		background-color: blue;
+		color: white;
+		height: 50px;
+		padding-left: 10px;
+		padding-top: 10px;
+}
+.modal-header{
+	display: none;
+}
+
 @media screen and (min-device-width: 768px){
 	.th-pc{
 		width: 40px !important;
@@ -34,6 +46,12 @@
 	}
 	.sorting_1{
 		display:none;
+	}
+	.btn-movil{
+		display:none;
+	}
+	.dataTables_length{
+		margin-left: 5px;
 	}
 }
 /*Para movil*/
@@ -55,6 +73,34 @@
 	}
 	.table-esp{
 		width: 100% !important;
+		margin-top: 10px;
+	}
+	.btn-movil{
+		display:block;
+	}
+	.modal-body{
+		padding: 0px;
+	}
+	.modal-title{
+		display: none;
+	}
+	.header-movil{
+		background-color: blue;
+		color: white;
+		height: 50px;
+		padding-left: 10px;
+		padding-top: 10px;
+		
+	}
+	.modal-header{
+		display: none;
+	}
+	#registrar-movil{
+		background-color: blue;
+		color: white;
+		height: 50px;
+		padding-left: 10px;
+		padding-top: 10px;
 	}
 }
  

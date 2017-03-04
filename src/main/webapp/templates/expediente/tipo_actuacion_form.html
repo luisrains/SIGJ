@@ -21,24 +21,23 @@ function nuevoRegistro() {
 	$("#descripcion").focus();
 }
 </script>
-		<h4 class="page-header" th:text="#{tipoActuacion.form.titulo}">Detalles
-			de Tipo de Actuaciones</h4>
+		<h4 id="registrar-movil" class="page-header" th:text="#{tipoActuaciones.form.titulo2}"> Registrar Tipo de Actuaciones</h4>
 
 		<form th:action="@{/tipo_actuacion/accion}" th:object="${tipoActuacion}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
-
-			<div class="form-group">
+			<div class="modal-movil hidden-xs col-sm-12">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="descripcion" th:text="#{tipoActuacion.descripcion.lbl}"
-					class="field-label">Descripcion:</label> <input type="text"
-					th:field="*{descripcion}" maxlength="100" class="form-control" />
+					class="field-label col-xs-7 col-sm-7">Descripcion:</label> <input type="text"
+					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
 
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="descripcion" th:text="#{tipoActuacion.modeloHoja.lbl}"
-					class="field-label">Modelo de la hoja de actuacion:</label> <input type="text"
-					th:field="*{modeloHoja}" maxlength="100" class="form-control" />
+					class="field-label col-xs-7 col-sm-7">Modelo de la hoja de actuacion:</label> <input type="text"
+					th:field="*{modeloHoja}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
 			<!--  HACER UN FOR EACH PARA MOSTRAR LOS MODELOS DE HOJA-->
 			<div class="form-group">
@@ -48,6 +47,7 @@ function nuevoRegistro() {
                 <label>
                   Flat green skin checkbox
                 </label>
+              </div>
               </div>
 			
 			<!-- Inicio panel botones -->
