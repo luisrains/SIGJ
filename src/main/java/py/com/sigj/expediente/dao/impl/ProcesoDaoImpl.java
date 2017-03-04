@@ -32,7 +32,7 @@ public class ProcesoDaoImpl extends DaoImpl<Proceso> implements ProcesoDao {
 			Query query = null;
 			// Usuario no envió ningún filtro
 
-			sql = sql + " WHERE tipodemanda_id = ?1";
+			sql = sql + " WHERE tipo_demanda_id = ?1";
 			query = entityManager.createQuery(sql);
 			query.setParameter(1, id);
 
@@ -40,6 +40,7 @@ public class ProcesoDaoImpl extends DaoImpl<Proceso> implements ProcesoDao {
 			logger.info("Cantidad de registros encontrados: {}", list);
 			return list;
 		} catch (Exception e) {
+			logger.info("error {}", e);
 			throw new Exception("Ocurrió un error");
 		}
 	}
