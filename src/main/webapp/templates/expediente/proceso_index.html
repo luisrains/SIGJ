@@ -99,6 +99,7 @@
 			
 			<script type="text/javascript">
 			function agregar(obj, accion){
+				var id = obj["id"];
 				if(accion === 'd'){
 					if(id !== null || id !== undefined || id !== "" ){
 						$('#delete').removeClass('hidden');
@@ -117,12 +118,12 @@
 						$('#descripcion').val(obj["descripcion"]);
 						var materia = obj["materia"]["id"];
 						$('#materia').find('option[value='+materia+']').prop('selected','true');
-						var id = obj["id"];
+						var id1 = obj["id"];
 						$.ajax({
-							type: "POST",
-							url: "/sigj/proceso/editar",
+							type: "GET",
+							url: "proceso/editar",
 							data: { 
-								demanda_id: id
+								demanda_id: id1
 							}
 						}).done(function(data){
 							console.log(data)

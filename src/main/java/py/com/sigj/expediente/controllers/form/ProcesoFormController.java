@@ -124,16 +124,16 @@ public class ProcesoFormController extends FormController<Proceso> {
 
 	}
 
-	@RequestMapping(value = "editar", method = RequestMethod.POST)
-	public @ResponseBody List<TipoDemanda> getListaTipoDemanda(ModelMap map,
-			@RequestParam(value = "demanda_id", required = true) Long id, BindingResult bindingResult) {
+	@RequestMapping(value = "/editar", method = RequestMethod.GET)
+	public @ResponseBody List<TipoDemanda> getListaTipoDemanda(
+			@RequestParam(value = "demanda_id", required = true) Long id) {
 		List<TipoDemanda> tipoDemandaList = null;
 		try {
 
 			tipoDemandaList = procesoDao.getListaTipoDemanda(id);
 
 		} catch (Exception ex) {
-			map.addAttribute("error", getErrorFromException(ex));
+			logger.info("error {}", ex);
 
 		}
 		return tipoDemandaList;
