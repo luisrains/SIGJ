@@ -32,8 +32,6 @@
 						                    "<button type='button' class='ver btn btn-primary btn-xs' ><i class='fa fa-search'></i></button>"}
 			                );
 					
-					console.log(colsStr, "->", columnsArray);
-					
 					return columnsArray;
 			}
 		
@@ -109,23 +107,25 @@
 					/*Con esto tenemos un objeto de tipo {id: 1, codigo: "ejc", descripcion: "Ejecutivo", materia: Object}
 					 teniendo en cuenta que ejecutamos http://localhost:8090/sigj/proceso/ 
 					 entonces para obtener el id de este objeto accedemos por su llave "id"*/
-					console.log($('#'+dataTableId+ ' tbody tr'));
-					var ob = dataTable.row( $(this).parents('tr') ).data()[0];
+//					console.log($('#'+dataTableId+ ' tbody tr'));
+					var ob = dataTable.row( $(this).parents('tr') ).data();
 					console.log(ob);
 					console.log( ob["id"] );
-					// var dat = dataTable.api().row( $(this).parents('tr') ).data();
-					
-					//window.location.href = "/polapp/reserva/edit/" + id;
+					agregar(ob, 'e');
+
 					}); 
 				
-				$('#reservaDT tbody').on('click','button.eliminar', function(){
-					var id = dataTable.fnGetData($(this).parents('tr'), 0);
-					var alumno = dataTable.fnGetData($(this).parents('tr'),2);
-					// var dat = dataTable.api().row( $(this).parents('tr') ).data();
-					alert('Se eliminará la reserva de alumno '+ alumno)
-					//falta modificar aca la url
-					window.location.href = "/polapp/reserva/delete_r/" + id;
-					});
+				$('#'+ dataTableId + ' tbody').on('click','button.eliminar', function(){
+					/*Con esto tenemos un objeto de tipo {id: 1, codigo: "ejc", descripcion: "Ejecutivo", materia: Object}
+					 teniendo en cuenta que ejecutamos http://localhost:8090/sigj/proceso/ 
+					 entonces para obtener el id de este objeto accedemos por su llave "id"*/
+//					console.log($('#'+dataTableId+ ' tbody tr'));
+					var ob = dataTable.row( $(this).parents('tr') ).data();
+					console.log(ob);
+					console.log( ob["id"] );
+					agregar(ob, 'd');
+
+					}); 
 			
 				/* $('#'+ dataTableId + ' tbody').on('click', 'tr', function() {
 					 //Obtenemos el valor de la columna id

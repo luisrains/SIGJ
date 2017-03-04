@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+	<div th:fragment="contenido">
+
+
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Caso Judicial</a></li>
+				<li><a href="#menu2">Partes del caso</a></li>
+				<li ><a href="#menu3">Listado de Expedientes</a></li>
+			</ul>
+
+			<div class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de Expediente</h3>
+						</div>
+						<div class="box-body">
+						<form th:action="@{/expediente/accion}" th:object="${expediente}"
+							method="post" role="form">
+						
+						<div class="col-lg-6">
+							<div class="box box-primary collapsed-box">
+							  <div class="box-header with-border">
+							    <h3 class="box-title">Cabecera - Carátula</h3>
+							    <div class="box-tools pull-right">
+							      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+							    </div><!-- /.box-tools -->
+							  </div><!-- /.box-header -->
+							  <div class="box-body">
+							    <div class="form-group">
+									<label for="anho" th:text="#{expediente.anho.lbl}"
+										class="field-label">Año:</label> 
+										<input type="text" name = "anho" id="anho" maxlength="100" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="moneda" th:text="#{expediente.moneda.lbl}"
+										class="field-label">Moneda:</label> 
+										<input type="text" name = "moneda" id="moneda" maxlength="100" class="form-control" />
+								</div>
+								
+								<div class="form-group">
+									<label for="Monto" th:text="#{expediente.moneda.lbl}"
+										class="field-label">Monto:</label> 
+										<input type="text" name = "Monto" id="Monto" maxlength="100" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="nroExpediente" th:text="#{abogado.nroExpediente.lbl}" class="field-label">
+									Nro. Expediente:</label>
+									<input type="text" name="nroExpediente" id="nroExpediente" maxlength="100"
+										class="form-control" />
+								</div>
+							  </div><!-- /.box-body -->
+							</div><!-- /.box -->
+						</div>
+						
+						<div class="col-lg-6">
+							<div class="box box-primary collapsed-box">
+							  <div class="box-header with-border">
+							    <h3 class="box-title">Cuerpo - Carátula</h3>
+							    <div class="box-tools pull-right">
+							      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+							    </div><!-- /.box-tools -->
+							  </div><!-- /.box-header -->
+							  <div class="box-body">
+							    <div class="form-group">
+									<label for="caratula" th:text="#{expediente.caratula.lbl}"
+										class="field-label">Caratula:</label> 
+										<input type="text" name = "caratula" id="caratula" maxlength="100" class="form-control" />
+								</div>
+								
+								<div class="form-group">
+									<label for="objetoCausa" th:text="#{expediente.objetoCausa.lbl}"
+										class="field-label">Objeto de causa:</label> 
+										<input type="text" name = "objetoCausa" id="objetoCausa" maxlength="100" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="tipoDespacho" th:text="#{expediente.tipoDespacho.lbl}"
+										class="field-label">Despacho:</label> 
+										
+										<select id="tipoDespacho" name="tipoDespacho" for="tipoDespacho"
+										class="form-control form-group tipoDespacho selecciones">
+										<option th:each=" tip : ${DespachoList}" th:value="${tip.id}"
+											th:text="${tip.descripcion}">JUZGADO DE JUSTICIA LETRADA DEL 6° TURNO SRIA. 12</option>
+									</select>
+								</div>
+							  </div><!-- /.box-body -->
+							</div><!-- /.box -->
+						</div>
+						
+						<div class="col-lg-12">
+							<div class="box box-primary collapsed-box">
+						  <div class="box-header with-border">
+						    <h3 class="box-title">Datos del juicio</h3>
+						    <div class="box-tools pull-right">
+						      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						    </div><!-- /.box-tools -->
+						  </div><!-- /.box-header -->
+						  <div class="box-body">
+						  	<div class="form-group">
+								<label for="materia" th:text="#{expediente.materia.lbl}"
+									class="field-label">Materia:</label> 
+									
+									<select name="materia" id="materia" for="materia"
+									class="form-control form-group materia selecciones">
+									<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
+										th:text="${tip.descripcion}">Civil</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="tipoProceso" th:text="#{expediente.tipoProceso.lbl}"
+									class="field-label">Tipo Proceso:</label> 
+									
+									<select name="tipoProceso" id="tipoProceso" for="tipoProceso"
+									class="form-control form-group tipoProceso selecciones">
+									<option th:each=" tip : ${tipoProcesoList}" th:value="${tip.id}"
+										th:text="${tip.descripcion}">Ejecutivo</option>
+								</select>
+							</div>
+						  	<div class="form-group">
+								<label for="tipoDemanda" th:text="#{expediente.tipoDemanda.lbl}"
+									class="field-label">Objeto:</label> 
+									
+									<select name="tipoDemanda" id="tipoDemanda" for="tipoDemanda"
+									class="form-control form-group tipoDemanda selecciones">
+									<option th:each=" tip : ${tipoDemandaList}" th:value="${tip.id}"
+										th:text="${tip.descripcion}">Accion Ejecutiva</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="nroLiquidacion" th:text="#{expediente.nroLiquidacion.lbl}"
+									class="field-label">Nro. de Liquidacion:</label> 
+									<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" class="form-control" autofocus="autofocus"/>
+							</div>
+							<div class="form-group">
+								<label for="estadoExterno" th:text="#{expediente.estadoExterno.lbl}"
+									class="field-label">Estado Actual:</label> 
+									
+									<select name="estadoExterno" id="estadoExterno" for="estadoExterno"
+									class="form-control form-group estadoExterno selecciones">
+									<option th:each=" tip : ${estadoExternoList}" th:value="${tip.id}"
+										th:text="${tip.descripcion}">Inicio</option>
+								</select>
+							</div>
+						  <div class="form-group">
+							<label>Fecha del Sello del Cargo :</label>
+							<div class="input-group date" style="width:50%;">
+								<div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right"
+									name="fecha" id="datepicker">
+								</div>
+								<script type="text/javascript">
+							        $(function () {
+							        	 $(".selecciones").select2();
+							        	 $('#datepicker').datepicker({       
+							                 autoclose: true,
+							                 format: 'mm/yyyy', 
+							                 viewMode: "years",
+							                 language: 'es',   
+							                 minViewMode: "months",  
+							                 monthNames:["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+							                 monthNamesShort:["Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+							              });
+							             
+							        });
+							    </script>
+								<!-- /.input group -->
+							</div>
+						  </div><!-- /.box-body -->
+						</div><!-- /.box -->
+						</div>
+			
+							<div class="row">
+								<div class="col-xs-8">
+									<!-- <div th:replace="expediente/expediente_form::form">aqui va
+										un fragmento de codigo del form</div> -->
+								</div>
+								<div class="col-xs-4">
+								<a class="btn btn-siguiente" href="#">
+  									 SIGUIENTE <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+
+				<div id="menu2" class="tab-pane fade ">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Demandante</h3>
+							<div class="box-tools pull-right">
+						      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						    </div><!-- /.box-tools -->
+						</div>
+						<div class="box-body">
+
+							<div class="hidden-xs col-sm-4 no-padding">
+								
+								
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
+										id="materiaDT1">
+										<thead>
+											<tr>											
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th th:each="col : ${columnasMateria}" th:text="#{'materia.' + ${col} + '.header'}">CÓDIGO</th>												
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTableEsp("materiaDT1", "[[@{/materia/json}]]", "[[${columnasStrMateria}]]", "materia");
+									  });
+									   </script>
+								</div>
+								
+						</div>
+						
+						<div class="box box-success">
+				            <div class="box-header with-border">
+				              <h3 class="box-title">Demandado</h3>
+				              <div class="box-tools pull-right">
+						      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						    </div>
+				            </div>
+				            <div class="box-body">
+				              <div class="hidden-xs col-sm-4 no-padding">
+								
+								
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
+										id="materiaDT">
+										<thead>
+											<tr>											
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th th:each="col : ${columnasMateria}" th:text="#{'materia.' + ${col} + '.header'}">CÓDIGO</th>												
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTableEsp("materiaDT", "[[@{/materia/json}]]", "[[${columnasStrMateria}]]", "materia");
+									  });
+									   </script>
+								</div>
+				            </div>
+				            <!-- /.box-body -->
+				          </div>
+					</div>
+				</div>
+				<!--LISTADO DE EXPEDIENTES  -->
+				<div id="menu3" class="tab-pane fade">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Partes</h3>
+						</div>
+						<div class="box-body">
+
+							<table
+								class="table table-bordered table-hover table-striped display"
+								id="expedienteDT">
+								<thead>
+									<tr>
+										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+										<th>Accion</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							 $(document).ready(function() {
+								 crearDataTable("expedienteDT", "[[@{/expediente/json}]]", "[[${columnasStr}]]", "[[@{/expediente/edit/}]]");
+							 });
+			 			</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				});
+			</script>
+
+	</div>
+</body>
+</html>

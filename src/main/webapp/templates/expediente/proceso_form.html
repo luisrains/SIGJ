@@ -21,6 +21,7 @@
 		<form th:object="${proceso}" th:action="@{/proceso/save_listado}" method="post" role="form"
 			id="idProceso">
 			
+
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
 			<div class="form-group col-xs-12 col-sm-12">
@@ -28,6 +29,7 @@
 					class="field-label col-xs-7 col-sm-7">Código:</label> <input type="text"
 					th:field="*{codigo}" maxlength="60" class="form-control col-xs-6 col-sm-6"
 					autofocus="autofocus" />
+
 			</div>
 
 			<div class="form-group col-xs-12 col-sm-12">
@@ -57,28 +59,11 @@
 			</div>
 
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal">aqui van los botones</div>
+			<div th:replace="botones::footerModal"></div>
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
-		/*function guardar(){
-			
-			var objeto = $("#idProceso").val();
-			console.log("form value ",$("#idProceso").val());
-			var listado = $( "#tipoDemanda" ).val();
-			console.log("selec",  listado);
-			$.ajax({
-				type: "POST",
-				url: "/proceso/accion",
-				data: { 
-					obj: objeto,
-					listado: listado
-				}
-			}).done(function(html){
-				console.log("html",html);
-				window.location.href = html
-			})
-			};*/
+		
 		$(function () {
 		    //Initialize Select2 Elements
 		    $(".materia").select2();
@@ -93,18 +78,7 @@
 
 			});
 
-		/*	$("#bo").on('click', function(){
-				var je = $(".tipoDemanda").val();
-				$.ajax({
-					type:'POST',
-					url: 'sigj/proceso/prueba',
-					data:{
-						selec : je
-						}
-					}).done(function(json_data){
-						console.log(json_data);
-						});
-				});*/
+		
 		</script>
 
 	</div>
