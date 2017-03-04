@@ -20,7 +20,10 @@
 							<h3>Registro de Movimientos de Empleados</h3>
 						</div>
 						<div class="box-body">
-							
+								<button class="btn btn-success btn-movil" id="botonAgregar"
+								 onclick="agregar()">
+								<i class="glyphicon glyphicon-plus"></i> Nuevo Movimiento de Empleado
+								</button>
 								<div class="hidden-xs col-sm-4 no-padding">
 									<div class="col-xs-12 col-sm-12" th:replace="rrhh/movimiento_form::form">aqui va
 										un fragmento de codigo del form</div>
@@ -86,7 +89,38 @@
 				    });
 				});
 			</script>
-
+			
+			<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content col-xs-12" style="min-height: 430px;">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel"
+							>Nuevo Registro</h4>
+					</div>
+					<div class="modal-body">
+						<div th:replace="rrhh/movimiento_form::form">aqui va un
+								fragmento de codigo del form</div>
+					</div>
+					
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+			<script type="text/javascript">
+			function agregar(){
+				
+				$("#formModal").modal("show");
+				
+				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
+				
+			}
+			</script>
+			
+		</div>
+			
 	</div>
 </body>
 </html>

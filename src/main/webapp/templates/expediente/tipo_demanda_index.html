@@ -18,7 +18,7 @@
 							<br><br>
 							<table
 								class="table table-bordered table-striped col-xs-12 no-padding table-esp"
-								id="tipoDemandaoDT">
+								id="tipoDemandaDT">
 								<thead>
 									<tr>
 										 <th th:each="col : ${columnas}" th:text="#{'tipoDemanda.' + ${col} + '.header'}">CÓDIGO</th>
@@ -50,7 +50,7 @@
 							>Nuevo Registro</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/proceso_form::form">aqui va un
+						<div th:replace="expediente/tipo_demanda_form::form">aqui va un
 								fragmento de codigo del form</div>
 					</div>
 					
