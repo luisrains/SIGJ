@@ -17,79 +17,69 @@
 						</div>
 						<div class="box-body">
 							<div class="hidden-xs col-sm-4 no-padding">
-								
-									<div th:replace="rrhh/empleado_form::form">aqui va un
-										fragmento de codigo del form</div>
-								</div>
-								<div class="col-xs-12 col-sm-8">
-									<table
-										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
-										id="personaDT">
-										<thead>
-											<tr>											
-												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
-												<th th:each="col : ${columnasPersona}" th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>												
-											</tr>
-										</thead>
-									</table>
-									<script type="text/javascript">
-									   $(document).ready(function() {
+
+								<div th:replace="rrhh/empleado_form::form">aqui va un
+									fragmento de codigo del form</div>
+							</div>
+							<div class="col-xs-12 col-sm-8">
+								<table
+									class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
+									style="width: 100%;" id="personaDT">
+									<thead>
+										<tr>
+											<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+											<th th:each="col : ${columnasPersona}"
+												th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>
+										</tr>
+									</thead>
+								</table>
+								<script type="text/javascript">
+									  $(document).ready(function() {
 										   crearDataTableEsp("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "persona");
 									  });
-									   </script>
-								</div>
-							
-							
+								</script>
+							</div>
 						</div>
 					</div>
 				</div>
-
 				<div id="menu2" class="tab-pane fade">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
 							<h3>Listado de Empleados</h3>
 						</div>
 						<div class="box-body no-padding">
-
 							<table
 								class="table table-bordered table-hover table-striped display col-xs-12 table-esp no-padding"
 								id="empleadoDT">
 								<thead>
 									<tr>
-										<th th:each="col : ${columnas}" th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
-
+										<th th:each="col : ${columnas}"
+											th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
 										<th>Accion</th>
-
-										
 									</tr>
 								</thead>
 							</table>
 							<script type="text/javascript">
-							 $(document).ready(function() {
-							    crearDataTable("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStr}]]", "[[@{/empleado/edit/}]]");
-							
-							 });
+								$(document).ready(function() {
+							    	crearDataTable("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStr}]]", "[[@{/empleado/edit/}]]");
+								});
 			 			</script>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		
 		<script>
-				$(document).ready(function(){
-					var data = $('#empleadoDT').DataTable();
-					data.column( 0 ).visible( false );
-				    $(".nav-tabs a").click(function(){
-				        $(this).tab('show');
-				    });
-				});
-
-				
-
-			
-			</script>
-
+			$(document).ready(function(){
+				var data = $('#empleadoDT').DataTable();
+				data.column( 0 ).visible( false );
+			    $(".nav-tabs a").click(function(){
+			        $(this).tab('show');
+			    });
+			});
+		</script>
 	</div>
 </body>
+
 </html>

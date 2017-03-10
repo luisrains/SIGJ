@@ -27,15 +27,14 @@
 										id="empleadoDT">
 										<thead>
 											<tr>
-												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>
-												
+												<th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>												
 											</tr>
 										</thead>
 									</table>
 									<script type="text/javascript">
 										$(document).ready(function() {
 										    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
-										 });													 
+										});													 
 			 						</script>
 								</div>
 							</div>
@@ -72,13 +71,13 @@
 		</div>
 
 		<script>
-				$(document).ready(function(){
-				    $(".nav-tabs a").click(function(){
-				        $(this).tab('show');
-				    });
-				});
-			</script>
-
+			$(document).ready(function(){
+			    $(".nav-tabs a").click(function(){
+			        $(this).tab('show');
+			    });
+			});
+		</script>
 	</div>
 </body>
+
 </html>
