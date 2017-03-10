@@ -16,41 +16,24 @@
 				$("#descripcion").focus();
 			}
 		</script>
-		<h4 class="page-header">Detalles de Servicios</h4>
-		<span th:text="${error}" style="color: red">Ocurrió un error</span> <span
-			style="color: green">
-			<div class="alert alert-success" role="alert" th:text="${msgExito}">
-				<strong>Well done!</strong> You successfully read this important
-				alert message.
-			</div>
-		</span>
-
-		<ul>
-			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
-				style="color: red">Debe ingresar codigo</li>
-		</ul>
-
+		<h4 class="page-header" th:text="#{servicio.form.titulo}">Detalles
+			de Servicios</h4>
 		<form th:action="@{/servicio/accion}" th:object="${servicio}"
 			method="post" role="form">
-
 			<input type="hidden" th:field="*{id}" />
-
-
 			<div class="form-group">
 				<label for="codigo" th:text="#{servicio.codigo.lbl}"
-					class="field-label">Código:</label> <input type="text"
+					class="field-label">Código</label> <input type="text"
 					th:field="*{codigo}" maxlength="100" class="form-control" />
 			</div>
 			<div class="form-group">
-
 				<label for="tipoServicio" th:text="#{servicio.tipoServicio.lbl}"
-					class="field-label">Tipo de Servicio:</label> <input type="text"
+					class="field-label">Tipo de Servicio</label> <input type="text"
 					th:field="*{tipoServicio}" maxlength="60" class="form-control"
 					autofocus="autofocus" />
 			</div>
-
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::form_botones">aqui van los botones</div>
+			<div th:replace="botones::form_botones"></div>
 		</form>
 		<!-- Fin panel botones -->
 	</div>
