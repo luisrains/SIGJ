@@ -132,7 +132,7 @@ public class ProcesoFormController extends FormController<Proceso> {
 					// de
 					// demanda seleccionado
 					ProcesoTipoDemanda porcesoTipoDemanda = new ProcesoTipoDemanda();
-					porcesoTipoDemanda.setProceso(obj);
+					// porcesoTipoDemanda.setProceso(obj);
 					// buscamos el tipoDemanda
 					TipoDemanda tipoDemanda = tipoDemandaDao.find(idFormat);
 					porcesoTipoDemanda.setTipoDemanda(tipoDemanda);
@@ -169,7 +169,7 @@ public class ProcesoFormController extends FormController<Proceso> {
 					// de
 					// demanda seleccionado
 					ProcesoTipoDemanda procesoTipoDemanda = new ProcesoTipoDemanda();
-					procesoTipoDemanda.setProceso(obj);
+					// procesoTipoDemanda.setProceso(obj);
 					// buscamos el tipoDemanda
 					TipoDemanda tipoDemanda = tipoDemandaDao.find(idFormat);
 					procesoTipoDemanda.setTipoDemanda(tipoDemanda);

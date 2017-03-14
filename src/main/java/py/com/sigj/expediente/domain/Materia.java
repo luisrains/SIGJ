@@ -1,9 +1,13 @@
 package py.com.sigj.expediente.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -41,6 +45,10 @@ public class Materia extends GenericEntity {
 	@Size(max = 20, message = "materia.descripcion.size")
 	private String descripcion;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	// @JoinColumn(foreignKey = @ForeignKey(name = "materia_proceso_fk"))
+	private List<Proceso> listaProceso;
+
 	public Materia() {
 
 	}
@@ -71,9 +79,18 @@ public class Materia extends GenericEntity {
 		this.descripcion = descripcion;
 	}
 
+	public List<Proceso> getListaProceso() {
+		return listaProceso;
+	}
+
+	public void setListaProceso(List<Proceso> listProceso) {
+		this.listaProceso = listProceso;
+	}
+
 	@Override
 	public String toString() {
-		return "Materia [id=" + id + ", codigo=" + codigo + ", Descripcion=" + descripcion + "]";
+		return "Materia [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", listProceso="
+				+ listaProceso + "]";
 	}
 
 }
