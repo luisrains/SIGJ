@@ -42,6 +42,22 @@
 .modal-header{
 	display: none;
 }
+.dataTables_length{
+	margin-top:15px !important;
+}
+.dataTables_filter{
+	margin-top:15px !important;
+	margin-right: 10px !important;
+}
+.body-style{
+	border-color: #0000FF;
+	border-style: solid;
+}
+.box-pc{
+	box-shadow: none !important;
+	background: none !important;
+	border: none !important;
+}
 
 @media screen and (min-device-width: 768px){
 	.th-pc{
