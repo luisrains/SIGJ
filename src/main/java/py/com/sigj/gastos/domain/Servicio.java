@@ -43,7 +43,7 @@ public class Servicio extends GenericEntity {
 	private String tipoServicio;
 
 	@NotNull(message = "servicio.costo.notNull")
-	private int costo;
+	private String costo;
 
 	public Servicio() {
 	}
@@ -74,11 +74,11 @@ public class Servicio extends GenericEntity {
 		this.tipoServicio = tipoServicio;
 	}
 
-	public int getCosto() {
+	public String getCosto() {
 		return costo;
 	}
 
-	public void setCosto(int costo) {
+	public void setCosto(String costo) {
 		this.costo = costo;
 	}
 

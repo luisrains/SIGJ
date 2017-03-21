@@ -26,7 +26,7 @@ public class ServicioListController extends ListController<Servicio> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "codigo", "tipoServicio" };
+		return new String[] { "id", "codigo", "tipoServicio", "costo" };
 	}
 
 	@Override
