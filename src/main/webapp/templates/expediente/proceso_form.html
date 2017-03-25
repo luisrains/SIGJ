@@ -20,7 +20,6 @@
 		<h4 id="registrar-movil" class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4>	
 		<form th:object="${proceso}" th:action="@{/proceso/save_listado}" method="post" role="form"
 			id="idProceso">
-			
 
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
@@ -34,8 +33,10 @@
 
 			<div class="form-group col-xs-12 col-sm-12">
 				<label for="descripcion" th:text="#{proceso.descripcion.lbl}"
+
 					class="field-label col-xs-7 col-sm-7">Descripción:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
+
 			</div>
 
 			<div class="form-group col-xs-12 col-sm-12">
@@ -73,12 +74,9 @@
 			
 			$(".tipoDemanda").on('change', function() {
 				console.log(($(".tipoDemanda").val()));
-			  });
-				
+			  });	
 
-			});
-
-		
+			});		
 		</script>
 
 	</div>
