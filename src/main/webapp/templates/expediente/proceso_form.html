@@ -16,27 +16,30 @@
 				$("#descripcion").focus();
 			}
 		</script>
-		<h4 class="page-header" th:text="#{proceso.form.titulo}">Detalles
-			de Procesos</h4>
-			
-		<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form">
-			
-			<input type="hidden" th:field="*{id}"/>
+		
+		<h4 id="registrar-movil" class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4>	
+		<form th:object="${proceso}" th:action="@{/proceso/save_listado}" method="post" role="form"
+			id="idProceso">
 
-			<div class="form-group">
+			<input type="hidden" th:field="*{id}" />
+			<div class="modal-movil hidden-xs col-sm-12">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="codigo" th:text="#{proceso.codigo.lbl}"
-					class="field-label">Código</label> <input type="text"
-					th:field="*{codigo}" maxlength="60" class="form-control"
-					autofocus="autofocus"/>
+					class="field-label col-xs-7 col-sm-7">Código:</label> <input type="text"
+					th:field="*{codigo}" maxlength="60" class="form-control col-xs-6 col-sm-6"
+					autofocus="autofocus" />
+
 			</div>
 
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="descripcion" th:text="#{proceso.descripcion.lbl}"
-					class="field-label">Descripción</label> <input type="text"
-					th:field="*{descripcion}" maxlength="100" class="form-control" />
+
+					class="field-label col-xs-7 col-sm-7">Descripción:</label> <input type="text"
+					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
+
 			</div>
 
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="materia" th:text="#{proceso.materia.lbl}"
 					class="field-label">Materia</label> <select th:field="*{materia}"
 					class="form-control">
@@ -45,7 +48,7 @@
 				</select>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="tipoDemanda" th:text="#{proceso.tipoDemanda.lbl}"
 					class="field-label">Tipos de Demandas</label> <select
 					class="form-control tipoDemanda" multiple="multiple"
@@ -53,6 +56,7 @@
 					<option th:each=" dem : ${tipoDemandaList}" th:value="${dem.id}"
 						th:text="${dem.descripcion}">Ejecutivo</option>
 				</select>
+			</div>
 			</div>
 
 			<!-- Inicio panel botones -->

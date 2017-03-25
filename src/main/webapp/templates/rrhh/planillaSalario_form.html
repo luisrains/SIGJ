@@ -1,6 +1,6 @@
 
 <div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
-    <table id="planilla_bodyDT" class="no-padding">
+    <table id="planilla_bodyDT" class="no-padding" style="margin-left: 5px; margin-right: 5px;">
     <thead>
     	<th class="hidden">Id</th>
         <th class="th-pc">Cedula</th>
@@ -41,9 +41,8 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 	    $('#planilla_bodyDT').dataTable( {
-	        "sScrollX": "100%",
-	        "sScrollXInner": "110%",
 	        "bScrollCollapse": true,
+	        "responsive":true,
 	        'language' : {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",

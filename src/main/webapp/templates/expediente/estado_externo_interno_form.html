@@ -21,31 +21,30 @@ function nuevoRegistro() {
 	$("#codigo").focus();
 }
 </script>
-		<h4 class="page-header" th:text="#{materia.form.titulo}">Detalles
-			de Estado</h4>
+		<h4 id="registrar-movil" class="page-header" th:text="#{estado.form.titulo}"> Registrar Estado</h4>
 		
 		<form th:action="@{/estado_externo_interno/accion}" th:object="${estadoExternoInterno}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
-
-			<div class="form-group">
-				<label for="codigo" th:text="#{estado_externo_interno.codigo.lbl}" class="field-label">Código:</label>
+			<div class="modal-movil hidden-xs col-sm-12">
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="codigo" th:text="#{estado_externo_interno.codigo.lbl}" class="field-label col-xs-7 col-sm-7">Código:</label>
 				<input type="text" th:field="*{codigo}" maxlength="60"
-					class="form-control" autofocus="autofocus" />
+					class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="descripcion" th:text="#{materia.descripcion.lbl}"
-					class="field-label">Descripcion:</label> <input type="text"
-					th:field="*{descripcion}" maxlength="100" class="form-control" />
+					class="field-label col-xs-7 col-sm-7">Descripcion:</label> <input type="text"
+					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
                 <label for="tipoEstado" th:text="#{estado_externo_interno.tipo_estado.lbl}"
-                    class="field-label">Tipo Estado:</label> <input type="text"
-                    th:field="*{tipoEstado}" maxlength="1" class="form-control" />
+                    class="field-label col-xs-7 col-sm-7">Tipo Estado:</label> <input type="text"
+                    th:field="*{tipoEstado}" maxlength="1" class="form-control col-xs-6 col-sm-6" />
             </div>
-
+			</div>
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>

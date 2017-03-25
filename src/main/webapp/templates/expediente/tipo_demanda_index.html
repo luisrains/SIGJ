@@ -18,11 +18,11 @@
 							<br><br>
 							<table
 								class="table table-bordered table-striped col-xs-12 no-padding table-esp"
-								id="tipoDemandaoDT">
+								id="tipoDemandaDT">
 								<thead>
 									<tr>
 										 <th th:each="col : ${columnas}" th:text="#{'tipoDemanda.' + ${col} + '.header'}">CÓDIGO</th>
-										<th>Accion</th>
+										<th>Acción</th>
 									</tr>
 								</thead>
 							</table>
@@ -42,7 +42,7 @@
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-content col-xs-12">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
@@ -50,7 +50,7 @@
 							>Nuevo Registro</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/proceso_form::form">aqui va un
+						<div th:replace="expediente/tipo_demanda_form::form">aqui va un
 								fragmento de codigo del form</div>
 					</div>
 					
@@ -61,6 +61,7 @@
 			<script type="text/javascript">
 			function agregar(){
 				$("#formModal").modal("show");
+				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
 			}
 			</script>
 			
