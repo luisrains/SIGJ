@@ -16,7 +16,7 @@
 				$("descripcion").focus();
 			}
 		</script>
-		<h4 class="page-header" th:text="{abogado.form.titulo}">Detalles
+		<h4 class="page-header" th:text="#{abogado.form.titulo}">Detalles
 			de Abogados</h4>
 		<span th:text="${error}" style="color: red">Ocurrió un error</span>
 		<span style="color: green"> <!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
@@ -38,7 +38,7 @@
 			method="post" role="form">
 			<input type="hidden" th:field="*{id}" />
 			<div class="form-group hidden-xs col-sm-12">
-				<label for="tipoAbogado" th:text="{abogado.tipoAbogado.lbl}"
+				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}"
 					class="field-label col-sm-7">Tipo de Abogado</label> <select
 					th:field="*{tipoAbogado}"
 					class="form-control form-group tipoAbogado hidden-xs col-sm-6">
@@ -48,7 +48,7 @@
 			</div>
 			<div class="form-group hidden-xs col-sm-12">
 				<label for="domicilioActual"
-					th:text="{abogado.domicilioActual.lbl}"
+					th:text="#{abogado.domicilioActual.lbl}"
 					class="field-label col-sm-7">Domicilio Actual</label> <input
 					type="text" th:field="*{domicilioActual}" maxlength="100"
 					class="form-control col-sm-6" autofocus="autofocus" />
@@ -56,7 +56,7 @@
 			<!--REALIZAR CAMBIOS PARA EMPLEADO Y NO PERSONA  -->
 			<div class="form-group  hidden-xs col-sm-12">
 				<label for="domicilioLaboral"
-					th:text="{abogado.domicilioLaboral.lbl}"
+					th:text="#{abogado.domicilioLaboral.lbl}"
 					class="field-label col-sm-7">Domicilio Laboral</label> <input
 					type="text" th:field="*{domicilioLaboral}" maxlength="100"
 					class="form-control col-sm-6" />
