@@ -19,8 +19,7 @@
 		<h4 class="page-header" th:text="#{proceso.form.titulo}">Detalles
 			de Procesos</h4>
 			
-		<form th:object="${proceso}" th:action="@{/proceso/save_listado}" method="post" role="form"
-			id="idProceso">
+		<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form">
 			
 			<input type="hidden" th:field="*{id}"/>
 
