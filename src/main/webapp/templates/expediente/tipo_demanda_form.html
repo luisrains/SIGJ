@@ -20,29 +20,30 @@ function nuevoRegistro() {
 	$("#descripcion").focus();
 }
 </script>
-		<h4 class="page-header" th:text="#{tipoDemanda.form.titulo}">Detalles
-			de Demandas</h4>
+		<h4 id="registrar-movil" class="page-header" th:text="#{tipoDemanda.form.titulo2}"> Registrar Demanda</h4>
+		
 
 		<form th:action="@{/tipo_demanda/accion}" th:object="${tipoDemanda}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
-
-			<div class="form-group">
+			<div class="modal-movil hidden-xs col-sm-12">
+			<div class="form-group col-xs-12 col-sm-12">
+			
 				<label for="descripcion" th:text="#{tipoDemanda.descripcion.lbl}"
-					class="field-label">Descripcion:</label> <input type="text"
-					th:field="*{descripcion}" maxlength="100" class="form-control" />
+					class="field-label col-xs-7 col-sm-7">Descripcion:</label> <input type="text"
+					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
 
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="proceso" th:text="#{tipoDemanda.proceso.lbl}"
-					class="field-label">Proceso:</label> <select th:field="*{proceso}"
-					class="form-control proceso">
+					class="field-label col-xs-7 col-sm-7">Proceso:</label> <select th:field="*{proceso}"
+					class="form-control proceso col-xs-6 col-sm-6">
 					<option th:each=" tip : ${procesoList}" th:value="${tip.id}"
 						th:text="${tip.descripcion}">Excelente</option>
 				</select>
 			</div>
-			
+			</div>
 			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
