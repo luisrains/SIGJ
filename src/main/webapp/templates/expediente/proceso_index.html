@@ -59,7 +59,7 @@
 
 <div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
-			<form th:object="${proceso}" th:action="@{/proceso/accion}" method="post" role="form"
+			<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form"
 						id="idProceso">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -71,7 +71,8 @@
 					</div>
 					<div class="modal-body">Está seguro que desea borrar registro de forma
 						permanente?
-						<input type="hidden" th:field="*{id}"/></div>
+						
+						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/></div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary" name="accion"
@@ -126,7 +127,7 @@
 						$('#delete').removeClass('hidden');
 						$('#save').addClass('hidden');
 						$('#edit').addClass('hidden');
-						$('#id').val(obj["id"]);
+						$('#id_objeto').val(obj["id"]);
 						$("#borradoPopup").modal("show");
 					}	
 				}else if(accion === 'e'){
@@ -134,7 +135,7 @@
 						$('#edit').removeClass('hidden');
 						$('#save').addClass('hidden');
 						$('#delete').addClass('hidden');
-						$('#id').val(obj["id"]);
+						$('#id').val(id);
 						$('#codigo').val(obj["codigo"]);
 						$('#descripcion').val(obj["descripcion"]);
 						var materia = obj["materia"]["id"];
@@ -142,19 +143,26 @@
 						var id1 = obj["id"];
 						$.ajax({
 							type: "GET",
-							url: "proceso/editar",
+							url: "proceso/obtener_listado",
 							data: { 
 								demanda_id: id1
 							}
 						}).done(function(data){
-							console.log(data)
-							
+							var tipoDemanda = data;
+							var selec = $('.tipoDemanda');
+							var codigos = [];
+							 $.each(tipoDemanda, function( index, value ) {
+								 codigos.push(value.id);
+
+							});
+							 selec.val(codigos).trigger("change");
+
 						}).fail(function(jqXHR, textStatus){
 							console.log("error");
 						});
 						
-						var tipoDemanda = obj["tipoDemanda"]["id"];
-						$('#tipoDemanda').find('option[value='+tipoDemanda+']').prop('selected','true');
+						/* var tipoDemanda = obj["tipoDemanda"]["id"];
+						$('#tipoDemanda').find('option[value='+tipoDemanda+']').prop('selected','true'); */
 						
 						$("#formModal").modal("show");
 					}	

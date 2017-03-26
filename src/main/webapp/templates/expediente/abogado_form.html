@@ -20,8 +20,7 @@
 			de Abogados</h4>
 		<h4 id="registrar-movil" class="page-header hidden-lg" th:text="#{abogado.form.titulo2}"> Registrar Abogado</h4>
 		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
-		<span  style="color: green">
-			<!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
+		<span style="color: green"> <!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
 				<strong>Well done!</strong> You successfully read this important
 				alert message.
 			</div>
@@ -30,7 +29,7 @@
 				<strong>¡Cuidado!</strong> Es muy importante que leas este mensaje
 				de alerta.
 			</div>-->
-			
+
 		</span>
 		<ul>
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
@@ -66,25 +65,24 @@
 					class="field-label col-xs-7 col-sm-7">Domicilio Laboral:</label> <input type="text"
 					th:field="*{domicilioLaboral}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
+		
 			</div>
 			<!-- seccion empleado -->
 			<input type="hidden" th:field="*{empleado.id}" />
 
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
-		</form>
-		<!-- Fin panel botones -->
-		<script type="text/javascript">
-
-		$(function () {
-			
-			$(".tipoAbogado").select2();});
-
-
-		 
-		</script>
 
 		
+		</form>
+		<!-- Fin panel botones -->
+
+		<script type="text/javascript">
+			$(function () {
+				$(".tipoAbogado").select2();
+			});
+		</script>
 	</div>
 </body>
+
 </html>
