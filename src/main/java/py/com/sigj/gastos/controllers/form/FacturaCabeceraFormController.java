@@ -31,7 +31,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 
 	@Override
 	public String getTemplatePath() {
-		return "gastos/facturaCabecera_index";
+		return "gastos/factura_cabecera_index";
 	}
 
 	@Override

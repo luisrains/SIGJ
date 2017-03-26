@@ -41,6 +41,9 @@ public class Servicio extends GenericEntity {
 	@NotBlank(message = "servicio.tipoServicio.notBlank")
 	@Size(max = 100, message = "servicio.tipoServicio.size")
 	private String tipoServicio;
+	
+	@NotNull(message = "facturaCabecera.iva.notNull")
+	private String iva;
 
 	@NotNull(message = "servicio.costo.notNull")
 	private int costo;
@@ -82,10 +85,20 @@ public class Servicio extends GenericEntity {
 		this.costo = costo;
 	}
 
+	public String getIva() {
+		return iva;
+	}
+
+	public void setIva(String iva) {
+		this.iva = iva;
+	}
+
 	@Override
 	public String toString() {
-		return "Servicio [id=" + id + ", codigo=" + codigo + ", tipoServicio=" + tipoServicio + ", costo=" + costo
-				+ "]";
+		return "Servicio [id=" + id + ", codigo=" + codigo + ", tipoServicio=" + tipoServicio + ", iva=" + iva
+				+ ", costo=" + costo + "]";
 	}
+
+	
 
 }
