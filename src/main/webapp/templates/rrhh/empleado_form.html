@@ -18,39 +18,36 @@
 				$("#botonNuevo").hide();
 				$("#salario").focus();
 			}
-			</script>
-			<h4  id= "header-normal" class="page-header hidden-xs">Detalles
+		</script>
+		<h4 class="page-header" th:text="#{empleado.form.titulo}">Detalles
 			de Empleados</h4>
-		<h4 id="registrar-movil" class="page-header hidden-lg"> Registrar Empleado</h4>
-			<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
-				th:text="${msgExito}" style="color: green">Registro Guardado</span>
-			<ul>
-				<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
-					style="color: red">Debe ingresar codigo</li>
-			</ul>
-			<form th:action="@{/empleado/accion}" th:object="${empleado}"
-				method="post" role="form">
-				<input type="hidden" th:field="*{id}" />
-	            <div class="modal-movil col-xs-12 col-sm-12">
-				<div class="form-group col-xs-12 col-sm-12">
-					<label for="salario" th:text="#{empleado.salario.lbl}"
-						class="field-label col-xs-7 col-sm-7">Salario:</label> <input type="text"
-						th:field="*{salario}" maxlength="100" class="form-control col-xs-6 col-sm-6" autofocus="autofocus"/>
-				</div>
-				<div class="form-group col-xs-12 col-sm-12">
-	
-					<label for="fechaIngreso" th:text="#{empleado.fechaIngreso.lbl}" class="field-label col-xs-7 col-sm-7">Fecha de Ingreso:</label>
-					<input type="text" th:field="*{fechaIngreso}" maxlength="60"
-						class="form-control col-xs-6 col-sm-6"/>
-				</div>	
-				</div>
-				<input type="hidden" th:field="*{persona.id}" />
-				
-				<!-- Inicio panel botones -->
-				<div th:replace="botones::form_botones">aqui van los botones</div>
-			</form>
-			<!-- Fin panel botones -->
-		</div>
-	</body>
+		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
+			th:text="${msgExito}" style="color: green">Registro Guardado</span>
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+				style="color: red">Debe ingresar código</li>
+		</ul>
+		<form th:action="@{/empleado/accion}" th:object="${empleado}"
+			method="post" role="form">
+			<input type="hidden" th:field="*{id}" />
+			<div class="form-group hidden-xs col-sm-12">
+				<label for="salario" th:text="#{empleado.salario.lbl}"
+					class="field-label col-sm-7">Salario</label> <input type="text"
+					th:field="*{salario}" maxlength="100" class="form-control col-sm-6"
+					autofocus="autofocus" />
+			</div>
+			<div class="form-group hidden-xs col-sm-12">
+				<label for="fechaIngreso" th:text="#{empleado.fechaIngreso.lbl}"
+					class="field-label col-sm-7">Fecha de Ingreso</label> <input
+					type="text" th:field="*{fechaIngreso}" maxlength="60"
+					class="form-control col-sm-6" />
+			</div>
+			<input type="hidden" th:field="*{persona.id}"/>
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::form_botones"></div>
+		</form>
+		<!-- Fin panel botones -->
+	</div>
+</body>
 
 </html>

@@ -41,8 +41,8 @@
 
 			<div class="form-group col-xs-12 col-sm-12">
 				<label for="materia" th:text="#{proceso.materia.lbl}"
-					class="field-label col-xs-7 col-sm-7">Materia:</label> <select th:field="*{materia}"
-					class="form-control col-xs-6 col-sm-6">
+					class="field-label">Materia</label> <select th:field="*{materia}"
+					class="form-control">
 					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
 						th:text="${tip.descripcion}">Excelente</option>
 				</select>
@@ -50,8 +50,8 @@
 
 			<div class="form-group col-xs-12 col-sm-12">
 				<label for="tipoDemanda" th:text="#{proceso.tipoDemanda.lbl}"
-					class="field-label col-xs-7 col-sm-7">Tipos de Demandas:</label> <select
-					class="form-control tipoDemanda col-xs-6 col-sm-6" multiple="multiple"
+					class="field-label">Tipos de Demandas</label> <select
+					class="form-control tipoDemanda" multiple="multiple"
 					id="tipoDemanda" name="selec" style="width: 50%;">
 					<option th:each=" dem : ${tipoDemandaList}" th:value="${dem.id}"
 						th:text="${dem.descripcion}">Ejecutivo</option>
