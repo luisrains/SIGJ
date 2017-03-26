@@ -57,6 +57,7 @@
 				<bean class="py.com.sigj.converters.MovimientoConverter" />
 				<bean class="py.com.sigj.converters.EstadoExternoInternoConverter" />
 				<bean class="py.com.sigj.converters.TipoDemandaConverter" />
+				<bean class="py.com.sigj.converters.FacturaCabeceraConverter" />
 			</set>
 		</property>
 		

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+	<div th:fragment="form">
+		<script type="text/javascript">
+			function limpiarForm() {
+				$("#id").val("");
+				$("#ruc").val("");
+				$("#timbrado").val("");
+				$("#fecha_inicio_vigencia").val("");
+				$("#fecha_fin_vigencia").val("");
+				$("#nro_factura").val("");
+				$("#fecha").val("");
+				$("#tipo_pago").val("");
+			}
+			function nuevoRegistro() {
+				limpiarForm();
+				$("#botonNuevo").hide();
+				$("#timbrado").focus();
+			}
+		</script>
+		<h4 class="page-header">Cabecera Factura</h4>
+		<span th:text="${error}" style="color: red;display:none;">Ocurrió un error</span> <span
+			style="color: green">
+			<div class="alert alert-success hidden" role="alert" th:text="${msgExito}">
+				<strong>Well done!</strong> You successfully read this important
+				alert message.
+			</div>
+		</span>
+
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+				style="color: red">Debe ingresar codigo</li>
+		</ul>
+
+		<form th:action="@{/factura_cabecera/accion}" th:object="${facturaCabecera}"
+			method="post" role="form">
+
+			<input type="hidden" th:field="*{id}" />
+
+
+			<div class="form-group col-sm-6">
+				<label for="timbrado" th:text="#{factura_cabecera.timbrado.lbl}"
+					class="field-label">Timbrado:</label> <input type="text"
+					th:field="*{timbrado}" maxlength="100" class="form-control col-sm-6" />
+			</div>
+			<div class="form-group col-sm-6" style="margin-left:5px; padding-left:10px;">
+						<label>Fecha Inicio Vigencia:</label>
+						<div class="input-group date" style="width:80%;">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control pull-right col-sm-6"
+								name="fecha_inicio_vigencia" id="datepicker">
+						</div>
+						
+			</div>
+			
+			<div class="form-group col-sm-5" style="margin-left:5px;padding-left:10px;">
+						<label>Fecha Fin Vigencia:</label>
+						<div class="input-group date" style="width:100%;">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control pull-right col-sm-6"
+								name="fecha_fin_vigencia" id="datepicker">
+						</div>
+						
+			</div>
+			
+			<div class="form-group col-sm-6">
+				<label for="ruc" th:text="#{factura_cabecera.ruc.lbl}"
+					class="field-label">Ruc:</label> <input type="text"
+					th:field="*{ruc}" maxlength="100" class="form-control col-sm-6" />
+			</div>
+			
+			<div class="form-group col-sm-6">
+				<label for="nro_factura" th:text="#{factura_cabecera.nro_factura.lbl}"
+					class="field-label">N°de Factura:</label> <input type="text"
+					th:field="*{nroFactura}" maxlength="100" class="form-control col-sm-6" />
+			</div>
+			
+			<div class="form-group col-sm-6">
+
+				<label for="tipo_pago" th:text="#{factura_cabecera.tipo_pago.lbl}"
+					class="field-label">Tipo Pago:</label> <input type="text"
+					th:field="*{tipoPago}" maxlength="60" class="form-control col-sm-6"/>
+			</div>
+			
+			<div class="form-group col-sm-6">
+
+				<label for="razon_social" th:text="#{factura_cabecera.razon_social.lbl}"
+					class="field-label">Razón Social:</label> <input type="text"
+					th:field="*{razonSocial}" maxlength="60" class="form-control col-sm-6"/>
+			</div>
+			
+			<div class="form-group col-sm-6">
+
+				<label for="direccion" th:text="#{factura_cabecera.direccion.lbl}"
+					class="field-label">Dirección:</label> <input type="text"
+					th:field="*{direccion}" maxlength="60" class="form-control col-sm-6"/>
+			</div>
+			<div class="form-group col-sm-6">
+
+				<label for="ruc_ci_cliente" th:text="#{factura_cabecera.ruc_ci.lbl}"
+					class="field-label">Ruc O Ci:</label> <input type="text"
+					th:field="*{rucCi}" maxlength="60" class="form-control col-sm-6"/>
+			</div>
+			<!-- Inicio panel botones -->
+			<div class="col-xs-12 col-sm-12 col-sm-offset-3">
+						<button id="btn-cabecera" type="button" class="btn btn-primary col-xs-5 col-sm-3"
+						style="padding:5px; margin:10px;">Crear</button>
+						
+			</div>
+			<div id="factura_detalle"></div>
+		</form>
+		<script type="text/javascript">
+       				
+          
+       $("#btn-cabecera").on('click',function(e){
+           console.log("entro en el onclick");
+            var fecha = $('input[name=fecha]').val();
+            
+       $.ajax({
+           type: "GET",
+           url: "planilla_salario/validar_fecha",
+           data: { 
+               fecha:fecha_rec
+           }
+       }).done(function(data){
+           console.log("entro en el ajax");
+           console.log(data);
+           $("#planilla_body").load();
+           $("#planilla_body").html(data);
+          
+           
+       });
+       });
+      
+       </script>
+	</div>
+</body>
+
+</html>

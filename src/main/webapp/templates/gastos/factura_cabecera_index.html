@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+	<div th:fragment="contenido">
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Registrar</a></li>
+				
+			</ul>
+			<div class="tab-content">
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de Facturas</h3>
+						</div>
+						<div class="box-body">
+							<div th:replace="gastos/factura_cabecera_form::form"></div>
+						</div>
+					</div>
+				</div>
+				  
+			</div>
+		</div>
+		<script>
+			$(document).ready(function(){
+			    $(".nav-tabs a").click(function(){
+			        $(this).tab('show');
+			    });
+			    $('#datepicker').datepicker({       
+	                 autoclose: true,
+	                 format: 'dd/mm/yyyy', 
+	                 viewMode: "years",
+	                 language: 'es',   
+	                 minViewMode: "months",  
+	                 monthNames:["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+	                 monthNamesShort:["Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+	              });
+			});
+			
+			
+	       
+	        	 
+	             
+	       
+	       
+	    
+		</script>
+	</div>
+</body>
+</html>
