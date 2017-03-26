@@ -36,6 +36,14 @@ public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {
 
 	@Transactional
 	@Override
+	public void createOrUpdate(T obj) {
+
+		logger.info("Insertando registro {}", obj);
+		entityManager.merge(obj);
+	}
+
+	@Transactional
+	@Override
 	public void edit(T obj) {
 		logger.info("Editando registro {}", obj);
 		entityManager.merge(obj);

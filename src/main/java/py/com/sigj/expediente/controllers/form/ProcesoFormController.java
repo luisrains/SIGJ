@@ -1,5 +1,6 @@
 package py.com.sigj.expediente.controllers.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import py.com.sigj.expediente.dao.MateriaDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.ProcesoTipoDemandaDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
+import py.com.sigj.expediente.domain.Materia;
 import py.com.sigj.expediente.domain.Proceso;
 import py.com.sigj.expediente.domain.ProcesoTipoDemanda;
 import py.com.sigj.expediente.domain.TipoDemanda;
@@ -113,6 +115,35 @@ public class ProcesoFormController extends FormController<Proceso> {
 		agregarValoresAdicionales(map);
 		logger.info("registro retorna {}", getTemplatePath());
 		return getTemplatePath();
+	}
+
+	@RequestMapping(value = "prueba", method = RequestMethod.GET)
+	public void prueba(ModelMap map) {
+
+		Long id2 = (long) 252;
+		Long id = (long) 253;
+		// Proceso p2 = new Proceso();
+		// p2.setCodigo("p1");
+		// p2.setDescripcion("proceso1");
+		// procesoDao.create(p2);
+		//
+		// Proceso p1 = new Proceso();
+		// p1.setCodigo("p2");
+		// p1.setDescripcion("proceso2");
+		// procesoDao.create(p1);
+		List<Proceso> list = new ArrayList<Proceso>();
+		Materia m = new Materia();
+		m.setCodigo("m4");
+		m.setDescripcion("Materia4");
+
+		list.add(procesoDao.find(id));
+		list.add(procesoDao.find(id2));
+		m.setListaProceso(list);
+		materiaDao.createOrUpdate(m);
+		// logger.info("materiaaaa--->", m);
+		// Long id = (long) 102;
+		// Proceso p1 = procesoDao.find(id);
+		// procesoDao.destroy(p1);
 	}
 
 	/*

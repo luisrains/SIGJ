@@ -8,6 +8,8 @@ public interface Dao<T> {
 	 */
 	void create(T obj);
 
+	void createOrUpdate(T obj);
+
 	/**
 	 * Actualiza el registro de la base de datos
 	 */
@@ -31,5 +33,14 @@ public interface Dao<T> {
 	 */
 
 	List<T> getList(Integer filaInicio, Integer filaFin, String sSearch);
+
+	/**
+	 * @param id
+	 *            del objeto metodo que busca el listado de objetos de acuerdo
+	 *            al id utilizado en el selectPicker al momento de editar un
+	 *            objeto.
+	 * @return Lista de objeto.List<>
+	 */
+	// List<T> getListaSelect(Long id);
 
 }
