@@ -20,10 +20,8 @@ import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.MateriaListController;
 import py.com.sigj.expediente.dao.MateriaDao;
-import py.com.sigj.expediente.dao.MateriaProcesoDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.domain.Materia;
-import py.com.sigj.expediente.domain.MateriaProceso;
 import py.com.sigj.expediente.domain.Proceso;
 
 @Controller
@@ -39,9 +37,6 @@ public class MateriaFormController extends FormController<Materia> {
 
 	@Autowired
 	private ProcesoDao procesoDao;
-
-	@Autowired
-	private MateriaProcesoDao materiaProcesoDao;
 
 	@Override
 	public String getTemplatePath() {
@@ -84,7 +79,7 @@ public class MateriaFormController extends FormController<Materia> {
 			logger.info("OBJETO PROCESO {}", obj);
 			return editar_listado(map, selec, obj, bindingResult);
 		} else if (id_objeto != null) {
-			return eliminar_listado(map, selec, obj, bindingResult);
+			return eliminar_listado(map, id_objeto);
 
 		}
 		return
@@ -93,56 +88,18 @@ public class MateriaFormController extends FormController<Materia> {
 
 	}
 
-	// @RequestMapping(value = "save_listado", method = RequestMethod.POST)
-	// public String guardar_listado(ModelMap map, @RequestParam("selec")
-	// List<String> selec, @Valid Materia obj,
-	// BindingResult bindingResult) {
-	// try {
-	// List<Proceso> list = new ArrayList<Proceso>();
-	// if (obj.getId() == null) {
-	// for (String idLong : selec) {
-	// Long idFormat = Long.parseLong(idLong);
-	// list.add(procesoDao.find(idFormat));
-	// }
-	// // obj.setListaProceso(list);
-	// getDao().createOrUpdate(obj);
-	//
-	// map.addAttribute("msgExito", msg.get("Registro agregado"));
-	// logger.info("Se crea la materia -> {}", obj);
-	// }
-	// } catch (Exception ex) {
-	// // TODO: tener en cuenta si es nuevo o edit
-	// obj.setId(null);
-	// map.addAttribute("error", getErrorFromException(ex));
-	//
-	// }
-	//
-	// map.addAttribute(getNombreObjeto(), obj);
-	// agregarValoresAdicionales(map);
-	// return getTemplatePath();
-	//
-	// }
-
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map, @RequestParam("selec") List<String> selec, @Valid Materia obj,
 			BindingResult bindingResult) {
 		try {
-			Proceso proceso;
-
 			List<Proceso> list = new ArrayList<Proceso>();
 			if (obj.getId() == null) {
-				materiaDao.create(obj);
-
 				for (String idLong : selec) {
 					Long idFormat = Long.parseLong(idLong);
-					proceso = procesoDao.find(idFormat);
-					MateriaProceso mp = new MateriaProceso();
-					mp.setProceso(proceso);
-					mp.setMateria(obj);
-					materiaProcesoDao.create(mp);
+					list.add(procesoDao.find(idFormat));
 				}
-				// obj.setListaProceso(list);
-				// getDao().createOrUpdate(obj);
+				obj.setListaProceso(list);
+				getDao().createOrUpdate(obj);
 
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 				logger.info("Se crea la materia -> {}", obj);
@@ -166,16 +123,17 @@ public class MateriaFormController extends FormController<Materia> {
 		try {
 			List<Proceso> list = new ArrayList<Proceso>();
 			logger.info("ID DE OBJ {}", obj);
-			if (obj != null) {
+			if (obj != null && selec != null) {
 				for (String idLong : selec) {
 					Long idFormat = Long.parseLong(idLong);
 					list.add(procesoDao.find(idFormat));
 				}
-				// obj.setListaProceso(list);
-				getDao().edit(obj);
-				logger.info("procesoTipoDemanda Actualizado {}", obj);
-				map.addAttribute("msgExito", msg.get("Registro Actualizado"));
 			}
+			obj.setListaProceso(list);
+			getDao().createOrUpdate(obj);
+			logger.info("procesoTipoDemanda Actualizado {}", obj);
+			map.addAttribute("msgExito", msg.get("Registro Actualizado"));
+
 		} catch (Exception ex) {
 			// TODO: tener en cuenta si es nuevo o edit
 			obj.setId(null);
@@ -189,26 +147,27 @@ public class MateriaFormController extends FormController<Materia> {
 	}
 
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
-	public String eliminar_listado(ModelMap map, @RequestParam("selec") List<String> selec, @Valid Materia obj,
-			BindingResult bindingResult) {
+	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
+		List<Proceso> list = new ArrayList<Proceso>();
+		Materia m = null;
 		try {
-			List<Proceso> list = new ArrayList<Proceso>();
-			logger.info("ID DE OBJ {}", obj);
-			if (obj != null) {
-				Long idLong = obj.getId();
-				materiaDao.deleteProcesoRelation(idLong);
-				materiaDao.refresh(obj);
-				materiaDao.destroy(obj);
+			logger.info("ID DE OBJ {}", id_objeto);
+			if (id_objeto != null) {
+				m = getDao().find(id_objeto);
+				m.setListaProceso(list);
+				materiaDao.destroy(m);
 
-				logger.info("Materia eliminada {}", obj);
+				logger.info("Materia eliminada {}", m);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
 			}
 		} catch (Exception ex) {
-			obj.setId(null);
+
+			m.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
-			map.addAttribute(getNombreObjeto(), obj);
+			map.addAttribute(getNombreObjeto(), m);
 		}
 
+		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 

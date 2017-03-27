@@ -23,7 +23,7 @@ function nuevoRegistro() {
 		<h4 class="page-header" th:text="#{materia.form.titulo}">Detalles
 			de Materias</h4>
 		
-		<form th:action="@{/materia/accion}" th:object="${materia}"
+		<form th:action="@{/materia/accion2}" th:object="${materia}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
@@ -39,11 +39,28 @@ function nuevoRegistro() {
 					class="field-label">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control" />
 			</div>
-
+			<div class="form-group">
+				<label for="proceso" th:text="#{materia.proceso.lbl}"
+					class="field-label">Procesos:</label> 
+					<select class="form-control proceso" multiple="multiple"
+					id="proceso" name="selec" style="width: 50%;">
+					<option th:each=" pro : ${procesoList}" th:value="${pro.id}"
+						th:text="${pro.descripcion}">Ejecutivo</option>
+				</select>
+			</div>
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
 		<!-- Fin panel botones -->
+		<script type="text/javascript">
+		
+		$(function () {
+			$(".proceso").select2({
+					placeholder: "Seleccione los procesos..."
+			});
+			
+		});
+		</script>
 
 	</div>
 </body>
