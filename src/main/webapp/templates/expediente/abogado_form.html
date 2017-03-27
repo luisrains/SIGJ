@@ -5,23 +5,26 @@
 	<div th:fragment="form">
 		<script type="text/javascript">
 			function limpiarForm() {
-				$("#id").val("");
-				$("#descripcion").val("");
-				$("#juez").val("");
-				$("#materia1").val("");
+				$("id").val("");
+				$("descripcion").val("");
+				$("juez").val("");
+				$("materia1").val("");
 			}
 			function nuevoRegistro() {
 				limpiarForm();
-				$("#botonNuevo").hide();
-				$("#descripcion").focus();
+				$("botonNuevo").hide();
+				$("descripcion").focus();
 			}
 		</script>
-		<h4 class="page-header" th:text="#{abogado.form.titulo}">Detalles
+		<h4  id= "header-normal" class="page-header hidden-xs" th:text="#{abogado.form.titulo}">Detalles
 			de Abogados</h4>
-
+<<<<<<< HEAD
+		<span th:text="${error}" style="color: red">Ocurrió un error</span>
+=======
+		<h4 id="registrar-movil" class="page-header hidden-lg" th:text="#{abogado.form.titulo2}"> Registrar Abogado</h4>
 		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
-		<span  style="color: green">
-			<!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
+>>>>>>> master
+		<span style="color: green"> <!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
 				<strong>Well done!</strong> You successfully read this important
 				alert message.
 			</div>
@@ -30,60 +33,66 @@
 				<strong>¡Cuidado!</strong> Es muy importante que leas este mensaje
 				de alerta.
 			</div>-->
-			
+
 		</span>
 		<ul>
-			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
-				style="color: red">Debe ingresar codigo</li>
+			<li th:each=" err : ${errorList}" th:text="{${err.defaultMessage}}"
+				style="color: red">Debe ingresar código</li>
 		</ul>
-
 		<form th:action="@{/abogado/accion}" th:object="${abogado}"
 			method="post" role="form">
-
 			<input type="hidden" th:field="*{id}" />
-
+<<<<<<< HEAD
 			<div class="form-group hidden-xs col-sm-12">
-				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}" class="field-label col-sm-7">Tipo de Abogado:</label> 
+				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}"
+					class="field-label col-sm-7">Tipo de Abogado</label> <select
+					th:field="*{tipoAbogado}"
+					class="form-control form-group tipoAbogado hidden-xs col-sm-6">
+					<option th:each=" tip : ${tipoAbogadoList}" th:value="${tip.id}"
+=======
+			<div class="modal-movil hidden-xs col-sm-12">
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}" class="field-label col-xs-7 col-sm-7">Tipo de Abogado:</label> 
 					
 					<select th:field="*{tipoAbogado}"
-					class="form-control form-group tipoAbogado hidden-xs col-sm-6">
+					class="form-control form-group tipoAbogado col-xs-6 col-sm-6">
 						<option th:each=" tip : ${tipoAbogadoList}" th:value="${tip.id}"
+>>>>>>> master
 						th:text="${tip.descripcion}">Apoderado</option>
 				</select>
 			</div>
 
 
 			
-			<div class="form-group hidden-xs col-sm-12">
-				<label for="domicilioActual" th:text="#{abogado.domicilioActual.lbl}" class="field-label col-sm-7">
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="domicilioActual" th:text="#{abogado.domicilioActual.lbl}" class="field-label col-xs-7 col-sm-7">
 				Domicilio Actual:</label>
 				<input type="text" th:field="*{domicilioActual}" maxlength="100"
-					class="form-control col-sm-6" autofocus="autofocus" />
+					class="form-control col-xs-7 col-sm-6" autofocus="autofocus" />
 			</div>
 			<!--REALIZAR CAMBIOS PARA EMPLEADO Y NO PERSONA  -->
-			<div class="form-group  hidden-xs col-sm-12">
+			<div class="form-group  col-xs-12 col-sm-12">
 				<label for="domicilioLaboral" th:text="#{abogado.domicilioLaboral.lbl}"
-					class="field-label col-sm-7">Domicilio Laboral:</label> <input type="text"
-					th:field="*{domicilioLaboral}" maxlength="100" class="form-control col-sm-6" />
+					class="field-label col-xs-7 col-sm-7">Domicilio Laboral:</label> <input type="text"
+					th:field="*{domicilioLaboral}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
+			</div>
+		
 			</div>
 			<!-- seccion empleado -->
 			<input type="hidden" th:field="*{empleado.id}" />
-
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::form_botones">aqui van los botones</div>
-		</form>
-		<!-- Fin panel botones -->
-		<script type="text/javascript">
-
-		$(function () {
-			
-			$(".tipoAbogado").select2();});
-
-
-		 
-		</script>
+			<div th:replace="botones::footerModal">aqui van los botones</div>
 
 		
+		</form>
+		<!-- Fin panel botones -->
+
+		<script type="text/javascript">
+			$(function() {
+				$(".tipoAbogado").select2();
+			});
+		</script>
 	</div>
 </body>
+
 </html>

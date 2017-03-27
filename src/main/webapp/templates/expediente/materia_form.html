@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
-
 <body class="hold-transition skin-blue-light sidebar-mini ">
-
-
-
 	<div th:fragment="form">
-
 		<script type="text/javascript">
 function limpiarForm() {
 	$("#id").val("");
@@ -20,25 +15,25 @@ function nuevoRegistro() {
 	$("#descripcion").focus();
 }
 </script>
-		<h4 class="page-header" th:text="#{materia.form.titulo}">Detalles
-			de Materias</h4>
-		
+		<h4 id="registrar-movil" class="page-header" th:text="#{materia.form.titulo}"> Registrar Materia</h4>
+
 		<form th:action="@{/materia/accion2}" th:object="${materia}"
 			method="post" role="form">
-
 			<input type="hidden" th:field="*{id}" />
-
-			<div class="form-group">
-				<label for="codigo" th:text="#{materia.codigo.lbl}" class="field-label">Código:</label>
+			<div class="modal-movil hidden-xs col-sm-12">
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="codigo" th:text="#{materia.codigo.lbl}" class="field-label col-xs-7 col-sm-7">Código:</label>
 				<input type="text" th:field="*{codigo}" maxlength="60"
-					class="form-control" autofocus="autofocus" />
+					class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="descripcion" th:text="#{materia.descripcion.lbl}"
-					class="field-label">Descripcion:</label> <input type="text"
-					th:field="*{descripcion}" maxlength="100" class="form-control" />
+					class="field-label col-xs-6 col-sm-7">Descripcion:</label> <input type="text"
+					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
+			</div>		
 			</div>
+
 			<div class="form-group">
 				<label for="proceso" th:text="#{materia.proceso.lbl}"
 					class="field-label">Procesos:</label> 
@@ -48,8 +43,9 @@ function nuevoRegistro() {
 						th:text="${pro.descripcion}">Ejecutivo</option>
 				</select>
 			</div>
+
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal">aqui van los botones</div>
+			<div th:replace="botones::footerModal"></div>
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
@@ -64,4 +60,5 @@ function nuevoRegistro() {
 
 	</div>
 </body>
+
 </html>

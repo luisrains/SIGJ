@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
 
 <body>
-
 	<div class="row" th:fragment="contenido">
+
 		
 			<div class="col-xs-12">		
 					<div class="box box-solid box-primary">
@@ -73,26 +73,25 @@
 			</div>
 <!-- FIN Modal borrar -->
 				<!-- Modal borrar -->
+
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-content col-xs-12">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"
-							>Nuevo Registro</h4>
+						<h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/materia_form::form">aqui va un
-								fragmento de codigo del form</div>
+						<div th:replace="expediente/materia_form::form"></div>
 					</div>
-					
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
 			<script type="text/javascript">
+
 			
 			function agregar(obj, accion){
 				
@@ -167,17 +166,12 @@
 					$('#proceso').attr('disabled', true);
 					$("#formModal").modal("show");
 				}
-				
-				
 			}
+
 			</script>
-			
 		</div>
 		<!-- Modal borrar -->
-
-			
 	</div>
-	
-	 
 </body>
+
 </html>

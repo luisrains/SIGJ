@@ -51,8 +51,38 @@ public class FacturaCabecera extends GenericEntity {
 	private Abogado abogado;
 
 	@Temporal(TemporalType.DATE)
+	@NotNull(message = "facturaCabecera.fecha.notNull")
 	private Date fecha;
+	
+	@NotNull(message = "facturaCabecera.ruc_ci.notNull")
+	private String rucCi;
+	
+	@NotNull(message = "facturaCabecera.razon_social.notNull")
+	private String razonSocial;
+	
+	@NotNull(message = "facturaCabecera.direccion.notNull")
+	private String direccion;
+	
+	@NotNull(message = "facturaCabecera.timbrado.notNull")
+	private int timbrado;
 
+	@NotNull(message = "facturaCabecera.fecha_inicio_vigencia.notNull")
+	private Date fechaInicioVigencia;
+	
+	@NotNull(message = "facturaCabecera.fecha_fin_vigencia.notNull")
+	private Date fechaFinVigencia;
+	
+	@NotNull(message = "facturaCabecera.ruc.notNull")
+	private String ruc;
+	
+	@NotNull(message = "facturaCabecera.nro_factura.notNull")
+	private String nroFactura;
+	
+	
+	@NotNull(message = "facturaCabecera.tipo_pago.notNull")
+	
+	private String tipoPago;
+	
 	public FacturaCabecera() {
 	}
 
@@ -98,10 +128,90 @@ public class FacturaCabecera extends GenericEntity {
 		this.fecha = fecha;
 	}
 
+	public int getTimbrado() {
+		return timbrado;
+	}
+
+	public void setTimbrado(int timbrado) {
+		this.timbrado = timbrado;
+	}
+
+	public Date getFechaInicioVigencia() {
+		return fechaInicioVigencia;
+	}
+
+	public void setFechaInicioVigencia(Date fechaInicioVigencia) {
+		this.fechaInicioVigencia = fechaInicioVigencia;
+	}
+
+	public Date getFechaFinVigencia() {
+		return fechaFinVigencia;
+	}
+
+	public void setFechaFinVigencia(Date fechaFinVigencia) {
+		this.fechaFinVigencia = fechaFinVigencia;
+	}
+
+	public String getRuc() {
+		return ruc;
+	}
+
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
+	}
+
+	public String getNroFactura() {
+		return nroFactura;
+	}
+
+	public void setNroFactura(String nroFactura) {
+		this.nroFactura = nroFactura;
+	}
+
+
+	public String getTipoPago() {
+		return tipoPago;
+	}
+
+	public void setTipoPago(String tipoPago) {
+		this.tipoPago = tipoPago;
+	}
+
+	public String getRucCi() {
+		return rucCi;
+	}
+
+	public void setRucCi(String rucCi) {
+		this.rucCi = rucCi;
+	}
+
+	public String getRazonSocial() {
+		return razonSocial;
+	}
+
+	public void setRazonSocial(String razonSocial) {
+		this.razonSocial = razonSocial;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
 	@Override
 	public String toString() {
 		return "FacturaCabecera [id=" + id + ", cliente=" + cliente + ", caja=" + caja + ", abogado=" + abogado
-				+ ", fecha=" + fecha + "]";
+				+ ", fecha=" + fecha + ", rucCi=" + rucCi + ", razonSocial=" + razonSocial + ", direccion=" + direccion
+				+ ", timbrado=" + timbrado + ", fechaInicioVigencia=" + fechaInicioVigencia + ", fechaFinVigencia="
+				+ fechaFinVigencia + ", ruc=" + ruc + ", nroFactura=" + nroFactura + ", tipoPago=" + tipoPago + "]";
 	}
 
+	
+
+	
+
+	
 }

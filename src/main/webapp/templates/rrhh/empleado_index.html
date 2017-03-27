@@ -16,66 +16,71 @@
 							<h3>Registro de Empleados</h3>
 						</div>
 						<div class="box-body">
+							<button class="btn btn-success btn-movil" id="botonAgregar"
+								 onclick="agregar()">
+								<i class="glyphicon glyphicon-plus"></i> Nuevo Empleado
+							</button>
 							<div class="hidden-xs col-sm-4 no-padding">
-								
-									<div th:replace="rrhh/empleado_form::form">aqui va un
-										fragmento de codigo del form</div>
-								</div>
-								<div class="col-xs-12 col-sm-8">
-									<table
-										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
-										id="personaDT">
-										<thead>
-											<tr>											
-												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
-												<th th:each="col : ${columnasPersona}" th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>												
-											</tr>
-										</thead>
-									</table>
-									<script type="text/javascript">
-									   $(document).ready(function() {
-										   crearDataTableEsp("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "persona");
-									  });
-									   </script>
-								</div>
-							
-							
+								<div th:replace="rrhh/empleado_form::form"></div>
+							</div>
+							<div class="col-xs-12 col-sm-8">
+								<table
+									class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
+									style="width: 100%;" id="personaDT">
+									<thead>
+										<tr>
+											<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+											<th th:each="col : ${columnasPersona}"
+												th:text="#{'persona.' + ${col} + '.header'}"></th>
+										</tr>
+									</thead>
+								</table>
+								<script type="text/javascript">
+									$(document)
+										.ready(
+											function() {
+												crearDataTableEsp(
+													"personaDT",
+													"[[@{/persona/json}]]",
+													"[[${columnasStrPersona}]]",
+													"persona");
+									});
+								</script>
+							</div>
 						</div>
 					</div>
 				</div>
-
 				<div id="menu2" class="tab-pane fade">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
 							<h3>Listado de Empleados</h3>
 						</div>
 						<div class="box-body no-padding">
-
 							<table
 								class="table table-bordered table-hover table-striped display col-xs-12 table-esp no-padding"
 								id="empleadoDT">
 								<thead>
 									<tr>
-										<th th:each="col : ${columnas}" th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
-
+										<th th:each="col : ${columnas}"
+											th:text="#{'empleado.' + ${col} + '.header'}"></th>
 										<th>Accion</th>
-
-										
 									</tr>
 								</thead>
 							</table>
 							<script type="text/javascript">
-							 $(document).ready(function() {
-							    crearDataTable("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStr}]]", "[[@{/empleado/edit/}]]");
-							
-							 });
-			 			</script>
+								$(document).ready(
+									function() {
+										crearDataTable("empleadoDT",
+											"[[@{/empleado/json}]]",
+											"[[${columnasStr}]]",
+											"[[@{/empleado/edit/}]]");
+								});
+							</script>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 		<script>
 				$(document).ready(function(){
 					var data = $('#empleadoDT').DataTable();
@@ -89,7 +94,38 @@
 
 			
 			</script>
-
+			
+			<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content col-xs-12" style="min-height: 430px;">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel"
+							>Nuevo Registro</h4>
+					</div>
+					<div class="modal-body">
+						<div th:replace="rrhh/empleado_form::form">aqui va un
+								fragmento de codigo del form</div>
+					</div>
+					
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+			<script type="text/javascript">
+			function agregar(){
+				
+				$("#formModal").modal("show");
+				
+				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
+				
+			}
+			</script>
+			
+		</div>
 	</div>
 </body>
+
 </html>

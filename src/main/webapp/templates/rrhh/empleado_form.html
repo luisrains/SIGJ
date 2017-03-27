@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
-	<body class="hold-transition skin-blue-light sidebar-mini ">
-		<div th:fragment="form">
-			<script type="text/javascript">
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+	<div th:fragment="form">
+		<script type="text/javascript">
 			function limpiarForm() {
 				$("#id").val("");
 				$("#salario").val("");
@@ -17,35 +18,36 @@
 				$("#botonNuevo").hide();
 				$("#salario").focus();
 			}
-			</script>
-			<h4 class="page-header">Detalles de Empleados</h4>
-			<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
-				th:text="${msgExito}" style="color: green">Registro Guardado</span>
-			<ul>
-				<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
-					style="color: red">Debe ingresar codigo</li>
-			</ul>
-			<form th:action="@{/empleado/accion}" th:object="${empleado}"
-				method="post" role="form">
-				<input type="hidden" th:field="*{id}" />
-	            
-				<div class="form-group hidden-xs col-sm-12">
-					<label for="salario" th:text="#{empleado.salario.lbl}"
-						class="field-label col-sm-7">Salario:</label> <input type="text"
-						th:field="*{salario}" maxlength="100" class="form-control col-sm-6" autofocus="autofocus"/>
-				</div>
-				<div class="form-group hidden-xs col-sm-12">
-	
-					<label for="fechaIngreso" th:text="#{empleado.fechaIngreso.lbl}" class="field-label col-sm-7">Fecha de Ingreso:</label>
-					<input type="text" th:field="*{fechaIngreso}" maxlength="60"
-						class="form-control col-sm-6"/>
-				</div>	
-				<input type="hidden" th:field="*{persona.id}" />
-				
-				<!-- Inicio panel botones -->
-				<div th:replace="botones::form_botones">aqui van los botones</div>
-			</form>
-			<!-- Fin panel botones -->
-		</div>
-	</body>
+		</script>
+		<h4 class="page-header" th:text="#{empleado.form.titulo}">Detalles
+			de Empleados</h4>
+		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
+			th:text="${msgExito}" style="color: green">Registro Guardado</span>
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
+				style="color: red">Debe ingresar código</li>
+		</ul>
+		<form th:action="@{/empleado/accion}" th:object="${empleado}"
+			method="post" role="form">
+			<input type="hidden" th:field="*{id}" />
+			<div class="form-group hidden-xs col-sm-12">
+				<label for="salario" th:text="#{empleado.salario.lbl}"
+					class="field-label col-sm-7">Salario</label> <input type="text"
+					th:field="*{salario}" maxlength="100" class="form-control col-sm-6"
+					autofocus="autofocus" />
+			</div>
+			<div class="form-group hidden-xs col-sm-12">
+				<label for="fechaIngreso" th:text="#{empleado.fechaIngreso.lbl}"
+					class="field-label col-sm-7">Fecha de Ingreso</label> <input
+					type="text" th:field="*{fechaIngreso}" maxlength="60"
+					class="form-control col-sm-6" />
+			</div>
+			<input type="hidden" th:field="*{persona.id}"/>
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::form_botones"></div>
+		</form>
+		<!-- Fin panel botones -->
+	</div>
+</body>
+
 </html>
