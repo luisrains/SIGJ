@@ -127,21 +127,10 @@
 
 					}); 
 			
-				/* $('#'+ dataTableId + ' tbody').on('click', 'tr', function() {
-					 //Obtenemos el valor de la columna id
-					 //var id = dataTable.fnGetData(this, 0);
-					 var data = dataTable.row( this ).data();
-					 var id = data["id"];
-
-					 //Si id no es número, no hacemos nada
-					 if (isNaN(id)) {
-					 return;
-					 }
-					
-					 window.location.href = editUrl + id; //"/estudio/cliente/edit/" + id;
-					//codigo que selecciona la fila
-		            
-				 });*/
+				 $('#'+ dataTableId + ' tbody').on('click','button.ver', function(){
+					var ob = dataTable.row( $(this).parents('tr') ).data();
+					agregar(ob, 'v');
+					});
 				 
 		}
 		
