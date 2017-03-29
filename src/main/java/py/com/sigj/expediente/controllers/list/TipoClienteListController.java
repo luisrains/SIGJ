@@ -20,7 +20,7 @@ public class TipoClienteListController extends ListController<TipoCliente> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id","codigo", "descripcion" };
+		return new String[] { "id", "codigo", "descripcion" };
 	}
 
 	@Override
