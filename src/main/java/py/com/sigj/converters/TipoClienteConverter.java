@@ -14,7 +14,6 @@ public class TipoClienteConverter implements Converter<String, TipoCliente> {
 		TipoCliente tipoCliente = new TipoCliente();
 		Long id = Long.parseLong(idStr);
 		tipoCliente.setId(id);
-		// return tipoClienteDao.find(id);
 		return tipoCliente;
 	}
 
