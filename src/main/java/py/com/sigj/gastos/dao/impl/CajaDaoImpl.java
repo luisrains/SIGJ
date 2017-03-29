@@ -19,6 +19,6 @@ public class CajaDaoImpl extends DaoImpl<Caja> implements CajaDao {
 
 	@Override
 	public String getCamposFiltrables() {
-		return "codigo||monto||fecha";
+		return "codigo||ingreso||egreso||descripcion||monto||fecha";
 	}
 }

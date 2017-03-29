@@ -7,6 +7,9 @@
 			function limpiarForm() {
 				$("#id").val("");
 				$("#codigo").val("");
+				$("#ingreso").val("");
+				$("#egreso").val("");
+				$("#descripcion").val("");
 				$("#monto").val("");
 				$("#fecha").val("");
 			}
@@ -18,21 +21,38 @@
 		</script>
 		<h4 class="page-header" th:text="#{caja.form.titulo}">Detalles de
 			Caja</h4>
-		<form th:action="@{/caja/accion}"
-			th:object="${caja}" method="post" role="form">
+		<form th:action="@{/caja/accion}" th:object="${caja}" method="post"
+			role="form">
 			<input type="hidden" th:field="*{id}" />
 			<div class="form-group">
-				<label for="caja" th:text="#{caja.codigo.lbl}"
-					class="field-label">Código</label> <input type="text"
-					th:field="*{caja}" maxlength="100" class="form-control" />
+				<label for="caja" th:text="#{caja.codigo.lbl}" class="field-label">Código</label>
+				<input type="text" th:field="*{caja}" maxlength="100"
+					class="form-control" />
 			</div>
 			<div class="form-group">
-				<label for="tipoingreso_egreso"
-					th:text="#{ingreso_egreso.tipoIngresoEgreso.lbl}"
-					class="field-label">tipoingreso_egreso:</label> <input type="text"
-					th:field="*{tipoingreso_egreso}" maxlength="60"
+				<label for="caja" th:text="#{caja.ingreso.lbl}" class="field-label">Ingreso</label>
+				<input type="text" th:field="*{caja}" maxlength="60"
 					class="form-control" autofocus="autofocus" />
 			</div>
+			<div class="form-group">
+				<label for="caja" th:text="#{caja.egreso.lbl}" class="field-label">Egreso</label>
+				<input type="text" th:field="*{caja}" maxlength="60"
+					class="form-control" autofocus="autofocus" />
+			</div>
+			<div class="form-group">
+				<label for="caja" th:text="#{caja.descripcion.lbl}" class="field-label">Descripción</label>
+				<input type="text" th:field="*{caja}" maxlength="60"
+					class="form-control" autofocus="autofocus" />
+			</div>
+			<div class="form-group">
+				<label for="caja" th:text="#{caja.monto.lbl}" class="field-label">Monto</label>
+				<input type="text" th:field="*{caja}" maxlength="60"
+					class="form-control" autofocus="autofocus" />
+			</div><div class="form-group">
+				<label for="caja" th:text="#{caja.fecha.lbl}" class="field-label">Fecha</label>
+				<input type="text" th:field="*{caja}" maxlength="60"
+					class="form-control" autofocus="autofocus" />
+			</div>			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::form_botones"></div>
 		</form>
