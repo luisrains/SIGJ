@@ -1,12 +1,9 @@
 package py.com.sigj.expediente.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -41,10 +38,10 @@ public class Despacho extends GenericEntity {
 	@Size(max = 60, message = "despacho.juez.size")
 	private String juez;
 
-	@ManyToOne
-	@NotNull(message = "despacho.materia.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "despacho_materia_fk"))
-	private Materia materia;
+	// @ManyToOne
+	// @NotNull(message = "despacho.materia.notNull")
+	// @JoinColumn(foreignKey = @ForeignKey(name = "despacho_materia_fk"))
+	// private Materia materia;
 
 	public Despacho() {
 
@@ -76,17 +73,18 @@ public class Despacho extends GenericEntity {
 		this.juez = juez;
 	}
 
-	public Materia getMateria() {
-		return materia;
-	}
-
-	public void setMateria(Materia materia) {
-		this.materia = materia;
-	}
-
-	@Override
-	public String toString() {
-		return "Despacho [id=" + id + ", Descripcion=" + descripcion + ", Juez=" + juez + ", materia=" + materia + "]";
-	}
+	// public Materia getMateria() {
+	// return materia;
+	// }
+	//
+	// public void setMateria(Materia materia) {
+	// this.materia = materia;
+	// }
+	//
+	// @Override
+	// public String toString() {
+	// return "Despacho [id=" + id + ", Descripcion=" + descripcion + ", Juez="
+	// + juez + ", materia=" + materia + "]";
+	// }
 
 }

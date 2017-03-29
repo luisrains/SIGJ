@@ -7,7 +7,6 @@
 			function limpiarForm() {
 				$("#id").val("");
 				$("#descripcion").val("");
-				$("#codigo").val("");
 				$("#proceso").val("");
 			}
 			function nuevoRegistro() {
@@ -18,7 +17,7 @@
 		</script>
 		
 		<h4 id="registrar-movil" class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4>	
-		<form th:object="${proceso}" th:action="@{/proceso/save_listado}" method="post" role="form"
+		<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form"
 			id="idProceso">
 
 			<input type="hidden" th:field="*{id}" />
@@ -40,15 +39,6 @@
 			</div>
 
 			<div class="form-group col-xs-12 col-sm-12">
-				<label for="materia" th:text="#{proceso.materia.lbl}"
-					class="field-label">Materia</label> <select th:field="*{materia}"
-					class="form-control">
-					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Excelente</option>
-				</select>
-			</div>
-
-			<div class="form-group col-xs-12 col-sm-12">
 				<label for="tipoDemanda" th:text="#{proceso.tipoDemanda.lbl}"
 					class="field-label">Tipos de Demandas</label> <select
 					class="form-control tipoDemanda" multiple="multiple"
@@ -67,16 +57,10 @@
 		
 		$(function () {
 		    //Initialize Select2 Elements
-		    $(".materia").select2();
 			$(".tipoDemanda").select2({
 					placeholder: "Seleccione los tipos de demandas..."
 			});
-			
-			$(".tipoDemanda").on('change', function() {
-				console.log(($(".tipoDemanda").val()));
-			  });	
-
-			});		
+		});		
 		</script>
 
 	</div>

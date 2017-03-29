@@ -1,12 +1,15 @@
 package py.com.sigj.expediente.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -44,10 +47,9 @@ public class Proceso extends GenericEntity {
 	@Size(max = 20, message = "proceso.descripcion.size")
 	private String descripcion;
 
-	@ManyToOne
-	@NotNull(message = "proceso.materia.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "proceso_materia_fk"))
-	private Materia materia;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@JoinTable(name = "proceso_tipo_demanda", joinColumns = @JoinColumn(name = "proceso_id"), inverseJoinColumns = @JoinColumn(name = "tipodemanda_id"))
+	private List<TipoDemanda> listTipoDemanda;
 
 	public Proceso() {
 
@@ -79,18 +81,29 @@ public class Proceso extends GenericEntity {
 		this.descripcion = descripcion;
 	}
 
-	public Materia getMateria() {
-		return materia;
+	public List<TipoDemanda> getListTipoDemanda() {
+		return listTipoDemanda;
 	}
 
-	public void setMateria(Materia materia) {
-		this.materia = materia;
+	public void setListTipoDemanda(List<TipoDemanda> tipoDemanda) {
+		this.listTipoDemanda = tipoDemanda;
 	}
 
 	@Override
 	public String toString() {
-		return "Proceso [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", materia=" + materia
-				+ "]";
+		return "Proceso [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", tipoDemanda="
+				+ listTipoDemanda + "]";
 	}
+
+	// @Override
+	// public List<TipoDemanda> getListaObject() {
+	// return getTipoDemanda();
+	// }
+	//
+	// @Override
+	// public <TipoDemanda> void setListaObject(List<TipoDemanda> obj) {
+	// setTipoDemanda((List<py.com.sigj.expediente.domain.TipoDemanda>) obj);
+	//
+	// }
 
 }

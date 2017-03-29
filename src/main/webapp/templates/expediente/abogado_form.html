@@ -18,6 +18,7 @@
 		</script>
 		<h4  id= "header-normal" class="page-header hidden-xs" th:text="#{abogado.form.titulo}">Detalles
 			de Abogados</h4>
+
 		<h4 id="registrar-movil" class="page-header hidden-lg" th:text="#{abogado.form.titulo2}"> Registrar Abogado</h4>
 		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
 
@@ -47,6 +48,7 @@
 					<option th:each=" tip : ${tipoAbogadoList}" th:value="${tip.id}"
 
 						th:text="${tip.descripcion}">Apoderado</option>
+
 				</select>
 			</div>
 
