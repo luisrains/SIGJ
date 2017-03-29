@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -82,9 +81,7 @@ public class MateriaFormController extends FormController<Materia> {
 			return eliminar_listado(map, id_objeto);
 
 		}
-		return
-
-		getTemplatePath();
+		return getTemplatePath();
 
 	}
 
@@ -171,21 +168,6 @@ public class MateriaFormController extends FormController<Materia> {
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 
-	}
-
-	@RequestMapping(value = "/obtener_listado", method = RequestMethod.GET)
-	public @ResponseBody List<Proceso> getListaTipoDemanda(
-			@RequestParam(value = "proceso_id", required = true) Long id) {
-		List<Proceso> procesoList = null;
-		try {
-
-			procesoList = materiaDao.getListaProcesos(id);
-
-		} catch (Exception ex) {
-			logger.info("error {}", ex);
-
-		}
-		return procesoList;
 	}
 
 }

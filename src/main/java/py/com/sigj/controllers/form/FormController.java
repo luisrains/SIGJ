@@ -45,17 +45,6 @@ public abstract class FormController<T extends GenericEntity> {
 		agregarValoresAdicionales(map);
 		return getTemplatePath();// "cliente/cliente_index";
 	}
-	/*
-	 * Este es para validar cuando un usuario quiera ingresar al sistema
-	 *
-	 * @RequestMapping public String index2(ModelMap map) { if
-	 * (session.isLogger()) {
-	 *
-	 * map.addAttribute(getNombreObjeto(), getNuevaInstancia());
-	 * agregarValoresAdicionales(map); return getTemplatePath();//
-	 * "cliente/cliente_index"; } else { return
-	 * "redirect:/login?next=/reserva/"; } }
-	 */
 
 	@RequestMapping(value = "accion", method = RequestMethod.POST)
 	public String accion(ModelMap map, @Valid T obj, BindingResult bindingResult,
