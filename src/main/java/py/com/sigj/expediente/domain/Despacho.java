@@ -73,6 +73,11 @@ public class Despacho extends GenericEntity {
 		this.juez = juez;
 	}
 
+	@Override
+	public String toString() {
+		return "Despacho [id=" + id + ", descripcion=" + descripcion + ", juez=" + juez + "]";
+	}
+
 	// public Materia getMateria() {
 	// return materia;
 	// }
@@ -81,10 +86,5 @@ public class Despacho extends GenericEntity {
 	// this.materia = materia;
 	// }
 	//
-	// @Override
-	// public String toString() {
-	// return "Despacho [id=" + id + ", Descripcion=" + descripcion + ", Juez="
-	// + juez + ", materia=" + materia + "]";
-	// }
 
 }

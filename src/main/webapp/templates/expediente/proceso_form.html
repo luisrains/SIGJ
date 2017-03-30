@@ -16,7 +16,7 @@
 			}
 		</script>
 		
-		<h4 id="registrar-movil" class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4>	
+		<h4 class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4>	
 		<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form"
 			id="idProceso">
 
@@ -25,7 +25,7 @@
 			<div class="form-group col-xs-12 col-sm-12">
 				<label for="codigo" th:text="#{proceso.codigo.lbl}"
 					class="field-label col-xs-7 col-sm-7">Código:</label> <input type="text"
-					th:field="*{codigo}" maxlength="60" class="form-control col-xs-6 col-sm-6"
+					th:field="*{codigo}" maxlength="3" class="form-control col-xs-6 col-sm-6"
 					autofocus="autofocus" />
 
 			</div>
@@ -50,7 +50,7 @@
 			</div>
 
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal"></div>
+					<div th:replace="botones::footerModal"></div>
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
