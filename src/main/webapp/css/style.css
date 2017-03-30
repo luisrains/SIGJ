@@ -33,11 +33,14 @@
 	margin-left: 5px;
 }
 #registrar-movil{
-		background-color: blue;
-		color: white;
+		color: #333;
 		height: 50px;
 		padding-left: 10px;
 		padding-top: 10px;
+		margin: 10px 0 20px 0;
+    	font-size: 22px;
+    	padding-bottom: 9px;
+    	border-bottom: 1px solid #eee;
 }
 .modal-header{
 	display: none;
@@ -123,11 +126,14 @@
 		display: none;
 	}
 	#registrar-movil{
-		background-color: blue;
-		color: white;
+		color: #333;
 		height: 50px;
 		padding-left: 10px;
 		padding-top: 10px;
+		margin: 10px 0 20px 0;
+    	font-size: 22px;
+    	padding-bottom: 9px;
+    	border-bottom: 1px solid #eee;
 	}
 }
  
