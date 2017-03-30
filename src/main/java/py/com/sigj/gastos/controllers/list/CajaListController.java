@@ -26,7 +26,7 @@ public class CajaListController extends ListController<Caja> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "codigo","ingreso", "egreso","descripcion", "monto", "fecha" };
+		return new String[] { "id", "codigo", "monto", "fecha" };
 	}
 
 	@Override
