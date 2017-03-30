@@ -25,7 +25,7 @@ public class PersonaFormController extends FormController<Persona> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/persona_index";
+		return "expediente/persona_index";
 	}
 
 	@Override
