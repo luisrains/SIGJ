@@ -25,7 +25,7 @@ public class TipoClienteFormController extends FormController<TipoCliente> {
 
 	@Override
 	public String getTemplatePath() {
-		return "test/tipoCliente_index";
+		return "expediente/tipo_cliente_index";
 	}
 
 	@Override

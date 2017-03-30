@@ -12,6 +12,7 @@
 function limpiarForm() {
 	$("#id").val("");
 	$("#descripcion").val("");
+	$("#codigo").val("");
 
 }
 function nuevoRegistro() {
@@ -20,34 +21,30 @@ function nuevoRegistro() {
 	$("#descripcion").focus();
 }
 </script>
-		<h4 id="registrar-movil" class="page-header" th:text="#{tipoDemanda.form.titulo2}"> Registrar Demanda</h4>
 		
-
-		<form th:action="@{/tipo_demanda/accion}" th:object="${tipoDemanda}"
+		<h4 id="registrar-movil" class="page-header" th:text="#{tipoCliente.form.titulo2}"> Registrar Tipo de Cliente</h4>
+		<form th:action="@{/tipo_cliente/accion}" th:object="${tipoCliente}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
 			<div class="form-group col-xs-12 col-sm-12">
+				<label for="codigo" th:text="#{tipoCliente.codigo.lbl}"
+					class="field-label col-xs-7 col-sm-7">Código:</label> <input type="text"
+					th:field="*{codigo}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
+			</div>
 			
-				<label for="descripcion" th:text="#{tipoDemanda.descripcion.lbl}"
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="descripcion" th:text="#{tipoCliente.descripcion.lbl}"
 					class="field-label col-xs-7 col-sm-7">Descripción:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
-
-			
 			</div>
-			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
 		<!-- Fin panel botones -->
-		<script type="text/javascript">
-		$(function () {
-		    //Initialize Select2 Elements
-		    $(".proceso").select2();
-		 });
-		</script>
+		
 
 	</div>
 </body>

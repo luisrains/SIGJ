@@ -30,7 +30,7 @@
 .btn-success{
 	margin-bottom: 10px;
 	margin-top: 10px;
-	margin-left: 5px;
+	
 }
 #registrar-movil{
 		background-color: blue;
@@ -80,6 +80,11 @@
 	.dataTables_length{
 		margin-left: 5px;
 	}
+	.box-body{
+		width:99% !important;
+		padding-left: 15px !important;
+		padding-bottom: 10px !important;
+	}
 }
 /*Para movil*/
 @media screen and (min-device-width: 320px) and (max-device-width: 767px) {
@@ -99,8 +104,10 @@
 		font-size: 12px;
 	}
 	.table-esp{
-		width: 100% !important;
+		width: 98% !important;
 		margin-top: 10px;
+		padding-left: 15px !important;
+		padding-bottom: 10px !important;
 	}
 	.btn-movil{
 		display:block;
