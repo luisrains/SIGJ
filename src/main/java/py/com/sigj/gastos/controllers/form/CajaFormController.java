@@ -75,7 +75,7 @@ public class CajaFormController extends FormController<Caja> {
 		if (StringUtils.equals(accion, "save")) {
 			return guardar_listado(map, obj, bindingResult);
 		} else if (StringUtils.equals(accion, "edit")) {
-			logger.info("OBJETO PROCESO {}", obj);
+			logger.info("OBJETO CAJA {}", obj);
 			return editar_listado(map, obj, bindingResult);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
@@ -94,7 +94,7 @@ public class CajaFormController extends FormController<Caja> {
 				p = getDao().find(id_objeto);
 				getDao().destroy(p);
 
-				logger.info("Proceso eliminado {}", p);
+				logger.info("Caja eliminada {}", p);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
 			}
 		} catch (Exception ex) {
@@ -116,7 +116,7 @@ public class CajaFormController extends FormController<Caja> {
 			if (obj.getId() == null) {
 				getDao().createOrUpdate(obj);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
-				logger.info("Se crea un nuevo Proceso -> {}", obj);
+				logger.info("Se crea una nueva Caja -> {}", obj);
 			}
 		} catch (Exception ex) {
 			obj.setId(null);
