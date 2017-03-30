@@ -38,21 +38,6 @@ public class Caja extends GenericEntity {
 	@NotBlank(message = "caja.codigo.notBlank")
 	@Size(max = 5, message = "caja.codigo.size")
 	private String codigo;
-
-	@NotNull(message = "caja.ingreso.notNull")
-	@NotBlank(message = "caja.ingreso.notBlank")
-	@Size(max = 100, message = "caja.ingreso.size")
-	private String ingreso;
-	
-	@NotNull(message = "caja.egreso.notNull")
-	@NotBlank(message = "caja.egreso.notBlank")
-	@Size(max = 100, message = "caja.egreso.size")
-	private String egreso;
-	
-	@NotNull(message = "caja.descripcion.notNull")
-	@NotBlank(message = "caja.descripcion.notBlank")
-	@Size(max = 100, message = "caja.descripcion.size")
-	private String descripcion;	
 	
 	@NotNull(message = "caja.monto.notNull")
 	private int monto;
@@ -80,30 +65,6 @@ public class Caja extends GenericEntity {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
-	public String getIngreso() {
-		return ingreso;
-	}
-
-	public void setIngreso(String ingreso) {
-		this.ingreso = ingreso;
-	}
-	
-	public String getEgreso() {
-		return egreso;
-	}
-
-	public void setEgreso(String egreso) {
-		this.egreso = egreso;
-	}
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.egreso = descripcion;
-	}
 	
 	public int getMonto() {
 		return monto;
@@ -125,5 +86,6 @@ public class Caja extends GenericEntity {
 	public String toString() {
 		return "Caja [id=" + id + ", codigo=" + codigo + ", monto=" + monto + ", fecha=" + fecha + "]";
 	}
+
 
 }

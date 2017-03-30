@@ -21,7 +21,7 @@
 			de Servicios</h4>
 		<form th:action="@{/servicio/accion}" th:object="${servicio}"
 			method="post" role="form">
-			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{id}"/>
 			<div class="form-group">
 				<label for="codigo" th:text="#{servicio.codigo.lbl}"
 					class="field-label">Código</label> <input type="text"
