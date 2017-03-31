@@ -2,23 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-	<div th:fragment="form">
-		<script type="text/javascript">
-			function limpiarForm() {
-				$("#id").val("");
-				$("#descripcion").val("");
-				$("#proceso").val("");
-			}
-			function nuevoRegistro() {
-				limpiarForm();
-				$("#botonNuevo").hide();
-				$("#descripcion").focus();
-			}
-		</script>
-		
-		<h4 class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4>	
+	<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
+		<!-- <h4 class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4> -->	
 		<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form"
-			id="idProceso">
+			id="idProceso" class="">
 
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
@@ -40,9 +27,10 @@
 
 			<div class="form-group col-xs-12 col-sm-12">
 				<label for="tipoDemanda" th:text="#{proceso.tipoDemanda.lbl}"
-					class="field-label">Tipos de Demandas</label> <select
+					class="field-label">Tipos de Demandas</label>
+					<select
 					class="form-control tipoDemanda" multiple="multiple"
-					id="tipoDemanda" name="selec" style="width: 50%;">
+					id="tipoDemanda" name="selec" style="width: 250px !important;">
 					<option th:each=" dem : ${tipoDemandaList}" th:value="${dem.id}"
 						th:text="${dem.descripcion}">Ejecutivo</option>
 				</select>
