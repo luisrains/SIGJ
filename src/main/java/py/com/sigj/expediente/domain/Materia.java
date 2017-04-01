@@ -51,6 +51,10 @@ public class Materia extends GenericEntity {
 	@JoinTable(name = "materia_proceso", joinColumns = @JoinColumn(name = "materia_id"), inverseJoinColumns = @JoinColumn(name = "proceso_id"))
 	private List<Proceso> listaProceso;
 
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@JoinTable(name = "materia_despacho", joinColumns = @JoinColumn(name = "materia_id"), inverseJoinColumns = @JoinColumn(name = "despacho_id"))
+	private List<Despacho> listaDespacho;
+
 	public Materia() {
 
 	}
@@ -89,10 +93,18 @@ public class Materia extends GenericEntity {
 		this.listaProceso = listProceso;
 	}
 
+	public List<Despacho> getListaDespacho() {
+		return listaDespacho;
+	}
+
+	public void setListaDespacho(List<Despacho> despacho) {
+		this.listaDespacho = despacho;
+	}
+
 	@Override
 	public String toString() {
-		return "Materia [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", listProceso="
-				+ listaProceso + "]";
+		return "Materia [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", listaProceso="
+				+ listaProceso + ", despacho=" + listaDespacho + "]";
 	}
 
 }

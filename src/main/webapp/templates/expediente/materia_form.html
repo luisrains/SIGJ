@@ -2,21 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-	<div th:fragment="form">
-		<script type="text/javascript">
-function limpiarForm() {
-	$("#id").val("");
-	$("#descripcion").val("");
-	$("#codigo").val("");
-}
-function nuevoRegistro() {
-	limpiarForm();
-	$("#botonNuevo").hide();
-	$("#descripcion").focus();
-}
-</script>
-		<h4 id="registrar-movil" class="page-header" th:text="#{materia.form.titulo}"> Registrar Materia</h4>
-
+	<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
 		<form th:action="@{/materia/accion2}" th:object="${materia}"
 			method="post" role="form">
 			<input type="hidden" th:field="*{id}" />
@@ -32,18 +18,28 @@ function nuevoRegistro() {
 					class="field-label col-xs-6 col-sm-7">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>		
-			</div>
+			
 
-			<div class="form-group">
+			<div class="form-group col-xs-12 col-sm-12">
 				<label for="proceso" th:text="#{materia.proceso.lbl}"
-					class="field-label">Procesos:</label> 
+					class="field-label col-xs-6 col-sm-7">Procesos:</label> 
 					<select class="form-control proceso" multiple="multiple"
-					id="proceso" name="selec" style="width: 50%;">
+					id="proceso" name="selec_proceso" style="width: 50%;">
 					<option th:each=" pro : ${procesoList}" th:value="${pro.id}"
 						th:text="${pro.descripcion}">Ejecutivo</option>
 				</select>
 			</div>
 
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="despacho" th:text="#{materia.despacho.lbl}"
+					class="field-label col-xs-6 col-sm-7">Despachos:</label> 
+					<select class="form-control despacho" multiple="multiple"
+					id="despacho" name="selec_despacho" style="width: 50%;">
+					<option th:each=" des : ${despachoList}" th:value="${des.id}"
+						th:text="${des.descripcion}">primera instancia</option>
+				</select>
+			</div>
+			</div>
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal"></div>
 		</form>
@@ -52,7 +48,21 @@ function nuevoRegistro() {
 		
 		$(function () {
 			$(".proceso").select2({
-					placeholder: "Seleccione los procesos..."
+					placeholder: "Seleccione los procesos...",
+					language: {
+						noResults:  function (params) {
+						      return "No existen registros.";
+					    }
+					}
+			});
+			
+			$(".despacho").select2({
+				placeholder: "Seleccione los despachos...",
+				language: {
+					noResults:  function (params) {
+					      return "No existen registros.";
+				    }
+				}
 			});
 			
 		});

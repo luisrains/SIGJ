@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-	<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
-		<!-- <h4 class="page-header" th:text="#{proceso.form.titulo}"> Registrar Proceso</h4> -->	
+	<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">	
 		<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form"
 			id="idProceso" class="">
 
@@ -46,7 +45,12 @@
 		$(function () {
 		    //Initialize Select2 Elements
 			$(".tipoDemanda").select2({
-					placeholder: "Seleccione los tipos de demandas..."
+					placeholder: "Seleccione los tipos de demandas...",
+					language: {
+						noResults:  function (params) {
+						      return "No existen registros.";
+					    }
+					}
 			});
 		});		
 		</script>
