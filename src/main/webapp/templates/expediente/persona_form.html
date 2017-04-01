@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+	<div th:fragment="form">
+		<script type="text/javascript">
+			function limpiarForm() {
+				$("id").val("");
+				$("cedula_ruc").val("");
+				$("nombre_razonSocial").val("");
+				$("apellido").val("");
+				$("edad").val("");
+				$("fechaNacimiento").val("");
+				$("estadoCivil").val("");
+				$("sexo").val("");
+				$("tipoPersona").val("");
+			}
+			function nuevoRegistro() {
+				limpiarForm();
+				$("botonNuevo").hide();
+				$("cedula_ruc").focus();
+			}
+		</script>
+		<h4  id= "header-normal" class="page-header hidden-xs" th:text="#{persona.form.titulo}">Registrar Persona</h4>
+
+		
+		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
+
+		<span style="color: green"> <!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
+				<strong>Well done!</strong> You successfully read this important
+				alert message.
+			</div>
+			<div class="alert alert-warning alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>¡Cuidado!</strong> Es muy importante que leas este mensaje
+				de alerta.
+			</div>-->
+
+		</span>
+		<ul>
+			<li th:each=" err : ${errorList}" th:text="{${err.defaultMessage}}"
+				style="color: red">Debe ingresar código</li>
+		</ul>
+		<form th:action="@{/persona/accion}" th:object="${persona}" method="post" role="form">
+			<input type="hidden" th:field="*{id}" />
+			
+			<div class="form-group hidden-xs col-sm-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Tipo de Persona</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="radio">
+							<label><input name="tipo_p" th:field="*{tipoPersona}" type="radio" value="F">
+							Física </label>
+						
+							<label> <input name="tipo_p" th:field="*{tipoPersona}" type="radio"
+								value="J">Juridica
+							</label>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+				</div>
+			<div id="persona_juridica" class="form-group hidden-xs col-sm-12 hidden">
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="cedula_ruc" th:text="#{persona.cedula_ruc.lbl}"
+						class="field-label col-xs-7 col-sm-7">cedula_ruc:</label> <input type="text"
+						th:field="*{cedula_ruc}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="nombre_razonSocial" th:text="#{persona.nombre_razonSocial.lbl}"
+						class="field-label col-xs-7 col-sm-7">Nombre o Razón Social:</label> <input type="text"
+						th:field="*{nombre_razonSocial}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="correoElectronico" th:text="#{persona.correoElectronico.lbl}"
+						class="field-label col-xs-7 col-sm-7">correoElectronico:</label> <input type="text"
+						th:field="*{correoElectronico}" maxlength="100" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="descripcion" th:text="#{persona.telefono.lbl}"
+						class="field-label col-xs-7 col-sm-7">telefono:</label> <input type="text"
+						th:field="*{telefono}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				<div th:replace="botones::footerModal">aqui van los botones</div>
+			</div>
+			
+			
+				
+			<div id="persona_fisica" class="form-group hidden-xs col-sm-12 hidden">	
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="cedula_ruc" th:text="#{persona.cedula_ruc.lbl}"
+						class="field-label col-xs-7 col-sm-7">cedula_ruc:</label> <input type="text"
+						th:field="*{cedula_ruc}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="nombre_razonSocial" th:text="#{persona.nombre_razonSocial.lbl}"
+						class="field-label col-xs-7 col-sm-7">Nombre o Razón Social:</label> <input type="text"
+						th:field="*{nombre_razonSocial}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="apellido" th:text="#{persona.apellido.lbl}"
+						class="field-label col-xs-7 col-sm-7">Apellido:</label> <input type="text"
+						th:field="*{apellido}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="edad" th:text="#{persona.edad.lbl}"
+						class="field-label col-xs-7 col-sm-7">Edad:</label> <input type="text"
+						th:field="*{edad}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="fechaNacimiento" th:text="#{persona.fechaNacimiento.lbl}"
+						class="field-label col-xs-7 col-sm-7">Fecha Nacimiento:</label> <input type="text"
+						th:field="*{fechaNacimiento}" maxlength="15" class="form-control col-xs-7 col-sm-6" />
+				</div>
+				
+
+			 <div class="form-group hidden-xs col-sm-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Sexo</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="checkbox">
+							<label><input th:field="*{sexo}" type="checkbox" value="Masculino">
+							Masculino </label>
+						</div>
+
+						<div class="checkbox">
+						
+							<label> <input th:field="*{sexo}" type="checkbox"
+								value="Femenino">Femenino
+							</label>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+				</div>
+
+			
+
+
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::footerModal">aqui van los botones</div>
+
+			</div>
+		</form>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.radio input[name=tipoPersona]:radio').change(function(e){
+							
+					if($('input[name=tipoPersona]:checked').val() == 'F'){
+						$("#persona_juridica").addClass("hidden");
+						$("#persona_fisica").removeClass("hidden");
+						$("#persona_fisica").show();
+					}else{
+						$("#persona_fisica").addClass("hidden");
+						$("#persona_juridica").removeClass("hidden");
+						$("#persona_juridica").show();
+					}
+					
+				});
+			});
+		</script>
+		<!-- Fin panel botones -->
+
+		
+	</div>
+</body>
+
+</html>

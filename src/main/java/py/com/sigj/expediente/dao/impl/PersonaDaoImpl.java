@@ -14,6 +14,6 @@ public class PersonaDaoImpl extends DaoImpl<Persona> implements PersonaDao {
 
 	@Override
 	public String getCamposFiltrables() {
-		return "cedula_ruc||nombre_razonSocial||apellido||sexo||estadoCivil||ocupacion||correoElectronico||telefono";
+		return "cedula_ruc||nombre_razonSocial";
 	}
 }

@@ -31,23 +31,16 @@
 				<input type="text" th:field="*{juez}" maxlength="60"
 					class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
 			</div>
-			<div class="form-group col-xs-12 col-sm-12">
-				<label for="materia" th:text="#{despacho.materia.lbl}"
-					class="field-label">Materia</label> <select th:field="*{materia}"
-					class="form-control materia">
-					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Excelente</option>
-				</select>
-			</div>
-			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal">aqui van los botones</div>
+			
 		</form>
+		<!-- Inicio panel botones -->
+			<div th:replace="botones::footerModal">aqui van los botones</div>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
-			$(function() {
+			/* $(function() {
 				//Initialize Select2 Elements
 				$(".materia").select2();
-			});
+			}); */
 		</script>
 	</div>
 </body>

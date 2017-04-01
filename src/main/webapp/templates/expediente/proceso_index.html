@@ -69,15 +69,13 @@
 <!-- FIN Modal borrar -->
 				<!-- Modal borrar -->
 
-		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content col-xs-12">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
-					</div>
+		<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
+		    <div class="modal-dialog">
+		        <div class="modal-content form-class-modal">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title">Registrar Proceso</h4>
+		            </div>
 					<div class="modal-body">
 						<div th:replace="expediente/proceso_form::form"></div>
 					</div>
@@ -85,6 +83,8 @@
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
+		</div>
+			<!-- /.modal -->
 			<script type="text/javascript">
 
 			function agregar(obj, accion){
@@ -110,7 +110,8 @@
 						$('#edit').removeClass('hidden');
 						$('#save').addClass('hidden');
 						$('#delete').addClass('hidden');
-						$('#id').val(id);
+						$('#id').val(obj["id"]);
+						$('#codigo').val(obj["codigo"]);
 						$('#descripcion').val(obj["descripcion"]);
 						var selec = $('.tipoDemanda');
 						var list_tipoDemanda = obj["listTipoDemanda"];
@@ -129,6 +130,7 @@
 					$('#edit').addClass('hidden');
 					$('#save').removeClass('hidden');
 					$('#id').val('');
+					$('#codigo').val(obj["codigo"]);
 					$('#descripcion').val('');
 					$('#selec').val('');
 					$("#formModal").modal("show");
@@ -136,7 +138,8 @@
 					$('#delete').addClass('hidden');
 					$('#edit').addClass('hidden');
 					$('#save').addClass('hidden');
-					$('#id').val(id);
+					$('#id').val(obj["id"]);
+					$('#codigo').val(obj["codigo"]);
 					$('#descripcion').val(obj["descripcion"]);
 					var selec = $('.tipoDemanda');
 					var list_proceso = obj["listTipoDemanda"];
@@ -150,6 +153,7 @@
 					var id1 = obj["id"];
 					
 					$('#descripcion').attr('disabled', true);
+					$('#codigo').attr('disabled', true);
 					$('#tipoDemanda').attr('disabled', true);
 					$("#formModal").modal("show");
 				}

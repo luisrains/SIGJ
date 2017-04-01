@@ -61,27 +61,14 @@ public class Persona extends GenericEntity {
 	@Size(max = 10, message = "persona.sexo.size")
 	private String sexo;
 
-	@NotNull(message = "persona.estadoCivil.notNull")
-	@NotBlank(message = "persona.estadoCivil.notBlank")
-	@Size(max = 15, message = "persona.estadoCivil.size")
-	private String estadoCivil;
-
-	@NotNull(message = "persona.estadoCivil.notNull")
-	@NotBlank(message = "persona.estadoCivil.notBlank")
-	@Size(max = 100, message = "persona.estadoCivil.size")
-	private String ocupacion;
-
-	@NotNull(message = "persona.estadoCivil.notNull")
-	@NotBlank(message = "persona.estadoCivil.notBlank")
-	@Size(max = 100, message = "persona.estadoCivil.size")
+	
+	@Size(max = 100, message = "persona.correo_electronico.size")
 	private String correoElectronico;
 
-	@NotNull(message = "persona.telefono.notNull")
-	@NotBlank(message = "persona.telefono.notBlank")
 	@Size(max = 15, message = "persona.telefono.size")
 	private String telefono;
 
-	@NotNull(message = "persona.cedula.notNull")
+	@NotNull(message = "persona.tipo_persona.notNull")
 	private char tipoPersona;
 
 	public Persona() {
@@ -146,21 +133,7 @@ public class Persona extends GenericEntity {
 		this.sexo = sexo;
 	}
 
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
-
-	public String getOcupacion() {
-		return ocupacion;
-	}
-
-	public void setOcupacion(String ocupacion) {
-		this.ocupacion = ocupacion;
-	}
+	
 
 	public String getCorreoElectronico() {
 		return correoElectronico;
@@ -190,8 +163,10 @@ public class Persona extends GenericEntity {
 	public String toString() {
 		return "Persona [id=" + id + ", cedula_ruc=" + cedula_ruc + ", nombre_razonSocial=" + nombre_razonSocial
 				+ ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", sexo="
-				+ sexo + ", estadoCivil=" + estadoCivil + ", ocupacion=" + ocupacion + ", correoElectronico="
-				+ correoElectronico + ", telefono=" + telefono + ", tipoPersona=" + tipoPersona + "]";
+				+ sexo + ", correoElectronico=" + correoElectronico + ", telefono=" + telefono + ", tipoPersona="
+				+ tipoPersona + "]";
 	}
+
+	
 
 }
