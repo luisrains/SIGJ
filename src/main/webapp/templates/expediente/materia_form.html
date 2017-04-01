@@ -38,12 +38,22 @@ function nuevoRegistro() {
 				<label for="proceso" th:text="#{materia.proceso.lbl}"
 					class="field-label">Procesos:</label> 
 					<select class="form-control proceso" multiple="multiple"
-					id="proceso" name="selec" style="width: 50%;">
+					id="proceso" name="selec_proceso" style="width: 50%;">
 					<option th:each=" pro : ${procesoList}" th:value="${pro.id}"
 						th:text="${pro.descripcion}">Ejecutivo</option>
 				</select>
 			</div>
 
+			<div class="form-group">
+				<label for="despacho" th:text="#{materia.despacho.lbl}"
+					class="field-label">Despachos:</label> 
+					<select class="form-control despacho" multiple="multiple"
+					id="despacho" name="selec_despacho" style="width: 50%;">
+					<option th:each=" des : ${despachoList}" th:value="${des.id}"
+						th:text="${des.descripcion}">primera instancia</option>
+				</select>
+			</div>
+			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal"></div>
 		</form>
@@ -54,6 +64,10 @@ function nuevoRegistro() {
 			$(".proceso").select2({
 					placeholder: "Seleccione los procesos..."
 			});
+			
+			$(".despacho").select2({
+				placeholder: "Seleccione los despachos..."
+		});
 			
 		});
 		</script>

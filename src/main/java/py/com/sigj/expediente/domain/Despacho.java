@@ -38,11 +38,6 @@ public class Despacho extends GenericEntity {
 	@Size(max = 60, message = "despacho.juez.size")
 	private String juez;
 
-	// @ManyToOne
-	// @NotNull(message = "despacho.materia.notNull")
-	// @JoinColumn(foreignKey = @ForeignKey(name = "despacho_materia_fk"))
-	// private Materia materia;
-
 	public Despacho() {
 
 	}

@@ -110,6 +110,9 @@
 						$('#edit').removeClass('hidden');
 						$('#save').addClass('hidden');
 						$('#delete').addClass('hidden');
+						$('#descripcion').attr('disabled', false);
+						$('#codigo').attr('disabled', false);
+						$('#tipoDemanda').attr('disabled', false);
 						$('#id').val(obj["id"]);
 						$('#codigo').val(obj["codigo"]);
 						$('#descripcion').val(obj["descripcion"]);
@@ -129,10 +132,14 @@
 					$('#delete').addClass('hidden');
 					$('#edit').addClass('hidden');
 					$('#save').removeClass('hidden');
+					$('#descripcion').attr('disabled', false);
+					$('#codigo').attr('disabled', false);
+					$('#tipoDemanda').attr('disabled', false);
 					$('#id').val('');
 					$('#codigo').val(obj["codigo"]);
 					$('#descripcion').val('');
-					$('#selec').val('');
+					var selec = $('.tipoDemanda');
+					selec.val([]).trigger("change");
 					$("#formModal").modal("show");
 				}else if(accion === 'v'){
 					$('#delete').addClass('hidden');

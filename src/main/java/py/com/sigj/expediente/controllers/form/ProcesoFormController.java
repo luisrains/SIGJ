@@ -117,17 +117,17 @@ public class ProcesoFormController extends FormController<Proceso> {
 			BindingResult bindingResult) {
 		try {
 			List<TipoDemanda> list = new ArrayList<TipoDemanda>();
-			if (obj.getId() == null) {
+			if (obj.getId() == null && selec != null) {
 				for (String idLong : selec) {
 					Long idFormat = Long.parseLong(idLong);
 					list.add(tipoDemandaDao.find(idFormat));
 				}
-				obj.setListTipoDemanda(list);
-				getDao().createOrUpdate(obj);
-
-				map.addAttribute("msgExito", msg.get("Registro agregado"));
-				logger.info("Se crea un nuevo Proceso -> {}", obj);
 			}
+			obj.setListTipoDemanda(list);
+			getDao().createOrUpdate(obj);
+
+			map.addAttribute("msgExito", msg.get("Registro agregado"));
+			logger.info("Se crea un nuevo Proceso -> {}", obj);
 		} catch (Exception ex) {
 			obj.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
