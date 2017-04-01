@@ -136,7 +136,7 @@
 					$('#codigo').attr('disabled', false);
 					$('#tipoDemanda').attr('disabled', false);
 					$('#id').val('');
-					$('#codigo').val(obj["codigo"]);
+					$('#codigo').val('');
 					$('#descripcion').val('');
 					var selec = $('.tipoDemanda');
 					selec.val([]).trigger("change");
@@ -157,7 +157,6 @@
 						codigos.push(value.id);
 					});
 					selec.val(codigos).trigger("change");
-					var id1 = obj["id"];
 					
 					$('#descripcion').attr('disabled', true);
 					$('#codigo').attr('disabled', true);

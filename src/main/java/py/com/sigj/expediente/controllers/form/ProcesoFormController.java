@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,9 +102,9 @@ public class ProcesoFormController extends FormController<Proceso> {
 				logger.info("Proceso eliminado {}", p);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
 			}
-		} catch (Exception ex) {
+		} catch (UnexpectedRollbackException ex) {
 			p.setId(null);
-			map.addAttribute("error", getErrorFromException(ex));
+			map.addAttribute("error", "No puede borrar un proceso ya que una materia hace referencia a él.");
 			map.addAttribute(getNombreObjeto(), p);
 		}
 		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
@@ -163,17 +164,5 @@ public class ProcesoFormController extends FormController<Proceso> {
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 	}
-
-	// @Override
-	// public Dao<Proceso> getDaoList() {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
-	//
-	// @Override
-	// public TipoDemanda getInstanciaList() {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
 
 }
