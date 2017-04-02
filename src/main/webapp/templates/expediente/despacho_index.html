@@ -21,7 +21,7 @@
 								id="despachoDT">
 								<thead>
 									<tr>
-										 <th th:each="col : ${columnas}" th:text="#{'despacho' + ${col} + '.header'}"></th>
+										 <th th:each="col : ${columnas}" th:text="#{'despacho.' + ${col} + '.header'}"></th>
 										<th>ACCION</th>
 									</tr>
 								</thead>
