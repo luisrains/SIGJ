@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.1" last-position="0,0" last-zoom="0.9"
+<dbmodel pgmodeler-ver="0.8.2" last-position="1253,298" last-zoom="1.2"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database">
 </database>
@@ -48,6 +48,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="nro_liquidacion">
 		<type name="character"/>
 	</column>
+	<column name="cliente_demandante">
+		<type name="bigint"/>
+	</column>
+	<column name="cliente_demandado">
+		<type name="bigint"/>
+	</column>
 	<constraint name="pk_expediente" type="pk-constr" table="public.&quot;Expediente - MEDIAS&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
@@ -56,7 +62,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Despacho-Ok">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="478.889" y="27.7778"/>
+	<position x="480" y="20"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -80,7 +86,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Carpeta_Digital">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="796.667" y="218.889"/>
+	<position x="800" y="220"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -330,7 +336,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Cliente - OK">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1400" y="120"/>
+	<position x="1620" y="100"/>
 	<column name="id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -350,21 +356,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character" length="60"/>
 	</column>
 	<constraint name="pk_cliente" type="pk-constr" table="public.&quot;Cliente - OK&quot;">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
-<table name="Tipo_cliente - OK">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="1800" y="500"/>
-	<column name="id" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="tipo">
-		<type name="character" length="15"/>
-	</column>
-	<constraint name="pk_tipo_cliente" type="pk-constr" table="public.&quot;Tipo_cliente - OK&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -671,7 +662,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="materia_proceso">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="111.111" y="158.889"/>
+	<position x="120" y="160"/>
 	<column name="id_materia" not-null="true">
 		<type name="smallint"/>
 	</column>
@@ -686,7 +677,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="materia_despacho">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="425.556" y="197.778"/>
+	<position x="420" y="200"/>
 	<column name="id_materia" not-null="true">
 		<type name="smallint"/>
 	</column>
@@ -707,6 +698,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <constraint name="fk_despacho" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Despacho-Ok&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
 	<columns names="id_despacho_actual" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_clienteDemandado" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente - OK&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
+	<columns names="cliente_demandado" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_clienteDemandante" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Cliente - OK&quot;" table="public.&quot;Expediente - MEDIAS&quot;">
+	<columns names="cliente_demandante" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -791,12 +794,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <constraint name="fk_persona" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Persona - OK&quot;" table="public.&quot;Cliente - OK&quot;">
 	<columns names="id_persona" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_tipo_cliente" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tipo_cliente - OK&quot;" table="public.&quot;Cliente - OK&quot;">
-	<columns names="id_tipo_cliente" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -1027,15 +1024,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.&quot;Persona - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_Cliente_Tipo_cliente" type="relfk"
-	 src-table="public.&quot;Cliente - OK&quot;"
-	 dst-table="public.&quot;Tipo_cliente - OK&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="-5.35708" y="-40.9485"/>
-	</label>
-</relationship>
-
 <relationship name="&quot;rel_Empleado_Persona&quot;" type="relfk"
 	 src-table="public.&quot;Empleado - OK&quot;"
 	 dst-table="public.&quot;Persona - OK&quot;"
@@ -1141,6 +1129,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="&quot;rel_materia_despacho_Despacho-Ok&quot;" type="relfk"
 	 src-table="public.materia_despacho"
 	 dst-table="public.&quot;Despacho-Ok&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Expediente - MEDIAS_Cliente - OK&quot;" type="relfk"
+	 src-table="public.&quot;Expediente - MEDIAS&quot;"
+	 dst-table="public.&quot;Cliente - OK&quot;"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

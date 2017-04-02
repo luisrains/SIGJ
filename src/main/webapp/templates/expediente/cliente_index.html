@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+	<div th:fragment="contenido">
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Registrar</a></li>
+				<li><a href="#menu2">Listar</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="menu1" class="tab-pane fade in active">
+					
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de clientes</h3>
+						</div>
+						<div class="box-body">
+							<button class="btn btn-success btn-movil" id="botonAgregar"
+								 onclick="agregar()">
+								<i class="glyphicon glyphicon-plus"></i> Nuevo Abogado
+							</button>
+							<div class="row">
+								<div class="hidden-xs col-sm-4">
+									<div th:replace="expediente/abogado_form::form">aqui va
+										un fragmento de codigo del form</div>
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
+										id="empleadoDT">
+										<thead>
+											<tr>
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th th:each="col : ${columnasPersona}" th:text="#{${col} + '.header'}">
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+										$(document).ready(function() {
+										    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
+										});													 
+			 						</script>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="menu2" class="tab-pane fade">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Listado de Abogados</h3>
+						</div>
+						<div class="box-body no-padding">
+
+
+							<table
+								class="table table-bordered table-hover table-striped display"
+								id="abogadoDT">
+								<thead>
+									<tr>
+										<!--  <th th:each=" col : ${columnas}" th:text="${col}">colum1</th>-->
+										<th th:each="col : ${columnas}" th:text="#{${col} + '.header'}">
+										<th>Accion</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							 $(document).ready(function() {
+							    crearDataTable("abogadoDT", "[[@{/abogado/json}]]", "[[${columnasStr}]]", "[[@{/abogado/edit/}]]");
+							 });
+			 			</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				});
+			</script>
+			<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content col-xs-12" style="min-height: 430px;">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel"
+							>Nuevo Registro</h4>
+					</div>
+					<div class="modal-body">
+						<div th:replace="expediente/abogado_form::form">aqui va un
+								fragmento de codigo del form</div>
+					</div>
+					
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+			<script type="text/javascript">
+			function agregar(){
+				
+				$("#formModal").modal("show");
+				
+				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
+				
+			}
+			</script>
+			
+		</div>
+	</div>
+</body>
+
+</html>
