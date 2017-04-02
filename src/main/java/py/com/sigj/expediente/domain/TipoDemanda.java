@@ -1,9 +1,15 @@
 package py.com.sigj.expediente.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -15,7 +21,7 @@ import py.com.sigj.main.GenericEntity;
 
 /**
  * Clase que registra la clasificación de demandas existentes.
- * 
+ *
  * @author Luis A. Méndez R.
  *
  */
@@ -33,6 +39,10 @@ public class TipoDemanda extends GenericEntity {
 	@NotBlank(message = "tipoDemanda.descripcion.notBlank")
 	@Size(max = 20, message = "tipoDemanda.descripcion.size")
 	private String Descripcion;
+
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@JoinTable(name = "despacho_expediente", joinColumns = @JoinColumn(name = "despacho_id"), inverseJoinColumns = @JoinColumn(name = "expediente_id"))
+	private List<Expediente> listExpediente;
 
 	public TipoDemanda() {
 
@@ -56,9 +66,17 @@ public class TipoDemanda extends GenericEntity {
 		Descripcion = descripcion;
 	}
 
+	public List<Expediente> getListExpediente() {
+		return listExpediente;
+	}
+
+	public void setListExpediente(List<Expediente> listExpediente) {
+		this.listExpediente = listExpediente;
+	}
+
 	@Override
 	public String toString() {
-		return "TipoDemanda [id=" + id + ", Descripcion=" + Descripcion + "]";
+		return "TipoDemanda [id=" + id + ", Descripcion=" + Descripcion + ", listExpediente=" + listExpediente + "]";
 	}
 
 }
