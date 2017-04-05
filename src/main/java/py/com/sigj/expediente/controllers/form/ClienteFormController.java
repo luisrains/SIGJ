@@ -94,7 +94,7 @@ public class ClienteFormController extends FormController<Cliente> {
 			@RequestParam(value = "selec_expediente", required = false) List<String> selecExpediente,
 			@RequestParam(required = false) String accion,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto,
-			@RequestParam(value = "id_persona", required = true) Long id_persona) {
+			@RequestParam(value = "id_persona", required = false) Long id_persona) {
 		if (StringUtils.equals(accion, "save")) {
 			return guardar_listado(map, selecFactura, selecExpediente, obj, id_persona, bindingResult);
 		} else if (StringUtils.equals(accion, "edit")) {
