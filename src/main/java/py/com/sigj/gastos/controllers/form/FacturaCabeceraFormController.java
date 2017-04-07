@@ -1,10 +1,19 @@
 package py.com.sigj.gastos.controllers.form;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -50,7 +59,18 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 		map.addAttribute("columnasStr", facturaCabeceraList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
-
+	@RequestMapping(value = "/factura", method = RequestMethod.GET)
+	public String generarFactura(ModelMap map, @RequestParam(value = "factura_cabecera", required = true) String facturaCabecera,
+			@RequestParam(value = "factura_detalle", required = true) String facturaDetalle) throws JsonParseException, JsonMappingException, IOException{
+			
+			logger.info(facturaCabecera);
+			logger.info(facturaDetalle);
+			HashMap<String,Object> result =
+			        new ObjectMapper().readValue(facturaCabecera, HashMap.class);
+			logger.info("El hash map");
+			logger.info(String.valueOf(result));
+		return "";
+	}
 	@Override
 	public Dao<FacturaCabecera> getDao() {
 		return facturaCabeceraDao;

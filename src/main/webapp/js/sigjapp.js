@@ -2,6 +2,32 @@
 				EJ: recibe "id;codigo;razonSocial;tipoCliente.nombre"
 				y retorna [{'data' : 'id'}, {'data':'codigo'}, {'data':'razonSocial'}, {'data':'tipoCliente.nombre'}]
 			*/
+		function agregarFila(){
+			console.log("entra en el evento");
+			var aux = $("#f_detalle tbody tr:last").clone()
+			var trs = $("#f_detalle tbody tr").length -1;
+			$("#f_detalle tbody tr:last").remove()
+			$("#f_detalle tbody tr td:first").text(trs);
+			$("#f_detalle tbody tr:first").clone().removeClass('clonar').appendTo("#f_detalle tbody");
+			$("#f_detalle tbody tr:last").addClass("fila_"+trs);
+			aux.appendTo("#f_detalle tbody");
+		}
+		
+		function eliminarFila(){
+			$(document).on("click","button#eliminar_fila",function(){
+			console.log("entra en el evento");
+			var parent = $(this).parents('tr');
+			$(parent).remove();
+			var trs = $("#f_detalle tbody tr").length-1;
+			var i=1;
+			for(i=1;i<trs;i++){
+				var x = $("#f_detalle tbody tr:eq("+i+")"+" td:first");
+				x.text(i.toString());
+			}
+			});	
+		}
+		
+		
 		function getColumnasArray(colsStr){
 				/*
 				1. declarar un array para retornar
