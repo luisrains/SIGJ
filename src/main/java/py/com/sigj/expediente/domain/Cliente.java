@@ -14,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,7 +30,7 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "cliente_codigo_uk", columnNames = { "persona_id" }) })
+@Table
 public class Cliente extends GenericEntity {
 
 	private static final String SECUENCIA = "cliente_id_seq";

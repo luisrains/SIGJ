@@ -207,7 +207,7 @@
              $('#'+ dataTableId + ' tbody').on( 'click', 'tr', function () {
          		if ( $(this).hasClass('selected') ) {
          			$(this).removeClass('selected');
-         			$("form input:last").val("");
+         			$(".object_id").val("");
          		}
          		else {
          			dataTable.$('tr.selected').removeClass('selected');

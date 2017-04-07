@@ -78,6 +78,7 @@ public class ClienteFormController extends FormController<Cliente> {
 		map.addAttribute("columnasStrPersona", clienteList.getColumnasStr(clienteList.getColumnasPersona()));
 		map.addAttribute("expedienteList", expedienteDao.getList(0, 20, null));
 		map.addAttribute("facturaList", facturaDao.getList(0, 20, null));
+		map.addAttribute("personaList", personaDao.getList(0, 20, null));
 
 		super.agregarValoresAdicionales(map);
 	}
@@ -114,16 +115,18 @@ public class ClienteFormController extends FormController<Cliente> {
 			@Valid Cliente obj, @RequestParam(value = "id_persona", required = true) Long id_persona,
 			BindingResult bindingResult) {
 		try {
-			List<FacturaCabecera> listFactura = new ArrayList<FacturaCabecera>();
-			List<Expediente> listExpediente = new ArrayList<Expediente>();
+			// crear un objeto factura y expediente y guardar en el List y
+			// guardar en el objeto, para que al eliminar no cree conflictos.
+			List<FacturaCabecera> listFactura = null;
+			List<Expediente> listExpediente = null;
 			Persona persona = null;
 			if (obj.getId() == null && id_persona != null) {
 				persona = personaDao.find(id_persona);
 				obj.setPersona(persona);
 			}
 
-			obj.setListFactura(listFactura);
-			obj.setListExpediente(listExpediente);
+			// obj.setListFactura(listFactura);
+			// obj.setListExpediente(listExpediente);
 			getDao().createOrUpdate(obj);
 
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
@@ -181,12 +184,14 @@ public class ClienteFormController extends FormController<Cliente> {
 			if (id_objeto != null) {
 				cliente = getDao().find(id_objeto);
 				if (cliente.getListExpediente().isEmpty() && cliente.getListFactura().isEmpty()) {
-					cliente.setPersona(persona);
 					clienteDao.destroy(cliente);
 				}
 				logger.info("Cliente eliminado {}", cliente);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
 			}
+			cliente = getDao().find(id_objeto);
+
+			clienteDao.destroy(cliente);
 		} catch (Exception ex) {
 
 			cliente.setId(null);

@@ -26,6 +26,7 @@
 									<div th:replace="expediente/cliente_form::form">aqui va
 										un fragmento de codigo del form</div>
 								</div>
+								<div class="col-xs-12 col-sm-8"><h3>Listado de Persona</h3></div>
 								<div class="col-xs-12 col-sm-8">
 									<table
 										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
@@ -84,22 +85,86 @@
 				    });
 				});
 			</script>
-			<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
+		<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
 			<div class="modal-dialog">
 				<div class="modal-content form-class-modal">
 					<div class="modal-header">
 						 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Nuevo Registro</h4>
+						<h4 class="modal-title">Registrar Cliente</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/cliente_form::form"></div>
+						<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
+							<form th:action="@{/cliente/accion2}" th:object="${cliente}"
+								method="post" role="form">
+								
+								<input type="hidden" th:field="*{id}" class="id" />
+								<div class="modal-movil hidden-xs col-sm-12">
+									<div class="form-group col-xs-12 col-sm-12">
+										<label for="domicilioActual"
+											th:text="#{abogado.domicilioActual.lbl}"
+											class="field-label col-xs-7 col-sm-7"> Domicilio Actual:</label> <input
+											type="text" th:field="*{domicilioActual}" maxlength="100"
+											class="form-control col-xs-7 col-sm-6 domicilioActual" autofocus="autofocus" />
+									</div>
+									
+									<div class="form-group  col-xs-12 col-sm-12">
+										<label for="domicilioLaboral"
+											th:text="#{abogado.domicilioLaboral.lbl}"
+											class="field-label col-xs-7 col-sm-7">Domicilio Laboral:</label> <input
+											type="text" th:field="*{domicilioLaboral}" maxlength="100"
+											class="form-control col-xs-6 col-sm-6 domicilioLaboral" />
+									</div>
+					
+									<div class="form-group col-xs-12 col-sm-12">
+										<label for="domicilioActual"
+											th:text="#{abogado.domicilioActual.lbl}"
+											class="field-label col-xs-7 col-sm-7"> Domicilio Procesal:</label> <input
+											type="text" th:field="*{domicilioProcesal}" maxlength="100"
+											class="form-control col-xs-7 col-sm-6 domicilioProcesal"/>
+									</div>
+									
+									<div class="form-group col-xs-12 col-sm-12 hidden" id="persona_edit_div">
+									<label for="persona" th:text="#{cliente.persona.lbl}"
+										class="field-label">Persona</label>
+										<select 
+										class="form-control persona" id="persona" name="selec" 
+										style="width: 100% !important;">
+										<option th:each=" per : ${personaList}" th:value="${per.id}"
+											th:text="${per.cedula_ruc + ' - ' + per.nombre_razonSocial}"></option>
+									</select>
+								</div>
+									
+								</div>
+								<!-- seccion empleado -->
+								<input type="hidden" class="object_id" th:field="*{persona.id}" />
+								<!-- Inicio panel botones -->
+								<div th:replace="botones::footerModal">aqui van los botones</div>
+							</form>
+							<!-- Fin panel botones -->
+							<script type="text/javascript">
+							
+							$(function () {
+							    //Initialize Select2 Elements
+								$(".persona").select2({
+										placeholder: "Seleccione una persona...",
+										language: {
+											noResults:  function (params) {
+											      return "No existen registros.";
+										    }
+										}
+								});
+							});		
+							</script>
+						</div>
+	
 					</div>
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
+			</div>
 			
-			<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<form th:object="${cliente}" th:action="@{/cliente/eliminar_listado}" method="post" role="form"
 						id="idCliente">
@@ -130,6 +195,12 @@
 <!-- FIN Modal borrar -->
 			
 			<script type="text/javascript">
+			 
+			$(".persona").on("change", function (e) { 
+				var id_persona  = this.value;
+				$(".object_id").val(id_persona);
+				});
+			
 			function agregar(obj, accion){
 				if(obj != ''){
 					var id = obj["id"];
@@ -146,63 +217,57 @@
 					}	
 				}else if(accion === 'e'){
 					if(id !== null || id !== undefined || id !== "" ){
-						$('#edit').removeClass('hidden');
-						$('#save').addClass('hidden');
-						$('#delete').addClass('hidden');
-						$('#domicilioProcesal').attr('disabled', false);
-						$('#domicilioLaboral').attr('disabled', false);
-						$('#domicilioActual').attr('disabled', false);
-						$('#id').val(obj["id"]);
-						$('#domicilioLaboral').val(obj["codigo"]);
-						$('#descripcion').val(obj["descripcion"]);
-						var selec = $('.tipoDemanda');
-						var list_tipoDemanda = obj["listTipoDemanda"];
-						var codigos = [];
-						//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
-						//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
-						$.each(list_tipoDemanda, function( index, value ) {
-							codigos.push(value.id);
-						});
-						selec.val(codigos).trigger("change");
-						var id1 = obj["id"];
+						
+						$('#formModal #edit').removeClass('hidden');
+						$('#formModal #save').addClass('hidden');
+						$('#formModal #delete').addClass('hidden');
+						$('#persona_edit_div').removeClass('hidden');
+						$('.domicilioProcesal').attr('disabled', false);
+						$('.domicilioLaboral').attr('disabled', false);
+						$('.domicilioActual').attr('disabled', false);
+						$('.persona').attr('disabled', false);
+						$('.id').val(obj["id"]);
+						$('.domicilioLaboral').val(obj["domicilioLaboral"]);
+						$('.domicilioActual').val(obj["domicilioActual"]);
+						$('.domicilioProcesal').val(obj["domicilioProcesal"]);
+						var selec = $('.persona');
+						var persona = obj["persona"];
+						var codigo = persona.id;
+						selec.val(codigo).trigger("change");
+						$(".object_id").val(persona.id);
 						$("#formModal").modal("show");
 					}	
 				}else if(accion === 'r'){
 					$('#delete').addClass('hidden');
 					$('#edit').addClass('hidden');
 					$('#save').removeClass('hidden');
-					$('#descripcion').attr('disabled', false);
-					$('#codigo').attr('disabled', false);
-					$('#tipoDemanda').attr('disabled', false);
-					$('#id').val('');
-					$('#codigo').val('');
-					$('#descripcion').val('');
-					var selec = $('.tipoDemanda');
+					$('#domicilioProcesal').attr('disabled', false);
+					$('#domicilioLaboral').attr('disabled', false);
+					$('#domicilioActual').attr('disabled', false);
+					$('#persona').attr('disabled', false);
+					var selec = $('.persona');
 					selec.val([]).trigger("change");
 					$("#formModal").modal("show");
 				}else if(accion === 'v'){
 					$('#delete').addClass('hidden');
 					$('#edit').addClass('hidden');
 					$('#save').addClass('hidden');
-					$('#id').val(obj["id"]);
-					$('#codigo').val(obj["codigo"]);
-					$('#descripcion').val(obj["descripcion"]);
-					var selec = $('.tipoDemanda');
-					var list_proceso = obj["listTipoDemanda"];
-					var codigos = [];
-					//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
-					//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
-					$.each(list_proceso, function( index, value ) {
-						codigos.push(value.id);
-					});
-					selec.val(codigos).trigger("change");
+					$('.id').val(obj["id"]);
+					$('.domicilioLaboral').val(obj["domicilioLaboral"]);
+					$('.domicilioActual').val(obj["domicilioActual"]);
+					$('.domicilioProcesal').val(obj["domicilioProcesal"]);
+					var selec = $('.persona');
+					var persona = obj["persona"];
+					var codigo = persona.id;
+					selec.val(codigo).trigger("change");
 					
-					$('#descripcion').attr('disabled', true);
-					$('#codigo').attr('disabled', true);
-					$('#tipoDemanda').attr('disabled', true);
+					$('.domicilioProcesal').attr('disabled', true);
+					$('.domicilioLaboral').attr('disabled', true);
+					$('.domicilioActual').attr('disabled', true);
+					$('.persona').attr('disabled', true);
 					$("#formModal").modal("show");
 				}
-				$("#formModal").modal("show");
+				
 				
 				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
 				

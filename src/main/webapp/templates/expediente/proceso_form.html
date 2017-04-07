@@ -29,7 +29,7 @@
 					class="field-label">Tipos de Demandas</label>
 					<select
 					class="form-control tipoDemanda" multiple="multiple"
-					id="tipoDemanda" name="selec" style="width: 250px !important;">
+					id="tipoDemanda" name="selec" style="width: 100% !important;">
 					<option th:each=" dem : ${tipoDemandaList}" th:value="${dem.id}"
 						th:text="${dem.descripcion}">Ejecutivo</option>
 				</select>

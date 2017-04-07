@@ -2,15 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-	<div th:fragment="form">
-		
-		<h4 id="header-normal" class="page-header hidden-xs"
-			th:text="#{abogado.form.titulo}">Detalles de Clientes</h4>
+	<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
 		<form th:action="@{/cliente/accion2}" th:object="${cliente}"
 			method="post" role="form">
+			
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
-
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="domicilioActual"
 						th:text="#{abogado.domicilioActual.lbl}"
@@ -34,16 +31,28 @@
 						type="text" th:field="*{domicilioProcesal}" maxlength="100"
 						class="form-control col-xs-7 col-sm-6"/>
 				</div>
-				
+
 			</div>
 			<!-- seccion empleado -->
 			<input type="hidden" class="object_id" th:field="*{persona.id}" />
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
-
-
 		</form>
 		<!-- Fin panel botones -->
+		<script type="text/javascript">
+		
+		$(function () {
+		    //Initialize Select2 Elements
+			$(".persona").select2({
+					placeholder: "Seleccione una persona...",
+					language: {
+						noResults:  function (params) {
+						      return "No existen registros.";
+					    }
+					}
+			});
+		});		
+		</script>
 	</div>
 </body>
 
