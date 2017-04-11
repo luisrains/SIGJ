@@ -115,19 +115,9 @@ public class ClienteFormController extends FormController<Cliente> {
 			@Valid Cliente obj, @RequestParam(value = "id_persona", required = true) Long id_persona,
 			BindingResult bindingResult) {
 		try {
-			// crear un objeto factura y expediente y guardar en el List y
-			// guardar en el objeto, para que al eliminar no cree conflictos.
-			List<FacturaCabecera> listFactura = null;
-			List<Expediente> listExpediente = null;
-			Persona persona = null;
-			if (obj.getId() == null && id_persona != null) {
-				persona = personaDao.find(id_persona);
-				obj.setPersona(persona);
+			if (obj.getId() == null) {
+				getDao().createOrUpdate(obj);
 			}
-
-			// obj.setListFactura(listFactura);
-			// obj.setListExpediente(listExpediente);
-			getDao().createOrUpdate(obj);
 
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
 			logger.info("Se crea cliente nuevo -> {}", obj);
@@ -183,15 +173,10 @@ public class ClienteFormController extends FormController<Cliente> {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				cliente = getDao().find(id_objeto);
-				if (cliente.getListExpediente().isEmpty() && cliente.getListFactura().isEmpty()) {
-					clienteDao.destroy(cliente);
-				}
+				clienteDao.destroy(cliente);
 				logger.info("Cliente eliminado {}", cliente);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
 			}
-			cliente = getDao().find(id_objeto);
-
-			clienteDao.destroy(cliente);
 		} catch (Exception ex) {
 
 			cliente.setId(null);
