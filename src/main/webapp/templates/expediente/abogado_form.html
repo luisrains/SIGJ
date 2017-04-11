@@ -16,21 +16,14 @@
 				$("descripcion").focus();
 			}
 		</script>
-		<h4 id="header-normal" class="page-header hidden-xs"
-			th:text="#{abogado.form.titulo}">Detalles de Abogados</h4>
+		<!--  <h4 id="header-normal" class="page-header hidden-xs"
+			th:text="#{abogado.form.titulo}">Detalles de Abogados</h4>-->
+		<div class="row form-class-modal" style="margin-right: -404;padding-top: 15px;margin-right: 0px;margin-left: 0px;">
 		<form th:action="@{/abogado/accion}" th:object="${abogado}"
 			method="post" role="form">
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
-				<div class="form-group col-xs-12 col-sm-12">
-					<label for="tipoAbogado" th:text="#{abogado.tipoAbogado.lbl}"
-						class="field-label col-xs-7 col-sm-7">Tipo de Abogado:</label> <select
-						th:field="*{tipoAbogado}"
-						class="form-control form-group tipoAbogado col-xs-6 col-sm-6">
-						<option th:each=" tip : ${tipoAbogadoList}" th:value="${tip.id}"
-							th:text="${tip.descripcion}">Apoderado</option>
-					</select>
-				</div>
+				
 
 
 
@@ -58,6 +51,7 @@
 
 
 		</form>
+		</div>
 		<!-- Fin panel botones -->
 
 		<script type="text/javascript">
