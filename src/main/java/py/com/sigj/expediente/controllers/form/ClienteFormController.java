@@ -160,6 +160,8 @@ public class ClienteFormController extends FormController<Cliente> {
 			map.addAttribute("error", getErrorFromException(ex));
 			map.addAttribute(getNombreObjeto(), obj);
 		}
+		Cliente c = new Cliente();
+		map.addAttribute(getNombreObjeto(), c);
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 
