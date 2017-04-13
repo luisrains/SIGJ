@@ -1,24 +1,25 @@
 package py.com.sigj.expediente.domain;
 
-import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.com.sigj.gastos.domain.FacturaCabecera;
 import py.com.sigj.main.GenericEntity;
 
 /**
@@ -29,7 +30,7 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "cliente_codigo_uk", columnNames = { "persona_id" }) })
+@Table
 public class Cliente extends GenericEntity {
 
 	private static final String SECUENCIA = "cliente_id_seq";
@@ -55,17 +56,17 @@ public class Cliente extends GenericEntity {
 	private String domicilioActual;
 
 	// tabla dependencia , tabla que depende y fk
-	@ManyToOne
-	@NotNull(message = "cliente.tipoCliente.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "cliente_tipoCliente_fk"))
-	private TipoCliente tipoCliente;
-
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "cliente_persona_fk"))
 	private Persona persona;
 
-	@Temporal(TemporalType.DATE)
-	private Date fechaNacimiento;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@JoinTable(name = "cliente_expediente", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "expediente_id"))
+	private List<Expediente> listExpediente;
+
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@JoinTable(name = "cliente_factura", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "facturacabecera_id"))
+	private List<FacturaCabecera> listFactura;
 
 	public Cliente() {
 	}
@@ -104,22 +105,6 @@ public class Cliente extends GenericEntity {
 		this.domicilioActual = domicilioActual;
 	}
 
-	public TipoCliente getTipoCliente() {
-		return tipoCliente;
-	}
-
-	public void setTipoCliente(TipoCliente tipoCliente) {
-		this.tipoCliente = tipoCliente;
-	}
-
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 	public Persona getPersona() {
 		return persona;
 	}
@@ -128,11 +113,27 @@ public class Cliente extends GenericEntity {
 		this.persona = persona;
 	}
 
+	public List<Expediente> getListExpediente() {
+		return listExpediente;
+	}
+
+	public void setListExpediente(List<Expediente> listExpediente) {
+		this.listExpediente = listExpediente;
+	}
+
+	public List<FacturaCabecera> getListFactura() {
+		return listFactura;
+	}
+
+	public void setListFactura(List<FacturaCabecera> listFactura) {
+		this.listFactura = listFactura;
+	}
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", domicilioLaboral=" + domicilioLaboral + ", domicilioProcesal="
-				+ domicilioProcesal + ", domicilioActual=" + domicilioActual + ", tipoCliente=" + tipoCliente
-				+ ", persona=" + persona + ", fechaNacimiento=" + fechaNacimiento + "]";
+				+ domicilioProcesal + ", domicilioActual=" + domicilioActual + ", persona=" + persona
+				+ ", listExpediente=" + listExpediente + ", listFactura=" + listFactura + "]";
 	}
 
 }

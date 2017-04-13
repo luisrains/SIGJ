@@ -2,76 +2,163 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
 
 <body>
-
 	<div class="row" th:fragment="contenido">
 
-		<div class="col-xs-12">
-			<div class="box box-solid box-primary">
-				<div class="box-header">
-					<h3>Listado de Despachos</h3>
-				</div>
-				<div class="box-body">
-					<button class="btn btn-success" id="botonAgregar"
-						onclick="agregar()">
-						<i class="glyphicon glyphicon-plus"></i> Nuevo Despacho
-					</button>
-					<br>
-					<table class="table table-bordered table-striped" id="despachoDT">
-						<thead>
-							<tr>
-								<th th:each="col : ${columnas}"
-									th:text="#{'despacho.' + ${col} + '.header'}"></th>
-								<th>Acción</th>
+		
+			<div class="col-xs-12">		
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Listado de Despachos</h3>
+						</div>
+						<div class="box-body no-padding">
+							<button class="btn btn-success" id="botonAgregar"
+								 onclick="agregar('','r')">
+								<i class="glyphicon glyphicon-plus"></i> Nuevo Despacho
+							</button>
+							<br><br>
+							<table
+								class="table table-bordered table-striped col-xs-12 no-padding table-esp"
+								id="despachoDT">
+								<thead>
+									<tr>
+										 <th th:each="col : ${columnas}" th:text="#{'despacho.' + ${col} + '.header'}"></th>
+										<th>ACCION</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							
+							 $(document).ready(function() {
+							   crearDataTable("despachoDT", "[[@{/despacho/json}]]", "[[${columnasStr}]]", "[[@{/despacho/edit/}]]");
+							 });
+			 			</script>
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+					</div>
 
-							</tr>
-						</thead>
-					</table>
-					<script type="text/javascript">
-						$(document).ready(
-								function() {
-									crearDataTable("despachoDT",
-											"[[@{/despacho/json}]]",
-											"[[${columnasStr}]]",
-											"[[@{/despacho/edit/}]]");
-								});
-					</script>
-				</div>
-				<!-- /.box-body -->
-			</div>
-			<!-- /.box -->
-		</div>
-
-		<!-- Modal borrar -->
-		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${despacho}" th:action="@{/despacho/eliminar_listado}" method="post" role="form"
+						id="idDespacho">
 			<div class="modal-dialog">
-				<div class="modal-content col-xs-12">
+				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Nuevo
+						<h4 class="modal-title" id="myModalLabel">Borrado de
 							Registro</h4>
 					</div>
+					<div class="modal-body">Está seguro que desea borrar registro de forma
+						permanente?
+						
+						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/>
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary" name="accion"
+							value="delete">Confirmar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			</form>
+			<!-- /.modal-dialog -->
+			</div>
+<!-- FIN Modal borrar -->
+				<!-- Modal borrar -->
+
+		<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
+		    <div class="modal-dialog">
+		        <div class="modal-content form-class-modal">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title">Registrar Despacho</h4>
+		            </div>
 					<div class="modal-body">
 						<div th:replace="expediente/despacho_form::form"></div>
 					</div>
-
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
+		</div>
+			<!-- /.modal -->
 			<script type="text/javascript">
-				function agregar() {
+
+			function agregar(obj, accion){
+				
+				if(obj != ''){
+					var id = obj["id"];
+				}
+				
+				if(accion === 'd'){
+					if(id !== null || id !== undefined || id !== "" ){
+						$('#delete').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#id_objeto').val(obj["id"]);
+						$('#id').val('');
+						$('#descripcion').val('');						
+						$('#juez').val('');
+						
+						$("#borradoPopup").modal("show");
+					}	
+				}else if(accion === 'e'){
+					if(id !== null || id !== undefined || id !== "" ){
+						$('#edit').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#delete').addClass('hidden');
+						$('#descripcion').attr('disabled', false);
+						$('#juez').attr('disabled', false);
+						$('#expediente').addClass('hidden');
+						//cargamos el formulario
+						$('#id').val(obj["id"]);
+						$('#juez').val(obj["juez"]);
+						$('#descripcion').val(obj["descripcion"]);
+
+						$("#formModal").modal("show");
+					}	
+				}else if(accion === 'r'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').removeClass('hidden');
+					$('#descripcion').attr('disabled', false);
+					$('#juez').attr('disabled', false);
+
+					$('#id').val('');
+					$('#descripcion').val('');
+					
+					$("#formModal").modal("show");
+				}else if(accion === 'v'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').addClass('hidden');
+					$('#id').val(obj["id"]);
+					$('#descripcion').val(obj["descripcion"]);
+					$('#juez').val(obj["juez"]);
+					$('#expediente_div').removeClass('hidden');
+					var selec = $('.expediente');
+					var list_expediente = obj["listExpediente"];
+					var codigos = [];
+					//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
+					//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
+					$.each(list_expediente, function( index, value ) {
+						codigos.push(value.id);
+					});
+					selec.val(codigos).trigger("change");
+					
+					$('#descripcion').attr('disabled', true);
+					$('#juez').attr('disabled', true);
+					$('#Expediente').attr('disabled', true);
 					$("#formModal").modal("show");
 				}
+			}
+
 			</script>
-
 		</div>
-		<!-- Modal borrar -->
-
-
 	</div>
-
-
 </body>
+
 </html>

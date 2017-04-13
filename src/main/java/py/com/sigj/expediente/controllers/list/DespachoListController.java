@@ -20,7 +20,7 @@ public class DespachoListController extends ListController<Despacho> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "descripcion", "juez", "materia.descripcion" };
+		return new String[] { "id", "descripcion", "juez" };
 	}
 
 	@Override

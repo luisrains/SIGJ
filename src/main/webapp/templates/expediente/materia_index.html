@@ -51,18 +51,12 @@
 					</div>
 					<div class="modal-body">Está seguro que desea borrar registro de forma
 						permanente?
-						
 						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/>
-						<!-- <input type="hidden" th:field="*{id}" />
-						<input type="hidden" th:field="*{descripcion}">
-					<input type="hidden" th:field="*{codigo}"> -->
-						</div>
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary" name="accion"
 							value="delete">Confirmar</button>
-							
-						<!-- onclick= "submitBorrado()" -->
 					</div>
 
 				</div>
@@ -105,10 +99,15 @@
 						$('#save').addClass('hidden');
 						$('#edit').addClass('hidden');
 						$('#id_objeto').val(obj["id"]);
+						$('#codigo').attr('disabled', false);
+						$('#descripcion').attr('disabled', false);
+						$('#proceso').attr('disabled', false);
+						$('#despacho').attr('disabled', false);
 						$('#id').val('');
 						$('#descripcion').val('');
 						$('#codigo').val('');
-						$('#selec').val('');
+						$('#proceso').val('');
+						$('#despacho').val('');
 						
 						$("#borradoPopup").modal("show");
 					}	
@@ -117,30 +116,49 @@
 						$('#edit').removeClass('hidden');
 						$('#save').addClass('hidden');
 						$('#delete').addClass('hidden');
+						//habilitar todo
+						$('#codigo').attr('disabled', false);
+						$('#descripcion').attr('disabled', false);
+						$('#proceso').attr('disabled', false);
+						$('#despacho').attr('disabled', false);
+						
 						$('#id').val(id);
 						$('#codigo').val(obj["codigo"]);
 						$('#descripcion').val(obj["descripcion"]);
-						var selec = $('.proceso');
+						var selec_proceso = $('.proceso');
+						var selec_despacho = $('.despacho');
 						var list_proceso = obj["listaProceso"];
-						var codigos = [];
+						var list_despacho = obj["listaDespacho"];
+						var codigos_proceso = [];
+						var codigos_despacho = [];
 						//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
 						//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
 						$.each(list_proceso, function( index, value ) {
-							codigos.push(value.id);
-							//$('#proceso').find('option[value='+value.id+']').prop('selected','true');
+							codigos_proceso.push(value.id);
 						});
-						selec.val(codigos).trigger("change");
-						var id1 = obj["id"];
+						selec_proceso.val(codigos_proceso).trigger("change");
+						
+						$.each(list_despacho, function( index, value ) {
+							codigos_despacho.push(value.id);
+						});
+						selec_despacho.val(codigos_despacho).trigger("change");
 						$("#formModal").modal("show");
 					}	
 				}else if(accion === 'r'){
 					$('#delete').addClass('hidden');
 					$('#edit').addClass('hidden');
 					$('#save').removeClass('hidden');
+					$('#codigo').attr('disabled', false);
+					$('#descripcion').attr('disabled', false);
+					$('#proceso').attr('disabled', false);
+					$('#despacho').attr('disabled', false);
 					$('#id').val('');
 					$('#descripcion').val('');
 					$('#codigo').val('');
-					$('#selec').val('');
+					var selec_proceso = $('.proceso');
+					selec_proceso.val([]).trigger("change");
+					var selec_despacho = $('.despacho');
+					selec_despacho.val([]).trigger("change");
 					$("#formModal").modal("show");
 				}else if(accion === 'v'){
 					$('#delete').addClass('hidden');
@@ -149,21 +167,28 @@
 					$('#id').val(id);
 					$('#codigo').val(obj["codigo"]);
 					$('#descripcion').val(obj["descripcion"]);
-					var selec = $('.proceso');
+					var selec_proceso = $('.proceso');
+					var selec_despacho = $('.despacho');
 					var list_proceso = obj["listaProceso"];
-					var codigos = [];
+					var list_despacho = obj["listaDespacho"];
+					var codigos_proceso = [];
+					var codigos_despacho = [];
 					//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
 					//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
 					$.each(list_proceso, function( index, value ) {
-						codigos.push(value.id);
-						//$('#proceso').find('option[value='+value.id+']').prop('selected','true');
+						codigos_proceso.push(value.id);
 					});
-					selec.val(codigos).trigger("change");
-					var id1 = obj["id"];
+					selec_proceso.val(codigos_proceso).trigger("change");
+					
+					$.each(list_despacho, function( index, value ) {
+						codigos_despacho.push(value.id);
+					});
+					selec_despacho.val(codigos_despacho).trigger("change");
 					
 					$('#codigo').attr('disabled', true);
 					$('#descripcion').attr('disabled', true);
 					$('#proceso').attr('disabled', true);
+					$('#despacho').attr('disabled', true);
 					$("#formModal").modal("show");
 				}
 			}
