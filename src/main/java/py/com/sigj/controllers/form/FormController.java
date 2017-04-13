@@ -46,6 +46,12 @@ public abstract class FormController<T extends GenericEntity> {
 		return getTemplatePath();// "cliente/cliente_index";
 	}
 
+	@RequestMapping(value = "start")
+	public String indexStart(ModelMap map) {
+
+		return "starter";// "cliente/cliente_index";
+	}
+
 	@RequestMapping(value = "accion", method = RequestMethod.POST)
 	public String accion(ModelMap map, @Valid T obj, BindingResult bindingResult,
 			@RequestParam(required = false) String accion) {

@@ -3,7 +3,7 @@
  */
  
  .select2-container .select2-search__field {
-    width: 150% !important;
+    width: 100%;
 }
  .btn-siguiente{
  	    border-radius: 3px;
