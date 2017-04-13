@@ -78,7 +78,7 @@
 				</button>
 			</div>
 		</div>
-		
+
 		<!-- Modal borrar -->
 
 		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
@@ -88,11 +88,10 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Borrado de
-							Registro</h4>
+						<h4 class="modal-title" id="myModalLabel">Borrado de Registro</h4>
 					</div>
-					<div class="modal-body">Está seguro que desea borrar registro de forma
-						permanente?</div>
+					<div class="modal-body">Está seguro que desea borrar registro
+						de forma permanente?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary" name="accion"
@@ -104,13 +103,12 @@
 			</div>
 			<!-- /.modal-dialog -->
 			<script type="text/javascript">
-			function borrarRegistro(){
-				$("#borradoPopup").modal("show");
-			}
-			function submitBorrado(){
-				console.log("Borrando registro...")
-			}
-
+				function borrarRegistro() {
+					$("#borradoPopup").modal("show");
+				}
+				function submitBorrado() {
+					console.log("Borrando registro...")
+				}
 			</script>
 		</div>
 		<!-- Modal borrar -->
@@ -122,10 +120,10 @@
 		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 		<button type="submit" class="btn btn-primary" name="accion" id="save"
 			value="save">Guardar</button>
-			<button type="submit" class="btn btn-primary hidden" name="accion" id="edit"
-			value="edit">Confirmar</button>
-			<button type="submit" class="btn btn-primary hidden" name="accion" id="delete"
-			value="delete">Eliminar</button>
+		<button type="submit" class="btn btn-primary hidden" name="accion"
+			id="edit" value="edit">Confirmar</button>
+		<button type="submit" class="btn btn-primary hidden" name="accion"
+			id="delete" value="delete">Eliminar</button>
 	</div>
 
 
