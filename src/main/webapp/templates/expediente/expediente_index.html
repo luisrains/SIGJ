@@ -93,10 +93,10 @@
 									<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
 										th:text="${tip.descripcion}">Civil</option>
 								</select>
-
+								</div>
+								<div class="form-group hidden">
 								<label for="tipoProceso" th:text="#{expediente.tipoProceso.lbl}"
 									class="field-label">Tipo Proceso:</label> 
-									
 									<select name="tipoProceso" id="tipoProceso" for="tipoProceso"
 									class="form-control form-group tipoProceso selecciones">
 									<option selected ="selected" value="0">-Elegir una opcion-</option>
@@ -104,10 +104,6 @@
 										th:text="${tip.descripcion}">Ejecutivo</option>
 								</select>
 							</div>
-					          <div class="form-group">
-					            <label class="control-label">Address</label>
-					            <textarea required="required" class="form-control" placeholder="Enter your address"></textarea>
-					          </div>
 					          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
 					        </div>
 					      </div>
