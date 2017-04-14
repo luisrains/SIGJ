@@ -328,8 +328,7 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<div id="contentBox" class="content box"
-					th:replace="this :: contenido"></div>
+				<div id="contentBox" class="content box"></div> <!--  Aca debe ir el listado de expedientes.-->
 
 			</section>
 			<!-- /.content -->
@@ -401,10 +400,8 @@
 
 	<!-- AdminLTE for demo purposes -->
 	<script th:src="@{/dist/js/demo.js}" src="../dist/js/demo.js"></script>
-	<!-- SIGJ -->
+	<!-- OWL -->
 	<script type="text/javascript" src="../js/sigjapp.js"
 		th:src="@{/js/sigjapp.js}"></script>
-		<script type="text/javascript" src="../js/expediente_sigj.js"
-		th:src="@{/js/expediente_sigj.js}"></script>
 </body>
 </html>

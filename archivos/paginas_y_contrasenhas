@@ -1,7 +1,7 @@
-http://www.csj.gov.py/gestion/inicio.aspx
+http://www.csj.gov.py/gestion/inicio.aspx --agregar casos
 cc1150391
 
-http://www.csj.gov.py:8080/portal
+http://www.csj.gov.py:8080/portal --consultar web vieja
 N° exp. 288 año: 2010
 usuario : 1150391
 pass: 12345
@@ -9,10 +9,11 @@ pass: 12345
 485
 2013
 _________________________________________EXPEDIENTE DIGITAL_______________________________________________________________
-https://www.csj.gov.py/gestionelectronicajudicial/   
+https://www.csj.gov.py/gestionelectronicajudicial/
 PASS:cc1150391
 USUARIO:1150391
 EXPEDIENTE PARA VER: 
+    Ir a expediente electronico en la parte de abajo
     NRO EXPEDIENTE: 175;
     AÑO:            2016:
     CIRCUNSCRIPCION: CAPITAL;
