@@ -18,7 +18,7 @@ public class Dashboard {
 	@RequestMapping("star")
 	public String start() {
 
-		return "starter";
+		return "inicio";
 	}
 
 }
