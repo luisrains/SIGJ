@@ -23,7 +23,7 @@
 								}else{
 									columnsArray.push( {"data" : val} );
 								}
-								console.log(val);
+								
 								
 					});
 					columnsArray.push(
