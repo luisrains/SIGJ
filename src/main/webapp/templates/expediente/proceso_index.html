@@ -12,56 +12,35 @@
 						</div>
 						<div class="box-body no-padding">
 							<button class="btn btn-success" id="botonAgregar"
-								 onclick="agregar()">
+								 onclick="agregar('','r')">
 								<i class="glyphicon glyphicon-plus"></i> Nuevo Proceso
 							</button>
 							<br><br>
-							<!-- <table
-=======
-		<div class="col-xs-12">
-			<div class="box box-solid box-primary">
-				<div class="box-header">
-					<h3>Listado de Procesos</h3>
-				</div>
-				<div class="box-body">
-					<button class="btn btn-success" id="botonAgregar"
-						onclick="agregar('','r')">
-						<i class="glyphicon glyphicon-plus"></i>Nuevo Proceso
-					</button>
-					<br> <br>
-					<!-- <table
->>>>>>> 073eb5fd74cfb8d7f96e899a3a829ccfafc26faf
-								class="gdisplay responsive nowrap"
-								id="procesoDT"> -->
-					<table id="procesoDT" class="display nowrap" cellspacing="0"
-						width="100%">
-						<thead>
-							<tr>
-								<th th:each="col : ${columnas}"
-									th:text="#{'proceso.' + ${col} + '.header'}"></th>
-								<th>Acción</th>
-							</tr>
-						</thead>
-					</table>
-					<script type="text/javascript">
-						$(document).ready(
-							function() {
-								crearDataTable("procesoDT",
-								"[[@{/proceso/json}]]",
-								"[[${columnasStr}]]",
-								"[[@{/proceso/edit/}]]");
-							});
-					</script>
-				</div>
-				<!-- /.box-body -->
-			</div>
-			<!-- /.box -->
-		</div>
+							<table
+								class="table table-bordered table-striped col-xs-12 no-padding table-esp"
+								id="procesoDT">
+								<thead>
+									<tr>
+										 <th th:each="col : ${columnas}" th:text="#{'proceso.' + ${col} + '.header'}"></th>
+										<th>ACCION</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							
+							 $(document).ready(function() {
+							   crearDataTable("procesoDT", "[[@{/proceso/json}]]", "[[${columnasStr}]]", "[[@{/proceso/edit/}]]");
+							 });
+			 			</script>
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+					</div>
 
-		<!-- Modal borrar -->
-		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
-			<form th:object="${proceso}" th:action="@{/proceso/accion2}" method="post" role="form"
+			<form th:object="${materia}" th:action="@{/proceso/eliminar_listado}" method="post" role="form"
 						id="idProceso">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -74,53 +53,56 @@
 					<div class="modal-body">Está seguro que desea borrar registro de forma
 						permanente?
 						
-						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/></div>
+						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/>
+						</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary" name="accion"
 							value="delete">Confirmar</button>
-							
-						<!-- onclick= "submitBorrado()" -->
 					</div>
 				</div>
+				<!-- /.modal-content -->
+			</div>
 			</form>
 			<!-- /.modal-dialog -->
-		</div>
-		<!-- FIN Modal borrar -->
+			</div>
+<!-- FIN Modal borrar -->
+				<!-- Modal borrar -->
 
-		<!-- Modal  -->
-		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content col-xs-12">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
-					</div>
+		<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
+		    <div class="modal-dialog">
+		        <div class="modal-content form-class-modal">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title">Registrar Proceso</h4>
+		            </div>
 					<div class="modal-body">
 						<div th:replace="expediente/proceso_form::form"></div>
 					</div>
-
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
-
+		</div>
+			<!-- /.modal -->
 			<script type="text/javascript">
 
-			function agregar(){
-				$("#formModal").modal("show");
-				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
-
 			function agregar(obj, accion){
-				var id = obj["id"];
+				
+				if(obj != ''){
+					var id = obj["id"];
+				}
+				
 				if(accion === 'd'){
 					if(id !== null || id !== undefined || id !== "" ){
 						$('#delete').removeClass('hidden');
 						$('#save').addClass('hidden');
 						$('#edit').addClass('hidden');
 						$('#id_objeto').val(obj["id"]);
+						$('#id').val('');
+						$('#descripcion').val('');						
+						$('#selec').val('');
+						
 						$("#borradoPopup").modal("show");
 					}	
 				}else if(accion === 'e'){
@@ -128,38 +110,61 @@
 						$('#edit').removeClass('hidden');
 						$('#save').addClass('hidden');
 						$('#delete').addClass('hidden');
-						$('#id').val(id);
+						$('#descripcion').attr('disabled', false);
+						$('#codigo').attr('disabled', false);
+						$('#tipoDemanda').attr('disabled', false);
+						$('#id').val(obj["id"]);
 						$('#codigo').val(obj["codigo"]);
 						$('#descripcion').val(obj["descripcion"]);
-						var materia = obj["materia"]["id"];
-						$('#materia').find('option[value='+materia+']').prop('selected','true');
-						var id1 = obj["id"];
-						$.ajax({
-							type: "GET",
-							url: "proceso/obtener_listado",
-							data: { 
-								demanda_id: id1
-							}
-						}).done(function(data){
-							var tipoDemanda = data;
-							var selec = $('.tipoDemanda');
-							var codigos = [];
-							 $.each(tipoDemanda, function( index, value ) {
-								 codigos.push(value.id);
-
-							});
-							 selec.val(codigos).trigger("change");
-
-						}).fail(function(jqXHR, textStatus){
-							console.log("error");
+						var selec = $('.tipoDemanda');
+						var list_tipoDemanda = obj["listTipoDemanda"];
+						var codigos = [];
+						//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
+						//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
+						$.each(list_tipoDemanda, function( index, value ) {
+							codigos.push(value.id);
 						});
-						
-						/* var tipoDemanda = obj["tipoDemanda"]["id"];
-						$('#tipoDemanda').find('option[value='+tipoDemanda+']').prop('selected','true'); */
-						
+						selec.val(codigos).trigger("change");
+						var id1 = obj["id"];
 						$("#formModal").modal("show");
-					}
+					}	
+				}else if(accion === 'r'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').removeClass('hidden');
+					$('#descripcion').attr('disabled', false);
+					$('#codigo').attr('disabled', false);
+					$('#tipoDemanda').attr('disabled', false);
+					$('#id').val('');
+					$('#codigo').val('');
+					$('#descripcion').val('');
+					var selec = $('.tipoDemanda');
+					selec.val([]).trigger("change");
+					$("#formModal").modal("show");
+				}else if(accion === 'v'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').addClass('hidden');
+					$('#id').val(obj["id"]);
+					$('#codigo').val(obj["codigo"]);
+					$('#descripcion').val(obj["descripcion"]);
+					var selec = $('.tipoDemanda');
+					var list_proceso = obj["listTipoDemanda"];
+					var codigos = [];
+					//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
+					//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
+					$.each(list_proceso, function( index, value ) {
+						codigos.push(value.id);
+					});
+					selec.val(codigos).trigger("change");
+					
+					$('#descripcion').attr('disabled', true);
+					$('#codigo').attr('disabled', true);
+					$('#tipoDemanda').attr('disabled', true);
+					$("#formModal").modal("show");
 				}
+			}
+
 			</script>
 		</div>
 	</div>

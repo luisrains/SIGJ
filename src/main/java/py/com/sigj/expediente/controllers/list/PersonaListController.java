@@ -21,7 +21,7 @@ public class PersonaListController extends ListController<Persona> {
 	@Override
 	public String[] getColumnas() {
 		return new String[] { "id", "cedula_ruc", "nombre_razonSocial", "apellido", "fechaNacimiento", "edad", "sexo",
-				"estadoCivil", "ocupacion", "correoElectronico", "telefono", "tipoPersona" };
+				"correoElectronico", "telefono"};
 	}
 
 	@Override

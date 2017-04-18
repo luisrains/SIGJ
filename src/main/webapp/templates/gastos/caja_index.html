@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+	<div class="row" th:fragment="contenido">
+		<div class="col-xs-12">
+			<div class="box box-solid box-primary">
+				<div class="box-header">
+					<h3>Listado de Cajas</h3>
+				</div>
+				<div class="box-body no-padding">
+					<button class="btn btn-success" id="botonAgregar"
+						onclick="agregar('','r')">
+						<i class="glyphicon glyphicon-plus"></i>Nueva Caja
+					</button>
+					<br> <br>
+					<table
+						class="table table-bordered table-striped col-xs-12 no-padding table-esp"
+						id="cajaDT">
+						<thead>
+							<tr>
+								<th th:each="col : ${columnas}"
+									th:text="#{'caja.' + ${col} + '.header'}"></th>
+								<th>ACCION</th>
+							</tr>
+						</thead>
+					</table>
+					<script type="text/javascript">
+						$(document).ready(
+								function() {
+									crearDataTable("cajaDT",
+											"[[@{/caja/json}]]",
+											"[[${columnasStr}]]",
+											"[[@{/caja/edit/}]]");
+								});
+					</script>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</div>
+
+		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${caja}" th:action="@{/caja/eliminar_listado}"
+				method="post" role="form" id="idCaja">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Borrado de
+								Registro</h4>
+						</div>
+						<div class="modal-body">
+							Está seguro que desea borrar registro de forma permanente? <input
+								type="hidden" for="id_objeto" id="id_objeto" name="id_objeto" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary" name="accion"
+								value="delete">Confirmar</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+			</form>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- FIN Modal borrar -->
+		<!-- Modal borrar -->
+
+		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content col-xs-12">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
+					</div>
+					<div class="modal-body">
+						<div th:replace="gastos/caja_form::form"></div>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+			<script type="text/javascript">
+				function agregar(obj, accion) {
+					if (obj != '') {
+						var id = obj["id"];
+					}
+					if (accion === 'd') {
+						if (id !== null || id !== undefined || id !== "") {
+							$('#delete').removeClass('hidden');
+							$('#save').addClass('hidden');
+							$('#edit').addClass('hidden');
+							$('#id_objeto').val(obj["id"]);
+							$('#id').val('');
+							$('#monto').val('');
+							$('#fecha').val('');
+							$('#selec').val('');
+							$("#borradoPopup").modal("show");
+						}
+					} else if (accion === 'e') {
+						if (id !== null || id !== undefined || id !== "") {
+							$('#edit').removeClass('hidden');
+							$('#save').addClass('hidden');
+							$('#delete').addClass('hidden');
+							$('#id').val(id);
+							$('#codigo').val(obj["codigo"]);
+							$('#monto').val(obj["monto"]);
+							$('#fecha').val(obj["fecha"]);
+							$("#formModal").modal("show");
+						}
+					} else if (accion === 'r') {
+						$('#delete').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#save').removeClass('hidden');
+						$('#id').val('');
+						$('#monto').val('');
+						$('#fecha').val('');
+						$('#selec').val('');
+						$("#formModal").modal("show");
+					} else if (accion === 'v') {
+						$('#delete').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#save').addClass('hidden');
+						$('#id').val(id);
+						$('#codigo').val(obj["codigo"]);
+						$('#monto').val(obj["monto"]);
+						$('#fecha').val(obj["fecha"]);
+						$("#formModal").modal("show");
+					}
+				}
+			</script>
+		</div>
+	</div>
+</body>
+
+</html>

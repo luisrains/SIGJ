@@ -20,7 +20,7 @@ public class ProcesoListController extends ListController<Proceso> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "codigo", "descripcion", "materia.descripcion" };
+		return new String[] { "id", "codigo", "descripcion" };
 	}
 
 	@Override

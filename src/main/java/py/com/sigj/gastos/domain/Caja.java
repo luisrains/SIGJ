@@ -38,7 +38,7 @@ public class Caja extends GenericEntity {
 	@NotBlank(message = "caja.codigo.notBlank")
 	@Size(max = 5, message = "caja.codigo.size")
 	private String codigo;
-
+	
 	@NotNull(message = "caja.monto.notNull")
 	private int monto;
 
@@ -65,7 +65,7 @@ public class Caja extends GenericEntity {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
+	
 	public int getMonto() {
 		return monto;
 	}
@@ -86,5 +86,6 @@ public class Caja extends GenericEntity {
 	public String toString() {
 		return "Caja [id=" + id + ", codigo=" + codigo + ", monto=" + monto + ", fecha=" + fecha + "]";
 	}
+
 
 }

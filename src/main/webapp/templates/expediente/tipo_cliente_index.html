@@ -21,7 +21,7 @@
 								id="tipoClienteDT">
 								<thead>
 									<tr>
-										 <th th:each="col : ${columnas}" th:text="#{'tipoCliente.' + ${col}}">CÓDIGO</th>
+										 <th th:each="col : ${columnas}" th:text="#{'tipoCliente.' + ${col} + '.header'}">CÓDIGO</th>
 										<th>Accion</th>
 									</tr>
 								</thead>

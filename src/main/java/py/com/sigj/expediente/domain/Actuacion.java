@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,21 +38,6 @@ public class Actuacion extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@ManyToOne
-	@NotNull(message = "actuacion.documento.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_documento_fk"))
-	private Documento documento;
-
-	@ManyToOne
-	@NotNull(message = "actuacion.tipoActuacion.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_tipoActuacion_fk"))
-	private TipoActuacion tipoActuacion;
-
-	@ManyToOne
-	@NotNull(message = "actuacion.expediente.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_expediente_fk"))
-	private Expediente expediente;
-
 	@NotNull(message = "actuacion.descripcion.notNull")
 	@NotBlank(message = "actuacion.descripcion.notBlank")
 	@Size(max = 100, message = "actuacion.descripcion.size")
@@ -59,6 +45,19 @@ public class Actuacion extends GenericEntity {
 
 	@Temporal(TemporalType.DATE)
 	private Date fechaEstado;
+
+	@ManyToOne
+	@NotNull(message = "actuacion.tipoActuacion.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_tipoActuacion_fk"))
+	private TipoActuacion tipoActuacion;
+
+	@OneToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_documento_fk"))
+	private Expediente expediente;
+
+	@OneToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_documento_fk"))
+	private Documento documento;
 
 	public Actuacion() {
 

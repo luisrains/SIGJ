@@ -1,6 +1,10 @@
 # SIGJ
 Repositorio del Sistema Integral de Gestión Jurídica para el Estudio Jurídico de Carlos A. Méndez G. &amp; Asoc.
-modificado
+
+<b>EN LA PESTAÑA PROJECTS PODREMOS VISUALIZAR UNA PIZARRA VIRTUAL CON LOS ESTADO DE LOS ISSUES, Y EN LA PESTAÑA ISSUES EN LA SECCION MILESTONES, PODREMOS OBSERVAR LOS SPRINT DEFINIDOS PARA EL PROYECTO.</b>
+
+
+
 
 <----- COLORES ----->
 #9c1212 rojo granate
@@ -51,44 +55,4 @@ py.com.sigj.gastos.dao.impl
 
 <----- PARA EL MÓDULO DE SEGURIDAD ----->
 
-#Convenciones de carpetas Front-End
-Template/
 
-├── abogado/
-
-│   ├── abogado_index.html
-
-│   ├── abogado_form.html
-
-│   ├── abogado_otros.html
-
-├── botones/
-
-│   ├── form_botones.html
-
-│   ├── modal_botones.html
-
-│   ├── otros_botones.html
-
-├── botones/
-
-│   ├── form_botones.html
-
-│   ├── modal_botones.html
-│   ├── otros_botones.html
-
-Template/
-
-├── abogado/
-
-│   ├── abogado_index.html
-  │   ├── abogado_form.html
-│   ├── abogado_otros.html
-├── botones/
-│   ├── form_botones.html
-│   ├── modal_botones.html
-│   ├── otros_botones.html
-├── botones/
-│   ├── form_botones.html
-│   ├── modal_botones.html
-│   ├── otros_botones.html
