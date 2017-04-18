@@ -19,6 +19,6 @@ public class FacturaCabeceraDaoImpl extends DaoImpl<FacturaCabecera> implements 
 
 	@Override
 	public String getCamposFiltrables() {
-		return "cliente||caja||abogado||fecha";
+		return null;
 	}
 }
