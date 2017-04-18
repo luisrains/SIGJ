@@ -1,8 +1,6 @@
 Materia: Civil
 Procesos:
 	EJECUTIVO
-	TIPO DEMANDA:
-		
 	ESPECIAL
 	ORDINARIO
 	SUMARIO
@@ -18,6 +16,7 @@ Procesos:
 	EJECUTIVO
 	ORDINARIO
 	ESPECIAL
+
 Materia:Niñez
 Procesos:
 	ESPECIAL
