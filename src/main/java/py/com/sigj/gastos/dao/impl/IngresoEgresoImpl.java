@@ -19,6 +19,6 @@ public class IngresoEgresoImpl extends DaoImpl<IngresoEgreso> implements Ingreso
 
 	@Override
 	public String getCamposFiltrables() {
-		return "caja||tipoIngresoEgreso||descripcion";
+		return "descripcion";
 	}
 }

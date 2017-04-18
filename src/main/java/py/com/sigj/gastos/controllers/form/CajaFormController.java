@@ -1,8 +1,5 @@
 package py.com.sigj.gastos.controllers.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.domain.Proceso;
-import py.com.sigj.expediente.domain.TipoDemanda;
 import py.com.sigj.gastos.controllers.list.CajaListController;
 import py.com.sigj.gastos.dao.CajaDao;
 import py.com.sigj.gastos.domain.Caja;
@@ -66,41 +60,38 @@ public class CajaFormController extends FormController<Caja> {
 	public Dao<Caja> getDao() {
 		return cajaDao;
 	}
-	
+
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
-	public String accion2(ModelMap map, @Valid Caja obj,
-			@RequestParam(value = "selec", required = false) List<String> selec, BindingResult bindingResult,
-			@RequestParam(required = false) String accion,
+	public String accion2(ModelMap map, @Valid Caja obj, @RequestParam(required = false) String accion,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult);
+			return guardar_listado(map, obj);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO CAJA {}", obj);
-			return editar_listado(map, obj, bindingResult);
+			return editar_listado(map, obj);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
-
 		}
 		return getTemplatePath();
 
 	}
-	
+
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
 	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
-		Caja p = null;
+		Caja caja = null;
 		try {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
-				p = getDao().find(id_objeto);
-				getDao().destroy(p);
+				caja = getDao().find(id_objeto);
+				getDao().destroy(caja);
 
-				logger.info("Caja eliminada {}", p);
+				logger.info("Caja eliminada {}", caja);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
 			}
 		} catch (Exception ex) {
-			p.setId(null);
+			caja.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
-			map.addAttribute(getNombreObjeto(), p);
+			map.addAttribute(getNombreObjeto(), caja);
 		}
 		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
@@ -109,10 +100,9 @@ public class CajaFormController extends FormController<Caja> {
 	}
 
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
-	public String guardar_listado(ModelMap map, @Valid Caja obj,
-			BindingResult bindingResult) {
+	public String guardar_listado(ModelMap map, @Valid Caja obj) {
 		try {
-			
+
 			if (obj.getId() == null) {
 				getDao().createOrUpdate(obj);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
@@ -129,8 +119,7 @@ public class CajaFormController extends FormController<Caja> {
 	}
 
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
-	public String editar_listado(ModelMap map, @Valid Caja obj,
-			BindingResult bindingResult) {
+	public String editar_listado(ModelMap map, @Valid Caja obj) {
 		try {
 			logger.info("ID DE OBJ {}", obj);
 			getDao().createOrUpdate(obj);

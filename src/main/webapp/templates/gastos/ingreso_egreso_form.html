@@ -2,26 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-	<div th:fragment="form">
-		<script type="text/javascript">
-			function limpiarForm() {
-				$("#id").val("");
-				$("#caja").val("");
-				$("#tipoIngresoEgreso").val("");
-				$("#descripcion").val("");
-			}
-			function nuevoRegistro() {
-				limpiarForm();
-				$("#botonNuevo").hide();
-				$("#descripcion").focus();
-			}
-		</script>
-		<h4 id="header-normal" class="page-header hidden-xs"
-			th:text="#{ingresoEgreso.form.titulo}">Detalles
-			de Ingresos y Egresos</h4>		
-		
-		<!-- Fin panel botones -->
+	<div class="row form-class-modal"
+		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
+		th:fragment="form">
+		<form th:action="@{/ingreso_egreso/accion2}"
+			th:object="${ingreso_egreso}" method="post" role="form">
+			<input type="hidden" th:field="*{id}" />
+			<div class="modal-movil hidden-xs col-sm-12">
+				
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="monto"
+						th:text="#{ingreso_egreso.monto.lbl}"
+						class="field-label col-xs-6 col-sm-7">Monto:</label> <input
+						type="text" th:field="*{monto}" maxlength="100"
+						class="form-control col-xs-6 col-sm-6" />
+				</div>
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="descripcion"
+						th:text="#{ingreso_egreso.descripcion.lbl}"
+						class="field-label col-xs-6 col-sm-7">Descripción:</label> <input
+						type="text" th:field="*{descripcion}" maxlength="100"
+						class="form-control col-xs-6 col-sm-6" />
+				</div>
+			</div>
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::footerModal"></div>
+		</form>
 	</div>
 </body>
-
 </html>
