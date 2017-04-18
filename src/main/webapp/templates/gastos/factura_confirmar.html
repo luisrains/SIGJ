@@ -1,0 +1,171 @@
+
+
+<div class="form-group col-sm-6">
+				<label id="ruc_text" class="field-label">Ruc:</label> 
+				<label id="ruc_value" class="field-label" th:text="${mapaCabecera.ruc}"></label>
+			</div>
+
+<div class="form-group col-sm-6">
+				<label id="fecha_emision_text" class="field-label">Fecha Emisión:</label> 
+				<label id="fecha_emision_value" class="field-label" th:text="${mapaCabecera.fecha_emision}"></label>
+			</div>
+			
+<div class="form-group col-sm-6">
+				<label id="tipo_pago_text" class="field-label">Tipo Pago:</label> 
+				<label id="tipo_pago_value" class="field-label" th:text="${mapaCabecera.tipo_pago}"></label>
+			</div>
+<div class="form-group col-sm-6">
+				<label id="razon_social_text" class="field-label">Razon Social:</label> 
+				<label id="razon_social_value" class="field-label" th:text="${mapaCabecera.razon_social}"></label>
+			</div>
+<div class="form-group col-sm-6">
+				<label id="direccion_text" class="field-label">Dirección:</label> 
+				<label id="direccion_value" class="field-label" th:text="${mapaCabecera.direccion}"></label>
+			</div>
+			
+<div class="form-group col-sm-6">
+				<label id="telefono_text" class="field-label">Telefono:</label> 
+				<label id="telefono_value" class="field-label" th:text="${mapaCabecera.telefono}"></label>
+			</div>
+<div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
+    <table id="lista_detalleDT" class="no-padding" style="margin-left: 5px; margin-right: 5px; width:99%;">
+			<thead>
+				<th class="hidden">Id</th>
+				<th>Nro</th>
+				<th>Descripción</th>
+				<th>Iva 5%</th>
+				<th>Iva 10%</th>
+				<th>Precio Unitario</th>
+			</thead>
+			<tbody>
+				<tr th:each="ld : ${lista_detalle}">
+					<td th:text="${ld.id}" class="hidden"></td>
+					<td th:text="${ld.nro}"></td>
+					<td th:text="${ld.servicio.tipoServicio}"></td>
+					<td th:text="${ld.ivaCinco}"></td>
+					<td th:text="${ld.ivaDiez}"></td>
+					<td th:text="${ld.monto}"></td>
+				</tr>
+				<tr rowspan="1">
+					<td  class="hidden">Oculto</td>
+					
+					
+					<td>
+						<label>Total Iva 5%: </label>
+						<label th:text="${total_iva_5}"></label>
+					</td>
+					<td></td>
+					<td></td>
+					<td>
+						<label>Total Iva 10%: </label>
+						<label th:text="${total_iva_10}"></label>
+					</td>
+					
+					<td>
+						<label>Monto Total: </label>
+						<label th:text="${monto_total}"></label>
+					</td>
+				</tr>
+			</tbody>
+    </table>
+</div> 
+			
+<!-- <div class="form-group col-sm-6" th:each="item: ${mapaDetalle}">
+	<th:block th:switch="${item.key}">
+		<div th:case="'monto_total'" class="col-sm-12">
+			<label class="field-label">Monto Total:</label>
+			<label class="field-label" th:text="${item.value}"></label>
+		</div>	
+		<div th:case="'total_iva_5'" class="col-sm-12">
+			<label class="field-label">Total Iva 5%:</label>
+			<label class="field-label" th:text="${item.value}"></label>
+		</div>
+		<div th:case="'total_iva_10'" class="col-sm-12">
+			<label class="field-label">Total Iva 10%: </label>
+			<label class="field-label" th:text="${item.value}"></label>
+		</div>
+		<div th:if="${item.key} != 'monto_total' and ${item.key} != 'total_iva_10' and ${item.key} != 'total_iva_5' " class="col-sm-12">
+			<label class="field-label" th:text="${item.key.substring(0,item.key.length()-2)}"></label>
+			<label class="field-label" th:text="${item.value}"></label>
+		</div>
+	</th:block>
+	
+</div> -->
+<div class="col-xs-12 col-sm-12 col-sm-offset-3">
+						<a id="btn-confirmar" type="button" class="btn btn-primary col-xs-5 col-sm-3"
+						style="padding:5px; margin:10px;">Confirmar</a>
+						
+			</div>
+			
+
+			
+		<div class="modal fade" id="modal-confirmar" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Factura Confirmación</h4>
+					</div>
+					<div class="modal-body">La Factura fue Confirmada con Exito
+						
+					</div>
+					<div class="modal-footer">
+						 <button id="btn-aceptar" type="button" class="btn btn-primary">Aceptar</button>
+							
+						<!-- onclick= "submitBorrado()" -->
+					</div>
+				</div>
+			
+			<!-- /.modal-dialog -->
+		</div>	
+			</div>
+			
+ <script type="text/javascript">
+	$(document).ready(function() {
+	    $('#lista_detalleDT').dataTable( {
+	        "bScrollCollapse": true,
+	        'language' : {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "No se realizaron Movimientos en ese Mes",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando _MAX_ registros",
+                "sInfoFiltered": " ",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+	    } );
+	    $("#btn-confirmar").click(function(e){
+	    	
+	    		 $.ajax({
+	    	          type: "GET",
+	    	          url: "factura_cabecera/factura/confirmar"
+	    	
+	    	}).done(function(data){
+	    		$("#modal-confirmar").modal("show");
+	    	});
+	    	
+	    });
+	    $("#btn-aceptar").click(function(e){
+	    	window.location.href="/sigj/inicio";
+	    });
+	} );
+	 
+	</script>
