@@ -62,7 +62,8 @@ public class CajaFormController extends FormController<Caja> {
 	}
 
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
-	public String accion2(ModelMap map, @Valid Caja obj, @RequestParam(required = false) String accion,
+	public String accion2(ModelMap map, @Valid Caja obj, 
+			@RequestParam(required = false) String accion,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
 			return guardar_listado(map, obj);

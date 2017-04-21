@@ -7,7 +7,7 @@
 		th:fragment="form">
 		<form th:action="@{/materia/accion2}" th:object="${materia}"
 			method="post" role="form">
-			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{id}"/>
 			<div class="modal-movil hidden-xs col-sm-12">
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="codigo" th:text="#{materia.codigo.lbl}"
