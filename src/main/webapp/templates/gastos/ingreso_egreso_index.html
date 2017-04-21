@@ -6,12 +6,12 @@
 		<div class="col-xs-12">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
-					<h3>Listado de ingreso_egresos</h3>
+					<h3>Listado de Ingresos y Egresos</h3>
 				</div>
 				<div class="box-body" style="width: 99%; padding-left: 15px;">
 					<button class="btn btn-success" id="botonAgregar"
 						onclick="agregar('','r')">
-						<i class="glyphicon glyphicon-plus"></i> Nueva Ingreso / Egreso
+						<i class="glyphicon glyphicon-plus"></i> Nuevo Ingreso / Egreso
 					</button>
 					<br> <br>
 					<table
@@ -33,7 +33,73 @@
 											"[[${columnasStr}]]",
 											"[[@{/ingreso_egreso/edit/}]]");
 								});
+
+						function agregar(obj, accion) {
+
+							if (obj != '') {
+								var id = obj.id;
+							}
+
+							if (accion === 'd') {
+								if (id !== null || id !== undefined
+										|| id !== "") {
+									$('#delete').removeClass('hidden');
+									$('#save').addClass('hidden');
+									$('#edit').addClass('hidden');
+									$('#id_objeto').val(obj.id);
+									$('#id').val('');
+									$('#monto').val('');
+									$('#tipo').val('');
+									$('#descripcion').val('');
+
+									$("#borradoPopup").modal("show");
+								}
+							} else if (accion === 'e') {
+								if (id !== null || id !== undefined
+										|| id !== "") {
+									$('#edit').removeClass('hidden');
+									$('#save').addClass('hidden');
+									$('#delete').addClass('hidden');
+									$('#id').val(obj.id);
+									$('#monto').val(obj.monto);
+									$('#tipo').val(obj.tipo);
+									$('#descripcion').val(obj.descripcion);
+									$('#monto').attr('disabled', false);
+									$('#tipo').attr('disabled', false);
+									$('#descripcion').attr('disabled', false);
+
+									$("#formModal").modal("show");
+								}
+							} else if (accion === 'r') {
+								$('#delete').addClass('hidden');
+								$('#edit').addClass('hidden');
+								$('#save').removeClass('hidden');
+								$('#descripcion').attr('disabled', false);
+								$('#monto').attr('disabled', false);
+								$('#tipo').attr('disabled', false);
+								$('#id').val('');
+								$('#monto').val('');
+								$('#descripcion').val('');
+								$('#tipo').val('');
+
+								$("#formModal").modal("show");
+							} else if (accion === 'v') {
+								$('#delete').addClass('hidden');
+								$('#edit').addClass('hidden');
+								$('#save').addClass('hidden');
+								$('#id').val(obj.id);
+								$('#monto').val(obj.monto);
+								$('#descripcion').val(obj.descripcion);
+								$('#tipo').val(obj.tipo);
+
+								$('#descripcion').attr('disabled', true);
+								$('#monto').attr('disabled', true);
+								$('#tipo').attr('disabled', true);
+								$("#formModal").modal("show");
+							}
+						}
 					</script>
+
 				</div>
 				<!-- /.box-body -->
 			</div>
@@ -42,9 +108,9 @@
 
 		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
-			<form th:object="${ingreso_egreso}"
+			<form th:object="${ingresoEgreso}"
 				th:action="@{/ingreso_egreso/eliminar_listado}" method="post"
-				role="form" id="idingreso_egreso">
+				role="form" id="idEstado">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -63,16 +129,14 @@
 							<button type="submit" class="btn btn-primary" name="accion"
 								value="delete">Confirmar</button>
 						</div>
-
 					</div>
 					<!-- /.modal-content -->
 				</div>
 			</form>
 			<!-- /.modal-dialog -->
 		</div>
-		<!-- FIN Modal borrar -->
-		<!-- Modal borrar -->
 
+		<!-- Modal borrar -->
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -83,63 +147,87 @@
 						<h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/ingreso_egreso_form::form"></div>
+						<div th:replace="gastos/ingreso_egreso_form::form">aqui va
+							un fragmento de codigo del form</div>
 					</div>
+
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
-			<script type="text/javascript">
-				function agregar(obj, accion) {
-					if (obj != '') {
-						var id = obj["id"];
-					}
-					if (accion === 'd') { //delete
-						if (id !== null || id !== undefined || id !== "") {
-							$('#delete').removeClass('hidden');
-							$('#save').addClass('hidden');
-							$('#edit').addClass('hidden');
-							$('#id_objeto').val(obj["id"]);
-							$('#id').val('');
-							$('#monto').val('');
-							$('#tipo').val('');
-							$('#selec').val('');
-							$("#borradoPopup").modal("show");
-						}
-					} else if (accion === 'e') { //edit
-						if (id !== null || id !== undefined || id !== "") {
-							$('#edit').removeClass('hidden');
-							$('#save').addClass('hidden');
-							$('#delete').addClass('hidden');
-							$('#id').val(id);
-							$('#codigo').val(obj["codigo"]);
-							$('#monto').val(obj["monto"]);
-							$('#tipo').val(obj["fecha"]);
-							$("#formModal").modal("show");
-						}
-					} else if (accion === 'r') { //create
-						$('#delete').addClass('hidden');
-						$('#edit').addClass('hidden');
-						$('#save').removeClass('hidden');
-						$('#id').val('');
-						$('#monto').val('');
-						$('#tipo').val('');
-						$('#selec').val('');
-						$("#formModal").modal("show");
-					} else if (accion === 'v') { //veiw
-						$('#delete').addClass('hidden');
-						$('#edit').addClass('hidden');
-						$('#save').addClass('hidden');
-						$('#id').val(id);
-						$('#codigo').val(obj["codigo"]);
-						$('#monto').val(obj["monto"]);
-						$('#tipo').val(obj["fecha"]);
-						$("#formModal").modal("show");
-					}
-				}
-			</script>
+
+
 		</div>
 		<!-- Modal borrar -->
+
+
 	</div>
+	<!-- <script th:src="@{/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js}" src="../plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script> -->
+	<!-- <script>
+		function agregar(obj, accion) {
+
+			if (obj != '') {
+				var id = obj.id;
+			}
+
+			if (accion === 'd') {
+				if (id !== null || id !== undefined || id !== "") {
+					$('#delete').removeClass('hidden');
+					$('#save').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#id_objeto').val(obj.id);
+					$('#id').val('');
+					$('#descripcion').val('');
+					$('#codigo').val('');
+					$('#tipoEstado').val('');
+
+					$("#borradoPopup").modal("show");
+				}
+			} else if (accion === 'e') {
+				if (id !== null || id !== undefined || id !== "") {
+					$('#edit').removeClass('hidden');
+					$('#save').addClass('hidden');
+					$('#delete').addClass('hidden');
+
+					$('#id').val(obj.id);
+					$('#codigo').val(obj.codigo);
+					$('#descripcion').val(obj.descripcion);
+					$('#tipoEstado').val("");
+					$('#tipoEstado').val(obj.tipoEstado);
+					$('#descripcion').attr('disabled', false);
+					$('#codigo').attr('disabled', false);
+					$('#tipoEstado').attr('disabled', false);
+
+					$("#formModal").modal("show");
+				}
+			} else if (accion === 'r') {
+				$('#delete').addClass('hidden');
+				$('#edit').addClass('hidden');
+				$('#save').removeClass('hidden');
+				$('#descripcion').attr('disabled', false);
+				$('#codigo').attr('disabled', false);
+				$('#tipoEstado').attr('disabled', false);
+				$('#id').val('');
+				$('#codigo').val('');
+				$('#descripcion').val('');
+				$('#tipoEstado').val('');
+
+				$("#formModal").modal("show");
+			} else if (accion === 'v') {
+				$('#delete').addClass('hidden');
+				$('#edit').addClass('hidden');
+				$('#save').addClass('hidden');
+				$('#id').val(obj.id);
+				$('#codigo').val(obj.codigo);
+				$('#descripcion').val(obj.descripcion);
+				$('#tipoEstado').val(obj.tipoEstado);
+
+				$('#descripcion').attr('disabled', true);
+				$('#codigo').attr('disabled', true);
+				$('#tipoEstado').attr('disabled', true);
+				$("#formModal").modal("show");
+			}
+		}
+	</script> -->
 </body>
 </html>
