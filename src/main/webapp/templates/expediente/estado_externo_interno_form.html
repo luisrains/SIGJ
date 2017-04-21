@@ -6,7 +6,7 @@
 
 
 
-	<div th:fragment="form">
+	<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">	
 
 		<script type="text/javascript">
 function limpiarForm() {
@@ -23,7 +23,7 @@ function nuevoRegistro() {
 </script>
 		<h4 id="registrar-movil" class="page-header" th:text="#{estado.form.titulo}"> Registrar Estado</h4>
 		
-		<form th:action="@{/estado_externo_interno/accion}" th:object="${estadoExternoInterno}"
+		<form th:action="@{/estado_externo_interno/accion2}" th:object="${estadoExternoInterno}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
@@ -35,14 +35,14 @@ function nuevoRegistro() {
 			</div>
 			
 			<div class="form-group col-xs-12 col-sm-12">
-				<label for="descripcion" th:text="#{materia.descripcion.lbl}"
+				<label for="descripcion" th:text="#{estado_externo_interno.descripcion.lbl}"
 					class="field-label col-xs-7 col-sm-7">Descripcion:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
 			<div class="form-group col-xs-12 col-sm-12">
                 <label for="tipoEstado" th:text="#{estado_externo_interno.tipo_estado.lbl}"
                     class="field-label col-xs-7 col-sm-7">Tipo Estado:</label> <input type="text"
-                    th:field="*{tipoEstado}" maxlength="1" class="form-control col-xs-6 col-sm-6" />
+                    th:field="*{tipoEstado}" maxlength="30" class="form-control col-xs-6 col-sm-6" />
             </div>
 			</div>
 			<!-- Inicio panel botones -->
