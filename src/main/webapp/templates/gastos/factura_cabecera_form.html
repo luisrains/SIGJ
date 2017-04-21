@@ -6,21 +6,20 @@
 		<script type="text/javascript">
 			function limpiarForm() {
 				$("#id").val("");
+				$("#telefono").val("");
 				$("#ruc").val("");
-				$("#timbrado").val("");
-				$("#fecha_inicio_vigencia").val("");
-				$("#fecha_fin_vigencia").val("");
-				$("#nro_factura").val("");
-				$("#fecha").val("");
+				$("#fecha_emision").val("");
+				$("#direccion").val("");
+				$("#razon_social").val("");
 				$("#tipo_pago").val("");
 			}
 			function nuevoRegistro() {
 				limpiarForm();
 				$("#botonNuevo").hide();
-				$("#timbrado").focus();
+				$("#ruc").focus();
 			}
 		</script>
-		<h4 class="page-header">Cabecera Factura</h4>
+		<h4 class="page-header">Factura</h4>
 		<span th:text="${error}" style="color: red;display:none;">Ocurrió un error</span> <span
 			style="color: green">
 			<div class="alert alert-success hidden" role="alert" th:text="${msgExito}">
@@ -34,111 +33,224 @@
 				style="color: red">Debe ingresar codigo</li>
 		</ul>
 
-		<form th:action="@{/factura_cabecera/accion}" th:object="${facturaCabecera}"
-			method="post" role="form">
-
+		<div id="cab_principal">
+			<form id="factura_form" th:action="@{/factura_cabecera/accion}" th:object="${facturaCabecera}"
+			role="form">
 			<input type="hidden" th:field="*{id}" />
 
-
+			<div class="form-group col-xs-12 col-sm-12" style="border-color:black; border-style:solid;">
+				<h4 class="page-header" style="text-align:center;">Cabecera Factura</h4>
+			
+			
+			
+			
+			
 			<div class="form-group col-sm-6">
-				<label for="timbrado" th:text="#{factura_cabecera.timbrado.lbl}"
-					class="field-label">Timbrado:</label> <input type="text"
-					th:field="*{timbrado}" maxlength="100" class="form-control col-sm-6" />
+				<label for="ruc" th:text="#{factura_cabecera.ruc.lbl}"
+					class="field-label">Ruc:</label> <input type="text" id="ruc"
+					th:field="*{ruc}" maxlength="100" class="form-control col-sm-6" />
 			</div>
+			
 			<div class="form-group col-sm-6" style="margin-left:5px; padding-left:10px;">
-						<label>Fecha Inicio Vigencia:</label>
+						<label>Fecha de Emisión:</label>
 						<div class="input-group date" style="width:80%;">
 							<div class="input-group-addon">
 								<i class="fa fa-calendar"></i>
 							</div>
 							<input type="text" class="form-control pull-right col-sm-6"
-								name="fecha_inicio_vigencia" id="datepicker">
+								name="fecha_emision" id="datepicker">
 						</div>
 						
 			</div>
-			
-			<div class="form-group col-sm-5" style="margin-left:5px;padding-left:10px;">
-						<label>Fecha Fin Vigencia:</label>
-						<div class="input-group date" style="width:100%;">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-							</div>
-							<input type="text" class="form-control pull-right col-sm-6"
-								name="fecha_fin_vigencia" id="datepicker">
-						</div>
-						
-			</div>
-			
 			<div class="form-group col-sm-6">
-				<label for="ruc" th:text="#{factura_cabecera.ruc.lbl}"
-					class="field-label">Ruc:</label> <input type="text"
-					th:field="*{ruc}" maxlength="100" class="form-control col-sm-6" />
-			</div>
-			
-			<div class="form-group col-sm-6">
-				<label for="nro_factura" th:text="#{factura_cabecera.nro_factura.lbl}"
-					class="field-label">N°de Factura:</label> <input type="text"
-					th:field="*{nroFactura}" maxlength="100" class="form-control col-sm-6" />
+				<label for="telefono" th:text="#{factura_cabecera.telefono.lbl}"
+					class="field-label">Telefono:</label> <input type="text" id="telefono"
+					th:field="*{telefono}" maxlength="100" class="form-control col-sm-6" />
 			</div>
 			
 			<div class="form-group col-sm-6">
 
 				<label for="tipo_pago" th:text="#{factura_cabecera.tipo_pago.lbl}"
-					class="field-label">Tipo Pago:</label> <input type="text"
+					class="field-label">Tipo Pago:</label> <input type="text" id="tipo_pago"
 					th:field="*{tipoPago}" maxlength="60" class="form-control col-sm-6"/>
 			</div>
 			
 			<div class="form-group col-sm-6">
 
 				<label for="razon_social" th:text="#{factura_cabecera.razon_social.lbl}"
-					class="field-label">Razón Social:</label> <input type="text"
+					class="field-label">Razón Social:</label> <input type="text" id="razon_social"
 					th:field="*{razonSocial}" maxlength="60" class="form-control col-sm-6"/>
 			</div>
 			
 			<div class="form-group col-sm-6">
 
 				<label for="direccion" th:text="#{factura_cabecera.direccion.lbl}"
-					class="field-label">Dirección:</label> <input type="text"
+					class="field-label">Dirección:</label> <input type="text" id="direccion"
 					th:field="*{direccion}" maxlength="60" class="form-control col-sm-6"/>
 			</div>
-			<div class="form-group col-sm-6">
-
-				<label for="ruc_ci_cliente" th:text="#{factura_cabecera.ruc_ci.lbl}"
-					class="field-label">Ruc O Ci:</label> <input type="text"
-					th:field="*{rucCi}" maxlength="60" class="form-control col-sm-6"/>
-			</div>
+			
 			<!-- Inicio panel botones -->
+			
+			</div>
+			
+			
+			<div id="factura_detalle" class="col-xs-12 col-sm-12" style="border-color: black; border-style: solid; padding-left:5px; padding-right:5px;">
+				<h4 class="page-header" style="text-align:center;">Detalles Factura</h4>
+				<table id="f_detalle" class="col-xs-12 col-sm-12" style="padding-left:5px; padding-right:5px;">
+					<thead class="col-xs-12 col-sm-12" style="padding-left:5px; padding-right:5px;">
+						<tr class="col-xs-12 col-sm-12" style="padding-right:0px;">
+							<th class="col-xs-1 col-sm-1 f-head">Nro</th>
+							<th class="col-xs-4 col-sm-4 f-head">Descripción</th>
+							<th class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;">Iva 5%</th>
+							<th class="col-xs-2 col-sm-2 f-head" style="padding-left:5px;">Iva 10%</th>
+							<th class="col-xs-3 col-sm-3 f-head">Precio unitario</th>
+							<th class="col-xs-2 col-sm-2 f-head">Acción</th>
+						</tr>
+					</thead >
+					<tbody class="col-xs-12 col-sm-12" style="margin-bottom:10px; padding-left:5px; padding-right:5px;">
+						<tr class="col-xs-12 col-sm-12 clonar tr-first" style="padding-right:0px; padding-left:5px">
+							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
+							
+							<td class="col-xs-4 col-sm-4 f-head">
+								<select class="col-xs-12 col-sm-12"
+									id="descripcion" >
+									
+							 <option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
+									th:text="${servicio.tipoServicio}">Prueba</option>
+							</select></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
+								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
+								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
+								<button type="button" id="eliminar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-danger" onclick="eliminarFila()" style="margin-top:10px; margin-left:2px"><i class='glyphicon glyphicon-trash'></i></button>
+							</td>
+						</tr>
+						<tr class="col-xs-12 col-sm-12 fila_1" style="padding-right:0px; padding-left:5px;">
+							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
+							<td class="col-xs-4 col-sm-4 f-head"><select class="col-xs-12 col-sm-12"
+									id="descripcion" >
+									
+								<option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
+									th:text="${servicio.tipoServicio}">Prueba</option>
+							</select></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
+								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
+								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
+								<button type="button" id="eliminar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-danger" onclick="eliminarFila()" style="margin-top:10px; margin-left:2px;"><i class='glyphicon glyphicon-trash'></i></button>
+							</td>
+						</tr>
+						<tr class="col-xs-12 col-sm-12 last-tr" style="margin-top:5px;">
+							<td class="col-xs-4 col-sm-4"><span style="font-weight:bold;">Iva 5%:   <label id="iva_5">0</label></span></td>
+							<td class="col-xs-4 col-sm-4"><span style="font-weight:bold;">Iva 10%:   <label id="iva_10">0</label></span></td>
+							<td class="col-xs-4 col-sm-4 f-head"><span style="font-weight:bold;">Monto Total:   <label id="monto_total">0</label></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<div class="col-xs-12 col-sm-12 col-sm-offset-3">
 						<button id="btn-cabecera" type="button" class="btn btn-primary col-xs-5 col-sm-3"
-						style="padding:5px; margin:10px;">Crear</button>
+						style="padding:5px; margin:10px;">Continuar</button>
 						
 			</div>
-			<div id="factura_detalle"></div>
 		</form>
+		</div>
+		<div id="cab_confirmar" class="hidden box-body"></div>
 		<script type="text/javascript">
-       				
-          
+			    
        $("#btn-cabecera").on('click',function(e){
            console.log("entro en el onclick");
-            var fecha = $('input[name=fecha]').val();
-            
-       $.ajax({
+           var map = new Array();
+           
+           map.push("fecha_emision",$("#datepicker").val());
+          
+           map.push("ruc",$("#ruc").val());
+           
+           map.push("tipo_pago",$("#tipo_pago").val());
+           map.push("razon_social",$("#razon_social").val());
+           map.push("direccion",$("#direccion").val());
+           map.push("telefono",$("#telefono").val());
+           //map.set("f_detalle",$("#f_detalle"));
+          console.log(map);
+          console.log(JSON.stringify(map));
+          var map_detalle = new Array();
+          for(var i=1;i<$("#f_detalle tbody tr").length-1;i++){
+        	  for(var j=0;j<$("#f_detalle thead th").length-1;j++){
+        	        if(j==0){
+        	        	/*var item='{'+'"'+($("#f_detalle thead th").eq(j).text()+"_"+i) +'"' + ':' + $("#f_detalle tbody tr").eq(i).find('td').eq(j).text() + '}';
+        	        	item = eval('(' + item + ')');*/
+        	        	/*var item={
+        	        			($("#f_detalle thead th").eq(j).text()+"_"+i) : $("#f_detalle tbody tr").eq(i).find('td').eq(j).text()
+        	        	};*/
+        	        	//map_detalle.push(item);
+        	        	map_detalle.push($("#f_detalle thead th").eq(j).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(j).text())
+        	        }else if(j==1){
+        	        	/*var item={
+        	        		$("#f_detalle thead th").eq(j).text()+"_"+i : 	$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":selected").val()
+        	        	};*/
+        	        	
+        	        	/*var item='{'+'"'+($("#f_detalle thead th").eq(j).text()+"_"+i) +'"' + ':' + $("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":selected").text() + '}';
+        	        	item = eval('(' + item + ')');
+        	        	map_detalle.push(item);*/
+        	        	map_detalle.push($("#f_detalle thead th").eq(j).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":selected").val());
+        	        }else{
+        	        	/*var item = {
+        	        		$("#f_detalle thead th").eq(j).text()+"_"+i : 	$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":input").val();
+        	        	}*/
+        	        	/*var item='{'+'"'+($("#f_detalle thead th").eq(j).text()+"_"+i) +'"' + ':' + $("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":input").val() + '}';
+        	        	item = eval('(' + item + ')');
+        	        	
+        	        	map_detalle.push(item);*/
+        	        	map_detalle.push($("#f_detalle thead th").eq(j).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":input").val());
+        	        }
+        	  }
+           }
+          var tr_last = $(".last-tr");
+          map_detalle.push("total_iva_5",parseInt(tr_last.find("#iva_5").text()));
+          map_detalle.push("total_iva_10",parseInt(tr_last.find("#iva_10").text()));
+          map_detalle.push("monto_total",parseInt(tr_last.find("#monto_total").text()));
+          /*var check = tr_last.find(':checked').val();
+          if(check == tr_last.find('td').eq(0).find('input').val()){
+        	  map_detalle.push(tr_last.find('td').eq(0).text(),check);
+        	  map_detalle.push(tr_last.find('td').eq(2).text(),tr_last.find('td').eq(2).find('input').val());
+          }else if(check == tr_last.find('td').eq(1).find('input').val()){
+        	  map_detalle.push(tr_last.find('td').eq(1).text(),check);
+        	  map_detalle.push(tr_last.find('td').eq(2).text(),tr_last.find('td').eq(2).find('input').val());
+          }*/
+          
+           console.log(map_detalle);
+           var jsonStringCab = JSON.stringify(map); //falta verificar como pasar a java los mapas
+           var jsonStringDet = JSON.stringify(map_detalle);
+           console.log(jsonStringCab);
+           console.log(jsonStringDet);
+           $.ajax({
            type: "GET",
-           url: "planilla_salario/validar_fecha",
+           url: "factura_cabecera/factura",
            data: { 
-               fecha:fecha_rec
+               dataType:"json",
+        	   factura_cabecera: jsonStringCab,
+               factura_detalle: jsonStringDet
            }
        }).done(function(data){
-           console.log("entro en el ajax");
-           console.log(data);
-           $("#planilla_body").load();
-           $("#planilla_body").html(data);
+          
+           $("#cab_confirmar").html(data);
+           $("#cab_principal").addClass("hidden");
+           $("#cab_confirmar").removeClass("hidden");
+           
           
            
+       }).fail(function( jqXHR, textStatus ) {
+    	   console.log("prueba");
+       
        });
-       });
+       });    
       
        </script>
+       
 	</div>
 </body>
 

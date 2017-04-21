@@ -76,6 +76,16 @@
 		width: 40px !important;
 		padding-left: 15px !important;
 	}
+	.f-head{
+		text-align: center;
+	}
+	.clonar{
+		display:none;
+		
+	}
+	.tr-first{
+		margin-top: 5px;
+	}
 	.td-body-movil {
 		width: 40px !important;
 		padding-left: 15px !important;

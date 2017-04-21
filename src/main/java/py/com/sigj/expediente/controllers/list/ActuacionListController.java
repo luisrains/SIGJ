@@ -18,10 +18,10 @@ public class ActuacionListController extends ListController<Actuacion> {
 	@Autowired
 	private ActuacionDao actuacionDao;
 
+	// , "documento.descripcion" "expediente.nroExpediente",
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "documento.descripcion", "tipoActuacion.descripcion", "expediente.nroExpediente",
-				"descripcion", "fechaEstado" };
+		return new String[] { "id", "fechaEstado", "descripcion", "tipoActuacion.descripcion" };
 	}
 
 	@Override

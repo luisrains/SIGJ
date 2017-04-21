@@ -1,0 +1,29 @@
+Materia: Civil
+Procesos:
+	EJECUTIVO
+	ESPECIAL
+	ORDINARIO
+	SUMARIO
+	
+Maeria: Justicia Letrada
+Procesos:
+	EJECUTIVO
+	ORDINARIO
+	SUMARIO
+
+Materia:Laboral
+Procesos:
+	EJECUTIVO
+	ORDINARIO
+	ESPECIAL
+
+Materia:Niñez
+Procesos:
+	ESPECIAL
+	GENERAL
+	SUMARIO
+
+--penal no cuenta con procesos. no entra en el alcance
+Querella Adhesiva
+Acción Penal Privada
+Querella Penal Adolescente

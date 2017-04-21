@@ -15,10 +15,10 @@ public class Dashboard {
 		return "index";
 	}
 
-	@RequestMapping("star")
+	@RequestMapping("inicio")
 	public String start() {
 
-		return "starter";
+		return "inicio";
 	}
 
 }
