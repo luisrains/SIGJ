@@ -196,7 +196,7 @@
 							<li><a href="caja"><i class="fa fa-money"></i>Caja</a></li>
 						</ul></li>
 
-					<li class="treeview"><a href="#"> <i class="fa fa-sitemap"></i>
+					<li class="treeview menu-rrhh"><a href="#"> <i class="fa fa-sitemap"></i>
 							<span>Menú de R.R.H.H.</span> <span class="pull-right-container">
 								<i class="fa fa-angle-left pull-right"></i>
 						</span>
@@ -319,6 +319,21 @@
 			}
 		});
 					/*]]>*/
+		$(".menu-expedientes").on("click",function(){
+			(".menu-expedientes").addClass("active");
+			(".menu-gastos").removeClass("active");
+			(".menu-rrhh").removeClass("active");
+		});	
+		$(".menu-rrhh").on("click",function(){
+			(".menu-expedientes").removeClass("active");
+			(".menu-gastos").removeClass("active");
+			(".menu-rrhh").addClass("active");
+		});
+		$(".menu-gastos").on("click",function(){
+			(".menu-expedientes").removeClass("active");
+			(".menu-gastos").addClass("active");
+			(".menu-rrhh").removeClass("active");
+		});	
 		</script>
 				</div>
 			</section>
