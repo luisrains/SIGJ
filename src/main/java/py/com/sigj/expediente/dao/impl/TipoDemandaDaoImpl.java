@@ -16,4 +16,13 @@ public class TipoDemandaDaoImpl extends DaoImpl<TipoDemanda> implements TipoDema
 	public String getCamposFiltrables() {
 		return "descripcion";
 	}
+
+	@Override
+	public TipoDemanda find(Long id) {
+		logger.info("Buscando registro con id: {}", id);
+		TipoDemanda td = entityManager.find(getEntityClass(), id);
+		initializeCollection(td.getListExpediente());
+		return td;
+
+	}
 }

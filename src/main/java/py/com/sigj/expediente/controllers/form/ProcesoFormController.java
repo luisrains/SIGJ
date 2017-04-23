@@ -61,7 +61,7 @@ public class ProcesoFormController extends FormController<Proceso> {
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", procesoList.getColumnas());
 		map.addAttribute("columnasStr", procesoList.getColumnasStr(null));
-		map.addAttribute("tipoDemandaList", tipoDemandaDao.getList(0, 20, null));
+		map.addAttribute("tipoDemandaList", tipoDemandaDao.getListAll(null));
 		super.agregarValoresAdicionales(map);
 	}
 

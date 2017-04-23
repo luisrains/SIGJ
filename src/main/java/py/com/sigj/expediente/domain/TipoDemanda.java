@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,10 +38,11 @@ public class TipoDemanda extends GenericEntity {
 
 	@NotNull(message = "tipoDemanda.descripcion.notNull")
 	@NotBlank(message = "tipoDemanda.descripcion.notBlank")
-	@Size(max = 20, message = "tipoDemanda.descripcion.size")
+	@Size(max = 100, message = "tipoDemanda.descripcion.size")
 	private String Descripcion;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinTable(name = "despacho_expediente", joinColumns = @JoinColumn(name = "despacho_id"), inverseJoinColumns = @JoinColumn(name = "expediente_id"))
 	private List<Expediente> listExpediente;
 

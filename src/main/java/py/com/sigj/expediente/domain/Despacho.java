@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +45,8 @@ public class Despacho extends GenericEntity {
 	@Size(max = 60, message = "despacho.juez.size")
 	private String juez;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinTable(name = "despacho_expediente", joinColumns = @JoinColumn(name = "despacho_id"), inverseJoinColumns = @JoinColumn(name = "expediente_id"))
 	private List<Expediente> listExpediente;
 
@@ -88,8 +90,7 @@ public class Despacho extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Despacho [id=" + id + ", descripcion=" + descripcion + ", juez=" + juez + ", listExpediente="
-				+ listExpediente + "]";
+		return "Despacho [id=" + id + ", descripcion=" + descripcion + ", juez=" + juez + "]";
 	}
 
 }

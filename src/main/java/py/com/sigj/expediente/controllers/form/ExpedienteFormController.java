@@ -85,12 +85,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStr", expedienteList.getColumnasStr(null));
 		map.addAttribute("columnasStrActuacion", expedienteList.getColumnasStr(actuacionList.getColumnas()));
 
-		map.addAttribute("estadoExternoList", estadoDao.getList(0, 20, null));
-		map.addAttribute("materiaList", materiaDao.getList(0, 20, null));
-		map.addAttribute("tipoProcesoList", procesoDao.getList(0, 20, null));
-		map.addAttribute("tipoDemandaList", tipoDemandaDao.getList(0, 20, null));
-		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));
-		map.addAttribute("DespachoList", despachoDao.getList(0, 20, null));
+		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
+		map.addAttribute("materiaList", materiaDao.getListAll(null));
+		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
+		map.addAttribute("tipoDemandaList", tipoDemandaDao.getListAll(null));
+		map.addAttribute("DespachoList", despachoDao.getListAll(null));
+		map.addAttribute("DespachoList", despachoDao.getListAll(null));
 
 		map.addAttribute("columnasMateria", materiaList.getColumnas());
 		map.addAttribute("columnasStrMateria", materiaList.getColumnasStr(materiaList.getColumnas()));

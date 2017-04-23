@@ -1,9 +1,10 @@
 package py.com.sigj.expediente.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,13 +48,15 @@ public class Materia extends GenericEntity {
 	@Size(max = 20, message = "materia.descripcion.size")
 	private String descripcion;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
-	@JoinTable(name = "materia_proceso", joinColumns = @JoinColumn(name = "materia_id"), inverseJoinColumns = @JoinColumn(name = "proceso_id"))
-	private List<Proceso> listaProceso;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinTable(name = "materia_proceso", joinColumns = @JoinColumn(name = "materia_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "proceso_id", referencedColumnName = "id"))
+	private Set<Proceso> listaProceso;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
-	@JoinTable(name = "materia_despacho", joinColumns = @JoinColumn(name = "materia_id"), inverseJoinColumns = @JoinColumn(name = "despacho_id"))
-	private List<Despacho> listaDespacho;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinTable(name = "materia_despacho", joinColumns = @JoinColumn(name = "materia_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "despacho_id", referencedColumnName = "id"))
+	private Set<Despacho> listaDespacho;
 
 	public Materia() {
 
@@ -85,26 +88,42 @@ public class Materia extends GenericEntity {
 		this.descripcion = descripcion;
 	}
 
-	public List<Proceso> getListaProceso() {
+	public Set<Proceso> getListaProceso() {
 		return listaProceso;
 	}
 
-	public void setListaProceso(List<Proceso> listProceso) {
-		this.listaProceso = listProceso;
+	public void setListaProceso(Set<Proceso> listaProceso) {
+		this.listaProceso = listaProceso;
 	}
 
-	public List<Despacho> getListaDespacho() {
+	public Set<Despacho> getListaDespacho() {
 		return listaDespacho;
 	}
 
-	public void setListaDespacho(List<Despacho> despacho) {
-		this.listaDespacho = despacho;
+	public void setListaDespacho(Set<Despacho> listaDespacho) {
+		this.listaDespacho = listaDespacho;
 	}
 
+	// falta la lista de tipo demanda en proceso, y la lista de expedientes en
+	// despacho
 	@Override
 	public String toString() {
-		return "Materia [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", listaProceso="
-				+ listaProceso + ", despacho=" + listaDespacho + "]";
+		String result = String.format("Materia[id=%d, codigo='%s', descripcion='%s',", id, codigo, descripcion);
+		result += String.format("Proceso[");
+		for (Proceso proceso : listaProceso) {
+			result += String.format("{id=%d, codigo='%s', descripcion='%s'}", proceso.getId(), proceso.getCodigo(),
+					proceso.getDescripcion());
+			break;
+		}
+		result += String.format("],");
+		result += String.format("Despacho[");
+		for (Despacho despacho : listaDespacho) {
+			result += String.format("{id=%d, descripcion='%s', juez='%s'}", despacho.getId(), despacho.getDescripcion(),
+					despacho.getJuez());
+			break;
+		}
+		result += String.format("]");
+		return result + "]";
 	}
 
 }
