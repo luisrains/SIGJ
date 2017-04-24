@@ -330,3 +330,13 @@
 	    }*/
 		
 		
+		
+		$("#save").on('click',function(){
+				
+				
+			$('#form-usuario').submit(function(eventObj) {
+			    var rol = $("#rol").find(":selected").val();
+				$(this).append('<input type="hidden" name="rol" value="$(rol)">');
+			    return true;
+			});
+				});

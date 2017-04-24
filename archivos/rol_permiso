@@ -1,0 +1,4 @@
+﻿Insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),4,1);
+Insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),5,1);
+Insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),6,1);
+Insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),3051,4);

@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+   <div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
+	
+	<form th:action="@{/usuario/accion2}" th:object="${usuario}" method="post"
+		role="form" id="form-usuario">
+		<input type="hidden" th:field="*{id}" />
+		<div class="modal-movil hidden-xs col-sm-12">
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="cedula_ruc" th:text="#{usuario.cedula_ruc.lbl}"
+					class="field-label col-xs-7 col-sm-7">Cédula o Ruc:</label> <input type="text"
+					th:field="*{cedulaRuc}" maxlength="18" class="form-control col-xs-6 col-sm-6" />
+			</div>
+			<div class="form-group col-xs-12 col-sm-12">
+				<label for="nombre_razonSocial" th:text="#{usuario.nombre_razon_social.lbl}" class="field-label col-xs-7 col-sm-7">Nombre:</label>
+				<input type="text" th:field="*{nombreRazonSocial}" maxlength="60"
+					class="form-control col-xs-6 col-sm-6" />
+			</div>
+		
+		<div class="form-group col-xs-12 col-sm-12">
+			<label for="apellido" th:text="#{usuario.apellido.lbl}"
+				class="field-label col-xs-7 col-sm-7">Apellido:</label> <input type="text"
+				th:field="*{apellido}" maxlength="60" class="form-control col-xs-6 col-sm-6" />
+		</div>
+		<div class="form-group col-xs-12 col-sm-12">
+			<label for="password" th:text="#{usuario.password.lbl}"
+				class="field-label col-xs-7 col-sm-7">Password:</label> <input type="text"
+				th:field="*{password}" maxlength="18" class="form-control col-xs-6 col-sm-6" />
+		</div>
+		<div class="form-group col-xs-12 col-sm-12">
+			<label for="rol" th:text="#{usuario.rol.lbl}"
+				class="field-label col-xs-7 col-sm-7">Rol:</label> <select
+				th:field="*{rol}" class="form-control col-xs-6 col-sm-6 rol" id="rol">
+				<option th:each="rol: ${rolList}" th:value="${rol.id}"
+					th:text="${rol.descripcion}">Administrador</option>
+
+			</select>
+
+		</div>
+			</div>
+			<!-- Inicio panel botones -->
+		<div th:replace="botones::footerModal">aqui van los botones</div>
+	</form>
+	<!-- Fin panel botones -->
+   </div>
+  
+</body>
+</html>

@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "usuario_codigo_uk", columnNames = { "codigo" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "usuario_cedula_ruc_uk", columnNames = { "cedulaRuc" }) })
 public class Usuario extends GenericEntity {
 	private static final String SECUENCIA = "usuario_id_seq";
 
@@ -27,18 +27,16 @@ public class Usuario extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "usuario.codigo.notNull")
-	@NotBlank(message = "usuario.codigo.notBlank")
-	@Size(max = 20, message = "usuario.codigo.size")
-	private String codigo;
+	@NotNull(message = "usuario.cedula_ruc.notNull")
+	@NotBlank(message = "usuario.cedula_ruc.notBlank")
+	@Size(max = 20, message = "usuario.cedula_ruc.size")
+	private String cedulaRuc;
 
-	@NotNull(message = "usuario.nombre.notNull")
-	@NotBlank(message = "usuario.nombre.notBlank")
-	@Size(max = 60, message = "usuario.nombre.size")
-	private String nombre;
+	@NotNull(message = "usuario.nombreRazonSocial.notNull")
+	@NotBlank(message = "usuario.nombreRazonSocial.notBlank")
+	@Size(max = 60, message = "usuario.nombreRazonSocial.size")
+	private String nombreRazonSocial;
 
-	@NotNull(message = "usuario.apellido.notNull")
-	@NotBlank(message = "usuario.apellido.notBlank")
 	@Size(max = 60, message = "usuario.apellido.size")
 	private String apellido;
 
@@ -47,6 +45,7 @@ public class Usuario extends GenericEntity {
 
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "usuario_rol_fk"))
+	@NotNull(message = "usuario.rol.notNull")
 	private Rol rol;
 
 	public Rol getRol() {
@@ -57,27 +56,29 @@ public class Usuario extends GenericEntity {
 		if (rol == null) {
 			return "";
 		}
-		return rol.getDesccripcion();
+		return rol.getDescripcion();
 	}
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	
+
+	public String getCedulaRuc() {
+		return cedulaRuc;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCedulaRuc(String cedulaRuc) {
+		this.cedulaRuc = cedulaRuc;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getNombreRazonSocial() {
+		return nombreRazonSocial;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreRazonSocial(String nombreRazonSocial) {
+		this.nombreRazonSocial = nombreRazonSocial;
 	}
 
 	public String getApellido() {
@@ -110,7 +111,9 @@ public class Usuario extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", apellido=" + apellido + "]";
+		return "Usuario [id=" + id + ", cedulaRuc=" + cedulaRuc + ", nombreRazonSocial=" + nombreRazonSocial
+				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + "]";
 	}
 
+	
 }
