@@ -87,6 +87,8 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 	@RequestMapping(value = "/factura/confirmar", method = RequestMethod.GET)
 	public @ResponseBody String confirmarFactura(HttpServletRequest request,ModelMap map) throws Exception{
 		HttpSession session = request.getSession();
+		
+		
 		logger.info("llego al confirmar");
 		logger.info(String.valueOf(session.getAttribute("mapaCabecera")));
 		logger.info(String.valueOf(session.getAttribute("mapaDetalle")));

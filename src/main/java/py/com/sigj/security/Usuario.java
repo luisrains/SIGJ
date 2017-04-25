@@ -1,5 +1,7 @@
 package py.com.sigj.security;
 
+import java.awt.Image;
+
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -47,7 +49,10 @@ public class Usuario extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "usuario_rol_fk"))
 	@NotNull(message = "usuario.rol.notNull")
 	private Rol rol;
-
+	
+	
+	private Image imagen;
+	
 	public Rol getRol() {
 		return rol;
 	}
@@ -109,11 +114,22 @@ public class Usuario extends GenericEntity {
 
 	}
 
+	
+	public Image getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Image imagen) {
+		this.imagen = imagen;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", cedulaRuc=" + cedulaRuc + ", nombreRazonSocial=" + nombreRazonSocial
-				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + "]";
+				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + ", imagen=" + imagen + "]";
 	}
+
+	
 
 	
 }
