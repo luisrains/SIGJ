@@ -6,7 +6,7 @@
 <!--  FIN PRUEBA BOOTPLY-->
 
 
-  <style>
+<style>
 	body {
     margin-top:40px;
 }
@@ -94,14 +94,15 @@
 										th:text="${tip.descripcion}">Civil</option>
 								</select>
 								</div>
-								<div class="form-group hidden">
+								
+								<div class="form-group">
 								<label for="tipoProceso" th:text="#{expediente.tipoProceso.lbl}"
 									class="field-label">Tipo Proceso:</label> 
 									<select name="tipoProceso" id="tipoProceso" for="tipoProceso"
-									class="form-control form-group tipoProceso selecciones">
+									class="form-control form-group tipoProceso selectTipoProceso">
 									<option selected ="selected" value="0">-Elegir una opcion-</option>
-									<option th:each=" tip : ${tipoProcesoList}" th:value="${tip.id}"
-										th:text="${tip.descripcion}">Ejecutivo</option>
+									<!-- <option th:each=" tip : ${tipoProcesoList}" th:value="${tip.id}"
+										th:text="${tip.descripcion}">Ejecutivo</option> -->
 								</select>
 							</div>
 					          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
@@ -378,6 +379,11 @@ $(document).ready(function () {
 								<script type="text/javascript">
 							        $(function () {
 							        	 $(".selecciones").select2();
+							        	 $('.selectTipoProceso').select2({
+							        		 placeholder: "Seleccione los tipos de proceso",
+							        		 initSelection: function(element, callback) {                   
+							        		    }
+							        	 });
 							        	 
 							        	 $('#datepicker').datepicker({       
 							                 autoclose: true,

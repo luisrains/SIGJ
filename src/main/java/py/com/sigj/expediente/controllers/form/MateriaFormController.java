@@ -1,7 +1,9 @@
 package py.com.sigj.expediente.controllers.form;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -14,6 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -24,6 +29,7 @@ import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.domain.Despacho;
 import py.com.sigj.expediente.domain.Materia;
 import py.com.sigj.expediente.domain.Proceso;
+import py.com.sigj.util.RenderingInfo;
 
 @Controller
 @Scope("request")
@@ -61,9 +67,9 @@ public class MateriaFormController extends FormController<Materia> {
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", materiaList.getColumnas());
 		map.addAttribute("columnasStr", materiaList.getColumnasStr(null));
-		map.addAttribute("procesoList", procesoDao.getList(0, 20, null));
-		map.addAttribute("despachoList", despachoDao.getList(0, 20, null));
-		logger.info("procesoList", procesoDao.getList(0, 20, null));
+		map.addAttribute("procesoList", procesoDao.getListAll(null));
+		map.addAttribute("despachoList", despachoDao.getListAll(null));
+		logger.info("procesoList", procesoDao.getListAll(null));
 
 		super.agregarValoresAdicionales(map);
 	}
@@ -87,7 +93,6 @@ public class MateriaFormController extends FormController<Materia> {
 			return editar_listado(map, selecProceso, selecDespacho, obj, bindingResult);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
-
 		}
 		return getTemplatePath();
 
@@ -113,8 +118,8 @@ public class MateriaFormController extends FormController<Materia> {
 				}
 			}
 
-			obj.setListaProceso(listProceso);
-			obj.setListaDespacho(listDespacho);
+			// obj.setListaProceso(listProceso);
+			// obj.setListaDespacho(listDespacho);
 			getDao().createOrUpdate(obj);
 
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
@@ -138,8 +143,8 @@ public class MateriaFormController extends FormController<Materia> {
 			@RequestParam(value = "selec_despacho", required = false) List<String> selecDespacho, @Valid Materia obj,
 			BindingResult bindingResult) {
 		try {
-			List<Proceso> listProceso = new ArrayList<Proceso>();
-			List<Despacho> listDespacho = new ArrayList<Despacho>();
+			Set<Proceso> listProceso = new HashSet<Proceso>();
+			Set<Despacho> listDespacho = new HashSet<Despacho>();
 			logger.info("ID DE OBJ {}", obj);
 			if (obj != null && selecProceso != null) {
 				for (String idLong : selecProceso) {
@@ -173,8 +178,8 @@ public class MateriaFormController extends FormController<Materia> {
 
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
 	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
-		List<Proceso> listProceso = new ArrayList<Proceso>();
-		List<Despacho> listDespacho = new ArrayList<Despacho>();
+		Set<Proceso> listProceso = new HashSet<Proceso>();
+		Set<Despacho> listDespacho = new HashSet<Despacho>();
 		Materia m = null;
 		try {
 			logger.info("ID DE OBJ {}", id_objeto);
@@ -197,6 +202,33 @@ public class MateriaFormController extends FormController<Materia> {
 		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
+
+	}
+
+	@RequestMapping(value = "obtener_materia", method = RequestMethod.GET)
+	public @ResponseBody RenderingInfo getMateria(ModelMap map, @RequestParam("cod_materia") Long id_materia) {
+
+		Materia m = null;
+		RenderingInfo rdInfo = new RenderingInfo();
+		try {
+			logger.info("ID DE OBJ {}", id_materia);
+			if (id_materia != null) {
+				Materia materia = getDao().find(id_materia);
+				ObjectMapper mapper = new ObjectMapper();
+				String jsonvalue = null;
+				// jsonvalue = mapper.writeValueAsString(materia);
+				// logger.info("Obteniendo listado de procesos: {}", jsonvalue);
+				rdInfo.add("materia", materia);
+				logger.info("Procesos encontrados {}", materia);
+
+			}
+		} catch (Exception ex) {
+
+			m.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+			map.addAttribute(getNombreObjeto(), m);
+		}
+		return rdInfo;
 
 	}
 
