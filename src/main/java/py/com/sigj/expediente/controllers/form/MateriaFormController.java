@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.MateriaListController;
@@ -214,10 +212,6 @@ public class MateriaFormController extends FormController<Materia> {
 			logger.info("ID DE OBJ {}", id_materia);
 			if (id_materia != null) {
 				Materia materia = getDao().find(id_materia);
-				ObjectMapper mapper = new ObjectMapper();
-				String jsonvalue = null;
-				// jsonvalue = mapper.writeValueAsString(materia);
-				// logger.info("Obteniendo listado de procesos: {}", jsonvalue);
 				rdInfo.add("materia", materia);
 				logger.info("Procesos encontrados {}", materia);
 

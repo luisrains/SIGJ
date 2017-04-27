@@ -39,7 +39,7 @@ public class TipoDemanda extends GenericEntity {
 	@NotNull(message = "tipoDemanda.descripcion.notNull")
 	@NotBlank(message = "tipoDemanda.descripcion.notBlank")
 	@Size(max = 100, message = "tipoDemanda.descripcion.size")
-	private String Descripcion;
+	private String descripcion;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
 			CascadeType.DETACH }, fetch = FetchType.EAGER)
@@ -61,11 +61,11 @@ public class TipoDemanda extends GenericEntity {
 	}
 
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 
 	public List<Expediente> getListExpediente() {
@@ -78,7 +78,7 @@ public class TipoDemanda extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "TipoDemanda [id=" + id + ", Descripcion=" + Descripcion + ", listExpediente=" + listExpediente + "]";
+		return "TipoDemanda [id=" + id + ", descripcion=" + descripcion + ", listExpediente=" + listExpediente + "]";
 	}
 
 }

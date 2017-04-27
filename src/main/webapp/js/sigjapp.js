@@ -249,4 +249,29 @@
 				});
 	    }*/
 		
+		function iniciarSpinner(spinnerID){
+			var opts = {
+					className: 'spinner',
+					color: ' #005EB8',
+					length: 7,
+					lines: 12,
+					radius: 9,
+					width: 3,
+					scale: 2.5,
+			};
+			var m_spinner = new Spinner(opts);
+			if(m_spinner.el==undefined){
+		    	m_spinner.spin();
+		        $("#"+spinnerID).append(m_spinner.el);
+			}
+			
+			return m_spinner;
+		}
+		
+		function pararSpinner(m_spinner){
+			if(m_spinner.el!=undefined){
+				m_spinner.stop();
+			}
+		}
+		
 		

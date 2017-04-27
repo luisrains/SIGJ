@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
-
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <body>
 	<div th:fragment="contenido">
 <!--  FIN PRUEBA BOOTPLY-->
 
 
 <style>
-	body {
-    margin-top:40px;
-}
 .stepwizard-step p {
     margin-top: 10px;
 }
@@ -80,8 +78,9 @@
 					  
 					  <form role="form" action="" method="post">
 					    <div class="row setup-content" id="step-1">
-					      <div class="col-xs-6 col-md-offset-3">
-					        <div class="col-md-12">
+					      <div class="col-xs-6 col-md-offset-3" style="margin-left: 100px !important;">
+					        <div class="col-md-12" style="width: 150%;">
+					        <div id="modal_spinner"></div>
 					          <h3> Mesa de Entrada</h3>
 					          <div class="form-group">
 								<label for="materia" th:text="#{expediente.materia.lbl}"
@@ -95,14 +94,21 @@
 								</select>
 								</div>
 								
-								<div class="form-group">
+							<div class="form-group hidden" id ="selectTipoProceso">
 								<label for="tipoProceso" th:text="#{expediente.tipoProceso.lbl}"
 									class="field-label">Tipo Proceso:</label> 
 									<select name="tipoProceso" id="tipoProceso" for="tipoProceso"
-									class="form-control form-group tipoProceso selectTipoProceso">
+									class="form-control form-group tipoProceso selectTipoProceso hidden">
 									<option selected ="selected" value="0">-Elegir una opcion-</option>
-									<!-- <option th:each=" tip : ${tipoProcesoList}" th:value="${tip.id}"
-										th:text="${tip.descripcion}">Ejecutivo</option> -->
+								</select>
+							</div>
+							<div class="form-group hidden" id ="selectTipoDemanda">
+								<label for="tipoDemanda" th:text="#{expediente.tipoDemanda.lbl}"
+									class="field-label">Tipo Demanda:</label> 
+									<select name="tipoDemanda" id="tipoDemanda" for="tipoDemanda"
+									class="form-control form-group tipoDemanda selectTipoDemanda hidden">
+									<option selected ="selected" value="0">-Elegir una opcion-</option>
+									
 								</select>
 							</div>
 					          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
@@ -158,64 +164,65 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-	/* var option = new Option("-Elija una opcion-", "0");
-	option.selected = true;
-	$(".materia").append(option);
-	$(".materia").val("0");
-	$(".materia").trigger("change");
-	 */
-	
-	$('#modalStep').modal("show");
-	  var navListItems = $('div.setup-panel div a'),
-	          allWells = $('.setup-content'),
-	          allNextBtn = $('.nextBtn'),
-	  		  allPrevBtn = $('.prevBtn');
+	function openWorkflow(){
+		mostrarModalStep();
+	}
+	function mostrarModalStep(){
+		$('#modalStep').modal("show");
+		  var navListItems = $('div.setup-panel div a'),
+		          allWells = $('.setup-content'),
+		          allNextBtn = $('.nextBtn'),
+		  		  allPrevBtn = $('.prevBtn');
 
-	  allWells.hide();
+		  allWells.hide();
 
-	  navListItems.click(function (e) {
-	      e.preventDefault();
-	      var $target = $($(this).attr('href')),
-	              $item = $(this);
+		  navListItems.click(function (e) {
+		      e.preventDefault();
+		      var $target = $($(this).attr('href')),
+		              $item = $(this);
 
-	      if (!$item.hasClass('disabled')) {
-	          navListItems.removeClass('btn-primary').addClass('btn-default');
-	          $item.addClass('btn-primary');
-	          allWells.hide();
-	          $target.show();
-	          $target.find('input:eq(0)').focus();
-	      }
-	  });
-	  
-	  allPrevBtn.click(function(){
-	      var curStep = $(this).closest(".setup-content"),
-	          curStepBtn = curStep.attr("id"),
-	          prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+		      if (!$item.hasClass('disabled')) {
+		          navListItems.removeClass('btn-primary').addClass('btn-default');
+		          $item.addClass('btn-primary');
+		          allWells.hide();
+		          $target.show();
+		          $target.find('input:eq(0)').focus();
+		      }
+		  });
+		  
+		  allPrevBtn.click(function(){
+		      var curStep = $(this).closest(".setup-content"),
+		          curStepBtn = curStep.attr("id"),
+		          prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
-	          prevStepWizard.removeAttr('disabled').trigger('click');
-	  });
+		          prevStepWizard.removeAttr('disabled').trigger('click');
+		  });
 
-	  allNextBtn.click(function(){
-	      var curStep = $(this).closest(".setup-content"),
-	          curStepBtn = curStep.attr("id"),
-	          nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-	          curInputs = curStep.find("input[type='text'],input[type='url']"),
-	          isValid = true;
+		  allNextBtn.click(function(){
+		      var curStep = $(this).closest(".setup-content"),
+		          curStepBtn = curStep.attr("id"),
+		          nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+		          curInputs = curStep.find("input[type='text'],input[type='url']"),
+		          isValid = true;
 
-	      $(".form-group").removeClass("has-error");
-	      for(var i=0; i<curInputs.length; i++){
-	          if (!curInputs[i].validity.valid){
-	              isValid = false;
-	              $(curInputs[i]).closest(".form-group").addClass("has-error");
-	          }
-	      }
+		      $(".form-group").removeClass("has-error");
+		      for(var i=0; i<curInputs.length; i++){
+		          if (!curInputs[i].validity.valid){
+		              isValid = false;
+		              $(curInputs[i]).closest(".form-group").addClass("has-error");
+		          }
+		      }
 
-	      if (isValid)
-	          nextStepWizard.removeAttr('disabled').trigger('click');
-	  });
+		      if (isValid)
+		          nextStepWizard.removeAttr('disabled').trigger('click');
+		  });
 
-	  $('div.setup-panel div a.btn-primary').trigger('click');
-	});
+		  $('div.setup-panel div a.btn-primary').trigger('click');
+
+		
+	}
+	mostrarModalStep();
+		});
 
 </script>
 <!--  FIN PRUEBA BOOTPLY-->
@@ -236,6 +243,11 @@ $(document).ready(function () {
 							<h3>Registro de Expediente</h3>
 						</div>
 						<div class="box-body">
+						<button class="btn btn-success" id="botonAgregar"
+								 onclick="openWorkflow()">
+								<i class="glyphicon glyphicon-plus"></i> Agregar Juicio
+							</button>
+							<br><br>
 						<form th:action="@{/expediente/accion}" th:object="${expediente}"
 							method="post" role="form">
 						
@@ -378,12 +390,20 @@ $(document).ready(function () {
 								</div>
 								<script type="text/javascript">
 							        $(function () {
+							        	
+							  
 							        	 $(".selecciones").select2();
 							        	 $('.selectTipoProceso').select2({
 							        		 placeholder: "Seleccione los tipos de proceso",
 							        		 initSelection: function(element, callback) {                   
 							        		    }
 							        	 });
+							        	 $('.selectTipoDemanda').select2({
+							        		 placeholder: "Seleccione los tipos de demanda",
+							        		 initSelection: function(element, callback) {                   
+							        		    }
+							        	 });
+							        	 
 							        	 
 							        	 $('#datepicker').datepicker({       
 							                 autoclose: true,
