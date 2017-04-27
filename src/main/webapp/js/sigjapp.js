@@ -333,10 +333,12 @@
 		
 		$("#save").on('click',function(){
 				
-				
+			var imagen = $("#image"); 
+		      var file = imagen.files[0]; 	
 			$('#form-usuario').submit(function(eventObj) {
 			    var rol = $("#rol").find(":selected").val();
 				$(this).append('<input type="hidden" name="rol" value="$(rol)">');
+				$(this).append(file);
 			    return true;
 			});
 				});

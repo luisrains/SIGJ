@@ -1,6 +1,7 @@
 package py.com.sigj.security;
 
 import java.awt.Image;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -51,7 +52,7 @@ public class Usuario extends GenericEntity {
 	private Rol rol;
 	
 	
-	private Image imagen;
+	private Byte[] image;
 	
 	public Rol getRol() {
 		return rol;
@@ -115,20 +116,24 @@ public class Usuario extends GenericEntity {
 	}
 
 	
-	public Image getImagen() {
-		return imagen;
+	
+
+	public Byte[] getImage() {
+		return image;
 	}
 
-	public void setImagen(Image imagen) {
-		this.imagen = imagen;
+	public void setImage(Byte[] image) {
+		this.image = image;
 	}
 
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", cedulaRuc=" + cedulaRuc + ", nombreRazonSocial=" + nombreRazonSocial
-				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + ", imagen=" + imagen + "]";
+				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + ", image="
+				+ Arrays.toString(image) + "]";
 	}
 
+	
 	
 
 	
