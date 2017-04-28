@@ -32,10 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expression = http
 				.authorizeRequests();
 
-		Map<String, String> map = permisosUrl();
+		Map<String, String> map = rolUrl();
 		for (String url : map.keySet()) {
-			String permiso = map.get(url);
-			expression = expression.antMatchers(url).access("hasAuthority('" + permiso + "')");
+			String rol = map.get(url);
+			expression = expression.antMatchers(url).access("hasRole('" + rol + "')");
 
 		}
 		expression.and().formLogin().loginPage("/login").and().formLogin().successHandler(successHandler).and()
@@ -43,12 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 
-	private Map<String, String> permisosUrl() {
+	private Map<String, String> rolUrl() {
 		Map<String, String> map = new HashMap<>();
 		// map.put("/cliente/**", "Cliente_sel");
 		// map.put("/persona/**", "Persona_sel");
 		// map.put("/proveedor/**", "Proveedor_sel");
-		map.put("/usuario**", "Administrador");
+		map.put("/usuario/**", "Administrador");
 		// map.put("/venta/**", "Venta_sel");
 		/*map.put("/iva/**", "Iva_sel");*/
 
