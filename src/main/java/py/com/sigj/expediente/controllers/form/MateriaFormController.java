@@ -64,7 +64,6 @@ public class MateriaFormController extends FormController<Materia> {
 		map.addAttribute("procesoList", procesoDao.getList(0, 20, null));
 		map.addAttribute("despachoList", despachoDao.getList(0, 20, null));
 		logger.info("procesoList", procesoDao.getList(0, 20, null));
-
 		super.agregarValoresAdicionales(map);
 	}
 

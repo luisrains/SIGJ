@@ -5,33 +5,36 @@
 	<div class="row form-class-modal"
 		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
 		th:fragment="form">
-		<form th:action="@{/caja/accion2}" th:object="${caja}" method="post"
-			role="form">
+
+		<form th:action="@{/ingreso_egreso/accion2}"
+			th:object="${ingresoEgreso}" method="post" role="form">
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
 				<div class="form-group col-xs-12 col-sm-12">
-					<label for="codigo" th:text="#{caja.codigo.lbl}"
-						class="field-label col-xs-7 col-sm-7">Código:</label> <input
-						type="text" th:field="*{codigo}" maxlength="60"
+					<label for="tipo" th:text="#{ingreso_egreso.tipo.lbl}"
+						class="field-label col-xs-7 col-sm-7">Tipo:</label> <input
+						type="text" th:field="*{tipo}" maxlength="60"
 						class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
 				</div>
 
 				<div class="form-group col-xs-12 col-sm-12">
-					<label for="monto" th:text="#{caja.monto.lbl}"
-						class="field-label col-xs-7 col-sm-7">Monto:</label> <input
+					<label for="monto" th:text="#{ingreso_egreso.monto.lbl}"
+						class="field-label col-xs-6 col-sm-7">Monto:</label> <input
 						type="text" th:field="*{monto}" maxlength="100"
 						class="form-control col-xs-6 col-sm-6" />
 				</div>
+
 				<div class="form-group col-xs-12 col-sm-12">
-					<label for="fecha" th:text="#{caja.fecha.lbl}"
-						class="field-label col-xs-7 col-sm-7">Fecha:</label> <input
-						type="text" th:field="*{fecha}" maxlength="100"
+					<label for="descripcion"
+						th:text="#{ingreso_egreso.descripcion.lbl}"
+						class="field-label col-xs-6 col-sm-7">Descripción:</label> <input
+						type="text" th:field="*{descripcion}" maxlength="100"
 						class="form-control col-xs-6 col-sm-6" />
 				</div>
 			</div>
+			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal"></div>
 		</form>
 	</div>
-	<!-- Fin panel botones -->
 </body>
 </html>

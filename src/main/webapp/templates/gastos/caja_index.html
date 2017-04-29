@@ -92,7 +92,7 @@
 					if (obj != '') {
 						var id = obj["id"];
 					}
-					if (accion === 'd') {
+					if (accion === 'd') { //delete
 						if (id !== null || id !== undefined || id !== "") {
 							$('#delete').removeClass('hidden');
 							$('#save').addClass('hidden');
@@ -104,7 +104,7 @@
 							$('#selec').val('');
 							$("#borradoPopup").modal("show");
 						}
-					} else if (accion === 'e') {
+					} else if (accion === 'e') { //edit
 						if (id !== null || id !== undefined || id !== "") {
 							$('#edit').removeClass('hidden');
 							$('#save').addClass('hidden');
@@ -115,7 +115,7 @@
 							$('#fecha').val(obj["fecha"]);
 							$("#formModal").modal("show");
 						}
-					} else if (accion === 'r') {
+					} else if (accion === 'r') { //create
 						$('#delete').addClass('hidden');
 						$('#edit').addClass('hidden');
 						$('#save').removeClass('hidden');
@@ -124,7 +124,7 @@
 						$('#fecha').val('');
 						$('#selec').val('');
 						$("#formModal").modal("show");
-					} else if (accion === 'v') {
+					} else if (accion === 'v') { //veiw
 						$('#delete').addClass('hidden');
 						$('#edit').addClass('hidden');
 						$('#save').addClass('hidden');

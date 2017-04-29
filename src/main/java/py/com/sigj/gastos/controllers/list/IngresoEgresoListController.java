@@ -26,7 +26,7 @@ public class IngresoEgresoListController extends ListController<IngresoEgreso> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "caja", "tipoIngresoEgreso", "descripcion" };
+		return new String[] { "id", "tipo", "monto", "descripcion" };
 	}
 
 	@Override
