@@ -55,11 +55,6 @@ public class Expediente extends GenericEntity {
 	@Size(max = 20, message = "rol.codigo.size")
 	private String moneda;
 
-	@NotNull(message = "cliente.domicilioLaboral.notNull")
-	@NotBlank(message = "cliente.domicilioLaboral.notBlank")
-	@Size(max = 100, message = "cliente.domicilioLaboral.size")
-	private String objetoCausa;
-
 	@NotNull(message = "cliente.domicilioProcesal.notNull")
 	@NotBlank(message = "cliente.domicilioProcesal.notBlank")
 	@Size(max = 100, message = "cliente.domicilioProcesal.size")
@@ -137,14 +132,6 @@ public class Expediente extends GenericEntity {
 
 	public void setMoneda(String moneda) {
 		this.moneda = moneda;
-	}
-
-	public String getObjetoCausa() {
-		return objetoCausa;
-	}
-
-	public void setObjetoCausa(String objetoCausa) {
-		this.objetoCausa = objetoCausa;
 	}
 
 	public String getNroLiquidación() {

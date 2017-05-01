@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
+import py.com.sigj.expediente.controllers.list.AbogadoListController;
 import py.com.sigj.expediente.controllers.list.ActuacionListController;
+import py.com.sigj.expediente.controllers.list.ClienteListController;
 import py.com.sigj.expediente.controllers.list.ExpedienteListController;
 import py.com.sigj.expediente.controllers.list.MateriaListController;
 import py.com.sigj.expediente.dao.ActuacionDao;
@@ -33,10 +35,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	private ActuacionDao actuacionDao;
 
 	@Autowired
+	private ClienteListController clienteList;
+
+	@Autowired
 	private ExpedienteListController expedienteList;
 
 	@Autowired
 	private ActuacionListController actuacionList;
+
+	@Autowired
+	private AbogadoListController abogadoList;
 
 	@Autowired
 	private TipoActuacionDao tipoActuacionDao;
@@ -82,7 +90,11 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("expedienteList", expedienteDao.getList(0, 20, null));
 		map.addAttribute("columnas", expedienteList.getColumnas());
 		map.addAttribute("columnasActuacion", actuacionList.getColumnas());
+		map.addAttribute("columnasClient", clienteList.getColumnas());
+		map.addAttribute("columnasAbogado", abogadoList.getColumnasForExpediente());
 		map.addAttribute("columnasStr", expedienteList.getColumnasStr(null));
+		map.addAttribute("columnasStrClient", clienteList.getColumnasStr(null));
+		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("columnasStrActuacion", expedienteList.getColumnasStr(actuacionList.getColumnas()));
 
 		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
