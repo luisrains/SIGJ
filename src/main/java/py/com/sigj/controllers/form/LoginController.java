@@ -50,6 +50,18 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping("usuario/logout")
+	public String logoutUsuario(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getMaxInactiveInterval() > 60){
+			sesionUsuario.setUsuario(null);
+			return "login";
+		}
+		
+		sesionUsuario.setUsuario(null);
+		return "login";
+	}
+	
 	@RequestMapping("/login")
 	public String login(ModelMap modelMap,HttpServletRequest request) {
 		
@@ -58,8 +70,8 @@ public class LoginController {
 		if (sesionUsuario.isLogger()) {
 			HttpSession session = request.getSession();
 			session.setMaxInactiveInterval(60); // duracion de la session 5min
-			session.setAttribute("usuario", sesionUsuario.getUsuario().getCedulaRuc());
-			modelMap.addAttribute("usuario", sesionUsuario.getUsuario().getCedulaRuc());
+			session.setAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
+			modelMap.addAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 			logger.info(String.valueOf(session.getAttribute("usuario")));
 			return "redirect:inicio";
 		}
@@ -75,8 +87,8 @@ public class LoginController {
 		}
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(60); // duracion de la session 5min
-		session.setAttribute("usuario", sesionUsuario.getUsuario().getCedulaRuc());
-		modelMap.addAttribute("usuario", sesionUsuario.getUsuario().getCedulaRuc());
+		session.setAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
+		modelMap.addAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 		logger.info(String.valueOf(session.getAttribute("usuario")));
 		return "inicio";
 	}

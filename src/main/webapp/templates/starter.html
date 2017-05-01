@@ -156,10 +156,13 @@
 						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 					</div>
 				</div>
-
+	
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
-				<ul class="sidebar-menu">
+				
+				
+				<ul th:if="${session} != null and (${session.usuario} =='Abg' or ${session.usuario}=='Des' or ${session.usuario}=='Ges')" 
+				 class="sidebar-menu mp">
 					<li class="header">Menú Principal</li>
 
 					<li class="treeview"><a href="#"> <i
@@ -221,7 +224,8 @@
 								class="label pull-right bg-blue">17</small>
 						</span>
 					</a></li>
-
+					</ul>
+					<ul th:if="${session} != null and (${session.usuario} == 'Admin' or ${session.usuario} =='Des')" class="admin">
 					<li class="header">Administración</li>
 					<li class="treeview"><a href="usuario"> <i class="fa fa-lock"></i>
 							<span>Menú de Usuario</span> <span class="pull-right-container">

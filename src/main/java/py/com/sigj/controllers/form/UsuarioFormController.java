@@ -22,6 +22,7 @@ import py.com.sigj.dao.RolDao;
 import py.com.sigj.dao.UsuarioDao;
 
 import py.com.sigj.security.Usuario;
+import py.com.sigj.util.Util;
 
 @Controller
 @Scope("request")
@@ -92,7 +93,7 @@ public class UsuarioFormController extends FormController<Usuario> {
 			if (obj.getId() == null && rol != null) {
 				Long idFormat = Long.parseLong(rol);
 				obj.setRol(rolDao.find(idFormat));
-				
+				obj.setPassword(Util.md5(obj.getPassword()));
 				getDao().createOrUpdate(obj);
 				 
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
@@ -115,7 +116,7 @@ public class UsuarioFormController extends FormController<Usuario> {
 			if (obj.getId() != null && rol != null) {
 				Long idFormat = Long.parseLong(rol);
 				obj.setRol(rolDao.find(idFormat));
-				
+				obj.setPassword(Util.md5(obj.getPassword()));
 				getDao().createOrUpdate(obj);
 				logger.info("Usuario Actualizado {}", obj);
 				map.addAttribute("msgExito", msg.get("Registro Actualizado"));

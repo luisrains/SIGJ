@@ -160,10 +160,11 @@
 
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
-				<div th:unless="${session == null}" th:text="${session.usuario}"></div>
 				
 				
-				<ul class="sidebar-menu mp">
+				
+				<ul th:if="${session} != null and (${session.usuario} =='Abg' or ${session.usuario}=='Des' or ${session.usuario}=='Ges')" 
+				 class="sidebar-menu mp">
 					<li class="header">Menú Principal</li>
 
 					<li class="treeview">
@@ -232,7 +233,7 @@
 					</ul>
 					
 					
-					<ul class="admin">
+					<ul th:if="${session} != null and (${session.usuario} == 'Admin' or ${session.usuario} =='Des')" class="admin">
 					
 					<li class="header">Administración</li>
 					<li class="treeview"><a href="#"> <i class="fa fa-lock"></i>
