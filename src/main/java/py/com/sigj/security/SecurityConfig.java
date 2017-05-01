@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// map.put("/cliente/**", "Cliente_sel");
 		// map.put("/persona/**", "Persona_sel");
 		// map.put("/proveedor/**", "Proveedor_sel");
-		map.put("/usuario/**", "Administrador");
+		map.put("/usuario/", "Admin");
 		// map.put("/venta/**", "Venta_sel");
 		/*map.put("/iva/**", "Iva_sel");*/
 

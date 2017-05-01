@@ -20,5 +20,6 @@ public class Dashboard {
 
 		return "inicio";
 	}
+	
 
 }

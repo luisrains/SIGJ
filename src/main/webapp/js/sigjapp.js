@@ -330,15 +330,31 @@
 	    }*/
 		
 		
+			
+			
+		
+//		$(function(){
+//			
+//		
+//		var usuario_cedula = $("#usu").val();
+//		if(usuario_cedula != null && usuario_cedula != '' && usuario_cedula == '1150391'){
+//			$(".mp").addClass('hidden');
+//			$(".admin").removeClass('hidden');
+//		}
+//		});
+	
+		
+		
+		
 		
 		$("#save").on('click',function(){
 				
-			var imagen = $("#image"); 
-		      var file = imagen.files[0]; 	
+//			var imagen = $("#image"); 
+//		      var file = imagen.files[0]; 	
 			$('#form-usuario').submit(function(eventObj) {
 			    var rol = $("#rol").find(":selected").val();
 				$(this).append('<input type="hidden" name="rol" value="$(rol)">');
-				$(this).append(file);
+				//$(this).append(file);
 			    return true;
 			});
 				});

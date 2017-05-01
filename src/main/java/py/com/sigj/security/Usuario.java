@@ -52,7 +52,7 @@ public class Usuario extends GenericEntity {
 	private Rol rol;
 	
 	
-	private Byte[] image;
+	
 	
 	public Rol getRol() {
 		return rol;
@@ -115,23 +115,14 @@ public class Usuario extends GenericEntity {
 
 	}
 
-	
-	
-
-	public Byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(Byte[] image) {
-		this.image = image;
-	}
-
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", cedulaRuc=" + cedulaRuc + ", nombreRazonSocial=" + nombreRazonSocial
-				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + ", image="
-				+ Arrays.toString(image) + "]";
+				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + "]";
 	}
+
+	
+
 
 	
 	
