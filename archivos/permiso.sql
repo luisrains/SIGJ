@@ -74,3 +74,11 @@ Insert into permiso values(NEXTVAL('permiso_id_seq'),'agr-planilla','Agregar Pla
 Insert into permiso values(NEXTVAL('permiso_id_seq'),'mod-planilla','Modificar PlanillaSalario');
 Insert into permiso values(NEXTVAL('permiso_id_seq'),'eli-planilla','Eliminar PlanillaSalario');
 Insert into permiso values(NEXTVAL('permiso_id_seq'),'completo','Permiso Completo');
+Insert into permiso values(NEXTVAL('permiso_id_seq'),'agr-permiso','Agregar Permiso');
+Insert into permiso values(NEXTVAL('permiso_id_seq'),'mod-permiso','Modificar Permiso');
+Insert into permiso values(NEXTVAL('permiso_id_seq'),'eli-permiso','Eliminar Permiso');
+
+Insert into permiso values(NEXTVAL('permiso_id_seq'),'agr-rol','Agregar Rol');
+Insert into permiso values(NEXTVAL('permiso_id_seq'),'mod-rol','Modificar Rol');
+Insert into permiso values(NEXTVAL('permiso_id_seq'),'eli-rol','Eliminar Rol');
+
