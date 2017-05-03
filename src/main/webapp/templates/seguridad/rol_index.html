@@ -117,14 +117,14 @@
 						$('#codigo').val(obj["codigo"]);
 						$('#descripcion').val(obj["descripcion"]);
 						var permiso = $('.permiso');
-						var list_permiso = obj["permisoList"];
+						var list_permiso = obj["listPermiso"];
 						var codigos = [];
 						//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
 						//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
 						$.each(list_permiso, function( index, value ) {
 							codigos.push(value.id);
 						});
-						selec.val(codigos).trigger("change");
+						permiso.val(codigos).trigger("change");
 						var id1 = obj["id"];
 						$("#formModal").modal("show");
 					}	
@@ -138,8 +138,14 @@
 					$('#id').val('');
 					$('#codigo').val('');
 					$('#descripcion').val('');
-					var permiso = $('.permiso');
-					permiso.val([]).trigger("change");
+					
+					
+					/*$("#permiso option:selected").each(function(){
+						   console.log('opcion '+$(this).text()+' valor '+ $(this).attr('value'))
+						   codigos.push($this.attr('value'));
+						});*/
+					
+					
 					$("#formModal").modal("show");
 				}else if(accion === 'v'){
 					$('#delete').addClass('hidden');
@@ -149,14 +155,14 @@
 					$('#codigo').val(obj["codigo"]);
 					$('#descripcion').val(obj["descripcion"]);
 					var permiso = $('.permiso');
-					var list_permiso = obj["permisoList"];
+					var list_permiso = obj["listPermiso"];
 					var codigos = [];
 					//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
 					//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
 					$.each(list_permiso, function( index, value ) {
 						codigos.push(value.id);
 					});
-					selec.val(codigos).trigger("change");
+					permiso.val(codigos).trigger("change");
 					
 					$('#descripcion').attr('disabled', true);
 					$('#codigo').attr('disabled', true);

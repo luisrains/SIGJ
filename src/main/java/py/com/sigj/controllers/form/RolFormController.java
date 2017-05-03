@@ -70,7 +70,7 @@ public class RolFormController extends FormController<Rol> {
 	}
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
 	public String accion2(ModelMap map, @Valid Rol obj,
-			@RequestParam(value = "selec", required = false) List<String> permiso, BindingResult bindingResult,
+			@RequestParam(value = "permiso", required = false) List<String> permiso, BindingResult bindingResult,
 			@RequestParam(required = false) String accion,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
@@ -94,7 +94,7 @@ public class RolFormController extends FormController<Rol> {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				rol = getDao().find(id_objeto);
-				
+				rol.setListPermiso(list);
 				getDao().destroy(rol);
 
 				logger.info("Rol eliminado {}", rol);
@@ -122,7 +122,7 @@ public class RolFormController extends FormController<Rol> {
 					list.add(permisoDao.find(idFormat));
 				}
 			}
-			
+			obj.setListPermiso(list);
 			getDao().createOrUpdate(obj);
 
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
@@ -149,7 +149,7 @@ public class RolFormController extends FormController<Rol> {
 					list.add(permisoDao.find(idFormat));
 				}
 			}
-			
+			obj.setListPermiso(list);
 			getDao().createOrUpdate(obj);
 			logger.info("Rol Actualizado {}", obj);
 			map.addAttribute("msgExito", msg.get("Registro Actualizado"));
