@@ -41,10 +41,7 @@ public class Rol extends GenericEntity {
 	@Size(max = 100, message = "rol.descripcion.size")
 	private String descripcion;
 	
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
-	@JoinTable(name = "rol_permiso", joinColumns = @JoinColumn(name = "rol_id"), inverseJoinColumns = @JoinColumn(name = "permiso_id"))
-	private List<Permiso> listPermiso;
-
+	
 	public Rol() {
 	}
 
@@ -75,21 +72,14 @@ public class Rol extends GenericEntity {
 
 	}
 
-	
-	
-	public List<Permiso> getListPermiso() {
-		return listPermiso;
-	}
-
-	public void setListPermiso(List<Permiso> listPermiso) {
-		this.listPermiso = listPermiso;
-	}
-
 	@Override
 	public String toString() {
-		return "Rol [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", listPermiso=" + listPermiso
-				+ "]";
+		return "Rol [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + "]";
 	}
+
+	
+	
+	
 
 	
 }

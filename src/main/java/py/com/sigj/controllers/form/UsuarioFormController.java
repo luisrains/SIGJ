@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import py.com.sigj.controllers.list.UsuarioListController;
 import py.com.sigj.dao.Dao;
@@ -153,5 +154,10 @@ public class UsuarioFormController extends FormController<Usuario> {
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 
+	}
+	@RequestMapping(value = "archivo", method = RequestMethod.POST)
+	public String insertar_archivo(ModelMap map, @RequestParam("archivo") MultipartFile archivo) {
+	
+		return "ok";
 	}
 }

@@ -46,6 +46,34 @@
 			<!-- Inicio panel botones -->
 		<div th:replace="botones::footerModal">aqui van los botones</div>
 	</form>
+	<form enctype="multipart/form-data" id="formuploadajax" method="post">
+		<input  type="file" id="archivo1" name="archivo"/>
+		 <input type="submit" value="Subir archivos"/>
+	</form>
+	
+	 <script>
+    $(function(){
+        $("#formuploadajax").on("submit", function(e){
+            e.preventDefault();
+            var f = $(this);
+            var formData = new FormData(document.getElementById("formuploadajax"));
+            formData.append("dato", "valor");
+            //formData.append(f.attr("name"), $(this)[0].files[0]);
+            $.ajax({
+                url: "recibe.php",
+                type: "post",
+                dataType: "html",
+                data: formData,
+                cache: false,
+                contentType: false,
+	     processData: false
+            })
+                .done(function(res){
+                    $("#mensaje").html("Respuesta: " + res);
+                });
+        });
+    });
+    </script>
 	<!-- Fin panel botones -->
    </div>
   

@@ -54,22 +54,17 @@ public class Usuario extends GenericEntity {
 	
 	
 	
+	
+
+	
+
 	public Rol getRol() {
 		return rol;
-	}
-
-	public String getRolStr() {
-		if (rol == null) {
-			return "";
-		}
-		return rol.getDescripcion();
 	}
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-
-	
 
 	public String getCedulaRuc() {
 		return cedulaRuc;
@@ -120,6 +115,8 @@ public class Usuario extends GenericEntity {
 		return "Usuario [id=" + id + ", cedulaRuc=" + cedulaRuc + ", nombreRazonSocial=" + nombreRazonSocial
 				+ ", apellido=" + apellido + ", password=" + password + ", rol=" + rol + "]";
 	}
+
+	
 
 	
 

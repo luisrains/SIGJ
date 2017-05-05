@@ -20,9 +20,10 @@ import py.com.sigj.controllers.list.RolListController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.dao.PermisoDao;
 import py.com.sigj.dao.RolDao;
-
+import py.com.sigj.dao.RolPermisoDao;
 import py.com.sigj.security.Permiso;
 import py.com.sigj.security.Rol;
+import py.com.sigj.security.RolPermiso;
 
 @Controller
 @Scope("request")
@@ -37,6 +38,9 @@ public class RolFormController extends FormController<Rol> {
 	
 	@Autowired
 	PermisoDao permisoDao;
+	
+	@Autowired
+	RolPermisoDao rolPermisoDao;
 	
 	@Override
 	public String getTemplatePath() {
@@ -94,7 +98,8 @@ public class RolFormController extends FormController<Rol> {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				rol = getDao().find(id_objeto);
-				rol.setListPermiso(list);
+				RolPermiso rp = rolPermisoDao.eliminarPorRol(rol.getId());
+				rolPermisoDao.destroy(rp);
 				getDao().destroy(rol);
 
 				logger.info("Rol eliminado {}", rol);
@@ -115,15 +120,21 @@ public class RolFormController extends FormController<Rol> {
 	public String guardar_listado(ModelMap map, @RequestParam("selec") List<String> permiso, @Valid Rol obj,
 			BindingResult bindingResult) {
 		try {
-			List<Permiso> list = new ArrayList<Permiso>();
+			
 			if (obj.getId() == null && permiso != null) {
+				getDao().create(obj);
+				
 				for (String idLong : permiso) {
+					RolPermiso rp = new RolPermiso();
+					rp.setRol(obj);
 					Long idFormat = Long.parseLong(idLong);
-					list.add(permisoDao.find(idFormat));
+					rp.setPermiso(permisoDao.find(idFormat));
+					
+					rolPermisoDao.create(rp);
 				}
 			}
-			obj.setListPermiso(list);
-			getDao().createOrUpdate(obj);
+			
+			
 
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
 			logger.info("Se crea un nuevo Rol -> {}", obj);
@@ -144,12 +155,22 @@ public class RolFormController extends FormController<Rol> {
 			List<Permiso> list = new ArrayList<Permiso>();
 			logger.info("ID DE OBJ {}", obj);
 			if (obj != null && permiso != null) {
+				list = permisoDao.ListByRol(obj);
+				for (Permiso p : list) {
+					RolPermiso rp = new RolPermiso();
+					rp =rolPermisoDao.eliminarPorPermiso(obj.getId(), p.getId());
+					rolPermisoDao.destroy(rp);
+				}
 				for (String idLong : permiso) {
+					RolPermiso rp = new RolPermiso();
+					rp.setRol(obj);
 					Long idFormat = Long.parseLong(idLong);
-					list.add(permisoDao.find(idFormat));
+					rp.setPermiso(permisoDao.find(idFormat));
+					
+					rolPermisoDao.create(rp);
 				}
 			}
-			obj.setListPermiso(list);
+			
 			getDao().createOrUpdate(obj);
 			logger.info("Rol Actualizado {}", obj);
 			map.addAttribute("msgExito", msg.get("Registro Actualizado"));
