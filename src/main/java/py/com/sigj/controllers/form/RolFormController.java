@@ -3,6 +3,8 @@ package py.com.sigj.controllers.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -75,13 +77,16 @@ public class RolFormController extends FormController<Rol> {
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
 	public String accion2(ModelMap map, @Valid Rol obj,
 			@RequestParam(value = "permiso", required = false) List<String> permiso, BindingResult bindingResult,
-			@RequestParam(required = false) String accion,
+			@RequestParam(required = false) String accion,HttpServletRequest request,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
+		
+	
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, permiso, obj, bindingResult);
+			
+			return guardar_listado(map, permiso, obj, bindingResult,request);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO PROCESO {}", obj);
-			return editar_listado(map, permiso, obj, bindingResult);
+			return editar_listado(map, permiso, obj, bindingResult,request);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -98,8 +103,11 @@ public class RolFormController extends FormController<Rol> {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				rol = getDao().find(id_objeto);
-				RolPermiso rp = rolPermisoDao.eliminarPorRol(rol.getId());
-				rolPermisoDao.destroy(rp);
+				List<RolPermiso> rp = rolPermisoDao.eliminarPorRol(rol.getId());
+				for(RolPermiso rpp : rp){
+					rolPermisoDao.destroy(rpp);
+				}
+				
 				getDao().destroy(rol);
 
 				logger.info("Rol eliminado {}", rol);
@@ -118,15 +126,25 @@ public class RolFormController extends FormController<Rol> {
 
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map, @RequestParam("selec") List<String> permiso, @Valid Rol obj,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, HttpServletRequest request) {
+		
 		try {
+			HttpSession session = request.getSession();
+			
+			
 			
 			if (obj.getId() == null && permiso != null) {
-				getDao().create(obj);
-				
+				List<Permiso> listPermiso = new ArrayList<Permiso>();
+				for(String s : permiso){
+					Long idFormat = Long.parseLong(s);
+					listPermiso.add(permisoDao.find(idFormat));
+				}
+				obj.setListPermiso(listPermiso);
+				getDao().createOrUpdate(obj);
+				Rol rol_aux = rolDao.buscarRol(obj.getCodigo());
 				for (String idLong : permiso) {
 					RolPermiso rp = new RolPermiso();
-					rp.setRol(obj);
+					rp.setRol(rol_aux);
 					Long idFormat = Long.parseLong(idLong);
 					rp.setPermiso(permisoDao.find(idFormat));
 					
@@ -135,7 +153,7 @@ public class RolFormController extends FormController<Rol> {
 			}
 			
 			
-
+			
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
 			logger.info("Se crea un nuevo Rol -> {}", obj);
 		} catch (Exception ex) {
@@ -150,8 +168,9 @@ public class RolFormController extends FormController<Rol> {
 
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
 	public String editar_listado(ModelMap map, @RequestParam("selec") List<String> permiso, @Valid Rol obj,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,HttpServletRequest request) {
 		try {
+			HttpSession session = request.getSession();
 			List<Permiso> list = new ArrayList<Permiso>();
 			logger.info("ID DE OBJ {}", obj);
 			if (obj != null && permiso != null) {
@@ -170,9 +189,16 @@ public class RolFormController extends FormController<Rol> {
 					rolPermisoDao.create(rp);
 				}
 			}
-			
+			List<Permiso> listPermiso = new ArrayList<Permiso>();
+			for(String s : permiso){
+				Long idFormat = Long.parseLong(s);
+				listPermiso.add(permisoDao.find(idFormat));
+			}
+			obj.setListPermiso(listPermiso);
 			getDao().createOrUpdate(obj);
 			logger.info("Rol Actualizado {}", obj);
+			
+			
 			map.addAttribute("msgExito", msg.get("Registro Actualizado"));
 
 		} catch (Exception ex) {

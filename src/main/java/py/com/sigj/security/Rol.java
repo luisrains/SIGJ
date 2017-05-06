@@ -1,9 +1,16 @@
 package py.com.sigj.security;
 
+
+
+
+
+
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,9 +23,11 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 import org.hibernate.validator.constraints.NotBlank;
 
-import py.com.sigj.expediente.domain.TipoDemanda;
+
+
 import py.com.sigj.main.GenericEntity;
 
 @Entity
@@ -41,9 +50,26 @@ public class Rol extends GenericEntity {
 	@Size(max = 100, message = "rol.descripcion.size")
 	private String descripcion;
 	
+	@ManyToMany(fetch = FetchType.LAZY,cascade = { CascadeType.PERSIST, CascadeType.MERGE,CascadeType.ALL, CascadeType.REFRESH, CascadeType.DETACH })
+	@JoinTable(name = "rol_permiso", joinColumns = @JoinColumn(name = "rol_id"), inverseJoinColumns = @JoinColumn(name = "permiso_id"))
+	
+	private List<Permiso> listPermiso;
+	
 	
 	public Rol() {
 	}
+
+	
+	
+	public Rol(Long id, String codigo, String descripcion, List<Permiso> listPermiso) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.listPermiso = listPermiso;
+	}
+
+
 
 	public String getCodigo() {
 		return codigo;
@@ -72,14 +98,22 @@ public class Rol extends GenericEntity {
 
 	}
 
+	public List<Permiso> getListPermiso() {
+		return listPermiso;
+	}
+
+	public void setListPermiso(List<Permiso> listPermiso) {
+		this.listPermiso = listPermiso;
+	}
+
 	@Override
 	public String toString() {
-		return "Rol [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + "]";
+		return "Rol [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", listPermiso=" + listPermiso
+				+ "]";
 	}
 
 	
-	
-	
 
+	
 	
 }

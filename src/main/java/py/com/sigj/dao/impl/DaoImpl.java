@@ -32,6 +32,7 @@ public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {
 
 		logger.info("Insertando registro {}", obj);
 		entityManager.persist(obj);
+		entityManager.flush();
 	}
 
 	@Transactional

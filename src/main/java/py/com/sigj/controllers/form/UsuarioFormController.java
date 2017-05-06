@@ -155,9 +155,5 @@ public class UsuarioFormController extends FormController<Usuario> {
 		return getTemplatePath();
 
 	}
-	@RequestMapping(value = "archivo", method = RequestMethod.POST)
-	public String insertar_archivo(ModelMap map, @RequestParam("archivo") MultipartFile archivo) {
 	
-		return "ok";
-	}
 }

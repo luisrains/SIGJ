@@ -3,6 +3,7 @@
 
 <body>
 	<div class="row" th:fragment="contenido">
+		
 		<div class="col-xs-12">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
@@ -84,6 +85,7 @@
 			<!-- /.modal-dialog -->
 		</div>
 			<!-- /.modal -->
+			<input type="hidden" id="permiso-list" th:value="${session.listPermiso}">
 			<script type="text/javascript">
 
 			function agregar(obj, accion){

@@ -38,7 +38,7 @@ public class RolPermisoDaoImpl extends DaoImpl<RolPermiso> implements RolPermiso
 		return rp;
 	}
 	@Override
-	public RolPermiso eliminarPorRol(Long id_rol) {
+	public List<RolPermiso> eliminarPorRol(Long id_rol) {
 		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
 		sql = sql.replace("#ENTITY#", "RolPermiso");
 		Query query = null;
@@ -50,8 +50,8 @@ public class RolPermisoDaoImpl extends DaoImpl<RolPermiso> implements RolPermiso
 			
 			query = entityManager.createQuery(sql);
 			query.setParameter(1,id_rol);
-			
-			RolPermiso rp = (RolPermiso) query.getSingleResult();
+			int aux = query.getMaxResults();
+		List<RolPermiso> rp = query.getResultList();
 		return rp;
 	}
 	

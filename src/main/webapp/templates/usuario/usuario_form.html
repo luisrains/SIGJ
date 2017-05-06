@@ -4,7 +4,7 @@
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
    <div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
-	<input type="hidden" id="usu" th:value="${session.usuario}">
+	<input type="hidden" id="usu" th:value="${session.usuario}" >
 	<form th:action="@{/usuario/accion2}" th:object="${usuario}" method="post"
 		role="form" id="form-usuario">
 		<input type="hidden" th:field="*{id}" />
@@ -40,40 +40,14 @@
 			</select>
 
 		</div>
-		
 			
 			</div>
 			<!-- Inicio panel botones -->
 		<div th:replace="botones::footerModal">aqui van los botones</div>
 	</form>
-	<form enctype="multipart/form-data" id="formuploadajax" method="post">
-		<input  type="file" id="archivo1" name="archivo"/>
-		 <input type="submit" value="Subir archivos"/>
-	</form>
 	
-	 <script>
-    $(function(){
-        $("#formuploadajax").on("submit", function(e){
-            e.preventDefault();
-            var f = $(this);
-            var formData = new FormData(document.getElementById("formuploadajax"));
-            formData.append("dato", "valor");
-            //formData.append(f.attr("name"), $(this)[0].files[0]);
-            $.ajax({
-                url: "recibe.php",
-                type: "post",
-                dataType: "html",
-                data: formData,
-                cache: false,
-                contentType: false,
-	     processData: false
-            })
-                .done(function(res){
-                    $("#mensaje").html("Respuesta: " + res);
-                });
-        });
-    });
-    </script>
+	
+	
 	<!-- Fin panel botones -->
    </div>
   

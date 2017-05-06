@@ -25,6 +25,7 @@
 						type="text" th:field="*{descripcion}" maxlength="100"
 						class="form-control col-xs-6 col-sm-6" />
 				</div>
+				
 				<div class="form-group col-xs-12 col-sm-12">
 				<label for="permiso" th:text="#{rol.permiso.lbl}"
 					class="field-label">Permisos</label>
@@ -36,6 +37,7 @@
 				</select>
 			</div>
 			</div>
+			
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal"></div>
 		</form>
