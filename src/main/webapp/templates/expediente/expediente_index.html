@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <body>
 	<div th:fragment="contenido">
-<div th:replace="expediente/modal_expediente::modal_step"></div>
+<div th:replace="expediente/expediente_modal::modal_step"></div>
 
 <div class="container">
 
@@ -76,6 +76,11 @@
 											crearDataTableEsp("clienteDT", "[[@{/cliente/json}]]", "[[${columnasStrClient}]]", "[[@{/cliente/edit/}]]");
 										});													 
 			 						</script>
+									<button class="btn btn-success" id="botonAgregar"
+										onclick="agregar_demandado()">
+										<i class="glyphicon glyphicon-plus"></i> Agregar
+									</button>
+									<p id="demandate_agregado">nombre o ci de los agregados.</p>
 								</div>
 								
 								
@@ -127,6 +132,11 @@
 											crearDataTableEsp("abogadoDT", "[[@{/abogado/json}]]", "[[${columnasStrAbogado}]]", "[[@{/abogado/edit/}]]");
 										});													 
 			 						</script>
+			 						<button class="btn btn-success" id="botonAgregar"
+										onclick="agregar_abogado()">
+										<i class="glyphicon glyphicon-plus"></i> Agregar
+									</button>
+									<p id="demandate_agregado">nombre o ci de los agregados.</p>
 								</div>
 							  </div><!-- /.box-body -->
 							</div><!-- /.box -->

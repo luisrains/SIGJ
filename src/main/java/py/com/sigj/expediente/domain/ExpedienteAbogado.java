@@ -11,6 +11,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
@@ -40,6 +43,11 @@ public class ExpedienteAbogado extends GenericEntity {
 	@NotNull(message = "expedienteAbogado.abogado.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "expedienteAbogado_abogado_fk"))
 	private Abogado abogado;
+
+	@NotNull(message = "expedienteAbogado.tipo.notNull")
+	@NotBlank(message = "expedienteAbogado.tipo.notBlank")
+	@Size(max = 3, message = "expedienteAbogado.tipo.size")
+	private String TipoAogado;
 
 	public ExpedienteAbogado() {
 	}
