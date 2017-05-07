@@ -139,3 +139,86 @@ function mostrarModalStep(){
 
 	
 }
+
+function agregar_demandado(){
+	var seleccion = $('input[name=tipo_cliente]:checked').val();
+	var seleccionDT = $("#clienteDT tbody tr.selected td");
+	if(seleccionDT != null && seleccionDT != undefined && seleccionDT != ''){
+		if(seleccion == 'D'){
+			var demandante = new Object();
+			demandante.cedula_ruc = $("#clienteDT tbody tr.selected td").eq(1).text();
+			demandante.nombre_razon_social = $("#clienteDT tbody tr.selected td").eq(2).text();
+			demandante.apellido = $("#clienteDT tbody tr.selected td").eq(3).text();
+			demandante.tipo = seleccion;
+			$(".demandante").removeClass("hidden");
+			$("#o-cedula_demandante").text(demandante.cedula_ruc);
+			$("#o-nombre_demandante").text(demandante.nombre_razon_social);
+			$("#o-apellido_demandante").text(demandante.apellido);
+			$("#o-demandante").text("Demandante");
+		}else if(seleccion == 'C'){
+			var demandado = new Object();
+			demandado.cedula_ruc = $("#clienteDT tbody tr.selected td").eq(1).text();
+			demandado.nombre_razon_social = $("#clienteDT tbody tr.selected td").eq(2).text();
+			demandado.apellido = $("#clienteDT tbody tr.selected td").eq(3).text();
+			demandado.tipo = seleccion;
+			
+			$(".demandado").removeClass("hidden");
+			$("#o-cedula_demandado").text(demandado.cedula_ruc);
+			$("#o-nombre_demandado").text(demandado.nombre_razon_social);
+			$("#o-apellido_demandado").text(demandado.apellido);
+			$("#o-demandado").text("Demandado");
+		}else{
+			alert("Error no eligio nada");
+		}
+	}else{
+		alert("Error Debe seleccionar un cliente de la tabla");
+	}
+	
+}
+function agregar_abogado(){
+	var seleccion = $('input[name=tipo_abogado]:checked').val();
+	var seleccionDT = $("#abogadoDT tbody tr.selected td");
+	if(seleccionDT != null && seleccionDT != undefined && seleccionDT != ''){
+		if(seleccion == 'AP'){
+			var apoderado = new Object();
+			apoderado.cedula_ruc = $("#abogadoDT tbody tr.selected td").eq(1).text();
+			apoderado.nombre_razon_social = $("#abogadoDT tbody tr.selected td").eq(2).text();
+			apoderado.apellido = $("#abogadoDT tbody tr.selected td").eq(3).text();
+			apoderado.tipo = seleccion;
+			$(".apoderado").removeClass("hidden");
+			$("#o-cedula_apoderado").text(apoderado.cedula_ruc);
+			$("#o-nombre_apoderado").text(apoderado.nombre_razon_social);
+			$("#o-apellido_apoderado").text(apoderado.apellido);
+			$("#o-apoderado").text("Apoderado");
+		}else if(seleccion == 'CO'){
+			var contraparte = new Object();
+			contraparte.cedula_ruc = $("#abogadoDT tbody tr.selected td").eq(1).text();
+			contraparte.nombre_razon_social = $("#abogadoDT tbody tr.selected td").eq(2).text();
+			contraparte.apellido = $("#abogadoDT tbody tr.selected td").eq(3).text();
+			contraparte.tipo = seleccion;
+			
+			$(".contraparte").removeClass("hidden");
+			$("#o-cedula_contraparte").text(contraparte.cedula_ruc);
+			$("#o-nombre_contraparte").text(contraparte.nombre_razon_social);
+			$("#o-apellido_contraparte").text(contraparte.apellido);
+			$("#o-contraparte").text("Contraparte");
+		}else{
+			alert("Error no eligio nada");
+		}
+	}else{
+		alert("Error Debe seleccionar un cliente de la tabla");
+	}
+}
+
+function datos_caratula(){
+	
+	
+	
+	var expediente = $("#o-nombre_demandante").text() +" "+$("#o-apellido_demandante").text()+" C/ "+ $("#o-nombre_demandado").text() +" "+$("#o-apellido_demandado").text()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
+	var juzgado = $("select[name=despacho]").find(":selected").text();
+	$("#anho_caract").text($("#anho").val());
+	$("#nro_caract").text($("#nroExpediente").val());
+	$("#folio_caract").text($("#folio").val());
+	$("#expediente_caract").text(expediente);
+	$("#juzgado_caract").text(juzgado);
+}
