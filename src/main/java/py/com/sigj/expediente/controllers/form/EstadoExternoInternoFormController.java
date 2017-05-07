@@ -1,8 +1,5 @@
 package py.com.sigj.expediente.controllers.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,8 +18,6 @@ import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.EstadoExternoInternoListController;
 import py.com.sigj.expediente.dao.EstadoExternoInternoDao;
 import py.com.sigj.expediente.domain.EstadoExternoInterno;
-import py.com.sigj.expediente.domain.Expediente;
-import py.com.sigj.expediente.domain.TipoDemanda;
 
 @Controller
 @Scope("request")
@@ -62,10 +57,9 @@ public class EstadoExternoInternoFormController extends FormController<EstadoExt
 
 	@Override
 	public Dao<EstadoExternoInterno> getDao() {
-
 		return estadoExternoInternoDao;
 	}
-	
+
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
 	public String accion2(ModelMap map, @Valid EstadoExternoInterno obj, BindingResult bindingResult,
 			@RequestParam(required = false) String accion,
@@ -122,13 +116,13 @@ public class EstadoExternoInternoFormController extends FormController<EstadoExt
 
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
 	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
-		
+
 		EstadoExternoInterno estado = null;
 		try {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				estado = getDao().find(id_objeto);
-				
+
 				getDao().destroy(estado);
 
 				logger.info("Estado Externo Interno eliminado  {}", estado);
@@ -142,7 +136,7 @@ public class EstadoExternoInternoFormController extends FormController<EstadoExt
 		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
-
+		
 	}
-	
+
 }

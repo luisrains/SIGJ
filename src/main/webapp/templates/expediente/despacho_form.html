@@ -2,52 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-	<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
+
+	<div class="row form-class-modal"
+		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
+		th:fragment="form">
+
 		<form th:action="@{/despacho/accion2}" th:object="${despacho}"
 			method="post" role="form">
-			
-			<input type="hidden" th:field="*{id}"/>
+
+			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
-			
-			<div class="form-group col-xs-12 col-sm-12">
-				<label for="descripcion" th:text="#{despacho.descripcion.lbl}"
-					class="field-label col-xs-7 col-sm-7">Descripción</label> <input type="text"
-					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
-			</div>
-			<div class="form-group">
-				<label for="juez" th:text="#{despacho.juez.lbl}" class="field-label col-xs-7 col-sm-7">
-				Juez</label>
-				<input type="text" th:field="*{juez}" maxlength="60"
-					class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
-			</div>
-			<div class="form-group col-xs-12 col-sm-12 hidden" id="expediente_div">
-				<label for="expediente" th:text="#{despacho.expediente.lbl}"
-					class="field-label col-xs-7 col-sm-7">Expediente del Despacho</label>
-					<select
-					class="form-control expediente" multiple="multiple"
-					id="expediente" name="selec" style="width: 250px !important;">
-					<option th:each=" exp : ${expedienteList}" th:value="${exp.id}"
-						th:text="${exp.descripcion}">caratula</option>
-				</select>
-			</div>
+
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="descripcion" th:text="#{despacho.descripcion.lbl}"
+						class="field-label col-xs-7 col-sm-7">Descripción:</label> <input
+						type="text" th:field="*{descripcion}" maxlength="100"
+						class="form-control col-xs-6 col-sm-6" />
+				</div>
+				<div class="form-group">
+					<label for="juez" th:text="#{despacho.juez.lbl}"
+						class="field-label col-xs-7 col-sm-7">Juez:</label> <input
+						type="text" th:field="*{juez}" maxlength="60"
+						class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
+				</div>
+				<div class="form-group col-xs-12 col-sm-12 hidden"
+					id="expediente_div">
+					<label for="expediente" th:text="#{despacho.expediente.lbl}"
+						class="field-label col-xs-7 col-sm-7">Expediente del
+						Despacho</label> <select class="form-control expediente"
+						multiple="multiple" id="expediente" name="selec"
+						style="width: 250px !important;">
+						<option th:each=" exp : ${expedienteList}" th:value="${exp.id}"
+							th:text="${exp.descripcion}">caratula</option>
+					</select>
+				</div>
 			</div>
 			<!-- Inicio panel botones -->
-					<div th:replace="botones::footerModal"></div>
+			<div th:replace="botones::footerModal"></div>
 			<!-- Fin panel botones -->
 		</form>
 		<script type="text/javascript">
-		
-		$(function () {
-		    //Initialize Select2 Elements
-			$(".expediente").select2({
-					placeholder: "Seleccione los Expedientes...",
-					language: {
-						noResults:  function (params) {
-						      return "No existen registros.";
-					    }
+			$(function() {
+				//Initialize Select2 Elements
+				$(".expediente").select2({
+					placeholder : "Seleccione los Expedientes...",
+					language : {
+						noResults : function(params) {
+							return "No existen registros.";
+						}
 					}
+				});
 			});
-		});		
 		</script>
 	</div>
 </body>

@@ -18,7 +18,6 @@ import py.com.sigj.dao.Dao;
 import py.com.sigj.gastos.domain.IngresoEgreso;
 import py.com.sigj.gastos.controllers.list.IngresoEgresoListController;
 import py.com.sigj.gastos.dao.IngresoEgresoDao;
-import py.com.sigj.gastos.domain.IngresoEgreso;
 
 /**
  *
@@ -81,7 +80,6 @@ public class IngresoEgresoFormController extends FormController<IngresoEgreso> {
 
 	}
 
-	
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map, @Valid IngresoEgreso obj, BindingResult bindingResult) {
 		try {
@@ -121,13 +119,13 @@ public class IngresoEgresoFormController extends FormController<IngresoEgreso> {
 
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
 	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
-		
+
 		IngresoEgreso estado = null;
 		try {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				estado = getDao().find(id_objeto);
-				
+
 				getDao().destroy(estado);
 
 				logger.info("Estado Externo Interno eliminado  {}", estado);

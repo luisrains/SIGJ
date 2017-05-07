@@ -2,14 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
+
 	<div class="row form-class-modal"
 		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
 		th:fragment="form">
 
 		<form th:action="@{/ingreso_egreso/accion2}"
 			th:object="${ingresoEgreso}" method="post" role="form">
+			
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
+			
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="tipo" th:text="#{ingreso_egreso.tipo.lbl}"
 						class="field-label col-xs-7 col-sm-7">Tipo:</label> <input
