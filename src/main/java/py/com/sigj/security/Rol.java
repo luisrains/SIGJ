@@ -32,7 +32,7 @@ public class Rol extends GenericEntity {
 	@NotNull(message = "rol.descripcion.notNull")
 	@NotBlank(message = "rol.descripcion.notBlank")
 	@Size(max = 100, message = "rol.descripcion.size")
-	private String desccripcion;
+	private String descripcion;
 
 	public Rol() {
 	}
@@ -45,12 +45,14 @@ public class Rol extends GenericEntity {
 		this.codigo = codigo;
 	}
 
-	public String getDesccripcion() {
-		return desccripcion;
+	
+
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDesccripcion(String desccripcion) {
-		this.desccripcion = desccripcion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class Rol extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Rol [id=" + id + ", codigo=" + codigo + ", desccripcion=" + desccripcion + "]";
+		return "Rol [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + "]";
 	}
 
 }

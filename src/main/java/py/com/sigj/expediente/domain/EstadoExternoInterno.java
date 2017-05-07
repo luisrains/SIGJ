@@ -33,7 +33,7 @@ public class EstadoExternoInterno extends GenericEntity {
 
 	@NotNull(message = "estadoExternoInterno.codigo.notNull")
 	@NotBlank(message = "estadoExternoInterno.codigo.notBlank")
-	@Size(max = 5, message = "estadoExternoInterno.codigo.size")
+	@Size(max = 30, message = "estadoExternoInterno.codigo.size")
 	private String codigo;
 
 	@NotNull(message = "estadoExternoInterno.descripcion.notNull")
