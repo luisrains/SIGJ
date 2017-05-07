@@ -1,20 +1,11 @@
 package py.com.sigj.expediente.domain;
 
 import java.util.Date;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -74,48 +65,6 @@ public class Expediente extends GenericEntity {
 
 	@Temporal(TemporalType.DATE)
 	private Date fechaSelloCargo;
-
-	// materia,proceso, tipo demanda
-
-	@ManyToOne
-	@NotNull(message = "expediente.tipoDemanda.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipodemanda_fk"))
-	private TipoDemanda tipoDemanda;
-
-	@ManyToOne
-	@NotNull(message = "expediente.despacho.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
-	private Despacho despacho;
-
-	@ManyToOne
-	@NotNull(message = "expediente.estadoExternoInterno.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estadoExternoInterno_fk"))
-	private EstadoExternoInterno estadoExternoInterno;
-
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinTable(name = "expediente_abogado", joinColumns = @JoinColumn(name = "expediente_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "abogado_id", referencedColumnName = "id"))
-	private Set<Abogado> listaAbogadoApoderado;
-
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinTable(name = "expediente_abogados", joinColumns = @JoinColumn(name = "expediente_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "abogado_id", referencedColumnName = "id"))
-	private Set<Abogado> listaAbogadoContraparte;
-	// @ManyToOne
-	// @NotNull(message = "expediente.estadoExterno.notNull")
-	// @JoinColumn(foreignKey = @ForeignKey(name =
-	// "expediente_estadoExterno_fk"))
-	// private EstadoExternoInterno estadoExterno;
-	//
-	// @ManyToOne
-	// @NotNull(message = "expediente.tipoDemanda.notNull")
-	// @JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipoDemanda_fk"))
-	// private TipoDemanda tipoDemanda;
-	//
-	// @ManyToOne
-	// @NotNull(message = "expediente.despacho.notNull")
-	// @JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
-	// private Despacho despacho;
 
 	public Expediente() {
 	}
@@ -186,39 +135,12 @@ public class Expediente extends GenericEntity {
 		this.fechaSelloCargo = fechaSelloCargo;
 	}
 
-	// public EstadoExternoInterno getEstadoExterno() {
-	// return estadoExterno;
-	// }
-	//
-	// public void setEstadoExterno(EstadoExternoInterno estadoExterno) {
-	// this.estadoExterno = estadoExterno;
-	// }
-	//
-	// public TipoDemanda getTipoDemanda() {
-	// return tipoDemanda;
-	// }
-	//
-	// public void setTipoDemanda(TipoDemanda tipoDemanda) {
-	// this.tipoDemanda = tipoDemanda;
-	// }
-	//
-	// public Despacho getDespacho() {
-	// return despacho;
-	// }
-	//
-	// public void setDespacho(Despacho despacho) {
-	// this.despacho = despacho;
-	// }
-	//
-	// @Override
-	// public String toString() {
-	// return "Expediente [id=" + id + ", caratula=" + caratula + ",
-	// nroExpediente=" + nroExpediente + ", anho=" + anho
-	// + ", monto=" + monto + ", moneda=" + moneda + ", objetoCausa=" +
-	// objetoCausa + ", nroLiquidación="
-	// + nroLiquidación + ", fechaSelloCargo=" + fechaSelloCargo + ",
-	// estadoExterno=" + estadoExterno
-	// + ", tipoDemanda=" + tipoDemanda + ", despacho=" + despacho + "]";
-	// }
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
 
 }
