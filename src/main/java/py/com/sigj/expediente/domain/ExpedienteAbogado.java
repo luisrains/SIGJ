@@ -47,7 +47,7 @@ public class ExpedienteAbogado extends GenericEntity {
 	@NotNull(message = "expedienteAbogado.tipo.notNull")
 	@NotBlank(message = "expedienteAbogado.tipo.notBlank")
 	@Size(max = 3, message = "expedienteAbogado.tipo.size")
-	private String TipoAogado;
+	private String TipoAbogado;
 
 	public ExpedienteAbogado() {
 	}
@@ -76,6 +76,14 @@ public class ExpedienteAbogado extends GenericEntity {
 
 	public void setAbogado(Abogado abogado) {
 		this.abogado = abogado;
+	}
+
+	public String getTipoAbogado() {
+		return TipoAbogado;
+	}
+
+	public void setTipoAbogado(String tipoAbogado) {
+		TipoAbogado = tipoAbogado;
 	}
 
 	@Override
