@@ -139,33 +139,72 @@ function mostrarModalStep(){
 
 	
 }
-
+var rInfo = { "mapa": {"abogados" : [],"clientes": [] } }
+rInfo.mapa.abogados.push({"id_abogado":$("#id_abogadoHtml").val(), "tipo_abogado" : $("#tipo_abogadoHtml").val()})
+var demandante = "";
+var demandado = "";
+var apoderado = "";
+var contraparte = "";
 function agregar_demandado(){
 	var seleccion = $('input[name=tipo_cliente]:checked').val();
 	var seleccionDT = $("#clienteDT tbody tr.selected td");
-	if(seleccionDT != null && seleccionDT != undefined && seleccionDT != ''){
+	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined){
 		if(seleccion == 'D'){
-			var demandante = new Object();
-			demandante.cedula_ruc = $("#clienteDT tbody tr.selected td").eq(1).text();
-			demandante.nombre_razon_social = $("#clienteDT tbody tr.selected td").eq(2).text();
-			demandante.apellido = $("#clienteDT tbody tr.selected td").eq(3).text();
-			demandante.tipo = seleccion;
+			if(demandante == ""){
+				demandante = "["+ $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + " ]";
+				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_cliente]:checked').val();
+				rInfo.mapa.clientes.push({"id_cliente":id, "tipo_cliente": tipo });
+				$("#o-nombre_demandante").text($("#clienteDT tbody tr.selected td").eq(2).text());
+				$("#o-apellido_demandante").text($("#clienteDT tbody tr.selected td").eq(3).text());
+			}
+			else{
+				demandante.replace("]",",");
+				demandante = demandante + $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + " ]";
+				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_cliente]:checked').val();
+				rInfo.mapa.clientes.push({"id_cliente":id, "tipo_cliente": tipo });
+			}
+//			demandante.id = $("#clienteDT tbody tr.selected td").eq(0).text();
+//			demandante.cedula_ruc = $("#clienteDT tbody tr.selected td").eq(1).text();
+//			demandante.nombre_razon_social = $("#clienteDT tbody tr.selected td").eq(2).text();
+//			demandante.apellido = $("#clienteDT tbody tr.selected td").eq(3).text();
+//			demandante.tipo = seleccion;
 			$(".demandante").removeClass("hidden");
-			$("#o-cedula_demandante").text(demandante.cedula_ruc);
-			$("#o-nombre_demandante").text(demandante.nombre_razon_social);
-			$("#o-apellido_demandante").text(demandante.apellido);
+			$("#o-id_demandante").text(demandante);
+//			$("#o-cedula_demandante").text(demandante.cedula_ruc);
+//			$("#o-nombre_demandante").text(demandante.nombre_razon_social);
+//			$("#o-apellido_demandante").text(demandante.apellido);
 			$("#o-demandante").text("Demandante");
 		}else if(seleccion == 'C'){
-			var demandado = new Object();
-			demandado.cedula_ruc = $("#clienteDT tbody tr.selected td").eq(1).text();
-			demandado.nombre_razon_social = $("#clienteDT tbody tr.selected td").eq(2).text();
-			demandado.apellido = $("#clienteDT tbody tr.selected td").eq(3).text();
-			demandado.tipo = seleccion;
+			if(demandado == ""){
+				demandado = "["+ $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
+			
+				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_cliente]:checked').val();
+				rInfo.mapa.clientes.push({"id_cliente":id, "tipo_cliente": tipo });
+				$("#o-nombre_demandado").text($("#clienteDT tbody tr.selected td").eq(2).text());
+				$("#o-apellido_demandado").text($("#clienteDT tbody tr.selected td").eq(3).text());
+			}
+			else{
+				demandado.replace("]",",");
+				demandado = demandado + $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
+				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_cliente]:checked').val();
+				rInfo.mapa.clientes.push({"id_cliente":id, "tipo_cliente": tipo });
+			}
+			
+//			var demandado = new Object();
+//			demandado.cedula_ruc = $("#clienteDT tbody tr.selected td").eq(1).text();
+//			demandado.nombre_razon_social = $("#clienteDT tbody tr.selected td").eq(2).text();
+//			demandado.apellido = $("#clienteDT tbody tr.selected td").eq(3).text();
+//			demandado.tipo = seleccion;
 			
 			$(".demandado").removeClass("hidden");
-			$("#o-cedula_demandado").text(demandado.cedula_ruc);
-			$("#o-nombre_demandado").text(demandado.nombre_razon_social);
-			$("#o-apellido_demandado").text(demandado.apellido);
+			$("#o-id_demandado").text(demandado);
+//			$("#o-cedula_demandado").text(demandado.cedula_ruc);
+//			$("#o-nombre_demandado").text(demandado.nombre_razon_social);
+//			$("#o-apellido_demandado").text(demandado.apellido);
 			$("#o-demandado").text("Demandado");
 		}else{
 			alert("Error no eligio nada");
@@ -178,29 +217,58 @@ function agregar_demandado(){
 function agregar_abogado(){
 	var seleccion = $('input[name=tipo_abogado]:checked').val();
 	var seleccionDT = $("#abogadoDT tbody tr.selected td");
-	if(seleccionDT != null && seleccionDT != undefined && seleccionDT != ''){
+	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined){
 		if(seleccion == 'AP'){
-			var apoderado = new Object();
-			apoderado.cedula_ruc = $("#abogadoDT tbody tr.selected td").eq(1).text();
-			apoderado.nombre_razon_social = $("#abogadoDT tbody tr.selected td").eq(2).text();
-			apoderado.apellido = $("#abogadoDT tbody tr.selected td").eq(3).text();
-			apoderado.tipo = seleccion;
+			if(apoderado == ""){
+				apoderado = "["+ $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
+				
+				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_abogado]:checked').val();
+				rInfo.mapa.abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+			}else{
+				apoderado.replace("]",",");
+				apoderado = apoderado + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
+				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_abogado]:checked').val();
+				rInfo.mapa.abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+			
+			}
+//			var apoderado = new Object();
+//			apoderado.cedula_ruc = $("#abogadoDT tbody tr.selected td").eq(1).text();
+//			apoderado.nombre_razon_social = $("#abogadoDT tbody tr.selected td").eq(2).text();
+//			apoderado.apellido = $("#abogadoDT tbody tr.selected td").eq(3).text();
+//			apoderado.tipo = seleccion;
 			$(".apoderado").removeClass("hidden");
-			$("#o-cedula_apoderado").text(apoderado.cedula_ruc);
-			$("#o-nombre_apoderado").text(apoderado.nombre_razon_social);
-			$("#o-apellido_apoderado").text(apoderado.apellido);
+			$("#o-id_apoderado").text(apoderado);
+//			$("#o-nombre_apoderado").text(apoderado.nombre_razon_social);
+//			$("#o-apellido_apoderado").text(apoderado.apellido);
 			$("#o-apoderado").text("Apoderado");
 		}else if(seleccion == 'CO'){
-			var contraparte = new Object();
-			contraparte.cedula_ruc = $("#abogadoDT tbody tr.selected td").eq(1).text();
-			contraparte.nombre_razon_social = $("#abogadoDT tbody tr.selected td").eq(2).text();
-			contraparte.apellido = $("#abogadoDT tbody tr.selected td").eq(3).text();
-			contraparte.tipo = seleccion;
+			if(contraparte == ""){
+				contraparte = "["+ $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
+				
+				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_abogado]:checked').val();
+				rInfo.mapa.abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+			}else{
+				contraparte.replace("]",",");
+				contraparte = contraparte + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
+				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				var tipo = $('input[name=tipo_abogado]:checked').val();
+				rInfo.mapa.abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+			
+			}
+			
+//			var contraparte = new Object();
+//			contraparte.cedula_ruc = $("#abogadoDT tbody tr.selected td").eq(1).text();
+//			contraparte.nombre_razon_social = $("#abogadoDT tbody tr.selected td").eq(2).text();
+//			contraparte.apellido = $("#abogadoDT tbody tr.selected td").eq(3).text();
+//			contraparte.tipo = seleccion;
 			
 			$(".contraparte").removeClass("hidden");
-			$("#o-cedula_contraparte").text(contraparte.cedula_ruc);
-			$("#o-nombre_contraparte").text(contraparte.nombre_razon_social);
-			$("#o-apellido_contraparte").text(contraparte.apellido);
+			$("#o-id_contraparte").text(contraparte);
+//			$("#o-nombre_contraparte").text(contraparte.nombre_razon_social);
+//			$("#o-apellido_contraparte").text(contraparte.apellido);
 			$("#o-contraparte").text("Contraparte");
 		}else{
 			alert("Error no eligio nada");
@@ -213,6 +281,17 @@ function agregar_abogado(){
 function datos_caratula(){
 	
 	
+	console.log(rInfo);
+	var mapaStr = JSON.stringify(rInfo);
+	$.ajax({
+		type:"GET",
+		url: "expediente/hola",
+		data: {
+			rd : mapaStr
+		}
+	}).done(function(json_data){
+		
+	});
 	
 	var expediente = $("#o-nombre_demandante").text() +" "+$("#o-apellido_demandante").text()+" C/ "+ $("#o-nombre_demandado").text() +" "+$("#o-apellido_demandado").text()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
 	var juzgado = $("select[name=despacho]").find(":selected").text();

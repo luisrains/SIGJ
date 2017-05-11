@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -113,5 +115,11 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public Dao<Expediente> getDao() {
 		return expedienteDao;
 	}
+	@RequestMapping(value = "/hola", method = RequestMethod.GET) 
+	public String accion2(ModelMap map,@RequestParam(value = "rd", required = false) String rd){
+		logger.info("hola");
+		return "";
+	}
+			
 
 }
