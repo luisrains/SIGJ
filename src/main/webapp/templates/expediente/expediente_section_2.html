@@ -45,19 +45,7 @@
 
 	<div th:fragment="form">
 
-		<script type="text/javascript">
-			function limpiarForm() {
-				$("#id").val("");
-				$("#descripcion").val("");
-				$("#juez").val("");
-				$("#materia1").val("");
-			}
-			function nuevoRegistro() {
-				limpiarForm();
-				$("#botonNuevo").hide();
-				$("#descripcion").focus();
-			}
-		</script>
+	
 		<h4 class="page-header" th:text="#{despacho.form.titulo}">Detalles
 			del Expediente</h4>
 		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
@@ -71,54 +59,69 @@
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar codigo</li>
 		</ul>
-		<form th:action="@{/expediente/accion}" th:object="${expediente}"
+		<form th:action="" th:object="${expediente}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
-
-		<div class="form-group">
-				<label for="estadoExterno" th:text="#{expediente.estadoExterno.lbl}"
-					class="field-label">Estado Actual:</label> 
+		<div class="col-lg-6">
+		<div class="form-group col-lg-6">
+				<label th:text="#{expediente.nroExpediente.lbl}"
+					class="field-label section-02">Nro Expediente:</label> 
+				<label th:text="${nro_expediente}"
+					class="field-label section-02"></label> 	
 					
-					<select name="estadoExterno" id="estadoExterno" for="estadoExterno"
-					class="form-control form-group estadoExterno selecciones">
-					<option th:each=" tip : ${estadoExternoList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Inicio</option>
-				</select>
+			</div>
+		<div class="form-group col-lg-6">
+				<label th:text="#{expediente.juez.lbl}"
+					class="field-label section-02">Juez:</label> 
+				<label th:text="${juez}"
+					class="field-label section-02"></label> 	
+					
+					
+			</div>
+		<div class="form-group col-lg-6">
+				<label th:text="#{expediente.folio.lbl}"
+					class="field-label section-02">Folio:</label> 
+				<label th:text="${folio}"
+					class="field-label section-02"></label> 
+					
+					
+			</div>
+		<div class="form-group col-lg-6">
+				<label th:text="#{expediente.cliente_demandante.lbl}"
+					class="field-label section-02">Cliente Demandante:</label> 
+				<label th:text="${cliente_demandante}"
+					class="field-label section-02"></label> 
+					
+					
 			</div>
 			
-			<div class="form-group">
-				<label for="materia" th:text="#{expediente.materia.lbl}"
-					class="field-label">Materia:</label> 
+			<div class="form-group col-lg-6">
+				<label th:text="#{expediente.cliente_demandado.lbl}"
+					class="field-label section-02">Cliente Demandado:</label> 
+				<label th:text="${cliente_demandado}"
+					class="field-label section-02"></label> 
 					
-					<select name="materia" id="materia" for="materia"
-					class="form-control form-group materia selecciones">
-					<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Civil</option>
-				</select>
+					
 			</div>
-			<div class="form-group">
-				<label for="tipoProceso" th:text="#{expediente.tipoProceso.lbl}"
-					class="field-label">Tipo Proceso:</label> 
+			<div class="form-group col-lg-6">
+				<label th:text="#{expediente.abogado_apoderado.lbl}"
+					class="field-label section-02">Abogado Apoderado:</label> 
+				<label th:text="${abogado_apoderado}"
+					class="field-label section-02"></label> 
 					
-					<select name="tipoProceso" id="tipoProceso" for="tipoProceso"
-					class="form-control form-group tipoProceso selecciones">
-					<option th:each=" tip : ${tipoProcesoList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Ejecutivo</option>
-				</select>
+					
 			</div>
-			<div class="form-group">
-				<label for="tipoDemanda" th:text="#{expediente.tipoDemanda.lbl}"
-					class="field-label">Objeto:</label> 
+			<div class="form-group col-lg-6">
+				<label th:text="#{expediente.abogado_contraparte.lbl}"
+					class="field-label section-02">Abogado Contraparte:</label> 
+				<label th:text="${abogado_contraparte}"
+					class="field-label section-02"></label> 
 					
-					<select name="tipoDemanda" id="tipoDemanda" for="tipoDemanda"
-					class="form-control form-group tipoDemanda selecciones">
-					<option th:each=" tip : ${tipoDemandaList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">Accion Ejecutiva</option>
-				</select>
+					
 			</div>
 			
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="tipoDespacho" th:text="#{expediente.tipoDespacho.lbl}"
 					class="field-label">Despacho:</label> 
 					
@@ -135,7 +138,7 @@
 				<input type="text" name="nroExpediente" id="nroExpediente" maxlength="100"
 					class="form-control" />
 			</div>
-			<!--  -->
+			
 			
 			<div class="form-group">
 				<label for="caratula" th:text="#{expediente.caratula.lbl}"
@@ -194,11 +197,69 @@
 					             
 					        });
 					    </script>
-						<!-- /.input group -->
-					</div>
+						/.input group
+					</div> -->
 
             
 			<!-- Inicio panel botones -->
+		</div>
+		<div class="col-lg-6">
+				<label class="control-label">Seleccione Los Documentos</label> <input
+					id="input-6" name="input6[]" type="file" multiple
+					class="file-loading">
+				<script>
+					$(document).on('ready', function() {
+						$("#input-6").fileinput({
+							showUpload : false,
+							maxFileCount : 10,
+							mainClass : "input-group-lg"
+						});
+					});
+				</script>
+			</div>
+			
+			
+			<!-- Seccion para insertar las actuaciones -->
+			<div class="col-lg-12">
+							<div class="box box-primary collapsed-box">
+							  <div class="box-header with-border">
+							    <h3 class="box-title">Actuaciones</h3>
+							    <div class="box-tools pull-right">
+							      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+							    </div><!-- /.box-tools -->
+							  </div><!-- /.box-header -->
+							  <div class="box-body">
+							  <div class="form-group hidden-xs col-sm-12">
+								<div class="box">
+									
+									<table id="actuacion-table">
+									
+										<thead>
+											<th></th>
+											<th>Actuacion</th>
+											<th>Tipo Actuacion</th>
+											<th>Archivos</th>
+										</thead>
+										<tbody>
+											<tr>
+												<td><input type="radio" class="actuacion-radio"/></td>
+												<td>Actuacion Descripcion</td>
+												<td>Tipo Actuacion Descripcion</td>
+												<td>
+													<input id="input-6" name="input6[]" type="file" multiple class="file-loading">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.box -->
+								</div>
+							
+								
+								
+							  </div><!-- /.box-body -->
+							</div><!-- /.box -->
+						</div>	
 			<div th:replace="botones::form_botones">aqui van los botones</div>
 		</form>
 		<!-- Fin panel botones -->

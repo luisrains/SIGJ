@@ -126,6 +126,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public Dao<Expediente> getDao() {
 		return expedienteDao;
 	}
+	@RequestMapping(value = "/hola", method = RequestMethod.GET) 
+	public String accion2(ModelMap map,@RequestParam(value = "rd", required = false) String rd){
+		logger.info("hola");
+		return "";
+	}
+			
 
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
 	public String accion2(ModelMap map, @Valid Expediente obj,

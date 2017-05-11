@@ -8,7 +8,7 @@
 			<div class="box-header with-border">
 				<h3 class="box-title">Datos del juicio</h3>
 				<div class="box-tools pull-right">
-					<button class="btn btn-box-tool" data-widget="collapse">
+					<button class="btn btn-box-tool" data-widget="collapse" onclick="datos_caratula()">
 						<i class="fa fa-plus"></i>
 					</button>
 				</div>
@@ -26,45 +26,39 @@
 
 					<div class="row">
 					<label class="field-label col-sm-2">AÑO:</label> 
-					<label class="field-label col-sm-2 col-form-label" id="anho_caract" for="anho_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;width: 61px;margin-right: 40px;">2015 </label>
+					<label class="field-label col-sm-2 col-form-label" id="anho_caract" for="anho_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;width: 61px;margin-right: 40px;"></label>
 					
 					 <label class="field-label col-sm-2">Nro Exped:</label> 
-					 <label class="field-label col-sm-2" id="nro_caract" for="nro_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;width: 61px;margin-right: 40px;"> 6548</label>
+					 <label class="field-label col-sm-2" id="nro_caract" for="nro_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;width: 61px;margin-right: 40px;"></label>
 					 
 					 <label class="field-label col-sm-2">FOLIO:</label> 
-					 <label class="field-label col-sm-2" id="folio_caract" for="folio_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;width: 61px;margin-right: 40px;"> 102</label>
+					 <label class="field-label col-sm-2" id="folio_caract" for="folio_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;width: 61px;margin-right: 40px;"></label>
 					 </div>
 					 
 					 <div class="row" style="margin-top: 20px;">
 					 <label class="field-label col-sm-2">EXPEDIENTE:</label> 
-					 <label class="field-label col-sm-10" id="folio_caract" for="folio_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;"> 
-					 "Dominga Barreto C/ Graciela Esquivel S/Cobro de Guaranies."
+					 <label class="field-label col-sm-10" id="expediente_caract" for="expediente_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;"> 
 					 </label>
 					 </div>
 					 
 					  <div class="row" style="margin-top: 20px;">
 					 <label class="field-label col-sm-2">JUZGADO DE </label> 
-					 <label class="field-label col-sm-10" id="folio_caract" for="folio_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;"> 
-					 DE PAZ DE MRA.
+					 <label class="field-label col-sm-10" id="juzgado_caract" for="juzgado_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;"> 
 					 </label>
 					 </div>
 					 
 					 <div class="row" style="margin-top: 20px;">
 					 <label class="field-label col-sm-2">JUEZ</label> 
-					 <label class="field-label col-sm-10" id="folio_caract" for="folio_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;"> 
-					 NINGUNO
-					 </label>
+					 <input class="field-label col-sm-9" id="juez_caract" for="juez_caract"/>
+				
 					 </div>
 					 
 					 <div class="row" style="margin-top: 20px;">
 					 <label class="field-label col-sm-2">SECRETARIA NRO </label> 
-					 <label class="field-label col-sm-2" id="folio_caract" for="folio_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;"> 
-					 DE PAZ DE MRA.
-					 </label>
+					 <input class="field-label col-sm-2" id="secretaria_caract" for="secretaria_caract"/>
 					 <label class="field-label col-sm-2">A CARGO DE </label> 
-					 <label class="field-label col-sm-5" id="folio_caract" for="folio_caract" style="font-weight: normal;border-bottom-style: dotted;border-bottom-width: 1px;"> 
-					 PAULINO.
-					 </label>
+					 <input class="field-label col-sm-5" id="cargo_caract" for="cargo_caract"/>
+					 
 					 </div>
 				</div>
 
