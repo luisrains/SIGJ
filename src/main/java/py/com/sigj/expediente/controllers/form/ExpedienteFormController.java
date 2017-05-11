@@ -33,6 +33,8 @@ import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
+import py.com.sigj.util.RenderingInfo;
+import py.com.sigj.util.WebUtils;
 
 @Controller
 @Scope("request")
@@ -144,12 +146,29 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	}
 
+	// recibimos una lista de abogados y clientes como un vector de string en
+	// este formato
+	// { "mapa": {"abogados" : [ { "id_abogado":"12", "tipo_abogado":"A" } ],
+	// "clientes": [ { "id_cliente":"2", "tipo_cliente":"D" } ] } }
 	@RequestMapping(value = "save_listado", method = RequestMethod.GET)
-	public String guardar_listado(ModelMap map, @RequestParam("selec") List<String> abogado, @Valid Expediente obj,
-			BindingResult bindingResult, HttpServletRequest request) {
-
+	public String guardar_listado(ModelMap map, @RequestParam(value = "rd_abogado_cliente") String rdInfoAbogadoCliente,
+			@Valid Expediente obj, BindingResult bindingResult, HttpServletRequest request) {
+		// rdInfoAbogadoCliente = "{ 'mapa': {'abogados' : [ {
+		// 'id_abogado':'12', 'tipo_abogado':'A' } ],'clientes': [ {
+		// 'id_cliente':'2', 'tipo_cliente':'D' } ] } }";
 		try {
+
 			HttpSession session = request.getSession();
+			RenderingInfo rdInfo = null;
+			if (rdInfoAbogadoCliente != null && rdInfoAbogadoCliente != "") {
+
+				rdInfo = WebUtils.deserializeRenderingInfo(rdInfoAbogadoCliente);
+
+				List<RenderingInfo> listaAbogados = (List<RenderingInfo>) rdInfo.get("abogados");
+				List<RenderingInfo> listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
+
+			}
+
 			// fake
 			obj.setAnho("20170");
 			obj.setCaratula("ninguno");
@@ -159,9 +178,23 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setMonto(10000);
 			obj.setNroExpediente("402");
 			obj.setNroLiquidación("154654");
-			if (obj.getId() == null && abogado != null) {
+			List<String> abogados = null;
+			List<String> cliente = null;
+			if (obj.getId() == null && abogados != null) {
 				getDao().create(obj);
-				for (String s : abogado) {
+				for (String s : abogados) {
+					ExpedienteAbogado ea = new ExpedienteAbogado();
+					Long idFormat = Long.parseLong(s);
+					ea.setAbogado(abogadoDao.find(idFormat));
+					ea.setExpediente(obj);
+					ea.setTipoAbogado("t");
+					expedienteAbogadoDao.create(ea);
+
+				}
+			}
+			if (cliente != null) {
+
+				for (String s : cliente) {
 					ExpedienteAbogado ea = new ExpedienteAbogado();
 					Long idFormat = Long.parseLong(s);
 					ea.setAbogado(abogadoDao.find(idFormat));
