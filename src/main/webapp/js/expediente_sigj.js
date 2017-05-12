@@ -316,7 +316,7 @@ function registrar_expediente(){
 	var mapaStr = JSON.stringify(rInfo);
 	$.ajax({
 		type:"GET",
-		url: "expediente/hola",
+		url: "expediente/save_listado",
 		data: {
 			rd_expediente : mapaStr
 		}
