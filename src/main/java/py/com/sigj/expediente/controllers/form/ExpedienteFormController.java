@@ -1,5 +1,6 @@
 package py.com.sigj.expediente.controllers.form;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.form.FormController;
+import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.AbogadoListController;
 import py.com.sigj.expediente.controllers.list.ActuacionListController;
@@ -27,12 +29,14 @@ import py.com.sigj.expediente.dao.AbogadoDao;
 import py.com.sigj.expediente.dao.DespachoDao;
 import py.com.sigj.expediente.dao.EstadoExternoInternoDao;
 import py.com.sigj.expediente.dao.ExpedienteAbogadoDao;
+import py.com.sigj.expediente.dao.ExpedienteClienteDao;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.MateriaDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
+import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
 
@@ -48,6 +52,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	private ExpedienteAbogadoDao expedienteAbogadoDao;
 
 	@Autowired
+	private ExpedienteClienteDao expedienteClienteDao;
+
+	@Autowired
 	private ClienteListController clienteList;
 
 	@Autowired
@@ -61,6 +68,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private AbogadoDao abogadoDao;
+
+	@Autowired
+	private ClienteDao clienteDao;
 
 	@Autowired
 	private MateriaDao materiaDao;
@@ -126,21 +136,15 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public Dao<Expediente> getDao() {
 		return expedienteDao;
 	}
-	@RequestMapping(value = "/hola", method = RequestMethod.GET) 
-	public String accion2(ModelMap map,@RequestParam(value = "rd", required = false) String rd){
-		logger.info("hola");
-		return "";
-	}
-			
 
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
 	public String accion2(ModelMap map, @Valid Expediente obj,
-			@RequestParam(value = "abogado", required = false) List<String> abogado, BindingResult bindingResult,
+			@RequestParam(value = "abogado", required = false) String abogado, BindingResult bindingResult,
 			@RequestParam(required = false) String accion, HttpServletRequest request,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, abogado, obj, bindingResult, request);
+			return guardar_listado(map, abogado, bindingResult, request);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO PROCESO {}", obj);
 			// return editar_listado(map, abogado, obj, bindingResult, request);
@@ -157,8 +161,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	// { "mapa": {"abogados" : [ { "id_abogado":"12", "tipo_abogado":"A" } ],
 	// "clientes": [ { "id_cliente":"2", "tipo_cliente":"D" } ] } }
 	@RequestMapping(value = "save_listado", method = RequestMethod.GET)
-	public String guardar_listado(ModelMap map, @RequestParam(value = "rd_abogado_cliente") String rdInfoAbogadoCliente,
-			@Valid Expediente obj, BindingResult bindingResult, HttpServletRequest request) {
+	public String guardar_listado(ModelMap map, @RequestParam(value = "rd_expediente") String rdInfoAbogadoCliente,
+			BindingResult bindingResult, HttpServletRequest request) {
+		Expediente obj = null;
 		// rdInfoAbogadoCliente = "{ 'mapa': {'abogados' : [ {
 		// 'id_abogado':'12', 'tipo_abogado':'A' } ],'clientes': [ {
 		// 'id_cliente':'2', 'tipo_cliente':'D' } ] } }";
@@ -224,6 +229,81 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	}
 
+	@RequestMapping(value = "save_listado2", method = RequestMethod.GET)
+	public String guardar_listado2(ModelMap map, @RequestParam(value = "rd_expediente") String rdInfoAbogadoCliente) {
+		Expediente obj = new Expediente();
+		// rdInfoAbogadoCliente = "{ 'mapa': {'abogados' : [ {
+		// 'id_abogado':'12', 'tipo_abogado':'A' } ],'clientes': [ {
+		// 'id_cliente':'2', 'tipo_cliente':'D' } ] } }";
+		try {
+			// fake
+
+			obj.setAnho("20170");
+			obj.setCaratula("ninguno");
+			// obj.setFechaSelloCargo("25-02-2017");
+			obj.setFolio("21");
+			obj.setMoneda("gs");
+			obj.setMonto(10000);
+			obj.setNroExpediente("402");
+			obj.setNroLiquidación("154654");
+
+			// HttpSession session = request.getSession();
+			RenderingInfo rdInfo = null;
+			RenderingInfo rdExpediente = null;
+			List<String> abogados = null;
+			List<String> cliente = null;
+			if (rdInfoAbogadoCliente != null && rdInfoAbogadoCliente != "" && rdExpediente != null) {
+				rdInfo = WebUtils.deserializeRenderingInfo(rdInfoAbogadoCliente);
+				rdExpediente = (RenderingInfo) rdInfo.get("expediente");
+			}
+			// TODO ver como registrar en despachos el expediente
+			obj.setAnho((String) rdExpediente.get("anho"));
+			obj.setFolio((String) rdExpediente.get("folio"));
+			obj.setCaratula((String) rdExpediente.get("caratula"));
+			obj.setMoneda((String) rdExpediente.get("moneda"));
+			obj.setMonto((int) rdExpediente.get("monto"));
+			obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
+			obj.setFechaSelloCargo((Date) rdExpediente.get("fecha"));
+			obj.setNroLiquidación((String) rdExpediente.get("nroLiquidación"));
+
+			List<RenderingInfo> listaAbogados = (List<RenderingInfo>) rdInfo.get("abogados");
+			List<RenderingInfo> listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
+			if (obj.getId() == null && listaAbogados != null) {
+				getDao().create(obj);
+				for (RenderingInfo rd : listaAbogados) {
+					ExpedienteAbogado ea = new ExpedienteAbogado();
+					Long idFormat = (Long) rd.get("id_abogado");
+					ea.setAbogado(abogadoDao.find(idFormat));
+					ea.setExpediente(obj);
+					ea.setTipoAbogado((String) rd.get("tipo_abogado"));
+					expedienteAbogadoDao.create(ea);
+				}
+			}
+			if (listaCliente != null) {
+
+				for (RenderingInfo rd : listaCliente) {
+					ExpedienteCliente ec = new ExpedienteCliente();
+					Long idFormat = (Long) rd.get("id_cliente");
+					ec.setCliente(clienteDao.find(idFormat));
+					ec.setExpediente(obj);
+					ec.setTipoCliente((String) rd.get("tipo_cliente"));
+					expedienteClienteDao.create(ec);
+
+				}
+
+			}
+
+			map.addAttribute("msgExito", msg.get("Registro agregado"));
+			logger.info("Se crea un nuevo Rol -> {}", obj);
+		} catch (Exception ex) {
+			obj.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+		}
+		map.addAttribute(getNombreObjeto(), obj);
+		agregarValoresAdicionales(map);
+		return getTemplatePath();
+
+	}
 	/*
 	 * @RequestMapping(value = "editar_listado", method = RequestMethod.POST)
 	 * public String editar_listado(ModelMap map, @RequestParam("selec")
