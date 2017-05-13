@@ -21,7 +21,6 @@ public class DespachoDaoImpl extends DaoImpl<Despacho> implements DespachoDao {
 	public Despacho find(Long id) {
 		logger.info("Buscando registro con id: {}", id);
 		Despacho d = entityManager.find(getEntityClass(), id);
-		initializeCollection(d.getListExpediente());
 		return d;
 
 	}

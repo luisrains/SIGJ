@@ -1,16 +1,9 @@
 package py.com.sigj.expediente.domain;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -41,11 +34,6 @@ public class TipoDemanda extends GenericEntity {
 	@Size(max = 100, message = "tipoDemanda.descripcion.size")
 	private String descripcion;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinTable(name = "despacho_expediente", joinColumns = @JoinColumn(name = "despacho_id"), inverseJoinColumns = @JoinColumn(name = "expediente_id"))
-	private List<Expediente> listExpediente;
-
 	public TipoDemanda() {
 
 	}
@@ -68,17 +56,9 @@ public class TipoDemanda extends GenericEntity {
 		this.descripcion = descripcion;
 	}
 
-	public List<Expediente> getListExpediente() {
-		return listExpediente;
-	}
-
-	public void setListExpediente(List<Expediente> listExpediente) {
-		this.listExpediente = listExpediente;
-	}
-
 	@Override
 	public String toString() {
-		return "TipoDemanda [id=" + id + ", descripcion=" + descripcion + ", listExpediente=" + listExpediente + "]";
+		return "TipoDemanda [id=" + id + ", descripcion=" + descripcion + "]";
 	}
 
 }

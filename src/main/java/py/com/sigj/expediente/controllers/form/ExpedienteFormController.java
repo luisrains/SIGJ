@@ -229,12 +229,21 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	}
 
+	/**
+	 * recibe un RenderingInfo a ser deszerializado Example:
+	 * rdInfoAbogadoCliente = "{ 'mapa': {'abogados' : [ { 'id_abogado':'12',
+	 * 'tipo_abogado':'A' } ],'clientes': [ { 'id_cliente':'2',
+	 * 'tipo_cliente':'D' } ] } }";
+	 * 
+	 * @param map
+	 * @param String
+	 * @param RenderingInfo
+	 * @return String
+	 */
 	@RequestMapping(value = "save_listado2", method = RequestMethod.GET)
 	public String guardar_listado2(ModelMap map, @RequestParam(value = "rd_expediente") String rdInfoAbogadoCliente) {
 		Expediente obj = new Expediente();
-		// rdInfoAbogadoCliente = "{ 'mapa': {'abogados' : [ {
-		// 'id_abogado':'12', 'tipo_abogado':'A' } ],'clientes': [ {
-		// 'id_cliente':'2', 'tipo_cliente':'D' } ] } }";
+
 		try {
 			// fake
 
@@ -246,7 +255,6 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setMonto(10000);
 			obj.setNroExpediente("402");
 			obj.setNroLiquidación("154654");
-
 			// HttpSession session = request.getSession();
 			RenderingInfo rdInfo = null;
 			RenderingInfo rdExpediente = null;
@@ -265,7 +273,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
 			obj.setFechaSelloCargo((Date) rdExpediente.get("fecha"));
 			obj.setNroLiquidación((String) rdExpediente.get("nroLiquidación"));
-
+			// validar el despacho
+			obj.setDespachoActual(despachoDao.find((Long) rdExpediente.get("despacho")));
 			List<RenderingInfo> listaAbogados = (List<RenderingInfo>) rdInfo.get("abogados");
 			List<RenderingInfo> listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
 			if (obj.getId() == null && listaAbogados != null) {

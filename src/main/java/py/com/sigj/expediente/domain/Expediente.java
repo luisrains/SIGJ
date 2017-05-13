@@ -3,9 +3,12 @@ package py.com.sigj.expediente.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -65,6 +68,13 @@ public class Expediente extends GenericEntity {
 
 	@Temporal(TemporalType.DATE)
 	private Date fechaSelloCargo;
+
+	// El expediente está en un despacho por vez,
+	// podriamos tener un despachoAnterior y despachoActual
+	@ManyToOne
+	@NotNull(message = "expediente.despacho.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
+	private Despacho despachoActual;
 
 	public Expediente() {
 	}
@@ -141,6 +151,14 @@ public class Expediente extends GenericEntity {
 
 	public void setFolio(String folio) {
 		this.folio = folio;
+	}
+
+	public Despacho getDespachoActual() {
+		return despachoActual;
+	}
+
+	public void setDespachoActual(Despacho despacho) {
+		this.despachoActual = despacho;
 	}
 
 }
