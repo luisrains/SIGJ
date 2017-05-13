@@ -139,8 +139,10 @@ function mostrarModalStep(){
 
 	
 }
+//var rInfo = { "mapa": {"abogados" : [],"clientes": [] } }
 var abogados = [];
 var clientes = [];
+//rInfo.mapa.abogados.push({"id_abogado":$("#id_abogadoHtml").val(), "tipo_abogado" : $("#tipo_abogadoHtml").val()})
 var demandante = "";
 var demandado = "";
 var apoderado = "";
@@ -284,16 +286,6 @@ function datos_caratula(){
 	rInfo.mapa.abogados=abogados;
 	rInfo.mapa.clientes=clientes;
 	
-	var mapaStr = JSON.stringify(rInfo);
-	$.ajax({
-		type:"GET",
-		url: "expediente/save_listado2",
-		data: {
-			rd : mapaStr
-		}
-	}).done(function(json_data){
-		
-	});
 	
 	var expediente = $("#o-nombre_demandante").text() +" "+$("#o-apellido_demandante").text()+" C/ "+ $("#o-nombre_demandado").text() +" "+$("#o-apellido_demandado").text()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
 	var juzgado = $("select[name=despacho]").find(":selected").text();
@@ -302,4 +294,36 @@ function datos_caratula(){
 	$("#folio_caract").text($("#folio").val());
 	$("#expediente_caract").text(expediente);
 	$("#juzgado_caract").text(juzgado);
+}
+
+function registrar_expediente(){
+	var rInfo = {};
+	rInfo.mapa = {};
+	rInfo.mapa.abogados = abogados;
+	rInfo.mapa.clientes = clientes;
+	var expediente = {};
+	expediente.anho = $("#anho_caract").text();
+	expediente.folio = 	$("#folio_caract").text();
+	expediente.juzgado = $("#juzgado_caract").text();
+	expediente.juez = $("#juez_caract").val();
+	expediente.secretaria = $("#secretaria_caract").val();
+	expediente.cargo = $("#cargo_caract").val();
+	expediente.caratula = $("#expediente_caract").text();
+	expediente.moneda = $("#moneda").val();
+	expediente.monto = $("#monto").val();
+	expediente.nroExpediente = $("#nro_caract").text();
+	expediente.fecha = $('input[name=fecha]').val();
+	expediente.nroLiquidacion = $("#nroLiquidacion").val();
+	rInfo.mapa.expediente =  expediente;
+	console.log(rInfo);
+	var mapaStr = JSON.stringify(rInfo);
+	$.ajax({
+		type:"GET",
+		url: "expediente/save_listado2",
+		data: {
+			rd_expediente : mapaStr
+		}
+	}).done(function(json_data){
+		
+	});
 }
