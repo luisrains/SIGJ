@@ -153,7 +153,7 @@ function agregar_demandado(){
 	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined){
 		if(seleccion == 'D'){
 			if(demandante == ""){
-				demandante = "["+ $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + " ]";
+				demandante = "["+ $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
 				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
@@ -161,8 +161,8 @@ function agregar_demandado(){
 				$("#o-apellido_demandante").text($("#clienteDT tbody tr.selected td").eq(3).text());
 			}
 			else{
-				demandante.replace("]",",");
-				demandante = demandante + $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + " ]";
+				demandante.split("]").join(",");
+				demandante = demandante + $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
 				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
@@ -189,7 +189,7 @@ function agregar_demandado(){
 				$("#o-apellido_demandado").text($("#clienteDT tbody tr.selected td").eq(3).text());
 			}
 			else{
-				demandado.replace("]",",");
+				demandado.split("]").join(",");
 				demandado = demandado + $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
 				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
@@ -228,7 +228,7 @@ function agregar_abogado(){
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogados.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
-				apoderado.replace("]",",");
+				apoderado.split("]").join(",");
 				apoderado = apoderado + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
 				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
@@ -253,7 +253,7 @@ function agregar_abogado(){
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogados.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
-				contraparte.replace("]",",");
+				contraparte.split("]").join(",");
 				contraparte = contraparte + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
 				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
@@ -316,11 +316,13 @@ function registrar_expediente(){
 	var mapaStr = JSON.stringify(rInfo);
 	$.ajax({
 		type:"GET",
-		url: "expediente/save_listado",
+		url: "expediente/hola",
 		data: {
 			rd_expediente : mapaStr
 		}
 	}).done(function(json_data){
-		
+		$("#expediente_section_2").html(json_data);
+		$("#section_1").addClass("hidden");
+		$("#expediente_section_2").removeClass("hidden");
 	});
 }

@@ -118,7 +118,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "/hola", method = RequestMethod.GET) 
 	public String accion2(ModelMap map,@RequestParam(value = "rd_expediente", required = true) String rd_expediente){
 		logger.info("hola");
-		return "";
+		map.addAttribute("expediente", rd_expediente);
+		return "expediente/expediente_section_2";
 	}
 			
 
