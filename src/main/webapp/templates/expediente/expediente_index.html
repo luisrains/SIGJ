@@ -18,14 +18,14 @@
 				<li ><a href="#menu3">Listado de Expedientes</a></li>
 			</ul>
 
-			<div class="tab-content">
+			<div  class="tab-content">
 
 				<div id="menu1" class="tab-pane fade in active">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
 							<h3>Registro de Expediente</h3>
 						</div>
-						<div class="box-body">
+						<div id="section_1" class="box-body">
 						<button class="btn btn-success" id="botonAgregar"
 								 onclick="openWorkflow()">
 								<i class="glyphicon glyphicon-plus"></i> Agregar Juicio
@@ -279,8 +279,9 @@
 					</div>
 				</div>
 			</div>
+			<div id="expediente_section_2" class="hidden"></div>
 		</div>
-
+		
 		<script>
 				$(document).ready(function(){
 				    $(".nav-tabs a").click(function(){

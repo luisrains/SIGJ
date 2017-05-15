@@ -1,44 +1,44 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>AdminLTE 2 | Dashboard</title>
-<!-- Tell the browser to be responsive to screen width -->
+Tell the browser to be responsive to screen width
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-<!-- Bootstrap 3.3.6 -->
+Bootstrap 3.3.6
 <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
 	href="../bootstrap/css/bootstrap.min.css">
-<!-- Font Awesome -->
+Font Awesome
 <link rel="stylesheet"
 	th:href="@{/bootstrap/fonts/font-awesome.min.css}"
 	href="../bootstrap/fonts/font-awesome.min.css">
-<!-- Ionicons -->
+Ionicons
 <link rel="stylesheet" th:href="@{/bootstrap/fonts/ionicons.min.css}"
 	href="../bootstrap/fonts/ionicons.min.css">
-<!-- jvectormap -->
+jvectormap
 <link rel="stylesheet"
 	th:href="@{/plugins/jvectormap/jquery-jvectormap-1.2.2.css}"
 	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-<!-- Theme style -->
+Theme style
 <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"
 	href="../dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load.
 <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"
 	href="../dist/css/skins/_all-skins.min.css">
-<!-- OWLP -->
+OWLP
 <script type="text/javascript" src="../js/sigjapp.js"
 	th:src="@{/js/sigjapp.js}"></script>
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
+HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+WARNING: Respond.js doesn't work if you view the page via file://
+[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <![endif]
 </head>
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
@@ -58,65 +58,121 @@
 		<ul>
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar codigo</li>
-		</ul>
-		<form th:action="" th:object="${expediente}"
-			method="post" role="form">
+		</ul> -->
+		
+		
 
-			<input type="hidden" th:field="*{id}" />
-		<div class="col-lg-6">
-		<div class="form-group col-lg-6">
+			<!-- <input type="hidden" th:field="*{id}" /> -->
+		<div class="col-lg-12" style="border-style:solid;margin-top:10px;">
+			
+			<h3>CARATULA DEL EXPEDIENTE</h3>
+		<div class="form-group col-lg-6" style="margin-top:10px;">
 				<label th:text="#{expediente.nroExpediente.lbl}"
 					class="field-label section-02">Nro Expediente:</label> 
-				<label th:text="${nro_expediente}"
-					class="field-label section-02"></label> 	
+				<!-- Para prueba -->	
+					<label
+					class="field-label section-02">4512</label> 
+				<!-- <label th:text="${expediente.nro_expediente}"
+					class="field-label section-02"></label>  -->	
 					
 			</div>
+			
+		<div class="form-group col-lg-6" style="margin-top:10px;">
+				<label th:text="#{expediente.anho.lbl}"
+					class="field-label section-02">Año:</label> 
+					<label
+					class="field-label section-02"> 2015</label> 
+					
+				<!-- <label th:text="${expediente.juez}"
+					class="field-label section-02"></label>  -->	
+					
+					
+			</div>	
 		<div class="form-group col-lg-6">
 				<label th:text="#{expediente.juez.lbl}"
 					class="field-label section-02">Juez:</label> 
-				<label th:text="${juez}"
-					class="field-label section-02"></label> 	
+					<label
+					class="field-label section-02"> Pedro Ayala</label> 
+					
+				<!-- <label th:text="${expediente.juez}"
+					class="field-label section-02"></label>  -->	
 					
 					
 			</div>
 		<div class="form-group col-lg-6">
 				<label th:text="#{expediente.folio.lbl}"
 					class="field-label section-02">Folio:</label> 
-				<label th:text="${folio}"
-					class="field-label section-02"></label> 
+					
+				<label 
+					class="field-label section-02">100</label> 	
+				<!-- <label th:text="${expediente.folio}"
+					class="field-label section-02"></label>  -->
 					
 					
 			</div>
-		<div class="form-group col-lg-6">
+			
+			<!-- Aca deberia ir un for each que esta comentado porque no sabemos como va a venir el listado de clientes -->
+			<div class="form-group col-lg-6">
+				<label th:text="#{expediente.clientes_demandantes.lbl}"
+					class="field-label section-02">Cliente Demandante:</label> 
+				
+				<label 
+					class="field-label section-02">Marcos Duarte</label> 	
+					
+				
+				<label 
+					class="field-label section-02">Carlos Duarte</label> 	
+			</div>
+		<!-- <div class="form-group col-lg-6" th:each=" cli: ${expediente.mapa.expediente.clientes}" th:value="${cli.id_cliente}"
+			th:text="">
 				<label th:text="#{expediente.cliente_demandante.lbl}"
 					class="field-label section-02">Cliente Demandante:</label> 
 				<label th:text="${cliente_demandante}"
 					class="field-label section-02"></label> 
 					
 					
-			</div>
+			</div> -->
 			
 			<div class="form-group col-lg-6">
-				<label th:text="#{expediente.cliente_demandado.lbl}"
+				<label th:text="#{expediente.clientes_demandados.lbl}"
 					class="field-label section-02">Cliente Demandado:</label> 
-				<label th:text="${cliente_demandado}"
-					class="field-label section-02"></label> 
+				
+				<label 
+					class="field-label section-02">Daniel Bogado</label> 
+					
+				<label 
+					class="field-label section-02">Gabriela Benitez</label> 			
+				
+				<!-- Todos los labels que hacen ya referencia al map que recibiremos se comenta hasta saber como obtener esos datos del controlador -->
+				<!-- <label th:text="${cliente_demandado}"
+					class="field-label section-02"></label>  -->
 					
 					
 			</div>
 			<div class="form-group col-lg-6">
-				<label th:text="#{expediente.abogado_apoderado.lbl}"
+				<label th:text="#{expediente.abogados_apoderados.lbl}"
 					class="field-label section-02">Abogado Apoderado:</label> 
-				<label th:text="${abogado_apoderado}"
-					class="field-label section-02"></label> 
+			
+				<label 
+					class="field-label section-02">Marcelo Marecos</label>
+					
+				<label 
+					class="field-label section-02">Antonio Gonzalez</label>	
+				<!-- <label th:text="${abogado_apoderado}"
+					class="field-label section-02"></label> --> 
 					
 					
 			</div>
 			<div class="form-group col-lg-6">
-				<label th:text="#{expediente.abogado_contraparte.lbl}"
+				<label th:text="#{expediente.abogados_contrapartes.lbl}"
 					class="field-label section-02">Abogado Contraparte:</label> 
-				<label th:text="${abogado_contraparte}"
-					class="field-label section-02"></label> 
+				
+				<label 
+					class="field-label section-02">Laura Villamayor</label>
+				<label 
+					class="field-label section-02">David Torres</label>	
+				<!-- <label th:text="${abogado_contraparte}"
+					class="field-label section-02"></label>  -->
 					
 					
 			</div>
@@ -202,12 +258,17 @@
 
             
 			<!-- Inicio panel botones -->
+			
 		</div>
-		<div class="col-lg-6">
-				<label class="control-label">Seleccione Los Documentos</label> <input
-					id="input-6" name="input6[]" type="file" multiple
-					class="file-loading">
-				<script>
+		<form id="upload" th:action="@{/expediente/archivo}" 
+			method="post" role="form" enctype="multipart/form-data">
+		<div class="col-lg-12" style="margin-top:10px;">
+				<label class="control-label">Seleccione Los Documentos</label>
+				<!-- <input type="file" id="expediente-archivo" name="expediente-archivo" multiple="multiple" > -->
+				<ul id="fileList">
+   					 <!-- The file list will be shown here -->
+ 				 </ul><input id="input-6" name="input6[]" type="file" multiple= class="file-loading"/>
+				 <!-- <script>
 					$(document).on('ready', function() {
 						$("#input-6").fileinput({
 							showUpload : false,
@@ -215,19 +276,19 @@
 							mainClass : "input-group-lg"
 						});
 					});
-				</script>
+				</script> -->
 			</div>
 			
 			
-			<!-- Seccion para insertar las actuaciones -->
-			<div class="col-lg-12">
+			 <!-- Seccion para insertar las actuaciones -->
+			<!--<div class="col-lg-12" style="margin-top:10px;">
 							<div class="box box-primary collapsed-box">
 							  <div class="box-header with-border">
 							    <h3 class="box-title">Actuaciones</h3>
 							    <div class="box-tools pull-right">
 							      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-							    </div><!-- /.box-tools -->
-							  </div><!-- /.box-header -->
+							    </div>/.box-tools
+							  </div>/.box-header
 							  <div class="box-body">
 							  <div class="form-group hidden-xs col-sm-12">
 								<div class="box">
@@ -236,12 +297,14 @@
 									
 										<thead>
 											<th></th>
+											<th></th>
 											<th>Actuacion</th>
 											<th>Tipo Actuacion</th>
 											<th>Archivos</th>
 										</thead>
 										<tbody>
 											<tr>
+												<td></td>
 												<td><input type="radio" class="actuacion-radio"/></td>
 												<td>Actuacion Descripcion</td>
 												<td>Tipo Actuacion Descripcion</td>
@@ -252,24 +315,37 @@
 										</tbody>
 									</table>
 								</div>
-								<!-- /.box -->
+								/.box
 								</div>
 							
 								
 								
-							  </div><!-- /.box-body -->
-							</div><!-- /.box -->
-						</div>	
-			<div th:replace="botones::form_botones">aqui van los botones</div>
+							  </div>/.box-body
+							</div>/.box
+						</div> -->	
+					<div class="row">
+								<div class="col-xs-8">
+								</div>
+								<div class="col-xs-4">
+								<button id="confirmar-expediente"class="btn btn-siguiente" type="submit">
+  									 CONFIRMAR <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+								</div>
+							</div>
+		
 		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
 		$(function () {
-			$(".selecciones").select2();});
+			$(".selecciones").select2();
+			$("#actuacion-table").DataTable();
+			});
+		$("#input-6").fileinput({
+			showUpload : false,
+			maxFileCount : 10,
+			mainClass : "input-group-lg"
+		});
 
-
+		
 		 
 		</script>
-	</div>
-</body>
-</html>
+
