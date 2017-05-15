@@ -326,3 +326,40 @@ function registrar_expediente(){
 		$("#expediente_section_2").removeClass("hidden");
 	});
 }
+
+		/*$("#confirmar-expediente").on( "click", function() {
+		$("#upload").on("submit", function(e){
+		var filedata = document.getElementsByName("expediente-archivo"),
+	            formdata = false;
+	    if (window.FormData) {
+	        formdata = new FormData($("#upload"));
+	        
+	    }
+	    var i = 0, len = filedata[0].files.length, img, reader, file;
+
+	    for (; i < len; i++) {
+	        file = filedata[0].files[i];
+	        if (formdata) {
+	            formdata.append("file", file);
+	        }
+	    }
+	    if (formdata) {
+	        $.ajax({
+	            url: "expediente/archivo",
+	            type: "POST",
+	            data: formdata,
+	            processData: false,
+	            contentType: false,
+	            success: function(res) {
+
+	            },       
+	            error: function(res) {
+
+	             }       
+	             });
+	            }
+	       
+	    return true;
+});
+	
+		});*/

@@ -64,8 +64,7 @@ WARNING: Respond.js doesn't work if you view the page via file://
 
 			<!-- <input type="hidden" th:field="*{id}" /> -->
 		<div class="col-lg-12" style="border-style:solid;margin-top:10px;">
-			<form 
-			method="post" role="form">
+			
 			<h3>CARATULA DEL EXPEDIENTE</h3>
 		<div class="form-group col-lg-6" style="margin-top:10px;">
 				<label th:text="#{expediente.nroExpediente.lbl}"
@@ -259,11 +258,16 @@ WARNING: Respond.js doesn't work if you view the page via file://
 
             
 			<!-- Inicio panel botones -->
-			</form>
+			
 		</div>
+		<form id="upload" th:action="@{/expediente/archivo}" 
+			method="post" role="form" enctype="multipart/form-data">
 		<div class="col-lg-12" style="margin-top:10px;">
 				<label class="control-label">Seleccione Los Documentos</label>
-				<input type="file"> <!-- <input
+				<input type="file" id="expediente-archivo" name="expediente-archivo" multiple>
+				<ul id="fileList">
+   					 <!-- The file list will be shown here -->
+ 				 </ul> <!-- <input
 					id="input-6" name="input6[]" type="file" multiple
 					class="file-loading">
 				<script>
@@ -325,12 +329,12 @@ WARNING: Respond.js doesn't work if you view the page via file://
 								<div class="col-xs-8">
 								</div>
 								<div class="col-xs-4">
-								<a class="btn btn-siguiente" onclick="confirmar_expediente()">
-  									 CONFIRMAR <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+								<button id="confirmar-expediente"class="btn btn-siguiente" type="submit">
+  									 CONFIRMAR <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 								</div>
 							</div>
 		
-		
+		</form>
 		<!-- Fin panel botones -->
 		<script type="text/javascript">
 		$(function () {

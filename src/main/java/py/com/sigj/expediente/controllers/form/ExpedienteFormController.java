@@ -1,5 +1,9 @@
 package py.com.sigj.expediente.controllers.form;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -7,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -122,5 +127,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		return "expediente/expediente_section_2";
 	}
 			
-
+	@RequestMapping(value = "archivo", method = RequestMethod.POST) 
+	public String confirmar_expediente(HttpServletRequest request,ModelMap map,
+			@RequestParam(value = "expediente-archivo", required = false) MultipartFile archivo2,
+			@RequestParam(value = "file", required = false) List<MultipartFile> archivo){
+		logger.info("hola");
+		
+		return "";
+	}
 }
+
