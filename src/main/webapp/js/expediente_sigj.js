@@ -5,7 +5,7 @@
 $("select[name=materia]").on("change", function(e){
 	console.log($('select[name=materia]').val());
 	var codigo_materia = $('select[name=materia]').val();
-	var web_url = 'materia/obtener_materia';
+	var web_url = '/sigj/materia/obtener_materia';
 	var modalSpinner = iniciarSpinner("modal_spinner");
 		$.ajax({
 			type:"GET",
@@ -140,7 +140,7 @@ function mostrarModalStep(){
 	
 }
 //var rInfo = { "mapa": {"abogados" : [],"clientes": [] } }
-var abogados = [];
+var abogado = [];
 var clientes = [];
 //rInfo.mapa.abogados.push({"id_abogado":$("#id_abogadoHtml").val(), "tipo_abogado" : $("#tipo_abogadoHtml").val()})
 var demandante = "";
@@ -226,13 +226,13 @@ function agregar_abogado(){
 				
 				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
-				abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
 				apoderado.split("]").join(",");
 				apoderado = apoderado + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
 				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
-				abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			
 			}
 //			var apoderado = new Object();
@@ -251,13 +251,13 @@ function agregar_abogado(){
 				
 				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
-				abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
 				contraparte.split("]").join(",");
 				contraparte = contraparte + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
 				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
-				abogados.push({"id_abogado":id, "tipo_abogado": tipo });
+				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			
 			}
 			
@@ -283,7 +283,8 @@ function agregar_abogado(){
 function datos_caratula(){
 	
 	var rInfo= {};
-	rInfo.mapa.abogados=abogados;
+	rInfo.mapa= {};
+	rInfo.mapa.abogados=abogado;
 	rInfo.mapa.clientes=clientes;
 	
 	
@@ -299,10 +300,15 @@ function datos_caratula(){
 function registrar_expediente(){
 	var rInfo = {};
 	rInfo.mapa = {};
-	rInfo.mapa.abogados = abogados;
+	rInfo.mapa.abogados = abogado;
 	rInfo.mapa.clientes = clientes;
 	var expediente = {};
-	expediente.anho = $("#anho_caract").text();
+	//expediente.anho = $("#anho_caract").text();
+	expediente.anho = 2017;
+	expediente.folio = 2017;
+	expediente.nroExpediente= 2017;
+	expediente.juzgado= "2017";
+	expediente.caratula = "2017";
 	expediente.folio = 	$("#folio_caract").text();
 	expediente.juzgado = $("#juzgado_caract").text();
 	expediente.juez = $("#juez_caract").val();
@@ -319,7 +325,7 @@ function registrar_expediente(){
 	var mapaStr = JSON.stringify(rInfo);
 	$.ajax({
 		type:"GET",
-		url: "expediente/save_listado2",
+		url: "/sigj/expediente/save_listado2",
 		data: {
 			rd_expediente : mapaStr
 		}

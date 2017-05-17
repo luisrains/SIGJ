@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
@@ -235,7 +234,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	 * rdInfoAbogadoCliente = "{ 'mapa': {'abogados' : [ { 'id_abogado':'12',
 	 * 'tipo_abogado':'A' } ],'clientes': [ { 'id_cliente':'2',
 	 * 'tipo_cliente':'D' } ] } }";
-	 * 
+	 *
 	 * @param map
 	 * @param String
 	 * @param RenderingInfo
@@ -244,7 +243,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "save_listado2", method = RequestMethod.GET)
 	public String guardar_listado2(ModelMap map, @RequestParam(value = "rd_expediente") String rdInfoAbogadoCliente) {
 		Expediente obj = new Expediente();
-
+		List<RenderingInfo> listaAbogados = null;
+		List<RenderingInfo> listaCliente = null;
 		try {
 			// fake
 
@@ -261,8 +261,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			RenderingInfo rdExpediente = null;
 			List<String> abogados = null;
 			List<String> cliente = null;
-			if (rdInfoAbogadoCliente != null && rdInfoAbogadoCliente != "" && rdExpediente != null) {
+			if (rdInfoAbogadoCliente != null && rdInfoAbogadoCliente != "") {
 				rdInfo = WebUtils.deserializeRenderingInfo(rdInfoAbogadoCliente);
+				logger.info("info {}", rdInfo.get("expediente"));
+				// rInfoUser = objectMapper.readValues(rdInfo.get("expediente"),
+				// RenderingInfo.class);
+				listaAbogados = (List<RenderingInfo>) rdInfo.get("abogados");
+				listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
 				rdExpediente = (RenderingInfo) rdInfo.get("expediente");
 			}
 			// TODO ver como registrar en despachos el expediente
@@ -276,8 +281,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setNroLiquidación((String) rdExpediente.get("nroLiquidación"));
 			// validar el despacho
 			obj.setDespachoActual(despachoDao.find((Long) rdExpediente.get("despacho")));
-			List<RenderingInfo> listaAbogados = (List<RenderingInfo>) rdInfo.get("abogados");
-			List<RenderingInfo> listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
+
 			if (obj.getId() == null && listaAbogados != null) {
 				getDao().create(obj);
 				for (RenderingInfo rd : listaAbogados) {
@@ -361,4 +365,3 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	 */
 
 }
-
