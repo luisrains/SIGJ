@@ -58,7 +58,7 @@ public class EmpleadoFormController extends FormController<Empleado> {
 		map.addAttribute("columnasPersona", empleadoList.getColumnasPersona());
 		map.addAttribute("columnasStr", empleadoList.getColumnasStr(null));
 		map.addAttribute("columnasStrPersona", empleadoList.getColumnasStr(empleadoList.getColumnasPersona()));
-		map.addAttribute("personaList", personaDao.getList(0, 20, null));
+		map.addAttribute("personaList", personaDao.getList(0, 100, null));
 		super.agregarValoresAdicionales(map);
 	}
 

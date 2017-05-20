@@ -89,9 +89,14 @@
 				</div>
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="fecha" th:text="#{movimiento.fecha.lbl}"
-						class="field-label col-xs-7 col-sm-7">Fecha:</label> <input
-						type="text" th:field="*{fecha}" maxlength="100"
-						class="form-control col-xs-6 col-sm-6" />
+						class="field-label col-xs-7 col-sm-7">Fecha:</label>
+					<div class="input-group date" style="width: 100%;">
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+						<input type="text" class="form-control pull-right col-sm-6 fecha"
+							th:field="*{fecha}" name="fecha" id="datepicker">
+					</div>
 
 				</div>
 				<div class="form-group col-xs-12 col-sm-12">
@@ -103,10 +108,10 @@
 
 			</div>
 			<!-- seccion empleado -->
-			<input type="hidden" th:field="*{empleado.id}" />
+			<input type="hidden" class="object_id" th:field="*{empleado.id}" />
 
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::form_botones">aqui van los botones</div>
+			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
 		<!-- Fin panel botones -->
 

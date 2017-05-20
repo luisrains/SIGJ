@@ -3,56 +3,51 @@
 
 <body>
 	<div th:fragment="contenido">
-
-
 		<div class="bd-example-row box-shadow">
 			<ul class="nav nav-tabs">
 				<!-- Standard button -->
 				<li class="active"><a href="#menu1">Registrar</a></li>
-				<li><a href="#menu2">Listado</a></li>
+				<li><a href="#menu2">Listar</a></li>
 			</ul>
-
 			<div class="tab-content">
-
 				<div id="menu1" class="tab-pane fade in active">
+					
 					<div class="box box-solid box-primary">
 						<div class="box-header">
-							<h3>Registro de Movimientos de Empleados</h3>
+							<h3>Registro de Movimientos</h3>
 						</div>
 						<div class="box-body">
-								<button class="btn btn-success btn-movil" id="botonAgregar"
-								 onclick="agregar()">
-								<i class="glyphicon glyphicon-plus"></i> Nuevo Movimiento de Empleado
-								</button>
-								<div class="hidden-xs col-sm-4 no-padding">
-									<div class="col-xs-12 col-sm-12" th:replace="rrhh/movimiento_form::form">aqui va
+							<button class="btn btn-success btn-movil" id="botonAgregar"
+								 onclick="agregar('','r')">
+								<i class="glyphicon glyphicon-plus"></i> Nuevo Movimiento
+							</button>
+							<div class="row">
+								<div class="hidden-xs col-sm-4">
+									<div th:replace="rrhh/movimiento_form::form">aqui va
 										un fragmento de codigo del form</div>
 								</div>
+								<div class="col-xs-12 col-sm-8"><h3>Listado de Empleados</h3></div>
 								<div class="col-xs-12 col-sm-8">
 									<table
-                                        class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
-                                        id="empleadoDT">
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
+										id="empleadoDT">
 										<thead>
 											<tr>
-												<th th:each="col : ${columnasPersona}" th:text="#{'empleado.' + ${col} + '.header'}">CÓDIGO</th>
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th th:each="col : ${columnasPersona}" th:text="#{${col} + '.header'}">
 											</tr>
 										</thead>
 									</table>
 									<script type="text/javascript">
-							 $(document).ready(function() {
-							    crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "empleado");
-							    
-							    
-							 });
-							 
-														 
-			 			</script>
+										$(document).ready(function() {
+											crearDataTableEsp("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStrPersona}]]", "[[@{/empleado/edit/}]]");
+										});													 
+			 						</script>
 								</div>
-							
+							</div>
 						</div>
 					</div>
 				</div>
-
 				<div id="menu2" class="tab-pane fade">
 					<div class="box box-solid box-primary">
 						<div class="box-header">
@@ -60,14 +55,15 @@
 						</div>
 						<div class="box-body no-padding">
 
+
 							<table
-								class="table table-bordered table-hover table-striped display col-xs-12 table-esp no-padding"
+								class="table table-bordered table-hover table-striped display"
 								id="movimientoDT">
 								<thead>
 									<tr>
-									   <th th:each="col : ${columnas}" th:text="#{'movimiento.' + ${col} + '.header'}">CÓDIGO</th>
 										<!--  <th th:each=" col : ${columnas}" th:text="${col}">colum1</th>-->
-										<th>Acción</th>
+										<th th:each="col : ${columnas}" th:text="#{${col} + '.header'}">
+										<th>Accion</th>
 									</tr>
 								</thead>
 							</table>
@@ -87,32 +83,211 @@
 				    $(".nav-tabs a").click(function(){
 				        $(this).tab('show');
 				    });
+				   
 				});
 			</script>
-			
-			<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
 			<div class="modal-dialog">
-				<div class="modal-content col-xs-12" style="min-height: 430px;">
+				<div class="modal-content form-class-modal">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"
-							>Nuevo Registro</h4>
+						 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Registrar Movimiento</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="rrhh/movimiento_form::form">aqui va un
-								fragmento de codigo del form</div>
+						<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
+							<form th:action="@{/movimiento/accion2}" th:object="${movimiento}"
+								method="post" role="form">
+
+								<input type="hidden" th:field="*{id}" class="id"/>
+								<div class="form-group col-xs-12 col-sm-12">
+									<label for="egreso" th:text="#{movimiento.egreso.lbl}"
+										class="field-label col-xs-7 col-sm-7"> Egreso:</label> <input
+										type="text" th:field="*{egreso}" maxlength="100"
+										class="form-control col-xs-6 col-sm-6 egreso" autofocus="autofocus" />
+								</div>
+								<div class="form-group col-xs-12 col-sm-12">
+									<label for="ingreso" th:text="#{movimiento.ingreso.lbl}"
+										class="field-label col-xs-7 col-sm-7">Ingreso:</label> <input
+										type="text" th:field="*{ingreso}" maxlength="100"
+										class="form-control col-xs-6 col-sm-6 ingreso" />
+
+								</div>
+								<div class="form-group col-xs-12 col-sm-12">
+									<label for="fecha" th:text="#{movimiento.fecha.lbl}"
+										class="field-label col-xs-7 col-sm-7">Fecha:</label>
+									<div class="input-group date" style="width: 100%;">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text"
+											class="form-control pull-right col-sm-6 fecha"
+											th:field="*{fecha}" name="fecha" id="datepicker">
+									</div>
+
+								</div>
+								<div class="form-group col-xs-12 col-sm-12">
+									<label for="descripcion"
+										th:text="#{movimiento.descripcion.lbl}"
+										class="field-label col-xs-7 col-sm-7">Descripcion:</label> <input
+										type="text" th:field="*{descripcion}" maxlength="100"
+										class="form-control col-xs-6 col-sm-6 descripcion" />
+								</div>
+
+								<div class="form-group col-xs-12 col-sm-12 hidden" id="empleado_edit_div">
+									<label for="empleado" th:text="#{movimiento.empleado.lbl}"
+										class="field-label">Empleado</label>
+										<select 
+										class="form-control empleado" id="empleado" name="selec" 
+										style="width: 100% !important;">
+										<option th:each=" per : ${empleadoList}" th:value="${per.id}"
+											th:text="${per.persona.cedula_ruc + ' - ' + per.persona.nombre_razonSocial}"></option>
+									</select>
+								</div>	
+								
+								<!-- seccion empleado -->
+								<input type="hidden" class="object_id" th:field="*{empleado.id}" />
+								<!-- Inicio panel botones -->
+								<div th:replace="botones::footerModal">aqui van los botones</div>
+							</form>
+							<!-- Fin panel botones -->
+							<script type="text/javascript">
+							
+							$(function () {
+							    //Initialize Select2 Elements
+								
+								 $('#datepicker').datepicker({       
+					                 autoclose: true,
+					                 format: 'dd/mm/yyyy',
+					                 language: 'es', 
+							    });
+								 $('.fecha').datepicker({       
+					                 autoclose: true,
+					                 format: 'dd/mm/yyyy',
+					                 language: 'es', 
+							    });
+							});		
+							</script>
+						</div>
+	
 					</div>
-					
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
+			</div>
+			
+		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${movimiento}" th:action="@{/movimiento/eliminar_listado}" method="post" role="form"
+						id="idMovimiento">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Borrado de
+							Registro</h4>
+					</div>
+					<div class="modal-body">Está seguro que desea borrar registro de forma
+						permanente?
+						
+						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/>
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary" name="accion"
+							value="delete">Confirmar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			</form>
+			<!-- /.modal-dialog -->
+			</div>
+<!-- FIN Modal borrar -->
+			
 			<script type="text/javascript">
-			function agregar(){
+			 
+			$(".empleado").on("change", function (e) { 
+				var id_empleado  = this.value;
+				$(".object_id").val(id_empleado);
+				});
+			
+			function agregar(obj, accion){
+				if(obj != ''){
+					var id = obj["id"];
+				}
 				
-				$("#formModal").modal("show");
+				if(accion === 'd'){
+					if(id !== null || id !== undefined || id !== "" ){
+						$('#delete').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#id_objeto').val(obj["id"]);
+
+						$("#borradoPopup").modal("show");
+					}	
+				}else if(accion === 'e'){
+					if(id !== null || id !== undefined || id !== "" ){
+						
+						$('#formModal #edit').removeClass('hidden');
+						$('#formModal #save').addClass('hidden');
+						$('#formModal #delete').addClass('hidden');
+						$('#empleado_edit_div').removeClass('hidden');
+						$('.egreso').attr('disabled', false);
+						$('.ingreso').attr('disabled', false);
+						$('.descripcion').attr('disabled', false);
+						$('.fecha').attr('disabled', false);
+						$('.empleado').attr('disabled', true);
+						$('.id').val(obj["id"]);
+						$('.egreso').val(obj["egreso"]);
+						$('.ingreso').val(obj["ingreso"]);
+						$('.descripcion').val(obj["descripcion"]);
+						$('.fecha').val(obj["fecha"]);
+						
+						var selec = $('.empleado');
+						var empleado = obj["empleado"];
+						var codigo = empleado.id;
+						selec.val(codigo).trigger("change");
+						$(".object_id").val(empleado.id);
+						$("#formModal").modal("show");
+					}	
+				}else if(accion === 'r'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').removeClass('hidden');
+					$('.egreso').attr('disabled', false);
+					$('.ingreso').attr('disabled', false);
+					$('.descripcion').attr('disabled', false);
+					$('.fecha').attr('disabled', false);
+					
+					$('#empleado').attr('disabled', false);
+					var selec = $('.empleado');
+					selec.val([]).trigger("change");
+					$("#formModal").modal("show");
+				}else if(accion === 'v'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').addClass('hidden');
+					$('.id').val(obj["id"]);
+					$('.egreso').val(obj["egreso"]);
+					$('.ingreso').val(obj["ingreso"]);
+					$('.fecha').val(obj["fecha"]);
+					
+					var selec = $('.empleado');
+					var empleado = obj["empleado"];
+					var codigo = empleado.id;
+					selec.val(codigo).trigger("change");
+					
+					$('.egreso').attr('disabled', true);
+					$('.ingreso').attr('disabled', true);
+					$('.descripcion').attr('disabled', true);
+					$('.fecha').attr('disabled', true);
+				
+					$('.empleado').attr('disabled', true);
+					$("#formModal").modal("show");
+				}
+				
 				
 				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
 				
@@ -120,7 +295,7 @@
 			</script>
 			
 		</div>
-			
-	</div>
+	
 </body>
+
 </html>
