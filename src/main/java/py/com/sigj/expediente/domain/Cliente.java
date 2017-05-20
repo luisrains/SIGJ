@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,7 +31,7 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
-@Table
+@Table(uniqueConstraints = { @UniqueConstraint(name = "cliente_persona_uk", columnNames = { "persona_id" }) })
 public class Cliente extends GenericEntity {
 
 	private static final String SECUENCIA = "cliente_id_seq";
@@ -60,13 +61,7 @@ public class Cliente extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "cliente_persona_fk"))
 	private Persona persona;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
-	@JoinTable(name = "cliente_expediente", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "expediente_id"))
-	private List<Expediente> listExpediente;
-
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
-	@JoinTable(name = "cliente_factura", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "facturacabecera_id"))
-	private List<FacturaCabecera> listFactura;
+	
 
 	public Cliente() {
 	}
@@ -113,27 +108,14 @@ public class Cliente extends GenericEntity {
 		this.persona = persona;
 	}
 
-	public List<Expediente> getListExpediente() {
-		return listExpediente;
-	}
-
-	public void setListExpediente(List<Expediente> listExpediente) {
-		this.listExpediente = listExpediente;
-	}
-
-	public List<FacturaCabecera> getListFactura() {
-		return listFactura;
-	}
-
-	public void setListFactura(List<FacturaCabecera> listFactura) {
-		this.listFactura = listFactura;
-	}
-
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", domicilioLaboral=" + domicilioLaboral + ", domicilioProcesal="
-				+ domicilioProcesal + ", domicilioActual=" + domicilioActual + ", persona=" + persona
-				+ ", listExpediente=" + listExpediente + ", listFactura=" + listFactura + "]";
+				+ domicilioProcesal + ", domicilioActual=" + domicilioActual + ", persona=" + persona + "]";
 	}
+
+	
+
+	
 
 }
