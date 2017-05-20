@@ -8,17 +8,15 @@
 				<div class="box-header">
 					<h3>Listado de Servicios</h3>
 				</div>
-				<div class="box-body no-padding">
+				<div class="box-body" style="width: 99%; padding-left: 15px;">
 					<button class="btn btn-success" id="botonAgregar"
 						onclick="agregar('','r')">
 						<i class="glyphicon glyphicon-plus"></i>Nuevo Servicio
 					</button>
 					<br> <br>
-					<!-- <table
-								class="gdisplay responsive nowrap"
-								id="procesoDT"> -->
-					<table id="servicioDT" class="display nowrap" cellspacing="0"
-						width="100%">
+					<table
+						class="table table-bordered table-striped col-xs-12 no-padding table-esp"
+						id="servicioDT">
 						<thead>
 							<tr>
 								<th th:each="col : ${columnas}"
@@ -45,7 +43,7 @@
 		<!-- Modal borrar -->
 		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
-			<form th:object="${servicio}" th:action="@{/servicio/accion}"
+			<form th:object="${servicio}" th:action="@{/servicio/eliminar_listado}"
 				method="post" role="form" id="idServicio">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -56,8 +54,8 @@
 								Registro</h4>
 						</div>
 						<div class="modal-body">
-							¿Está seguro que desea borrar registro de forma permanente? <input
-								type="hidden" th:field="*{id}" />
+							¿Está seguro que desea borrar registro de forma permanente?<input
+								type="hidden" for="id_objeto" id="id_objeto" name="id_objeto" />
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
@@ -73,7 +71,7 @@
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- FIN Modal borrar -->
-		
+
 		<!-- Modal  -->
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -91,57 +89,58 @@
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
-			
+
 			<script type="text/javascript">
 				function agregar(obj, accion) {
-					var id = obj["id"];
-					if (accion === 'd') {
+					if (obj != '') {
+						var id = obj["id"];
+					}
+					if (accion === 'd') { //delete
 						if (id !== null || id !== undefined || id !== "") {
 							$('#delete').removeClass('hidden');
 							$('#save').addClass('hidden');
 							$('#edit').addClass('hidden');
-							$('#id').val(obj["id"]);
+							$('#id_objeto').val(obj["id"]);
+							$('#id').val('');
+							$('#tipoServicio').val('');
+							$('#costo').val('');
+							$('#iva').val('');
+							$('#selec').val('');
 							$("#borradoPopup").modal("show");
 						}
-					} else if (accion === 'e') {
+					} else if (accion === 'e') { //edit
 						if (id !== null || id !== undefined || id !== "") {
 							$('#edit').removeClass('hidden');
 							$('#save').addClass('hidden');
 							$('#delete').addClass('hidden');
-							$('#id').val(obj["id"]);
+							$('#id').val(id);
 							$('#codigo').val(obj["codigo"]);
-							$('#descripcion').val(obj["descripcion"]);
-							var materia = obj["materia"]["id"];
-							$('#materia').find('option[value=' + materia + ']')
-									.prop('selected', 'true');
-							var id1 = obj["id"];
-							$.ajax({
-								type : "GET",
-								url : "servicio/editar",
-								data : {
-									demanda_id : id1
-								}
-							}).done(function(data) {
-								console.log(data)
-	
-							}).fail(function(jqXHR, textStatus) {
-								console.log("error");
-							});
-	
-							var tipoDemanda = obj["tipoDemanda"]["id"];
-							$('#tipoDemanda').find(
-									'option[value=' + tipoDemanda + ']').prop(
-									'selected', 'true');
-	
+							$('#tipoServicio').val(obj["tipoServicio"]);
+							$('#costo').val(obj["costo"]);
+							$('#iva').val(obj["iva"]);
 							$("#formModal").modal("show");
 						}
-					} else if (accion === 'r') {
+					} else if (accion === 'r') { //create
 						$('#delete').addClass('hidden');
 						$('#edit').addClass('hidden');
 						$('#save').removeClass('hidden');
+						$('#id').val('');
+						$('#tipoServicio').val('');
+						$('#costo').val('');
+						$('#iva').val('');
+						$('#selec').val('');
+						$("#formModal").modal("show");
+					} else if (accion === 'v') { //veiw
+						$('#delete').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#save').addClass('hidden');
+						$('#id').val(id);
+						$('#codigo').val(obj["codigo"]);
+						$('#tipoServicio').val(obj["tipoServicio"]);
+						$('#costo').val(obj["costo"]);
+						$('#iva').val(obj["iva"]);
 						$("#formModal").modal("show");
 					}
-	
 				}
 			</script>
 		</div>
