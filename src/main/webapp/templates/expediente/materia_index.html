@@ -3,7 +3,6 @@
 
 <body>
 	<div class="row" th:fragment="contenido">
-
 		<div class="col-xs-12">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
@@ -30,10 +29,10 @@
 					<script type="text/javascript">
 					$(document).ready(
 							function() {
-								crearDataTable("ingresoEgresoDT",
-										"[[@{/ingreso_egreso/json}]]",
+								crearDataTable("materiaDT",
+										"[[@{/materia/json}]]",
 										"[[${columnasStr}]]",
-										"[[@{/ingreso_egreso/edit/}]]");
+										"[[@{/materia/edit/}]]");
 							});
 					</script>
 				</div>
