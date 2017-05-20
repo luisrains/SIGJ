@@ -20,7 +20,7 @@ import py.com.sigj.expediente.domain.Persona;
 import py.com.sigj.main.GenericEntity;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "empleado_persona_uk", columnNames = { "persona_id" }) })
+@Table
 public class Empleado extends GenericEntity {
 	private static final String SECUENCIA = "empleado_id_seq";
 

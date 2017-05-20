@@ -11,41 +11,39 @@
 			</ul>
 			<div class="tab-content">
 				<div id="menu1" class="tab-pane fade in active">
+					
 					<div class="box box-solid box-primary">
 						<div class="box-header">
 							<h3>Registro de Empleados</h3>
 						</div>
 						<div class="box-body">
 							<button class="btn btn-success btn-movil" id="botonAgregar"
-								 onclick="agregar()">
+								 onclick="agregar('','r')">
 								<i class="glyphicon glyphicon-plus"></i> Nuevo Empleado
 							</button>
-							<div class="hidden-xs col-sm-4 no-padding">
-								<div th:replace="rrhh/empleado_form::form"></div>
-							</div>
-							<div class="col-xs-12 col-sm-8">
-								<table
-									class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
-									style="width: 100%;" id="personaDT">
-									<thead>
-										<tr>
-											<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
-											<th th:each="col : ${columnasPersona}"
-												th:text="#{'persona.' + ${col} + '.header'}"></th>
-										</tr>
-									</thead>
-								</table>
-								<script type="text/javascript">
-									$(document)
-										.ready(
-											function() {
-												crearDataTableEsp(
-													"personaDT",
-													"[[@{/persona/json}]]",
-													"[[${columnasStrPersona}]]",
-													"persona");
-									});
-								</script>
+							<div class="row">
+								<div class="hidden-xs col-sm-4">
+									<div th:replace="rrhh/empleado_form::form">aqui va
+										un fragmento de codigo del form</div>
+								</div>
+								<div class="col-xs-12 col-sm-8"><h3>Listado de Persona</h3></div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
+										id="personaDT">
+										<thead>
+											<tr>
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th th:each="col : ${columnasPersona}" th:text="#{'persona.'+${col} + '.header'}">
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+										$(document).ready(function() {
+											crearDataTableEsp("personaDT", "[[@{/persona/json}]]", "[[${columnasStrPersona}]]", "[[@{/persona/edit/}]]");
+										});													 
+			 						</script>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -56,68 +54,226 @@
 							<h3>Listado de Empleados</h3>
 						</div>
 						<div class="box-body no-padding">
+
+
 							<table
-								class="table table-bordered table-hover table-striped display col-xs-12 table-esp no-padding"
+								class="table table-bordered table-hover table-striped display"
 								id="empleadoDT">
 								<thead>
 									<tr>
-										<th th:each="col : ${columnas}"
-											th:text="#{'empleado.' + ${col} + '.header'}"></th>
+										<!--  <th th:each=" col : ${columnas}" th:text="${col}">colum1</th>-->
+										<th th:each="col : ${columnas}" th:text="#{${col} + '.header'}">
 										<th>Accion</th>
 									</tr>
 								</thead>
 							</table>
 							<script type="text/javascript">
-								$(document).ready(
-									function() {
-										crearDataTable("empleadoDT",
-											"[[@{/empleado/json}]]",
-											"[[${columnasStr}]]",
-											"[[@{/empleado/edit/}]]");
-								});
-							</script>
+							 $(document).ready(function() {
+							    crearDataTable("empleadoDT", "[[@{/empleado/json}]]", "[[${columnasStr}]]", "[[@{/empleado/edit/}]]");
+							 });
+			 			</script>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<script>
 				$(document).ready(function(){
-					var data = $('#empleadoDT').DataTable();
-					data.column( 0 ).visible( false );
 				    $(".nav-tabs a").click(function(){
 				        $(this).tab('show');
 				    });
+				   
 				});
-
-				
-
-			
 			</script>
-			
-			<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
 			<div class="modal-dialog">
-				<div class="modal-content col-xs-12" style="min-height: 430px;">
+				<div class="modal-content form-class-modal">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"
-							>Nuevo Registro</h4>
+						 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Registrar Empleado</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="rrhh/empleado_form::form">aqui va un
-								fragmento de codigo del form</div>
+						<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
+							<form th:action="@{/empleado/accion2}" th:object="${empleado}"
+								method="post" role="form">
+
+								<input type="hidden" th:field="*{id}" class="id"/>
+								<div class="form-group hidden-xs col-sm-12">
+									<label for="salario" th:text="#{empleado.salario.lbl}"
+										class="field-label col-sm-7">Salario</label> <input
+										type="text" th:field="*{salario}" maxlength="100"
+										class="form-control col-sm-6 salario" autofocus="autofocus" />
+								</div>
+
+								<div class="form-group col-xs-12 col-sm-12">
+									<label for="fecha" th:text="#{empleado.fechaIngreso.lbl}"
+										class="field-label col-xs-7 col-sm-7">Fecha de
+										Ingreso:</label>
+									<div class="input-group date" style="width: 100%;">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right col-sm-6 fecha"
+											th:field="*{fechaIngreso}" name="fechaIngreso" id="datepicker">
+									</div>
+
+								</div>
+
+								<div class="form-group col-xs-12 col-sm-12 hidden" id="persona_edit_div">
+									<label for="persona" th:text="#{empleado.persona.lbl}"
+										class="field-label">Persona</label>
+										<select 
+										class="form-control persona" id="persona" name="selec" 
+										style="width: 100% !important;">
+										<option th:each=" per : ${personaList}" th:value="${per.id}"
+											th:text="${per.cedula_ruc + ' - ' + per.nombre_razonSocial}"></option>
+									</select>
+								</div>
+									
+								
+								<!-- seccion empleado -->
+								<input type="hidden" class="object_id" th:field="*{persona.id}" />
+								<!-- Inicio panel botones -->
+								<div th:replace="botones::footerModal">aqui van los botones</div>
+							</form>
+							<!-- Fin panel botones -->
+							<script type="text/javascript">
+							
+							$(function () {
+							    //Initialize Select2 Elements
+								$(".persona").select2({
+										placeholder: "Seleccione una persona...",
+										language: {
+											noResults:  function (params) {
+											      return "No existen registros.";
+										    }
+										}
+								});
+								 $('#datepicker').datepicker({       
+					                 autoclose: true,
+					                 format: 'dd/mm/yyyy',
+					                 language: 'es', 
+							    });
+								 $('.fecha').datepicker({       
+					                 autoclose: true,
+					                 format: 'dd/mm/yyyy',
+					                 language: 'es', 
+							    });
+							});		
+							</script>
+						</div>
+	
 					</div>
-					
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
+			</div>
+			
+		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${empleado}" th:action="@{/empleado/eliminar_listado}" method="post" role="form"
+						id="idEmpleado">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Borrado de
+							Registro</h4>
+					</div>
+					<div class="modal-body">Está seguro que desea borrar registro de forma
+						permanente?
+						
+						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/>
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary" name="accion"
+							value="delete">Confirmar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			</form>
+			<!-- /.modal-dialog -->
+			</div>
+<!-- FIN Modal borrar -->
+			
 			<script type="text/javascript">
-			function agregar(){
+			 
+			$(".persona").on("change", function (e) { 
+				var id_persona  = this.value;
+				$(".object_id").val(id_persona);
+				});
+			
+			function agregar(obj, accion){
+				if(obj != ''){
+					var id = obj["id"];
+				}
 				
-				$("#formModal").modal("show");
+				if(accion === 'd'){
+					if(id !== null || id !== undefined || id !== "" ){
+						$('#delete').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#id_objeto').val(obj["id"]);
+
+						$("#borradoPopup").modal("show");
+					}	
+				}else if(accion === 'e'){
+					if(id !== null || id !== undefined || id !== "" ){
+						
+						$('#formModal #edit').removeClass('hidden');
+						$('#formModal #save').addClass('hidden');
+						$('#formModal #delete').addClass('hidden');
+						$('#persona_edit_div').removeClass('hidden');
+						$('.salario').attr('disabled', false);
+						$('.fecha').attr('disabled', false);
+						$('.persona').attr('disabled', true);
+						$('.id').val(obj["id"]);
+						$('.salario').val(obj["salario"]);
+						$('.fecha').val(obj["fechaIngreso"]);
+						
+						var selec = $('.persona');
+						var persona = obj["persona"];
+						var codigo = persona.id;
+						selec.val(codigo).trigger("change");
+						$(".object_id").val(persona.id);
+						$("#formModal").modal("show");
+					}	
+				}else if(accion === 'r'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').removeClass('hidden');
+					$('.salario').attr('disabled', false);
+					$('.fecha').attr('disabled', false);
+					
+					$('#persona').attr('disabled', false);
+					var selec = $('.persona');
+					selec.val([]).trigger("change");
+					$("#formModal").modal("show");
+				}else if(accion === 'v'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').addClass('hidden');
+					$('.id').val(obj["id"]);
+					$('.salario').val(obj["salario"]);
+					$('.fecha').val(obj["fechaIngreso"]);
+					
+					var selec = $('.persona');
+					var persona = obj["persona"];
+					var codigo = persona.id;
+					selec.val(codigo).trigger("change");
+					
+					$('.salario').attr('disabled', true);
+					$('.fecha').attr('disabled', true);
+				
+					$('.persona').attr('disabled', true);
+					$("#formModal").modal("show");
+				}
+				
 				
 				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
 				
