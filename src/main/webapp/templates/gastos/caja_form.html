@@ -2,49 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
 <body class="hold-transition skin-blue-light sidebar-mini ">
-	<div th:fragment="form">
-		<script type="text/javascript">
-			function limpiarForm() {
-				$("#id").val("");
-				$("#codigo").val("");
-				$("#monto").val("");
-				$("#fecha").val("");
-			}
-			function nuevoRegistro() {
-				limpiarForm();
-				$("#botonNuevo").hide();
-				$("#descripcion").focus();
-			}
-		</script>
-		<h4 id="registrar-movil" class="page-header"
-			th:text="#{caja.form.titulo}">Crear Caja</h4>
-		<form th:object="${caja}" th:action="@{/caja/accion2}" method="post"
-			role="form" id="idCaja">
+	<div class="row form-class-modal"
+		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
+		th:fragment="form">
+		<form th:action="@{/caja/accion2}" th:object="${caja}" method="post"
+			role="form">
 			<input type="hidden" th:field="*{id}" />
 			<div class="modal-movil hidden-xs col-sm-12">
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="codigo" th:text="#{caja.codigo.lbl}"
-						class="field-label col-xs-7 col-sm-7">Código</label> <input
+						class="field-label col-xs-7 col-sm-7">Código:</label> <input
 						type="text" th:field="*{codigo}" maxlength="60"
 						class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
 				</div>
+
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="monto" th:text="#{caja.monto.lbl}"
+						class="field-label col-xs-7 col-sm-7">Monto:</label> <input
+						type="text" th:field="*{monto}" maxlength="100"
+						class="form-control col-xs-6 col-sm-6" />
+				</div>
+
+				<div class="form-group" style="margin-left: 5px;">
+					<label>Fecha:</label>
+					<div class="input-group date" style="width: 50%;">
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+						<input type="text" class="form-control pull-right" name="fecha"
+							id="fecha" th:field="*{fecha}">
+					</div>
+					<!-- /.input group -->
+				</div>
 			</div>
-			<div class="form-group col-xs-12 col-sm-12">
-				<label for="monto" th:text="#{caja.monto.lbl}"
-					class="field-label col-xs-7 col-sm-7">Monto</label> <input
-					type="text" th:field="*{monto}" maxlength="100"
-					class="form-control col-xs-6 col-sm-6" />
-			</div>
-			<div class="form-group col-xs-12 col-sm-12">
-				<label for="fecha" th:text="#{caja.fecha.lbl}"
-					class="field-label col-xs-7 col-sm-7">Fecha</label> <input
-					type="text" th:field="*{fecha}" maxlength="100"
-					class="form-control col-xs-6 col-sm-6" />
-			</div>
-			<div th:replace="botones::footerModal"></div>
-		</form>
+
+			<script type="text/javascript">
+        		$(function () {
+        	 		$('#fecha').datepicker({       
+                 		autoclose: true,
+                 		language: 'es',   
+                 	});
+             	});
+       		</script>
+       		<div th:replace="botones::footerModal"></div>
+       	</form>
 	</div>
+	
 	<!-- Fin panel botones -->
-	</div>
 </body>
 </html>

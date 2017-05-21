@@ -56,12 +56,11 @@ public class Persona extends GenericEntity {
 	@NotNull(message = "persona.edad.notNull")
 	private int edad;
 
-	@NotNull(message = "persona.sexo.notNull")
-	@NotBlank(message = "persona.sexo.notBlank")
-	@Size(max = 10, message = "persona.sexo.size")
+	@Size(max = 15, message = "persona.estadoCivil.size")
+	private String estadoCivil;
+
 	private String sexo;
 
-	
 	@Size(max = 100, message = "persona.correo_electronico.size")
 	private String correoElectronico;
 
@@ -133,8 +132,6 @@ public class Persona extends GenericEntity {
 		this.sexo = sexo;
 	}
 
-	
-
 	public String getCorreoElectronico() {
 		return correoElectronico;
 	}
@@ -159,6 +156,14 @@ public class Persona extends GenericEntity {
 		this.telefono = telefono;
 	}
 
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
 	@Override
 	public String toString() {
 		return "Persona [id=" + id + ", cedula_ruc=" + cedula_ruc + ", nombre_razonSocial=" + nombre_razonSocial
@@ -166,7 +171,5 @@ public class Persona extends GenericEntity {
 				+ sexo + ", correoElectronico=" + correoElectronico + ", telefono=" + telefono + ", tipoPersona="
 				+ tipoPersona + "]";
 	}
-
-	
 
 }

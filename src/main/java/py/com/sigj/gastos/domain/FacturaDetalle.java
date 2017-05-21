@@ -40,6 +40,17 @@ public class FacturaDetalle extends GenericEntity {
 	@NotNull(message = "facturaDetalle.servicio.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "facturaDetalle_servicio_fk"))
 	private Servicio servicio;
+	
+	
+	private int ivaCinco;
+	private int ivaDiez;
+	@NotNull(message = "facturaDetalle.monto.notNull")
+	private int monto;
+	
+	
+	
+	@NotNull(message = "facturaDetalle.nro.notNull")
+	private int nro;
 
 	public FacturaDetalle() {
 	}
@@ -69,5 +80,52 @@ public class FacturaDetalle extends GenericEntity {
 	public void setServicio(Servicio servicio) {
 		this.servicio = servicio;
 	}
+
+	public int getIvaCinco() {
+		return ivaCinco;
+	}
+
+	public void setIvaCinco(int ivaCinco) {
+		this.ivaCinco = ivaCinco;
+	}
+
+	public int getIvaDiez() {
+		return ivaDiez;
+	}
+
+	public void setIvaDiez(int ivaDiez) {
+		this.ivaDiez = ivaDiez;
+	}
+
+	public int getMonto() {
+		return monto;
+	}
+
+	public void setMonto(int monto) {
+		this.monto = monto;
+	}
+
+	
+	
+	
+	public int getNro() {
+		return nro;
+	}
+
+	public void setNro(int nro) {
+		this.nro = nro;
+	}
+
+	@Override
+	public String toString() {
+		return "FacturaDetalle [id=" + id + ", facturaCabecera=" + facturaCabecera + ", servicio=" + servicio
+				+ ", ivaCinco=" + ivaCinco + ", ivaDiez=" + ivaDiez + ", monto=" + monto + ", nro=" + nro + "]";
+	}
+
+	
+
+	
+	
+	
 
 }

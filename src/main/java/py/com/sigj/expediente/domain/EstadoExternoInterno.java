@@ -42,7 +42,8 @@ public class EstadoExternoInterno extends GenericEntity {
 	private String descripcion;
 
 	@NotNull(message = "estadoExternoInterno.tipoEstado.notNull")
-	private char tipoEstado;
+	@Size(max = 30, message = "estadoExternoInterno.descripcion.size")
+	private String tipoEstado;
 
 	public EstadoExternoInterno() {
 	}
@@ -73,18 +74,20 @@ public class EstadoExternoInterno extends GenericEntity {
 		this.descripcion = descripcion;
 	}
 
-	public char getTipoEstado() {
+	public String getTipoEstado() {
 		return tipoEstado;
 	}
 
-	public void setTipoEstado(char tipoEstado) {
+	public void setTipoEstado(String tipoEstado) {
 		this.tipoEstado = tipoEstado;
 	}
 
 	@Override
 	public String toString() {
-		return "EstadoExternoInternoInterno [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion
+		return "EstadoExternoInterno [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion
 				+ ", tipoEstado=" + tipoEstado + "]";
 	}
+
+	
 
 }

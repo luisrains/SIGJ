@@ -49,7 +49,7 @@
 
 		<property name="converters">
 			<set>
-				<bean class="py.com.sigj.converters.TipoClienteConverter" />
+				
 				<bean class="py.com.sigj.converters.TipoAbogadoConverter" />
 				<bean class="py.com.sigj.converters.MateriaConverter" />
 				<bean class="py.com.sigj.converters.PersonaConverter" />

@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -49,5 +51,26 @@ public class PersonaFormController extends FormController<Persona> {
 	public Dao<Persona> getDao() {
 		return personaDao;
 	}
+	@RequestMapping(value = "eliminar", method = RequestMethod.POST)
+	public String eliminarModel(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
+		Persona persona = new Persona();
+		try {
+			logger.info("ID DE OBJ {}", id_objeto);
+			if (id_objeto != null) {
+				persona = getDao().find(id_objeto);
+				personaDao.destroy(persona);
+				logger.info("Persona eliminado {}", persona);
+				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
+			}
+		} catch (Exception ex) {
 
+			persona.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+			map.addAttribute(getNombreObjeto(), persona);
+		}
+
+		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
+		agregarValoresAdicionales(map);
+		return getTemplatePath();
+	}
 }

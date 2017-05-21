@@ -4,41 +4,77 @@
 <body>
 
 	<div class="row" th:fragment="contenido">
-		
-			<div class="col-xs-12">		
-					<div class="box box-solid box-primary">
-						<div class="box-header">
-							<h3>Listado de Personas</h3>
-						</div>
-						<div class="box-body no-padding">
-							<button class="btn btn-success" id="botonAgregar"
-								 onclick="agregar()">
-								<i class="glyphicon glyphicon-plus"></i> Nueva Persona
-							</button>
-							<br><br>
-							<table
-								class="table table-bordered table-striped col-xs-12 no-padding table-esp"
-								id="personaDT">
-								<thead>
-									<tr>
-										 <th th:each="col : ${columnas}" th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>
-										<th>Accion</th>
-									</tr>
-								</thead>
-							</table>
-							<script type="text/javascript">
-							
-							 $(document).ready(function() {
-							   crearDataTable("personaDT", "[[@{/persona/json}]]", "[[${columnasStr}]]", "[[@{/persona/edit/}]]");
-							 });
-			 			</script>
-						</div>
-						<!-- /.box-body -->
-					</div>
-					<!-- /.box -->
-					</div>
 
-				<!-- Modal borrar -->
+		<div class="col-xs-12">
+			<div class="box box-solid box-primary">
+				<div class="box-header">
+					<h3>Listado de Personas</h3>
+				</div>
+				<div class="box-body no-padding">
+					<button class="btn btn-success" id="botonAgregar"
+						onclick="agregar('','r')">
+						<i class="glyphicon glyphicon-plus"></i> Nueva Persona
+					</button>
+					<br>
+					<br>
+					<table
+						class="table table-bordered table-striped col-xs-12 no-padding table-esp"
+						id="personaDT">
+						<thead>
+							<tr>
+								<th th:each="col : ${columnas}"
+									th:text="#{'persona.' + ${col} + '.header'}">CÓDIGO</th>
+								<th>Accion</th>
+							</tr>
+						</thead>
+					</table>
+					<script type="text/javascript">
+						$(document).ready(
+								function() {
+									crearDataTable("personaDT",
+											"[[@{/persona/json}]]",
+											"[[${columnasStr}]]",
+											"[[@{/persona/edit/}]]");
+								});
+					</script>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</div>
+
+<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${persona}" th:action="@{/persona/eliminar}"
+				method="post" role="form" id="idPersona">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Borrado de
+								Registro</h4>
+						</div>
+						<div class="modal-body">
+							Está seguro que desea borrar registro de forma permanente? <input
+								type="hidden" for="id_objeto" id="id_objeto" name="id_objeto" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary" name="accion"
+								value="delete">Confirmar</button>
+						</div>
+
+					</div>
+					<!-- /.modal-content -->
+				</div>
+			</form>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- FIN Modal borrar -->
+
+		<!-- Modal borrar -->
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -46,31 +82,210 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel"
-							>Nuevo Registro</h4>
+						<h4 class="modal-title" id="myModalLabel">Nuevo
+							Registro</h4>
 					</div>
 					<div class="modal-body">
 						<div th:replace="expediente/persona_form::form">aqui va un
-								fragmento de codigo del form</div>
+							fragmento de codigo del form</div>
 					</div>
-					
+
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
 			<script type="text/javascript">
-			function agregar(){
-				$("#formModal").modal("show");
-				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
+			$(function () {
+				$('.fecha').datepicker({       
+	                autoclose: true,
+	                format: 'dd/mm/yyyy',
+	                language: 'es', 
+			    });
+			});	
+			function agregar(obj, accion) {
+
+				if (obj != '') {
+					var id = obj["id"];
+				}
+
+				if (accion === 'd') {
+					if (id !== null || id !== undefined || id !== "") {
+						$('#delete').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#id_objeto').val(obj["id"]);
+						$('.radio input[name=tipoPersona]:radio:checked').removeAttr("checked");
+						
+						$("input[name=sexo]").attr('disabled',false);
+						$("input[name=estadoCivil]").attr('disabled',false);
+						$('#cedula_ruc').attr('disabled', false);
+						$('#nombre_razonSocial').attr('disabled', false);
+						$('#apellido').attr('disabled', false);
+						$('#edad').attr('disabled', false);
+						$('#estadoCivil').attr('disabled', false);
+						$('#correoElectronico').attr('disabled', false);
+						$('#telefono').attr('disabled', false);
+						$('.fecha').attr('disabled', false);
+
+						$('#id').val('');
+						$('.radio input[name=tipoPersona]').val('');
+						$('#cedula_ruc').val('');
+						$('#nombre_razonSocial').val('');
+						$('#apellido').val('');
+						$('#edad').val(0);
+						$('#estadoCivil').val('');
+						$('#correoElectronico').val('');
+						$('#telefono').val('');
+
+						$("#borradoPopup").modal("show");
+					}
+				} else if (accion === 'e') {
+					if (id !== null || id !== undefined || id !== "") {
+						$('#edit').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#delete').addClass('hidden');
+						//habilitar todo
+						$("input[name=sexo]").attr('disabled',false);
+						$("input[name=estadoCivil]").attr('disabled',false);
+						$('#cedula_ruc').attr('disabled', false);
+						$('#nombre_razonSocial').attr('disabled', false);
+						$('#apellido').attr('disabled', false);
+						$('#edad').attr('disabled', false);
+						$('#estadoCivil').attr('disabled', false);
+						$('#correoElectronico').attr('disabled', false);
+						$('#telefono').attr('disabled', false);
+						$('.fecha').attr('disabled', false);
+
+						//carga de datos
+						$('#cedula_ruc').val(obj["cedula_ruc"]);
+						$('#nombre_razonSocial').val(obj["nombre_razonSocial"]);
+						$('#apellido').val(obj["apellido"]);
+						$('#edad').val(obj["edad"]);
+						$('#estadoCivil').val(obj["estadoCivil"]);
+						$('#correoElectronico').val(obj["correoElectronico"]);
+						$('#telefono').val(obj["telefono"]);
+						$('.fecha').val(obj["fechaNacimiento"]);
+
+						if((obj["estadoCivil"]).toUpperCase() == "SOLTERO"){
+							$('#estadoCivil1').click();
+						}else if((obj["estadoCivil"]).toUpperCase() == "CASADO"){
+							$('#estadoCivil2').click();
+						}else if((obj["estadoCivil"]).toUpperCase() == "VIUDO"){
+							$('#estadoCivil3').click();
+						}else if((obj["estadoCivil"]).toUpperCase() == "DIVORCIADO"){
+							$('#estadoCivil4').click();
+						}
+						if((obj["sexo"]).toUpperCase() == "M"){
+							$('#sexo1').click();
+						}else if((obj["sexo"]).toUpperCase() == "F"){
+							$('#sexo2').click();
+						}
+						if((obj["tipoPersona"]).toUpperCase() == 'F'){
+							$('#tipoPersona1').click();
+							$("#persona_fisica").removeClass("hidden");
+							$("#persona_fisica").show();
+						}else{
+							$('#tipoPersona2').click();
+							$("#persona_fisica").addClass("hidden");
+						}
+
+						$("#formModal").modal("show");
+					}
+				} else if (accion === 'r') {
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').removeClass('hidden');
+					
+					$("input[name=tipoPersona]").attr('disabled',false);
+					$("input[name=sexo]").attr('disabled',false);
+					$("input[name=estadoCivil]").attr('disabled',false);
+					$('#cedula_ruc').attr('disabled', false);
+					$('#nombre_razonSocial').attr('disabled', false);
+					$('#apellido').attr('disabled', false);
+					$('#edad').attr('disabled', false);
+					$('#estadoCivil').attr('disabled', false);
+					$('#correoElectronico').attr('disabled', false);
+					$('#telefono').attr('disabled', false);
+					$('.fecha').attr('disabled', false);
+					$('.radio input[name=tipoPersona]:radio:checked').removeAttr("checked");
+					/* $('.radio input[name=tipoPersona]').val('') */
+					$('.radio input[name=estadoCivil]:radio:checked').removeAttr("checked");
+					$('.radio input[name=sexo]:radio:checked').removeAttr("checked");
+
+
+					$('#id').val('');
+					/* $('.radio input[name=tipoPersona]').val(''); */
+					$('#cedula_ruc').val('');
+					$('#nombre_razonSocial').val('');
+					$('#apellido').val('');
+					$('#edad').val(0);
+					
+					$('#estadoCivil').val('');
+					$('#correoElectronico').val('');
+					$('#telefono').val('');
+					$("#formModal").modal("show");
+					
+				} else if (accion === 'v') {
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').addClass('hidden');
+
+					$('#cedula_ruc').val(obj["cedula_ruc"]);
+					$('#nombre_razonSocial').val(obj["nombre_razonSocial"]);
+					$('#apellido').val(obj["apellido"]);
+					$('#edad').val(obj["edad"]);
+					$('#estadoCivil').val(obj["estadoCivil"]);
+					$('#correoElectronico').val(obj["correoElectronico"]);
+					$('#telefono').val(obj["telefono"]);
+					$('.fecha').val(obj["fechaNacimiento"]);
+
+					if((obj["estadoCivil"]).toUpperCase() == "SOLTERO"){
+						$('#estadoCivil1').click();
+					}else if((obj["estadoCivil"]).toUpperCase() == "CASADO"){
+						$('#estadoCivil2').click();
+					}else if((obj["estadoCivil"]).toUpperCase() == "VIUDO"){
+						$('#estadoCivil3').click();
+					}else if((obj["estadoCivil"]).toUpperCase() == "DIVORCIADO"){
+						$('#estadoCivil4').click();
+					}
+					if((obj["sexo"]).toUpperCase() == "M"){
+						$('#sexo1').click();
+					}else if((obj["sexo"]).toUpperCase() == "F"){
+						$('#sexo2').click();
+					}
+					$('.radio input[name=tipoPersona]:radio:checked').removeAttr("checked");
+					if((obj["tipoPersona"]).toUpperCase() == 'F'){
+						$('#tipoPersona1').prop("checked",true);
+						$("#persona_fisica").removeClass("hidden");
+						$("#persona_fisica").show();
+					}else{
+						$('#tipoPersona2').prop("checked",true);
+						$("#persona_fisica").addClass("hidden");
+					}
+					$("input[name=tipoPersona]").attr('disabled',true);
+					$("input[name=sexo]").attr('disabled',true);
+					$("input[name=estadoCivil]").attr('disabled',true);
+					$('#cedula_ruc').attr('disabled', true);
+					$('#nombre_razonSocial').attr('disabled', true);
+					$('#apellido').attr('disabled', true);
+					$('#edad').attr('disabled', true);
+					$('#estadoCivil').attr('disabled', true);
+					$('#correoElectronico').attr('disabled', true);
+					$('#telefono').attr('disabled', true);
+					$('.fecha').attr('disabled', true);
+					
+					$("#formModal").modal("show");
+				}
 			}
+				
 			</script>
-			
+
 		</div>
 		<!-- Modal borrar -->
 
-			
+
 	</div>
-	
-	 
+
+
 </body>
 </html>

@@ -26,7 +26,7 @@ public class FacturaCabeceraListController extends ListController<FacturaCabecer
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "timbrado", "fechaInicioVigencia", "fechaFinVigencia", "ruc", "nroFactura"
+		return new String[] { "fechaEmision", "ruc", "telefono"
 				,"tipoPago","direccion","razonSocial" };
 	}
 
