@@ -148,7 +148,7 @@
 			 //var dataTable = $('#'+ dataTableId).dataTable(config);
 			 var dataTable = $('#'+ dataTableId).DataTable({
                 'processing' : true,
-                'responsive': true,
+//                'responsive': true,
                 'sAjaxSource' : ajaxSource,
                 'serverSide' : true,
                 'columns' : getColumnasArray(columnas),
@@ -250,7 +250,7 @@
 			 //var dataTable = $('#'+ dataTableId).dataTable(config);
 			 var dataTable = $('#'+ dataTableId).DataTable({
                 'processing' : true,
-                'responsive': true,
+//                'responsive': true,
                 'sAjaxSource' : ajaxSource,
                 'serverSide' : true,
                 'columns' : getColumnasArrayEsp(columnas),

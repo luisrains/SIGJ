@@ -64,78 +64,93 @@
 				</div>
 				<!-- /.box -->
 			</div>
-			<div id="persona_juridica"
-				class="form-group hidden-xs col-sm-12 hidden">
-				<div class="form-group hidden-xs col-sm-12">
+			
+			<div class="form-group hidden-xs col-sm-12">
 					<label for="cedula_ruc" th:text="#{persona.cedula_ruc.lbl}"
 						class="field-label col-xs-7 col-sm-7">cedula_ruc:</label> <input
 						type="text" th:field="*{cedula_ruc}" maxlength="15"
 						class="form-control col-xs-7 col-sm-6" />
-				</div>
-				<div class="form-group hidden-xs col-sm-12">
+			</div>
+			<div class="form-group hidden-xs col-sm-12">
 					<label for="nombre_razonSocial"
 						th:text="#{persona.nombre_razonSocial.lbl}"
 						class="field-label col-xs-7 col-sm-7">Nombre o Razón
 						Social:</label> <input type="text" th:field="*{nombre_razonSocial}"
-						maxlength="15" class="form-control col-xs-7 col-sm-6" />
+						maxlength="60" class="form-control col-xs-7 col-sm-6" />
 				</div>
-
-				<div class="form-group hidden-xs col-sm-12">
-					<label for="correoElectronico"
-						th:text="#{persona.correoElectronico.lbl}"
-						class="field-label col-xs-7 col-sm-7">correoElectronico:</label> <input
-						type="text" th:field="*{correoElectronico}" maxlength="100"
-						class="form-control col-xs-7 col-sm-6" />
-				</div>
-				<div class="form-group hidden-xs col-sm-12">
-					<label for="descripcion" th:text="#{persona.telefono.lbl}"
-						class="field-label col-xs-7 col-sm-7">telefono:</label> <input
-						type="text" th:field="*{telefono}" maxlength="15"
-						class="form-control col-xs-7 col-sm-6" />
-				</div>
-				<div th:replace="botones::footerModal">aqui van los botones</div>
-			</div>
-
-
-
+			
 			<div id="persona_fisica"
 				class="form-group hidden-xs col-sm-12 hidden">
-				<div class="form-group hidden-xs col-sm-12">
-					<label for="cedula_ruc" th:text="#{persona.cedula_ruc.lbl}"
-						class="field-label col-xs-7 col-sm-7">cedula_ruc:</label> <input
-						type="text" th:field="*{cedula_ruc}" maxlength="15"
-						class="form-control col-xs-7 col-sm-6" />
-				</div>
+				
 
-				<div class="form-group hidden-xs col-sm-12">
-					<label for="nombre_razonSocial"
-						th:text="#{persona.nombre_razonSocial.lbl}"
-						class="field-label col-xs-7 col-sm-7">Nombre o Razón
-						Social:</label> <input type="text" th:field="*{nombre_razonSocial}"
-						maxlength="15" class="form-control col-xs-7 col-sm-6" />
-				</div>
+				
 
 				<div class="form-group hidden-xs col-sm-12">
 					<label for="apellido" th:text="#{persona.apellido.lbl}"
 						class="field-label col-xs-7 col-sm-7">Apellido:</label> <input
-						type="text" th:field="*{apellido}" maxlength="15"
+						type="text" th:field="*{apellido}" maxlength="60"
 						class="form-control col-xs-7 col-sm-6" />
 				</div>
 
 				<div class="form-group hidden-xs col-sm-12">
 					<label for="edad" th:text="#{persona.edad.lbl}"
 						class="field-label col-xs-7 col-sm-7">Edad:</label> <input
-						type="text" th:field="*{edad}" maxlength="15"
+						type="text" th:field="*{edad}" maxlength="3"
 						class="form-control col-xs-7 col-sm-6" />
 				</div>
 
-				<div class="form-group hidden-xs col-sm-12">
-					<label for="fechaNacimiento"
-						th:text="#{persona.fechaNacimiento.lbl}"
-						class="field-label col-xs-7 col-sm-7">Fecha Nacimiento:</label> <input
-						type="text" th:field="*{fechaNacimiento}" maxlength="15"
-						class="form-control col-xs-7 col-sm-6" />
+				<div class="form-group col-xs-12 col-sm-12">
+						<label for="fecha" th:text="#{persona.fechaNacimiento.lbl}"
+						class="field-label col-xs-7 col-sm-7">Fecha de Nacimiento:</label>
+						<div class="input-group date" style="width:100%;">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control pull-right col-sm-6 fecha"
+								th:field="*{fechaNacimiento}" name="fechaNacimiento" id="datepicker">
+						</div>
+			</div>
+
+			<div class="form-group hidden-xs col-sm-12">
+					<div class="box">
+						<div class="box-header with-border">
+							<h3 class="box-title">Estado Civil</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="checkbox">
+								<label><input th:field="*{estadoCivil}" type="radio"
+									value="SOLTERO"> Soltero </label>
+							</div>
+
+							<div class="checkbox">
+
+								<label> <input th:field="*{estadoCivil}" type="radio"
+									value="CASADO"> Casado
+								</label>
+							</div>
+							<div class="checkbox">
+
+								<label> <input th:field="*{estadoCivil}" type="radio"
+									value="VIUDO"> Viudo
+								</label>
+							</div>
+							<div class="checkbox">
+
+								<label> <input th:field="*{estadoCivil}" type="radio"
+									value="DIVORCIADO"> Divorciado
+								</label>
+							</div>
+							
+							
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
 				</div>
+
+
+
 
 
 				<div class="form-group hidden-xs col-sm-12">
@@ -146,13 +161,13 @@
 						<!-- /.box-header -->
 						<div class="box-body">
 							<div class="checkbox">
-								<label><input th:field="*{sexo}" type="checkbox"
+								<label><input th:field="*{sexo}" type="radio"
 									value="Masculino"> Masculino </label>
 							</div>
 
 							<div class="checkbox">
 
-								<label> <input th:field="*{sexo}" type="checkbox"
+								<label> <input th:field="*{sexo}" type="radio"
 									value="Femenino">Femenino
 								</label>
 							</div>
@@ -162,26 +177,40 @@
 					<!-- /.box -->
 				</div>
 
-
-
-
+			</div>
+			<div class="form-group hidden-xs col-sm-12">
+					<label for="correoElectronico"
+						th:text="#{persona.correoElectronico.lbl}"
+						class="field-label col-xs-7 col-sm-7">correoElectronico:</label> <input
+						type="text" th:field="*{correoElectronico}" maxlength="100"
+						class="form-control col-xs-7 col-sm-6" />
+				</div>
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="descripcion" th:text="#{persona.telefono.lbl}"	
+						class="field-label col-xs-7 col-sm-7">telefono:</label> <input
+						type="text" th:field="*{telefono}" maxlength="15"
+						class="form-control col-xs-7 col-sm-6" />
+				</div>
 				<!-- Inicio panel botones -->
 				<div th:replace="botones::footerModal">aqui van los botones</div>
-
-			</div>
 		</form>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				//fecha
+				 $('.fecha').datepicker({       
+	                 autoclose: true,
+	                 format: 'dd/mm/yyyy',
+	                 language: 'es', 
+			    });
+				
 				$('.radio input[name=tipoPersona]:radio').change(function(e) {
 
 					if ($('input[name=tipoPersona]:checked').val() == 'F') {
-						$("#persona_juridica").addClass("hidden");
 						$("#persona_fisica").removeClass("hidden");
 						$("#persona_fisica").show();
 					} else {
 						$("#persona_fisica").addClass("hidden");
-						$("#persona_juridica").removeClass("hidden");
-						$("#persona_juridica").show();
+
 					}
 
 				});
