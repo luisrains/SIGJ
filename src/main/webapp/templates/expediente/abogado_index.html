@@ -32,7 +32,7 @@
 										<thead>
 											<tr>
 												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
-												<th th:each="col : ${columnasPersona}"
+												<th th:each="col : ${columnasEmpleado}"
 													th:text="#{${col} + '.header'}">
 											</tr>
 										</thead>
@@ -44,7 +44,7 @@
 															crearDataTableEsp(
 																	"empleadoDT",
 																	"[[@{/empleado/json}]]",
-																	"[[${columnasStrPersona}]]",
+																	"[[${columnasStrEmpleado}]]",
 																	"empleado");
 														});
 									</script>
@@ -95,31 +95,184 @@
 			});
 		</script>
 
-		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="formModal" class="modal fade" data-backdrop="static" aria-hidden="false">
 			<div class="modal-dialog">
-				<div class="modal-content col-xs-12" style="min-height: 430px;">
+				<div class="modal-content form-class-modal">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
+						 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Abogado</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/abogado_form::form"></div>
+						<div class="row form-class-modal" style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;" th:fragment="form">
+							<form th:action="@{/abogado/accion2}" th:object="${abogado}"
+								method="post" role="form">
+								
+								<input type="hidden" th:field="*{id}" class="id" />
+								<div class="modal-movil hidden-xs col-sm-12">
+									<div class="form-group col-xs-12 col-sm-12">
+										<label for="domicilioActual"
+											th:text="#{abogado.domicilioActual.lbl}"
+											class="field-label col-xs-7 col-sm-7"> Domicilio Actual:</label> <input
+											type="text" th:field="*{domicilioActual}" maxlength="100"
+											class="form-control col-xs-7 col-sm-6 domicilioActual" autofocus="autofocus" />
+									</div>
+									
+									<div class="form-group  col-xs-12 col-sm-12">
+										<label for="domicilioLaboral"
+											th:text="#{abogado.domicilioLaboral.lbl}"
+											class="field-label col-xs-7 col-sm-7">Domicilio Laboral:</label> <input
+											type="text" th:field="*{domicilioLaboral}" maxlength="100"
+											class="form-control col-xs-6 col-sm-6 domicilioLaboral" />
+									</div>
+					
+									<div class="form-group col-xs-12 col-sm-12 hidden" id="empleado_edit_div">
+									<label for="empleado" th:text="#{empleado.persona.lbl}"
+										class="field-label">Empleado Asociado</label>
+										<select 
+										class="form-control persona" id="empleado" name="id_empleado" 
+										style="width: 100% !important;">
+										<option th:each=" emp : ${empleadoList}" th:value="${emp.id}"
+											th:text="${emp.persona.cedula_ruc + ' - ' + emp.persona.nombre_razonSocial}"></option>
+									</select>
+								</div>
+									
+								</div>
+								<!-- seccion empleado -->
+								<input type="hidden" class="object_id" th:field="*{empleado.id}" />
+								<!-- Inicio panel botones -->
+								<div th:replace="botones::footerModal">aqui van los botones</div>
+							</form>
+							<!-- Fin panel botones -->
+							<script type="text/javascript">
+							
+							$(function () {
+							    //Initialize Select2 Elements
+								$(".empleado").select2({
+										placeholder: "Seleccione un empleado...",
+										language: {
+											noResults:  function (params) {
+											      return "No existen registros.";
+										    }
+										}
+								});
+							});		
+							</script>
+						</div>
+	
 					</div>
 				</div>
 				<!-- /.modal-content -->
 			</div>
-
 			<!-- /.modal-dialog -->
+			</div>
+			
+			<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${abogado}" th:action="@{/abogado/eliminar_listado}" method="post" role="form"
+						id="idAbogado">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Borrado de
+							Registro</h4>
+					</div>
+					<div class="modal-body">Está seguro que desea borrar registro de forma
+						permanente?
+						
+						<input type="hidden" for="id_objeto" id="id_objeto" name="id_objeto"/>
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary" name="accion"
+							value="delete">Confirmar</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			</form>
+			<!-- /.modal-dialog -->
+			</div>
+<!-- FIN Modal borrar -->
+			
 			<script type="text/javascript">
-				function agregar() {
-					$("#formModal").modal("show");
-					$(".modal-movil").removeClass("hidden-xs").addClass(
-							"col-xs-12");
+			$(".empleado").on("change", function (e) { 
+				var id_empleado  = this.value;
+				$(".object_id").val(id_empleado);
+				});
+			
+			function agregar(obj, accion){
+				if(obj != ''){
+					var id = obj["id"];
 				}
+				
+				if(accion === 'd'){
+					if(id !== null || id !== undefined || id !== "" ){
+						$('#delete').removeClass('hidden');
+						$('#save').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#id_objeto').val(obj["id"]);
+
+						$("#borradoPopup").modal("show");
+					}	
+				}else if(accion === 'e'){
+					if(id !== null || id !== undefined || id !== "" ){
+						
+						$('#formModal #edit').removeClass('hidden');
+						$('#formModal #save').addClass('hidden');
+						$('#formModal #delete').addClass('hidden');
+						$('#empleado_edit_div').removeClass('hidden');
+						$('.domicilioLaboral').attr('disabled', false);
+						$('.domicilioActual').attr('disabled', false);
+						$('.empleado').attr('disabled', false);
+						$('.id').val(obj["id"]);
+						$('.domicilioLaboral').val(obj["domicilioLaboral"]);
+						$('.domicilioActual').val(obj["domicilioActual"]);
+						$('.domicilioProcesal').val(obj["domicilioProcesal"]);
+						var selec = $('.persona');
+						var empleado = obj["empleado"];
+						var codigo = empleado.id;
+						selec.val(codigo).trigger("change");
+						$(".object_id").val(empleado.id);
+						$("#formModal").modal("show");
+					}	
+				}else if(accion === 'r'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').removeClass('hidden');
+					$('#domicilioProcesal').attr('disabled', false);
+					$('#domicilioLaboral').attr('disabled', false);
+					$('#domicilioActual').attr('disabled', false);
+					$('#persona').attr('disabled', false);
+					var selec = $('.persona');
+					selec.val([]).trigger("change");
+					$("#formModal").modal("show");
+				}else if(accion === 'v'){
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').addClass('hidden');
+					$('.id').val(obj["id"]);
+					$('.domicilioLaboral').val(obj["domicilioLaboral"]);
+					$('.domicilioActual').val(obj["domicilioActual"]);
+					$('#empleado_edit_div').removeClass('hidden');
+					var selec = $('.empleado');
+					var empleado = obj["empleado"];
+					var codigo = empleado.id;
+					selec.val(codigo).trigger("change");
+					
+					$('.domicilioLaboral').attr('disabled', true);
+					$('.domicilioActual').attr('disabled', true);
+					$('.empleado').attr('disabled', true);
+					$("#formModal").modal("show");
+				}
+				
+				
+				$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
+				
+			}
 			</script>
-		</div>
+		
 	</div>
 </body>
 

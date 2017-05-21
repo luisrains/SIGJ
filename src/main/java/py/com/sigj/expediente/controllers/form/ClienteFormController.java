@@ -37,23 +37,17 @@ public class ClienteFormController extends FormController<Cliente> {
 	@Autowired
 	private ClienteDao clienteDao;
 
-	@Autowired
-	private ExpedienteDao expedienteDao;
-
-	@Autowired
-	private FacturaCabeceraDao facturaDao;
+	
 
 	@Autowired
 	private PersonaDao personaDao;
 
-	@Autowired
-	private FacturaCabeceraListController facturaList;
+	
 
 	@Autowired
 	private ClienteListController clienteList;
 
-	@Autowired
-	private ExpedienteListController expedienteList;
+	
 
 	@Override
 	public String getTemplatePath() {
@@ -76,9 +70,8 @@ public class ClienteFormController extends FormController<Cliente> {
 		map.addAttribute("columnasStr", clienteList.getColumnasStr(null));
 		map.addAttribute("columnasPersona", clienteList.getColumnasPersona());
 		map.addAttribute("columnasStrPersona", clienteList.getColumnasStr(clienteList.getColumnasPersona()));
-		map.addAttribute("expedienteList", expedienteDao.getList(0, 20, null));
-		map.addAttribute("facturaList", facturaDao.getList(0, 20, null));
-		map.addAttribute("personaList", personaDao.getList(0, 20, null));
+		
+		map.addAttribute("personaList", personaDao.getList(0, 100, null));
 
 		super.agregarValoresAdicionales(map);
 	}
@@ -90,17 +83,14 @@ public class ClienteFormController extends FormController<Cliente> {
 
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
 	public String accion2(ModelMap map, @Valid Cliente obj,
-			@RequestParam(value = "selec_factura", required = false) List<String> selecFactura,
 			BindingResult bindingResult,
-			@RequestParam(value = "selec_expediente", required = false) List<String> selecExpediente,
 			@RequestParam(required = false) String accion,
-			@RequestParam(value = "id_objeto", required = false) Long id_objeto,
-			@RequestParam(value = "id_persona", required = false) Long id_persona) {
+			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, selecFactura, selecExpediente, obj, id_persona, bindingResult);
+			return guardar_listado(map, obj, bindingResult);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO PROCESO {}", obj);
-			return editar_listado(map, selecFactura, selecExpediente, obj, id_persona, bindingResult);
+			return editar_listado(map,obj, bindingResult);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -110,9 +100,8 @@ public class ClienteFormController extends FormController<Cliente> {
 	}
 
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
-	public String guardar_listado(ModelMap map, @RequestParam("selec_factura") List<String> selecFactura,
-			@RequestParam(value = "selec_expediente", required = false) List<String> selecExpediente,
-			@Valid Cliente obj, @RequestParam(value = "id_persona", required = true) Long id_persona,
+	public String guardar_listado(ModelMap map, 
+			@Valid Cliente obj,
 			BindingResult bindingResult) {
 		try {
 			if (obj.getId() == null) {
@@ -134,23 +123,21 @@ public class ClienteFormController extends FormController<Cliente> {
 	}
 
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
-	public String editar_listado(ModelMap map, @RequestParam("selec_factura") List<String> selecFactura,
-			@RequestParam(value = "selec_expediente", required = false) List<String> selecExpediente,
-			@Valid Cliente obj, @RequestParam(value = "id_persona", required = true) Long id_persona,
+	public String editar_listado(ModelMap map, 
+			@Valid Cliente obj,
 			BindingResult bindingResult) {
 		try {
 			List<FacturaCabecera> listFactura = new ArrayList<FacturaCabecera>();
 			List<Expediente> listExpediente = new ArrayList<Expediente>();
 			Persona persona = null;
-			if (obj != null && id_persona != null) {
-				if (obj.getPersona().getId() != id_persona) {
-					persona = personaDao.find(id_persona);
+			if (obj != null ) {
+				if (obj.getPersona().getId() != null) {
+					persona = personaDao.find(obj.getPersona().getId());
 					obj.setPersona(persona);
 				}
 
 			}
-			obj.setListFactura(listFactura);
-			obj.setListExpediente(listExpediente);
+			
 			getDao().createOrUpdate(obj);
 			logger.info("Cliente Actualizado {}", obj);
 			map.addAttribute("msgExito", msg.get("Registro Actualizado"));
