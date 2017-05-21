@@ -12,7 +12,7 @@
 				</div>
 				<div class="box-body no-padding">
 					<button class="btn btn-success" id="botonAgregar"
-						onclick="agregar()">
+						onclick="agregar('','r')">
 						<i class="glyphicon glyphicon-plus"></i> Nueva Persona
 					</button>
 					<br>
@@ -95,6 +95,13 @@
 			</div>
 			<!-- /.modal-dialog -->
 			<script type="text/javascript">
+			$(function () {
+				$('.fecha').datepicker({       
+	                autoclose: true,
+	                format: 'dd/mm/yyyy',
+	                language: 'es', 
+			    });
+			});	
 			function agregar(obj, accion) {
 
 				if (obj != '') {
@@ -109,20 +116,23 @@
 						$('#id_objeto').val(obj["id"]);
 						$('.radio input[name=tipoPersona]:radio:checked').removeAttr("checked");
 						
+						$("input[name=sexo]").attr('disabled',false);
+						$("input[name=estadoCivil]").attr('disabled',false);
 						$('#cedula_ruc').attr('disabled', false);
 						$('#nombre_razonSocial').attr('disabled', false);
 						$('#apellido').attr('disabled', false);
 						$('#edad').attr('disabled', false);
 						$('#estadoCivil').attr('disabled', false);
-						$('#correoElectronicocorreoElectronico').attr('disabled', false);
+						$('#correoElectronico').attr('disabled', false);
 						$('#telefono').attr('disabled', false);
+						$('.fecha').attr('disabled', false);
 
 						$('#id').val('');
 						$('.radio input[name=tipoPersona]').val('');
 						$('#cedula_ruc').val('');
 						$('#nombre_razonSocial').val('');
 						$('#apellido').val('');
-						$('#edad').val('');
+						$('#edad').val(0);
 						$('#estadoCivil').val('');
 						$('#correoElectronico').val('');
 						$('#telefono').val('');
@@ -135,33 +145,50 @@
 						$('#save').addClass('hidden');
 						$('#delete').addClass('hidden');
 						//habilitar todo
-						$('#codigo').attr('disabled', false);
-						$('#descripcion').attr('disabled', false);
-						$('#proceso').attr('disabled', false);
-						$('#despacho').attr('disabled', false);
+						$("input[name=sexo]").attr('disabled',false);
+						$("input[name=estadoCivil]").attr('disabled',false);
+						$('#cedula_ruc').attr('disabled', false);
+						$('#nombre_razonSocial').attr('disabled', true);
+						$('#apellido').attr('disabled', false);
+						$('#edad').attr('disabled', false);
+						$('#estadoCivil').attr('disabled', false);
+						$('#correoElectronico').attr('disabled', false);
+						$('#telefono').attr('disabled', false);
+						$('.fecha').attr('disabled', false);
 
-						$('#id').val(id);
-						$('#codigo').val(obj["codigo"]);
-						$('#descripcion').val(obj["descripcion"]);
-						var selec_proceso = $('.proceso');
-						var selec_despacho = $('.despacho');
-						var list_proceso = obj["listaProceso"];
-						var list_despacho = obj["listaDespacho"];
-						var codigos_proceso = [];
-						var codigos_despacho = [];
-						//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
-						//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
-						$.each(list_proceso, function(index, value) {
-							codigos_proceso.push(value.id);
-						});
-						selec_proceso.val(codigos_proceso)
-								.trigger("change");
+						//carga de datos
+						$('#cedula_ruc').val(obj["cedula_ruc"]);
+						$('#nombre_razonSocial').val(obj["nombre_razonSocial"]);
+						$('#apellido').val(obj["apellido"]);
+						$('#edad').val(obj["edad"]);
+						$('#estadoCivil').val(obj["estadoCivil"]);
+						$('#correoElectronico').val(obj["correoElectronico"]);
+						$('#telefono').val(obj["telefono"]);
+						$('.fecha').val(obj["fechaNacimiento"]);
 
-						$.each(list_despacho, function(index, value) {
-							codigos_despacho.push(value.id);
-						});
-						selec_despacho.val(codigos_despacho).trigger(
-								"change");
+						if(obj["estadoCivil"]== "SOLTERO"){
+							$('#estadoCivil1').click();
+						}else if(obj["estadoCivil"]== "CASADO"){
+							$('#estadoCivil2').click();
+						}else if(obj["estadoCivil"]== "VIUDO"){
+							$('#estadoCivil3').click();
+						}else if(obj["estadoCivil"]== "DIVORCIADO"){
+							$('#estadoCivil4').click();
+						}
+						if(obj["sexo"]== "M"){
+							$('#sexo1').click();
+						}else if(obj["sexo"]== "F"){
+							$('#sexo2').click();
+						}
+						if(obj["tipoPersona"] == 'F'){
+							$('#tipoPersona1').click();
+							$("#persona_fisica").removeClass("hidden");
+							$("#persona_fisica").show();
+						}else{
+							$('#tipoPersona2').click();
+							$("#persona_fisica").addClass("hidden");
+						}
+
 						$("#formModal").modal("show");
 					}
 				} else if (accion === 'r') {
@@ -169,38 +196,9 @@
 					$('#edit').addClass('hidden');
 					$('#save').removeClass('hidden');
 					
-					$('#codigo').attr('disabled', false);
-					$('#descripcion').attr('disabled', false);
-					$('#proceso').attr('disabled', false);
-					$('#despacho').attr('disabled', false);
-					$('#id').val('');
-					$('#descripcion').val('');
-					$('#codigo').val('');
-					var selec_proceso = $('.proceso');
-					selec_proceso.val([]).trigger("change");
-					var selec_despacho = $('.despacho');
-					selec_despacho.val([]).trigger("change");
-					$("#formModal").modal("show");
-					
-				} else if (accion === 'v') {
-					$('#delete').addClass('hidden');
-					$('#edit').addClass('hidden');
-					$('#save').addClass('hidden');
-
-					
-					$('#cedula_ruc').val(obj["cedula_ruc"]);
-					$('#nombre_razonSocial').val(obj["nombre_razonSocial"]);
-					$('#apellido').val(obj["apellido"]);
-					$('#edad').val(obj["edad"]);
-					$('#estadoCivil').val(obj["estadoCivil"]);
-					$('#correoElectronico').val(obj["correoElectronico"]);
-					$('#telefono').val(obj["telefono"]);
-					if(obj["tipoPersona"] == 'F'){
-						$('#tipoPersona1').click()
-					}else{
-						$('#tipoPersona2').click()
-						}
-
+					$("input[name=tipoPersona]").attr('disabled',false);
+					$("input[name=sexo]").attr('disabled',false);
+					$("input[name=estadoCivil]").attr('disabled',false);
 					$('#cedula_ruc').attr('disabled', false);
 					$('#nombre_razonSocial').attr('disabled', false);
 					$('#apellido').attr('disabled', false);
@@ -208,6 +206,73 @@
 					$('#estadoCivil').attr('disabled', false);
 					$('#correoElectronico').attr('disabled', false);
 					$('#telefono').attr('disabled', false);
+					$('.fecha').attr('disabled', false);
+					$('.radio input[name=tipoPersona]:radio:checked').removeAttr("checked");
+					/* $('.radio input[name=tipoPersona]').val('') */
+					$('.radio input[name=estadoCivil]:radio:checked').removeAttr("checked");
+					$('.radio input[name=sexo]:radio:checked').removeAttr("checked");
+
+
+					$('#id').val('');
+					/* $('.radio input[name=tipoPersona]').val(''); */
+					$('#cedula_ruc').val('');
+					$('#nombre_razonSocial').val('');
+					$('#apellido').val('');
+					$('#edad').val(0);
+					
+					$('#estadoCivil').val('');
+					$('#correoElectronico').val('');
+					$('#telefono').val('');
+					$("#formModal").modal("show");
+					
+				} else if (accion === 'v') {
+					$('#delete').addClass('hidden');
+					$('#edit').addClass('hidden');
+					$('#save').addClass('hidden');
+
+					$('#cedula_ruc').val(obj["cedula_ruc"]);
+					$('#nombre_razonSocial').val(obj["nombre_razonSocial"]);
+					$('#apellido').val(obj["apellido"]);
+					$('#edad').val(obj["edad"]);
+					$('#estadoCivil').val(obj["estadoCivil"]);
+					$('#correoElectronico').val(obj["correoElectronico"]);
+					$('#telefono').val(obj["telefono"]);
+					$('.fecha').val(obj["fechaNacimiento"]);
+
+					if(obj["estadoCivil"]== "SOLTERO"){
+						$('#estadoCivil1').click();
+					}else if(obj["estadoCivil"]== "CASADO"){
+						$('#estadoCivil2').click();
+					}else if(obj["estadoCivil"]== "VIUDO"){
+						$('#estadoCivil3').click();
+					}else if(obj["estadoCivil"]== "DIVORCIADO"){
+						$('#estadoCivil4').click();
+					}
+					if(obj["sexo"]== "M"){
+						$('#sexo1').click();
+					}else if(obj["sexo"]== "F"){
+						$('#sexo2').click();
+					}
+					$('.radio input[name=tipoPersona]:radio:checked').removeAttr("checked");
+					if(obj["tipoPersona"] == 'F'){
+						$('#tipoPersona1').prop("checked",true);
+						$("#persona_fisica").removeClass("hidden");
+						$("#persona_fisica").show();
+					}else{
+						$('#tipoPersona2').prop("checked",true);
+						$("#persona_fisica").addClass("hidden");
+					}
+					$("input[name=tipoPersona]").attr('disabled',true);
+					$("input[name=sexo]").attr('disabled',true);
+					$("input[name=estadoCivil]").attr('disabled',true);
+					$('#cedula_ruc').attr('disabled', true);
+					$('#nombre_razonSocial').attr('disabled', true);
+					$('#apellido').attr('disabled', true);
+					$('#edad').attr('disabled', true);
+					$('#estadoCivil').attr('disabled', true);
+					$('#correoElectronico').attr('disabled', true);
+					$('#telefono').attr('disabled', true);
+					$('.fecha').attr('disabled', true);
 					
 					$("#formModal").modal("show");
 				}

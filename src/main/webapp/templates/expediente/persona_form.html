@@ -118,24 +118,24 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<div class="checkbox">
+							<div class="radio">
 								<label><input th:field="*{estadoCivil}" type="radio"
 									value="SOLTERO"> Soltero </label>
 							</div>
 
-							<div class="checkbox">
+							<div class="radio">
 
 								<label> <input th:field="*{estadoCivil}" type="radio"
 									value="CASADO"> Casado
 								</label>
 							</div>
-							<div class="checkbox">
+							<div class="radio">
 
 								<label> <input th:field="*{estadoCivil}" type="radio"
 									value="VIUDO"> Viudo
 								</label>
 							</div>
-							<div class="checkbox">
+							<div class="radio">
 
 								<label> <input th:field="*{estadoCivil}" type="radio"
 									value="DIVORCIADO"> Divorciado
@@ -148,11 +148,7 @@
 					</div>
 					<!-- /.box -->
 				</div>
-
-
-
-
-
+				
 				<div class="form-group hidden-xs col-sm-12">
 					<div class="box">
 						<div class="box-header with-border">
@@ -160,15 +156,15 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<div class="checkbox">
+							<div class="radio">
 								<label><input th:field="*{sexo}" type="radio"
-									value="Masculino"> Masculino </label>
+									value="M"> Masculino </label>
 							</div>
 
-							<div class="checkbox">
+							<div class="radio">
 
 								<label> <input th:field="*{sexo}" type="radio"
-									value="Femenino">Femenino
+									value="F">Femenino
 								</label>
 							</div>
 						</div>
@@ -197,11 +193,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				//fecha
-				 $('.fecha').datepicker({       
-	                 autoclose: true,
-	                 format: 'dd/mm/yyyy',
-	                 language: 'es', 
-			    });
+				 
 				
 				$('.radio input[name=tipoPersona]:radio').change(function(e) {
 
@@ -214,6 +206,20 @@
 					}
 
 				});
+
+
+				$('.radio input[name=tipoPersona]:radio').click(function(e) {
+
+					if ($('input[name=tipoPersona]:checked').val() == 'F') {
+						$("#persona_fisica").removeClass("hidden");
+						$("#persona_fisica").show();
+					} else {
+						$("#persona_fisica").addClass("hidden");
+
+					}
+
+				});
+				
 			});
 		</script>
 		<!-- Fin panel botones -->
