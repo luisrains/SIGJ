@@ -160,40 +160,22 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
 					<li class="header">Menú Principal</li>
-					<!-- Configuraciones jurídicas  -->
+
+					<!-- Menu Expediente -->
 					<li class="treeview menu-expedientes"><a href="#"> <i
-							class="fa fa-balance-scale"></i> <span>Menú de Expedientes</span>
-							<span class="pull-right-container"> <i
+							class="fa fa-balance-scale"></i> <span>Menú Expediente</span> <span
+							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span>
 					</a>
 						<ul class="treeview-menu">
-
-							<li><a href="abogado"><i class="fa fa-graduation-cap"
-									style="color: blue"></i>Abogados</a></li>
-							<li><a href="cliente"><i class="fa fa-users"
-									style="color: blue"></i>Clientes</a></li>
-							<li><a href="despacho"><i class="fa fa-building"
-									style="color: blue"></i>Despachos</a></li>
-							<li><a href="expediente"><i class="fa fa-folder"
-									style="color: blue"></i>Expediente Digital</a></li>
-							<li><a href="materia"><i class="fa fa-book"
-									style="color: blue"></i>Materias</a></li>
-							<li><a href="modelo_hoja"><i class="fa fa-file"
-									style="color: blue"></i>Modelo de Hoja</a></li>
-							<li><a href="proceso"><i class="fa fa-product-hunt"
-									style="color: blue"></i>Procesos</a></li>
-							<li><a href="tipo_actuacion"><i
-									class="fa fa-newspaper-o" style="color: blue"></i>Tipo de
-									Actuación</a></li>
-							<li><a href="tipo_demanda"><i class="fa fa-newspaper-o"
-									style="color: blue"></i>Tipo de Demanda</a></li>
-
-							<!-- <li><a href="pages/layout/collapsed-sidebar.html"><iclass
-										="fa fa-calendar-plus-o" style="color: red;"> </i>Calendario</a></li> -->
+							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
+									style="color: blue"></i>Consultar Expediente</a></li>
+							<li><a th:href="@{/sigj/expediente}"><i class="fa fa-folder"
+									style="color: blue"></i>Registrar Juicio</a></li>
 						</ul></li>
 
-					<!-- Configuraciones de Gastos  -->
+					<!-- Menú de Gastos -->
 					<li class="treeview menu-gastos"><a href="#"> <i
 							class="fa fa-briefcase"></i> <span>Menú de Gastos</span> <span
 							class="pull-right-container"> <i
@@ -201,60 +183,102 @@
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="caja"><i class="fa fa-money"
-									style="color: blue"></i>Caja</a></li>
-							<li><a href="factura_cabecera"><i class="fa fa-files-o"
+							<li><a th:href="@{/factura_cabecera}"><i class="fa fa-files-o"
 									style="color: blue"></i>Facturas</a></li>
-							<li><a href="ingreso_egreso"><i class="fa fa-calculator"
+							<li><a th:href="@{/ingreso_egreso}"><i class="fa fa-calculator"
 									style="color: blue"></i>Ingresos y Egresos</a></li>
-							<li><a href="servicio"><i class="fa fa-gavel"
-									style="color: blue"></i>Servicios</a></li>
-							<li><a href="tipo_ingreso_egreso"><i
-									class="fa  fa-filter" style="color: blue"></i>Tipos de Ingresos
-									y Egresos</a></li>
 						</ul></li>
 
 					<!-- Configuraciones RRHH  -->
-					<li class="treeview"><a href="#"> <i class="fa fa-sitemap"></i>
-							<span>Menú de R.R.H.H.</span> <span class="pull-right-container">
-								<i class="fa fa-angle-left pull-right"></i>
+					<li class="treeview menu-rrhh"><a href="#"> <i
+							class="fa fa-sitemap"></i> <span>Menú de R.R.H.H.</span> <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="empleado"><i class="fa fa-user"
-									style="color: blue"></i>Empleados</a></li>
-							<li><a href="movimiento"><i class="fa fa-pie-chart"
-									style="color: blue"></i>Movimiento <span
+							<li><a th:href="@{/movimiento}"><i class="fa fa-pie-chart"
+									style="color: blue"></i>Movimientos<span
 									class="pull-right-container" style="color: blue"> <i
 										class="fa fa-angle-left pull-right" style="color: blue"></i>
 								</span> </a>
-							<li><a href="planilla_salario"><i
+							<li><a th:href="@{/planilla_salario}"><i
 									class="fa fa-file-text" style="color: blue"></i>Planillas
 									Salariales</a></li>
 
 						</ul></li>
 
-					<li class="header">Actividades</li>
-					<li><a href="pages/calendar.html"> <i
-							class="fa fa-calendar"></i> <span>Calendario</span> <span
-							class="pull-right-container"> <small
-								class="label pull-right bg-red">3</small> <small
-								class="label pull-right bg-blue">17</small>
+					<!-- Configuraciones jurídicas  -->
+					<li cl ass="treeview menu-personas"><a href="#"> <i
+							class="fa fa-balance-scale"></i> <span>Administraciones</span> <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
 						</span>
-					</a></li>
-
-					<li class="header">Administración</li>
-					<li class="treeview"><a href="#"> <i class="fa fa-lock"></i>
-							<span>Menú de Usuario</span> <span class="pull-right-container">
-								<i class="fa fa-angle-left pull-right"></i>
+					</a>
+					<li class="treeview menu-despacho"><a href="#"> <i
+							class="fa fa-briefcase"></i> <span>Personas</span> <span class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="#"><i class="fa fa-user-plus"
+							<li><a th:href="@{/abogado}"><i class="fa fa-graduation-cap"
+									style="color: blue"></i>Abogados</a></li>
+							<li><a th:href="@{/cliente}"><i class="fa fa-users"
+									style="color: blue"></i>Clientes</a></li>
+							<li><a th:href="@{/empleado}"><i class="fa fa-user"
+									style="color: blue"></i>Empleados</a></li>
+							<li><a th:href="@{/persona}"><i class="fa fa-user"
+									style="color: blue"></i>Personas</a></li>
+						</ul></li>
+
+					<!-- Configuraciones del Despacho  -->
+					<li class="treeview menu-despacho"><a href="#"> <i
+							class="fa fa-briefcase"></i> <span>Conf. del Despacho
+								Judicial</span> <span class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+						<ul class="treeview-menu">
+							<li><a th:href="@{/despacho}"><i class="fa fa-building"
+									style="color: blue"></i>Despachos</a></li>
+							<li><a th:href="@{/materia}"><i class="fa fa-book"
+									style="color: blue"></i>Materias</a></li>
+							<li><a th:href="@{/proceso}"><i class="fa fa-product-hunt"
+									style="color: blue"></i>Procesos</a></li>
+							<li><a th:href="@{/tipo_actuacion}"><i
+									class="fa fa-newspaper-o" style="color: blue"></i>Tipo de
+									Actuación</a></li>
+							<li><a th:href="@{/tipo_demanda}"><i class="fa fa-newspaper-o"
+									style="color: blue"></i>Tipo de Demanda</a></li>
+						</ul></li>
+
+					<!-- Configuraciones Contables  -->
+					<li class="treeview menu-contables"><a href="#"> <i
+							class="fa fa-briefcase"></i> <span>Conf. Contables</span> <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+						<ul class="treeview-menu">
+							<li><a th:href="@{/caja}"><i class="fa fa-money"
+									style="color: blue"></i>Caja</a></li>
+							<li><a th:href="@{/servicio}"><i class="fa fa-gavel"
+									style="color: blue"></i>Servicios</a></li>
+						</ul></li>
+
+					<!-- Menú de Usuario -->
+					<li class="treeview menu-usuario"><a href="#"> <i
+							class="fa fa-lock"></i> <span>Menú de Usuario</span> <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+						<ul class="treeview-menu">
+							<li><a th:href="@{/usuario}"><i class="fa fa-user-plus"
 									style="color: blue"></i>Usuario</a></li>
-							<li><a href="#"><i class="fa fa-user-secret"
+							<li><a th:href="@{/permiso}><i class="fa fa-user-secret"
 									style="color: blue"></i>Permisos</a></li>
-							<li><a href="#"><i class="fa fa-user-circle"
+							<li><a th:href="@{/rol}><i class="fa fa-user-circle"
 									style="color: blue"></i>Roles</a></li>
 						</ul></li>
 				</ul>
