@@ -148,7 +148,7 @@
 						$("input[name=sexo]").attr('disabled',false);
 						$("input[name=estadoCivil]").attr('disabled',false);
 						$('#cedula_ruc').attr('disabled', false);
-						$('#nombre_razonSocial').attr('disabled', true);
+						$('#nombre_razonSocial').attr('disabled', false);
 						$('#apellido').attr('disabled', false);
 						$('#edad').attr('disabled', false);
 						$('#estadoCivil').attr('disabled', false);
@@ -166,21 +166,21 @@
 						$('#telefono').val(obj["telefono"]);
 						$('.fecha').val(obj["fechaNacimiento"]);
 
-						if(obj["estadoCivil"]== "SOLTERO"){
+						if((obj["estadoCivil"]).toUpperCase() == "SOLTERO"){
 							$('#estadoCivil1').click();
-						}else if(obj["estadoCivil"]== "CASADO"){
+						}else if((obj["estadoCivil"]).toUpperCase() == "CASADO"){
 							$('#estadoCivil2').click();
-						}else if(obj["estadoCivil"]== "VIUDO"){
+						}else if((obj["estadoCivil"]).toUpperCase() == "VIUDO"){
 							$('#estadoCivil3').click();
-						}else if(obj["estadoCivil"]== "DIVORCIADO"){
+						}else if((obj["estadoCivil"]).toUpperCase() == "DIVORCIADO"){
 							$('#estadoCivil4').click();
 						}
-						if(obj["sexo"]== "M"){
+						if((obj["sexo"]).toUpperCase() == "M"){
 							$('#sexo1').click();
-						}else if(obj["sexo"]== "F"){
+						}else if((obj["sexo"]).toUpperCase() == "F"){
 							$('#sexo2').click();
 						}
-						if(obj["tipoPersona"] == 'F'){
+						if((obj["tipoPersona"]).toUpperCase() == 'F'){
 							$('#tipoPersona1').click();
 							$("#persona_fisica").removeClass("hidden");
 							$("#persona_fisica").show();
@@ -239,22 +239,22 @@
 					$('#telefono').val(obj["telefono"]);
 					$('.fecha').val(obj["fechaNacimiento"]);
 
-					if(obj["estadoCivil"]== "SOLTERO"){
+					if((obj["estadoCivil"]).toUpperCase() == "SOLTERO"){
 						$('#estadoCivil1').click();
-					}else if(obj["estadoCivil"]== "CASADO"){
+					}else if((obj["estadoCivil"]).toUpperCase() == "CASADO"){
 						$('#estadoCivil2').click();
-					}else if(obj["estadoCivil"]== "VIUDO"){
+					}else if((obj["estadoCivil"]).toUpperCase() == "VIUDO"){
 						$('#estadoCivil3').click();
-					}else if(obj["estadoCivil"]== "DIVORCIADO"){
+					}else if((obj["estadoCivil"]).toUpperCase() == "DIVORCIADO"){
 						$('#estadoCivil4').click();
 					}
-					if(obj["sexo"]== "M"){
+					if((obj["sexo"]).toUpperCase() == "M"){
 						$('#sexo1').click();
-					}else if(obj["sexo"]== "F"){
+					}else if((obj["sexo"]).toUpperCase() == "F"){
 						$('#sexo2').click();
 					}
 					$('.radio input[name=tipoPersona]:radio:checked').removeAttr("checked");
-					if(obj["tipoPersona"] == 'F'){
+					if((obj["tipoPersona"]).toUpperCase() == 'F'){
 						$('#tipoPersona1').prop("checked",true);
 						$("#persona_fisica").removeClass("hidden");
 						$("#persona_fisica").show();
