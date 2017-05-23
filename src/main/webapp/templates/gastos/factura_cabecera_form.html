@@ -41,9 +41,15 @@
 			<div class="form-group col-xs-12 col-sm-12" style="border-color:black; border-style:solid;">
 				
 			
-			
-			
-			
+			<div class="form-group col-sm-7">
+			<label for="cliente" th:text="#{factura_cabecera.cliente.lbl}" class="field-label"></label>
+			<select class="col-xs-12 col-sm-12 factura-cliente"
+									id="cliente" >
+									
+							 <option th:each=" cliente : ${clienteList}" th:value="${cliente.id}"
+									th:text="${cliente.persona.cedula_ruc + ' '+ cliente.persona.nombre_razonSocial + ' '+ cliente.persona.apellido}">Prueba</option>
+			</select>
+			</div>
 			
 			<div class="form-group col-sm-6">
 				<label for="ruc" th:text="#{factura_cabecera.ruc.lbl}"
@@ -112,36 +118,36 @@
 							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
 							
 							<td class="col-xs-4 col-sm-4 f-head">
-								<select class="col-xs-12 col-sm-12"
+								<select class="col-xs-12 col-sm-12 descripcion"
 									id="descripcion" >
 									
 							 <option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
 									th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
-								<button type="button" id="eliminar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-danger" onclick="eliminarFila()" style="margin-top:10px; margin-left:2px"><i class='glyphicon glyphicon-trash'></i></button>
+								<button type="button" id="eliminar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-danger" onclick="eliminarFila()" style="margin-top:11px; margin-left:2px"><i class='glyphicon glyphicon-trash'></i></button>
 							</td>
 						</tr>
 						<tr class="col-xs-12 col-sm-12 fila_1" style="padding-right:0px; padding-left:5px;">
 							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
-							<td class="col-xs-4 col-sm-4 f-head"><select class="col-xs-12 col-sm-12"
+							<td class="col-xs-4 col-sm-4 f-head"><select class="col-xs-12 col-sm-12 descripcion"
 									id="descripcion" >
 									
 								<option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
 									th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
-								<button type="button" id="eliminar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-danger" onclick="eliminarFila()" style="margin-top:10px; margin-left:2px;"><i class='glyphicon glyphicon-trash'></i></button>
+								<button type="button" id="eliminar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-danger" onclick="eliminarFila()" style="margin-top:11px; margin-left:2px;"><i class='glyphicon glyphicon-trash'></i></button>
 							</td>
 						</tr>
 						<tr class="col-xs-12 col-sm-12 last-tr" style="margin-top:5px;">
@@ -161,7 +167,23 @@
 		</div>
 		<div id="cab_confirmar" class="hidden box-body"></div>
 		<script type="text/javascript">
-			    
+		$(".factura-cliente").select2({
+			placeholder : "Seleccione el Cliente...",
+			language : {
+				noResults : function(params) {
+					return "No existen registros.";
+				}
+			}
+		});
+		$(".descripcion").select2({
+			placeholder : "Seleccione el Servicio...",
+			language : {
+				noResults : function(params) {
+					return "No existen registros.";
+				}
+			}
+		});
+		
        $("#btn-cabecera").on('click',function(e){
            console.log("entro en el onclick");
            var map = new Array();
