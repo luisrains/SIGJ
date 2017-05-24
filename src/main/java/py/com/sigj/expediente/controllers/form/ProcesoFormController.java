@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
@@ -24,6 +25,7 @@ import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
 import py.com.sigj.expediente.domain.Proceso;
 import py.com.sigj.expediente.domain.TipoDemanda;
+import py.com.sigj.util.RenderingInfo;
 
 @Controller
 @Scope("request")
@@ -61,7 +63,7 @@ public class ProcesoFormController extends FormController<Proceso> {
 	public void agregarValoresAdicionales(ModelMap map) {
 		map.addAttribute("columnas", procesoList.getColumnas());
 		map.addAttribute("columnasStr", procesoList.getColumnasStr(null));
-		map.addAttribute("tipoDemandaList", tipoDemandaDao.getList(0, 20, null));
+		map.addAttribute("tipoDemandaList", tipoDemandaDao.getListAll(null));
 		super.agregarValoresAdicionales(map);
 	}
 
@@ -163,6 +165,29 @@ public class ProcesoFormController extends FormController<Proceso> {
 		}
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
+	}
+
+	@RequestMapping(value = "obtener_proceso", method = RequestMethod.GET)
+	public @ResponseBody RenderingInfo getProceso(ModelMap map, @RequestParam("cod_proceso") Long id_proceso) {
+
+		Proceso proceso = null;
+		RenderingInfo rdInfo = new RenderingInfo();
+		try {
+			logger.info("ID DE OBJ {}", id_proceso);
+			if (id_proceso != null) {
+				proceso = getDao().find(id_proceso);
+				rdInfo.add("proceso", proceso);
+				logger.info("Procesos encontrados {}", proceso);
+
+			}
+		} catch (Exception ex) {
+
+			proceso.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+			map.addAttribute(getNombreObjeto(), proceso);
+		}
+		return rdInfo;
+
 	}
 
 }

@@ -34,6 +34,8 @@ public interface Dao<T> {
 
 	List<T> getList(Integer filaInicio, Integer filaFin, String sSearch);
 
+	List<T> getListAll(String sSearch);
+
 	/**
 	 * @param id
 	 *            del objeto metodo que busca el listado de objetos de acuerdo

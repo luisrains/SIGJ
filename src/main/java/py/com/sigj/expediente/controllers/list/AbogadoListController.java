@@ -24,6 +24,11 @@ public class AbogadoListController extends ListController<Abogado> {
 				"empleado.persona.nombre_razonSocial" };
 	}
 
+	public String[] getColumnasForExpediente() {
+		return new String[] { "id", "empleado.persona.cedula_ruc", "empleado.persona.nombre_razonSocial",
+				"empleado.persona.apellido" };
+	}
+
 	@Override
 	public Dao<Abogado> getDao() {
 		return abogadoDao;

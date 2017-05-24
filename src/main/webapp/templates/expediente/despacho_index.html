@@ -112,7 +112,6 @@
 						$('#delete').addClass('hidden');
 						$('#descripcion').attr('disabled', false);
 						$('#juez').attr('disabled', false);
-						$('#expediente').addClass('hidden');
 						//cargamos el formulario
 						$('#id').val(obj["id"]);
 						$('#juez').val(obj["juez"]);
@@ -138,20 +137,10 @@
 					$('#id').val(obj["id"]);
 					$('#descripcion').val(obj["descripcion"]);
 					$('#juez').val(obj["juez"]);
-					$('#expediente_div').removeClass('hidden');
-					var selec = $('.expediente');
-					var list_expediente = obj["listExpediente"];
-					var codigos = [];
-					//obtenemos el listado de procesos que tiene la materiaseleccionada para editar
-					//buscamos los procesos en el listado del formulario y lo marcamos como seleccionadas.
-					$.each(list_expediente, function( index, value ) {
-						codigos.push(value.id);
-					});
-					selec.val(codigos).trigger("change");
+					
 					
 					$('#descripcion').attr('disabled', true);
 					$('#juez').attr('disabled', true);
-					$('#Expediente').attr('disabled', true);
 					$("#formModal").modal("show");
 				}
 			}
