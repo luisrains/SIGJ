@@ -177,85 +177,7 @@ WARNING: Respond.js doesn't work if you view the page via file://
 					
 			</div>
 			
-			<!-- <div class="form-group">
-				<label for="tipoDespacho" th:text="#{expediente.tipoDespacho.lbl}"
-					class="field-label">Despacho:</label> 
-					
-					<select id="tipoDespacho" name="tipoDespacho" for="tipoDespacho"
-					class="form-control form-group tipoDespacho selecciones">
-					<option th:each=" tip : ${DespachoList}" th:value="${tip.id}"
-						th:text="${tip.descripcion}">JUZGADO DE JUSTICIA LETRADA DEL 6° TURNO SRIA. 12</option>
-						
-				</select>
-			</div>
-			<div class="form-group">
-				<label for="nroExpediente" th:text="#{abogado.nroExpediente.lbl}" class="field-label">
-				Nro. Expediente:</label>
-				<input type="text" name="nroExpediente" id="nroExpediente" maxlength="100"
-					class="form-control" />
-			</div>
 			
-			
-			<div class="form-group">
-				<label for="caratula" th:text="#{expediente.caratula.lbl}"
-					class="field-label">Caratula:</label> 
-					<input type="text" name = "caratula" id="caratula" maxlength="100" class="form-control" disabled />
-			</div>
-			
-			<div class="form-group">
-				<label for="nroLiquidacion" th:text="#{expediente.nroLiquidacion.lbl}"
-					class="field-label">Nro. de Liquidacion:</label> 
-					<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" class="form-control" autofocus="autofocus"/>
-			</div>
-			<div class="form-group">
-				<label for="objetoCausa" th:text="#{expediente.objetoCausa.lbl}"
-					class="field-label">Objeto de causa:</label> 
-					<input type="text" name = "objetoCausa" id="objetoCausa" maxlength="100" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label for="moneda" th:text="#{expediente.moneda.lbl}"
-					class="field-label">Moneda:</label> 
-					<input type="text" name = "moneda" id="moneda" maxlength="100" class="form-control" />
-			</div>
-			
-			<div class="form-group">
-				<label for="Monto" th:text="#{expediente.moneda.lbl}"
-					class="field-label">Monto:</label> 
-					<input type="text" name = "Monto" id="Monto" maxlength="100" class="form-control" />
-			</div>
-			
-			<div class="form-group">
-				<label for="anho" th:text="#{expediente.anho.lbl}"
-					class="field-label">Año:</label> 
-					<input type="text" name = "anho" id="anho" maxlength="100" class="form-control" />
-			</div>
-			
-			<div class="form-group">
-						<label>Fecha del Sello del Cargo :</label>
-						<div class="input-group date" style="width:50%;">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-							</div>
-							<input type="text" class="form-control pull-right"
-								name="fecha" id="datepicker">
-						</div>
-						<script type="text/javascript">
-					        $(function () {
-					        	 $('#datepicker').datepicker({       
-					                 autoclose: true,
-					                 format: 'mm/yyyy', 
-					                 viewMode: "years",
-					                 language: 'es',   
-					                 minViewMode: "months",  
-					                 monthNames:["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-					                 monthNamesShort:["Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
-					              });
-					             
-					        });
-					    </script>
-						/.input group
-					</div> -->
-
             
 			<!-- Inicio panel botones -->
 			
@@ -342,7 +264,20 @@ WARNING: Respond.js doesn't work if you view the page via file://
 		$("#input-6").fileinput({
 			showUpload : false,
 			maxFileCount : 10,
-			mainClass : "input-group-lg"
+			mainClass : "input-group-lg",
+			layoutTemplates: { 
+				footer: '<div class="file-thumbnail-footer">\n' +
+		            '    <div class="file-footer-caption" style="width:{width}">{caption}<br> {size}</div>\n' +
+		            '    {actions}\n' +
+		            '</div>',
+	        	actions: '<div class="file-actions">\n' +
+		            '    <div class="file-footer-buttons">\n' +
+		            '      {delete} {zoom} {other}' +
+		            '    </div>\n' +
+		            '    <div class="clearfix"></div>\n' +
+		            '</div>',
+
+	    	}
 		});
 
 		

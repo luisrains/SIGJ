@@ -64,7 +64,7 @@ public class Expediente extends GenericEntity {
 	private String folio;
 
 	@Size(max = 100, message = "expediente.nroLiquidacion.size")
-	private String nroLiquidación;
+	private String nroLiquidacion;
 
 	@Temporal(TemporalType.DATE)
 	private Date fechaSelloCargo;
@@ -129,12 +129,12 @@ public class Expediente extends GenericEntity {
 		this.moneda = moneda;
 	}
 
-	public String getNroLiquidación() {
-		return nroLiquidación;
+	public String getNroLiquidacion() {
+		return nroLiquidacion;
 	}
 
-	public void setNroLiquidación(String nroLiquidación) {
-		this.nroLiquidación = nroLiquidación;
+	public void setNroLiquidacion(String nroLiquidacion) {
+		this.nroLiquidacion = nroLiquidacion;
 	}
 
 	public Date getFechaSelloCargo() {

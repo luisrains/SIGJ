@@ -304,9 +304,7 @@ function registrar_expediente(){
 	rInfo.mapa.clientes = clientes;
 	var expediente = {};
 	//expediente.anho = $("#anho_caract").text();
-	expediente.anho = 2017;
-	expediente.folio = 2017;
-	expediente.nroExpediente= 2017;
+	expediente.anho = $("#anho").val();
 	expediente.juzgado= "2017";
 	expediente.caratula = "2017";
 	expediente.folio = 	$("#folio_caract").text();
@@ -320,6 +318,7 @@ function registrar_expediente(){
 	expediente.nroExpediente = $("#nro_caract").text();
 	expediente.fecha = $('input[name=fecha]').val();
 	expediente.nroLiquidacion = $("#nroLiquidacion").val();
+	expediente.despacho = $("#despacho").val();
 	rInfo.mapa.expediente =  expediente;
 	console.log(rInfo);
 	var mapaStr = JSON.stringify(rInfo);
