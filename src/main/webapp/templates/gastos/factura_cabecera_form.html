@@ -44,13 +44,14 @@
 			<div class="form-group col-sm-7">
 			<label for="cliente" th:text="#{factura_cabecera.cliente.lbl}" class="field-label"></label>
 			<select class="col-xs-12 col-sm-12 factura-cliente"
-									id="cliente" >
-									
+									id="cliente" name="cliente" >
+							<option value="0">Seleccione un Cliente</option>	
 							 <option th:each=" cliente : ${clienteList}" th:value="${cliente.id}"
 									th:text="${cliente.persona.cedula_ruc + ' '+ cliente.persona.nombre_razonSocial + ' '+ cliente.persona.apellido}">Prueba</option>
 			</select>
 			</div>
-			
+			<input type="hidden" id="cliente_ruc" value="">
+			<input type="hidden" id="cliente_razonSocial" value="">
 			<div class="form-group col-sm-6">
 				<label for="ruc" th:text="#{factura_cabecera.ruc.lbl}"
 					class="field-label">Ruc:</label> <input type="text" id="ruc"
@@ -183,7 +184,11 @@
 				}
 			}
 		});
-		
+		var seleccion="";
+		$("#cliente").on('change',function(e){
+			seleccion = $("select[name=cliente]").find("option:selected").val();
+			
+		});
        $("#btn-cabecera").on('click',function(e){
            console.log("entro en el onclick");
            var map = new Array();
@@ -255,6 +260,7 @@
            data: { 
                dataType:"json",
         	   factura_cabecera: jsonStringCab,
+        	   cliente : seleccion,
                factura_detalle: jsonStringDet
            }
        }).done(function(data){
