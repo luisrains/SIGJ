@@ -327,14 +327,14 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		}
 		map.addAttribute(getNombreObjeto(), obj);
 		agregarValoresAdicionales(map);
-		map.addAttribute("expediente", obj)
+		map.addAttribute("expediente", obj);
 		return "expediente/expediente_section_2";
 
 	}
 	
-	@RequestMapping(value = "archivo", method = RequestMethod.GET)
-	public String setArchivo(ModelMap map, MultipartHttpServletRequest multipartRequest) {
-		List<MultipartFile> fileList = multipartRequest.getFiles("ext_nombre_archivo");
+	@RequestMapping(value = "archivo", method = RequestMethod.POST)
+	public String setArchivo(ModelMap map,HttpServletRequest request, MultipartHttpServletRequest multipartRequest) {
+		List<MultipartFile> fileList = multipartRequest.getFiles("file_act");
 		return "";
 //		for(MultipartFile file : fileList) {
 //			if(file.getSize() != 0 && file.getSize() > WebAppConstant.MAX_ALLOWED_FILE_SIZE_CA){
