@@ -126,9 +126,11 @@
 				//2
 				var arrayCol = colsStr.split(";");
 				//3 , se puede crear una funcion aparte en vez de hacer function
+				columnsArray.push({'defaultContent':"<input type='radio' name='radio-dt'>"});
 				jQuery.each(arrayCol, function(i, val){
 					
 							if(val==true){val = "Si";}else if(val == false){val="No";}
+							
 							columnsArray.push( {"data" : val} );
 				});
 				
@@ -152,7 +154,7 @@
                 'sAjaxSource' : ajaxSource,
                 'serverSide' : true,
                 'columns' : getColumnasArray(columnas),
-
+                
                 'language' : {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
@@ -223,6 +225,18 @@
                 'sAjaxSource' : ajaxSource,
                 'serverSide' : true,
                 'columns' : getColumnasArrayEsp(columnas),
+                'columnDefs': [
+                    {
+                        "targets": [ 0 ],
+                        "visible": true,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [ 1 ],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
                 'language' : {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
@@ -254,13 +268,13 @@
              console.log("creando data:", dataTable)
              //codigo que selecciona la fila
              $('#'+ dataTableId + ' tbody').on( 'click', 'tr', function () {
-         		if ( $(this).hasClass('selected') ) {
-         			$(this).removeClass('selected');
+         		if ( $(this).hasClass('checked') ) {
+         			$(this).removeClass('checked');
          			$(".object_id").val("");
          		}
          		else {
-         			dataTable.$('tr.selected').removeClass('selected');
-         			$(this).addClass('selected');
+         			dataTable.$('tr td.checked').removeClass('checked');
+         			$(this).addClass('checked');
          			var data = dataTable.row( this ).data();
          			$(".object_id").val(data["id"]);
          		}
