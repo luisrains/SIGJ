@@ -333,9 +333,15 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "archivo", method = RequestMethod.POST)
-	public String setArchivo(ModelMap map,HttpServletRequest request, MultipartHttpServletRequest multipartRequest) {
-		List<MultipartFile> fileList = multipartRequest.getFiles("file_act");
+	public String setArchivo(ModelMap map,@RequestParam("file_act") MultipartFile multipartRequest) {
+		logger.info("elarchivo {}" , multipartRequest);
+		
+		//List<MultipartFile> fileList = multipartRequest.getBytes();
 		return "";
+		
+		
+		
+		
 //		for(MultipartFile file : fileList) {
 //			if(file.getSize() != 0 && file.getSize() > WebAppConstant.MAX_ALLOWED_FILE_SIZE_CA){
 //				logger.error("Capacidad máxima de archivo permitida superada");
