@@ -169,9 +169,9 @@
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
+							<li><a th:href="@{/inicio}"><i class="fa fa-folder"
 									style="color: blue"></i>Consultar Expediente</a></li>
-							<li><a th:href="@{/sigj/expediente}"><i class="fa fa-folder"
+							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
 									style="color: blue"></i>Registrar Juicio</a></li>
 						</ul></li>
 
@@ -273,14 +273,15 @@
 								class="fa fa-angle-left pull-right"></i>
 						</span>
 					</a>
-						<ul class="treeview-menu">
+						<!-- <ul class="treeview-menu">
 							<li><a th:href="@{/usuario}"><i class="fa fa-user-plus"
 									style="color: blue"></i>Usuario</a></li>
 							<li><a th:href="@{/permiso}><i class="fa fa-user-secret"
 									style="color: blue"></i>Permisos</a></li>
 							<li><a th:href="@{/rol}><i class="fa fa-user-circle"
 									style="color: blue"></i>Roles</a></li>
-						</ul></li>
+						</ul> -->
+						</li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->
@@ -353,8 +354,29 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<div id="contentBox" class="content box"
-					th:replace="this :: contenido"></div>
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Expediente N°. 4875</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">DATOS MINIMOS DEL EXPEDIENTE</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Expediente N°. 4542</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">DATOS MINIMOS DEL EXPEDIENTE</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
 
 			</section>
 			<!-- /.content -->

@@ -1,7 +1,9 @@
 package py.com.sigj.expediente.controllers.form;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
@@ -188,7 +192,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setMoneda("gs");
 			obj.setMonto(10000);
 			obj.setNroExpediente("402");
-			obj.setNroLiquidación("154654");
+			obj.setNroLiquidacion("154654");
 			List<String> abogados = null;
 			List<String> cliente = null;
 			if (obj.getId() == null && abogados != null) {
@@ -255,49 +259,57 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setMoneda("gs");
 			obj.setMonto(10000);
 			obj.setNroExpediente("402");
-			obj.setNroLiquidación("154654");
+			obj.setNroLiquidacion("154654");
 			// HttpSession session = request.getSession();
 			RenderingInfo rdInfo = null;
-			RenderingInfo rdExpediente = null;
+			Map<String, Object> rdExpediente = null;
 			List<String> abogados = null;
 			List<String> cliente = null;
 			if (rdInfoAbogadoCliente != null && rdInfoAbogadoCliente != "") {
 				rdInfo = WebUtils.deserializeRenderingInfo(rdInfoAbogadoCliente);
-				logger.info("info {}", rdInfo.get("expediente"));
-				// rInfoUser = objectMapper.readValues(rdInfo.get("expediente"),
-				// RenderingInfo.class);
 				listaAbogados = (List<RenderingInfo>) rdInfo.get("abogados");
 				listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
-				rdExpediente = (RenderingInfo) rdInfo.get("expediente");
+				logger.info("expediente _>{}", rdInfo.get("expediente"));
+				rdExpediente = (Map<String, Object>) rdInfo.get("expediente");
+				
+				
+				
+				//RenderingInfo rdInfoExp = WebUtils.deserializeRenderingInfo(exp);
+				//rdExpediente = (RenderingInfo) rdInfo.get("expediente");
 			}
 			// TODO ver como registrar en despachos el expediente
 			obj.setAnho((String) rdExpediente.get("anho"));
 			obj.setFolio((String) rdExpediente.get("folio"));
 			obj.setCaratula((String) rdExpediente.get("caratula"));
 			obj.setMoneda((String) rdExpediente.get("moneda"));
-			obj.setMonto((int) rdExpediente.get("monto"));
+			obj.setMonto(Integer.parseInt((String) rdExpediente.get("monto")));
 			obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
-			obj.setFechaSelloCargo((Date) rdExpediente.get("fecha"));
-			obj.setNroLiquidación((String) rdExpediente.get("nroLiquidación"));
+			String fecha = (String)rdExpediente.get("fecha");
+			obj.setFechaSelloCargo(WebUtils.getDate(fecha.replace("/", "")));
+			obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidación"));
 			// validar el despacho
-			obj.setDespachoActual(despachoDao.find((Long) rdExpediente.get("despacho")));
+			Long id_desp = (Long) Long.parseLong((String)rdExpediente.get("despacho"));
+			obj.setDespachoActual(despachoDao.find(id_desp));
 
 			if (obj.getId() == null && listaAbogados != null) {
 				getDao().create(obj);
-				for (RenderingInfo rd : listaAbogados) {
+				
+				for (int i = 0; i < listaAbogados.size(); i++) {
+					Map<String, Object> rd = (Map<String, Object>) listaAbogados.get(i);
 					ExpedienteAbogado ea = new ExpedienteAbogado();
-					Long idFormat = (Long) rd.get("id_abogado");
+					Long idFormat = Long.parseLong((String) rd.get("id_abogado"));
 					ea.setAbogado(abogadoDao.find(idFormat));
 					ea.setExpediente(obj);
 					ea.setTipoAbogado((String) rd.get("tipo_abogado"));
 					expedienteAbogadoDao.create(ea);
 				}
+
 			}
 			if (listaCliente != null) {
-
-				for (RenderingInfo rd : listaCliente) {
+				for (int i = 0; i < listaCliente.size(); i++) {
+						Map<String, Object> rd = (Map<String, Object>) listaCliente.get(i);
 					ExpedienteCliente ec = new ExpedienteCliente();
-					Long idFormat = (Long) rd.get("id_cliente");
+					Long idFormat = Long.parseLong((String)rd.get("id_cliente"));
 					ec.setCliente(clienteDao.find(idFormat));
 					ec.setExpediente(obj);
 					ec.setTipoCliente((String) rd.get("tipo_cliente"));
@@ -315,8 +327,73 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		}
 		map.addAttribute(getNombreObjeto(), obj);
 		agregarValoresAdicionales(map);
-		return getTemplatePath();
+		map.addAttribute("expediente", obj);
+		return "expediente/expediente_section_2";
 
+	}
+	
+	@RequestMapping(value = "archivo", method = RequestMethod.POST)
+	public String setArchivo(ModelMap map,HttpServletRequest request, MultipartHttpServletRequest multipartRequest) {
+		List<MultipartFile> fileList = multipartRequest.getFiles("file_act");
+		return "";
+//		for(MultipartFile file : fileList) {
+//			if(file.getSize() != 0 && file.getSize() > WebAppConstant.MAX_ALLOWED_FILE_SIZE_CA){
+//				logger.error("Capacidad máxima de archivo permitida superada");
+//				throw new AjaxException(Code.ARCHIVO_INVALIDO, "Tamaño de archivo mayor a "+WebAppConstant.MAX_ALLOWED_FILE_SIZE_CA_MSG);
+//			}
+//	
+//				if (file.getSize() <= WebAppConstant.MAX_ALLOWED_FILE_SIZE_CA) {
+//					logger.info(String.format("El tamanho del archivo en Bytes:  %s", file.getSize()));
+//		
+//					String ct = file.getContentType().toLowerCase();
+//					if (ct.equals("application/pdf")) {
+//						archivo_tipo = ".pdf";
+//					} else if (ct.startsWith("application/vnd.ms-excel")) { //office 2007 para abajo
+//						archivo_tipo = ".xls";
+//					} else if (ct.startsWith("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) { //office 2007 para arriba
+//						archivo_tipo = ".xlsx";
+//					} else if (ct.startsWith("image/png")) {
+//						archivo_tipo = ".png";
+//					} else if (ct.startsWith("image/jpeg")) {
+//						archivo_tipo = ".jpg";
+//					} else if (ct.startsWith("application/msword")) {//office 2007 para abajo
+//						archivo_tipo = ".doc";
+//					} else if (ct.startsWith("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {//office 2007 para arriba
+//						archivo_tipo = ".docx";
+//					} else if (ct.startsWith("application/vnd.openxmlformats-officedocument.wordprocessingml")) {
+//						archivo_tipo = ".docx";
+//					} else if (ct.startsWith("application/vnd.ms-powerpoint")) {
+//						archivo_tipo = ".ppt";
+//					} else if (ct.startsWith("application/vnd.openxmlformats-officedocument.presentationml")) {
+//						archivo_tipo = ".pptx";
+//					} else if (ct.startsWith("text/plain")) {
+//						archivo_tipo = ".txt";
+//					} else {
+//						throw new WebAppException(Code.ARCHIVO_INVALIDO, "El formato del archivo no es correcto. Sólo se pueden subir archivos con extensiones .docx, .doc, .pdf, .jpg, .jpeg, .png, .txt");
+//					}
+//				
+//					Archivo archivo = new Archivo();
+//					
+//					// clasificacion se usa para identificar la asociacion al archivo
+//					try {
+//						archivo.setDatos(file.getBytes());
+//					} catch (IOException e) {
+//						throw new WebAppException(Code.ARCHIVO_NO_CONVERTIDO_BYTES, "No se pudo leer el archivo a bytes");
+//					}
+//					archivo.setNombreOriginal(file.getOriginalFilename());
+//					archivo.setClasificacion(token);
+//					archivo.setTipo("TX_INTERNACIONAL");
+//					archivo.setContentType(file.getContentType());
+//					
+//					try {
+//						archivo = archivosDAO.crear(accessToken, archivo);
+//						ret = "OK";
+//						logger.debug(String.format("Se creó el archivo con ID [%s] ContentType [%s] Tamaño [%d]", archivo.getId(), archivo.getContentType(), archivo.getTamanho()));
+//					} catch (Exception e) {
+//						logger.debug("Hubo un error al crear el archivo");
+//						ret = "ERR";
+//					}
+			//}
 	}
 	/*
 	 * @RequestMapping(value = "editar_listado", method = RequestMethod.POST)

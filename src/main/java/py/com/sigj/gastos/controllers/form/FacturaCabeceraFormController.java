@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import antlr.collections.List;
 import py.com.sigj.controllers.form.FormController;
+import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.gastos.controllers.list.FacturaCabeceraListController;
 import py.com.sigj.gastos.controllers.list.ServicioListController;
@@ -60,6 +61,8 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 	private ServicioDao servicioDao;
 	
 	@Autowired
+	private ClienteDao clienteDao;
+	@Autowired
 	private FacturaDetalleDao facturaDetalleDao;
 	
 	@Override
@@ -82,6 +85,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 		map.addAttribute("columnas", facturaCabeceraList.getColumnas());
 		map.addAttribute("columnasStr", facturaCabeceraList.getColumnasStr(null));
 		map.addAttribute("listaServicios", servicioDao.getList(0, 20, null));
+		map.addAttribute("clienteList", clienteDao.getList(0, 100, null));
 		super.agregarValoresAdicionales(map);
 	}
 	@RequestMapping(value = "/factura/confirmar", method = RequestMethod.GET)
