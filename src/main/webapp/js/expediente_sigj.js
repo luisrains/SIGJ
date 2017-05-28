@@ -149,20 +149,20 @@ var apoderado = "";
 var contraparte = "";
 function agregar_demandado(){
 	var seleccion = $('input[name=tipo_cliente]:checked').val();
-	var seleccionDT = $("#clienteDT tbody tr.selected td");
-	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined){
+	var seleccionDT = $("#clienteDT tbody tr").find(":checked");
+	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined && $('input:radio[name=radio-dt]').is(":checked") === true ){
 		if(seleccion == 'D'){
 			if(demandante == ""){
-				demandante = "["+ $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
+				demandante = "["+ $("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
 				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
-				$("#o-nombre_demandante").text($("#clienteDT tbody tr.selected td").eq(2).text());
-				$("#o-apellido_demandante").text($("#clienteDT tbody tr.selected td").eq(3).text());
+				$("#o-nombre_demandante").text($("#clienteDT tbody tr.checked td").eq(2).text());
+				$("#o-apellido_demandante").text($("#clienteDT tbody tr.checked td").eq(3).text());
 			}
 			else{
-				demandante.split("]").join(",");
-				demandante = demandante + $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
+				demandante = demandante.substr(0,demandante.length-1);
+				demandante = demandante + ", "+$("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
 				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
@@ -180,18 +180,18 @@ function agregar_demandado(){
 			$("#o-demandante").text("Demandante");
 		}else if(seleccion == 'C'){
 			if(demandado == ""){
-				demandado = "["+ $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
+				demandado = "["+ $("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
 			
 				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
-				$("#o-nombre_demandado").text($("#clienteDT tbody tr.selected td").eq(2).text());
-				$("#o-apellido_demandado").text($("#clienteDT tbody tr.selected td").eq(3).text());
+				$("#o-nombre_demandado").text($("#clienteDT tbody tr.checked td").eq(2).text());
+				$("#o-apellido_demandado").text($("#clienteDT tbody tr.checked td").eq(3).text());
 			}
 			else{
-				demandado.split("]").join(",");
-				demandado = demandado + $("#clienteDT tbody tr.selected td").eq(2).text() + " " + $("#clienteDT tbody tr.selected td").eq(1).text() + "]";
-				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				demandado = demandado.substr(0,demandado.length-1);
+				demandado = demandado + ", "+$("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
+				var id = $("#clienteDT tbody tr.checked td").eq(0).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
 			}
@@ -208,28 +208,32 @@ function agregar_demandado(){
 //			$("#o-nombre_demandado").text(demandado.nombre_razon_social);
 //			$("#o-apellido_demandado").text(demandado.apellido);
 			$("#o-demandado").text("Demandado");
-		}else{
-			alert("Error no eligio nada");
+			$("#error-cliente").addClass("hidden");
+		}else {
+			$("#error-cliente").removeClass("hidden");
+			
 		}
+		$("#error-cliente").addClass("hidden");
 	}else{
-		alert("Error Debe seleccionar un cliente de la tabla");
+		$("#error-cliente").removeClass("hidden");
+		
 	}
 	
 }
 function agregar_abogado(){
 	var seleccion = $('input[name=tipo_abogado]:checked').val();
-	var seleccionDT = $("#abogadoDT tbody tr.selected td");
-	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined){
+	var seleccionDT = $("#abogadoDT tbody tr").find(":checked");
+	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined && $('input:radio[name=radio-dt]').is(":checked") === true){
 		if(seleccion == 'AP'){
 			if(apoderado == ""){
-				apoderado = "["+ $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
+				apoderado = "["+ $("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
 				
-				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				var id = $("#abogadoDT tbody tr.checked td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
-				apoderado.split("]").join(",");
-				apoderado = apoderado + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
+				apoderado = apoderado.substr(0,apoderado.length-1);
+				apoderado = apoderado + ", "+$("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
 				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
@@ -247,15 +251,15 @@ function agregar_abogado(){
 			$("#o-apoderado").text("Apoderado");
 		}else if(seleccion == 'CO'){
 			if(contraparte == ""){
-				contraparte = "["+ $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
+				contraparte = "["+ $("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
 				
-				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				var id = $("#abogadoDT tbody tr.checked td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
-				contraparte.split("]").join(",");
-				contraparte = contraparte + $("#abogadoDT tbody tr.selected td").eq(2).text() + " " + $("#abogadoDT tbody tr.selected td").eq(1).text() + "]";
-				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				contraparte = contraparte.substr(0,contraparte.length-1);
+				contraparte = contraparte + ", "+$("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
+				var id = $("#abogadoDT tbody tr.checked td").eq(0).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			
@@ -272,11 +276,13 @@ function agregar_abogado(){
 //			$("#o-nombre_contraparte").text(contraparte.nombre_razon_social);
 //			$("#o-apellido_contraparte").text(contraparte.apellido);
 			$("#o-contraparte").text("Contraparte");
+			$("#error-abogado").addClass("hidden");
 		}else{
-			alert("Error no eligio nada");
+			$("#error-abogado").removeClass("hidden");
 		}
+		$("#error-abogado").addClass("hidden");
 	}else{
-		alert("Error Debe seleccionar un cliente de la tabla");
+		$("#error-abogado").removeClass("hidden");
 	}
 }
 

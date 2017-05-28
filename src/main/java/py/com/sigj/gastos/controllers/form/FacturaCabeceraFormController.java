@@ -31,6 +31,9 @@ import antlr.collections.List;
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
+import py.com.sigj.expediente.dao.ClienteFacturaDao;
+import py.com.sigj.expediente.domain.Cliente;
+import py.com.sigj.expediente.domain.ClienteFactura;
 import py.com.sigj.gastos.controllers.list.FacturaCabeceraListController;
 import py.com.sigj.gastos.controllers.list.ServicioListController;
 import py.com.sigj.gastos.dao.FacturaCabeceraDao;
@@ -51,6 +54,8 @@ import py.com.sigj.gastos.domain.Servicio;
 @RequestMapping("factura_cabecera")
 public class FacturaCabeceraFormController extends FormController<FacturaCabecera> {
 
+	@Autowired
+	private ClienteFacturaDao clienteFacturaDao;
 	@Autowired
 	private FacturaCabeceraDao facturaCabeceraDao;
 
@@ -144,7 +149,15 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 			fc.setTotalIvaCinco(Integer.parseInt(totalIvaCinco));
 			fc.setTotalIvaDiez(Integer.parseInt(totalIvaDiez));
 			facturaCabeceraDao.create(fc);
-			
+			String id =  session.getAttribute("cliente").toString();
+			Long id_cliente = Long.parseLong(id);
+			if(id_cliente != 0){
+				ClienteFactura cf = new ClienteFactura();
+				Cliente cliente = clienteDao.find(id_cliente);
+				cf.setCliente(cliente);
+				cf.setFactura(fc);
+				clienteFacturaDao.create(cf);
+			}
 			while(Integer.parseInt(j) <= index){
 				k=0;
 				fdd = new FacturaDetalle();
@@ -223,7 +236,9 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 	}
 	
 	@RequestMapping(value = "/factura", method = RequestMethod.GET)
-	public String generarFactura(HttpServletRequest request,ModelMap map, @RequestParam(value = "factura_cabecera", required = true) String facturaCabecera,
+	public String generarFactura(HttpServletRequest request,ModelMap map,
+			@RequestParam(value = "cliente", required = true) String cliente,
+			@RequestParam(value = "factura_cabecera", required = true) String facturaCabecera,
 			@RequestParam(value = "factura_detalle", required = true) String facturaDetalle) throws JsonParseException, JsonMappingException, IOException {
 			
 			
@@ -289,7 +304,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 			String totalIvaDiez = mapaFd.get("total_iva_10");
 			session.setAttribute("monto_total", montoTotal);
 			session.setAttribute("total_iva_5", totalIvaCinco);
-			
+			session.setAttribute("cliente", cliente);
 			session.setAttribute("total_iva_10", totalIvaDiez);
 			mapaFd.remove("monto_total", mapaFd.get("monto_total"));
 			mapaFd.remove("total_iva_10", mapaFd.get("total_iva_10"));
