@@ -231,11 +231,11 @@
                         "visible": true,
                         "searchable": false
                     },
-                    {
-                        "targets": [ 1 ],
-                        "visible": false,
-                        "searchable": false
-                    }
+//                    {
+//                        "targets": [ 1 ],
+//                        "visible": false,
+//                        "searchable": false
+//                    }
                 ],
                 'language' : {
                     "sProcessing": "Procesando...",
@@ -277,6 +277,7 @@
          			$(this).addClass('checked');
          			var data = dataTable.row( this ).data();
          			$(".object_id").val(data["id"]);
+         			console.log($(".object_id").val());
          		}
          	} );
              

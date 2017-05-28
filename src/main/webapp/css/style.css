@@ -90,12 +90,12 @@
 		width: 40px !important;
 		padding-left: 15px !important;
 	}
-	 .sorting_asc{
-		display:none;
-	}
-	.sorting_1{
-		display:none;
-	}
+	 table.table-esp thead tr th:nth-child(2){
+	 	display: none !important;
+	 }
+	 table.table-esp tbody tr td:nth-child(2){
+	 	display: none !important;
+	 }
 	table.table-esp thead tr th.sorting_asc{
 		display:block !important;
 	}
