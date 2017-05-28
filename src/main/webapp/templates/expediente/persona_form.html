@@ -109,6 +109,17 @@
 							<input type="text" class="form-control pull-right col-sm-6 fecha"
 								th:field="*{fechaNacimiento}" name="fechaNacimiento" id="datepicker">
 						</div>
+						<script type="text/javascript">
+							
+							$(function () {
+							    //Initialize Select2 Elements
+								 $('.fecha').datepicker({       
+					                 autoclose: true,
+					                 format: 'dd/mm/yyyy',
+					                 language: 'es', 
+							    });
+							});		
+							</script>
 			</div>
 
 			<div class="form-group hidden-xs col-sm-12">
