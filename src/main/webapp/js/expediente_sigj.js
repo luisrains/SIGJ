@@ -94,6 +94,7 @@ function mostrarModalStep(){
 	          allWells = $('.setup-content'),
 	          allNextBtn = $('.nextBtn'),
 	  		  allPrevBtn = $('.prevBtn');
+	  		  allSuccBtn = $('.succesBtn');
 
 	  allWells.hide();
 
@@ -140,8 +141,12 @@ function mostrarModalStep(){
 	          }
 	      }
 
-	      if (isValid)
+	      if (isValid){
 	          nextStepWizard.removeAttr('disabled').trigger('click');
+	      	if(curStepBtn== 'step-3'){
+	      		$('#modalStep').modal('toggle');
+	      	}
+	      }
 	  });
 
 	  $('div.setup-panel div a.btn-primary').trigger('click');

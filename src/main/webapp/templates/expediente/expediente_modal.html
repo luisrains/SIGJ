@@ -150,7 +150,7 @@
 									<label for="moneda" class="field-label">Moneda(*):</label> 
 										<select name="moneda"
 										id="moneda" for="moneda"
-										class="form-control moneda selectMoneda selecciones hidden">
+										class="form-control moneda selectMoneda selecciones">
 										<option selected="selected" value="0">-Elegir una
 											opcion-</option>
 											<option value="GS"> Guaraníes</option>
@@ -187,14 +187,13 @@
 								</div>
 								<div class="form-group">
 									<label for="nroLiquidacion" class="field-label">Nro.
-										de Liquidacion (Opcional):</label> <input type="text" id="nroLiquidacion"
-										name="nroLiquidacion" for="nroLiquidacion" maxlength="100"
-										class="form-control"/>
+										de Liquidacion (Opcional):</label> 
+										<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" required="false" class="form-control"/>
 								</div>
 								<div class="form-group">
 									<label for="estadoExterno" class="field-label">Estado
 										Actual(*):</label> <select name="estadoExterno" id="estadoExterno"
-										for="estadoExterno"
+										for="estadoExterno" required="required"
 										class="form-control estadoExterno selecciones">
 										<option th:each=" tip : ${estadoExternoList}"
 											th:value="${tip.id}" th:text="${tip.descripcion}">Inicio</option>
