@@ -2,12 +2,15 @@ package py.com.sigj.expediente.domain;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -18,6 +21,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import py.com.sigj.main.GenericEntity;
 
@@ -58,6 +63,11 @@ public class Actuacion extends GenericEntity {
 	@OneToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_documento_fk"))
 	private Documento documento;
+	
+	@JsonIgnore
+	@Lob
+	@Basic(fetch = FetchType.LAZY, optional = true)
+	private byte[] image;// imagen de ctuacion
 
 	public Actuacion() {
 
