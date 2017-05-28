@@ -29,6 +29,7 @@ $("select[name=materia]").on("change", function(e){
 			$('.selectTipoProceso').append(o);
 			$('#selectTipoProceso').removeClass('hidden');
 			
+			
 			//despachos
 			$('.selectDespacho').select2('destroy');
 			$('.selectDespacho').html('');
