@@ -1,8 +1,5 @@
 package py.com.sigj.expediente.controllers.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +18,6 @@ import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.TipoDemandaListController;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
-import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.TipoDemanda;
 
 @Controller
@@ -122,13 +118,11 @@ public class TipoDemandaFormController extends FormController<TipoDemanda> {
 
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
 	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
-		List<Expediente> listExpediente = new ArrayList<Expediente>();
 		TipoDemanda tipoDemanda = null;
 		try {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				tipoDemanda = getDao().find(id_objeto);
-				tipoDemanda.setListExpediente(listExpediente);
 				getDao().destroy(tipoDemanda);
 
 				logger.info("TipoDemanda eliminado  {}", tipoDemanda);

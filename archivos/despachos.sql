@@ -1,4 +1,4 @@
---INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'CORTE SUPREMA DE JUSTICIA','ninguno');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'CORTE SUPREMA DE JUSTICIA','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'FUNCIONARIOS AUXILIARES AL PROCESO','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'Juzgado de Feria Civil y Comercial 2015','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE JUSTICIA LETRADA DEL 1° TURNO SRIA. 1','ninguno');

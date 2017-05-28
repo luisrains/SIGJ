@@ -17,4 +17,12 @@ public class DespachoDaoImpl extends DaoImpl<Despacho> implements DespachoDao {
 		return "descripcion||juez";
 	}
 
+	@Override
+	public Despacho find(Long id) {
+		logger.info("Buscando registro con id: {}", id);
+		Despacho d = entityManager.find(getEntityClass(), id);
+		return d;
+
+	}
+
 }

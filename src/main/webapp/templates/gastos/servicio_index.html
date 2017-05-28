@@ -104,7 +104,7 @@
 							$('#id').val('');
 							$('#tipoServicio').val('');
 							$('#costo').val('');
-							$('#iva').val('');
+							
 							$('#selec').val('');
 							$("#borradoPopup").modal("show");
 						}
@@ -117,7 +117,7 @@
 							$('#codigo').val(obj["codigo"]);
 							$('#tipoServicio').val(obj["tipoServicio"]);
 							$('#costo').val(obj["costo"]);
-							$('#iva').val(obj["iva"]);
+							
 							$("#formModal").modal("show");
 						}
 					} else if (accion === 'r') { //create
@@ -127,7 +127,6 @@
 						$('#id').val('');
 						$('#tipoServicio').val('');
 						$('#costo').val('');
-						$('#iva').val('');
 						$('#selec').val('');
 						$("#formModal").modal("show");
 					} else if (accion === 'v') { //veiw
@@ -138,7 +137,6 @@
 						$('#codigo').val(obj["codigo"]);
 						$('#tipoServicio').val(obj["tipoServicio"]);
 						$('#costo').val(obj["costo"]);
-						$('#iva').val(obj["iva"]);
 						$("#formModal").modal("show");
 					}
 				}

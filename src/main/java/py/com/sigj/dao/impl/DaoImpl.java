@@ -1,6 +1,7 @@
 package py.com.sigj.dao.impl;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -112,6 +113,29 @@ public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<T> getListAll(String sSearch) {
+		logger.info("Obteniendo lista de personas, sSearch: {}", sSearch);
+
+		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
+		sql = sql.replace("#ENTITY#", getEntityName());
+		Query query = null;
+		// Usuario no envió ningún filtro
+
+		if (StringUtils.isBlank(sSearch)) {
+			query = entityManager.createQuery(sql);
+		} else {
+			sql = sql + " WHERE lower(" + getCamposFiltrables() + ") LIKE lower(?1)";
+			query = entityManager.createQuery(sql);
+			query.setParameter(1, "%" + sSearch.replace(" ", "%") + "%");
+		}
+		List<T> list = query.getResultList();
+		logger.info("Cantidad de registros encontrados: {}", list);
+		return list;
+	}
+
 	public abstract String getCamposFiltrables();
 
 	public String getEntityName() {
@@ -133,5 +157,12 @@ public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {
 			entityClass = (Class<T>) superClass.getActualTypeArguments()[0];
 		}
 		return entityClass;
+	}
+
+	protected void initializeCollection(Collection<?> collection) {
+		if (collection == null) {
+			return;
+		}
+		collection.iterator().hasNext();
 	}
 }

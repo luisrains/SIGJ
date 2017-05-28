@@ -3,9 +3,12 @@ package py.com.sigj.expediente.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,59 +35,46 @@ public class Expediente extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "cliente.domicilioLaboral.notNull")
-	@NotBlank(message = "cliente.domicilioLaboral.notBlank")
-	@Size(max = 100, message = "cliente.domicilioLaboral.size")
+	@NotNull(message = "expediente.caratula.notNull")
+	@NotBlank(message = "expediente.caratula.notBlank")
+	@Size(max = 100, message = "expediente.caratula.size")
 	private String caratula;
 
-	@NotNull(message = "cliente.domicilioProcesal.notNull")
-	@NotBlank(message = "cliente.domicilioProcesal.notBlank")
-	@Size(max = 100, message = "cliente.domicilioProcesal.size")
+	@NotNull(message = "expediente.nroExpediente.notNull")
+	@NotBlank(message = "expediente.nroExpediente.notBlank")
+	@Size(max = 100, message = "expediente.nroExpediente.size")
 	private String nroExpediente;
 
-	@NotNull(message = "rol.codigo.notNull")
-	@NotBlank(message = "rol.codigo.notBlank")
-	@Size(max = 20, message = "rol.codigo.size")
+	@NotNull(message = "expediente.anho.notNull")
+	@NotBlank(message = "expediente.anho.notBlank")
+	@Size(max = 20, message = "expediente.anho.size")
 	private String anho;
 
-	@NotNull(message = "cliente.domicilioActual.notNull")
+	@NotNull(message = "expediente.monto.notNull")
 	private int monto;
 
-	@NotNull(message = "rol.codigo.notNull")
-	@NotBlank(message = "rol.codigo.notBlank")
-	@Size(max = 20, message = "rol.codigo.size")
+	@NotNull(message = "expediente.moneda.notNull")
+	@NotBlank(message = "expediente.moneda.notBlank")
+	@Size(max = 20, message = "expediente.moneda.size")
 	private String moneda;
 
-	@NotNull(message = "cliente.domicilioLaboral.notNull")
-	@NotBlank(message = "cliente.domicilioLaboral.notBlank")
-	@Size(max = 100, message = "cliente.domicilioLaboral.size")
-	private String objetoCausa;
+	@NotNull(message = "expediente.folio.notNull")
+	@NotBlank(message = "expediente.folio.notBlank")
+	@Size(max = 20, message = "expediente.folio.size")
+	private String folio;
 
-	@NotNull(message = "cliente.domicilioProcesal.notNull")
-	@NotBlank(message = "cliente.domicilioProcesal.notBlank")
-	@Size(max = 100, message = "cliente.domicilioProcesal.size")
-	private String nroLiquidación;
+	@Size(max = 100, message = "expediente.nroLiquidacion.size")
+	private String nroLiquidacion;
 
 	@Temporal(TemporalType.DATE)
 	private Date fechaSelloCargo;
 
-	// tabla dependencia , tabla que depende y fk
-
-	// @ManyToOne
-	// @NotNull(message = "expediente.estadoExterno.notNull")
-	// @JoinColumn(foreignKey = @ForeignKey(name =
-	// "expediente_estadoExterno_fk"))
-	// private EstadoExternoInterno estadoExterno;
-	//
-	// @ManyToOne
-	// @NotNull(message = "expediente.tipoDemanda.notNull")
-	// @JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipoDemanda_fk"))
-	// private TipoDemanda tipoDemanda;
-	//
-	// @ManyToOne
-	// @NotNull(message = "expediente.despacho.notNull")
-	// @JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
-	// private Despacho despacho;
+	// El expediente está en un despacho por vez,
+	// podriamos tener un despachoAnterior y despachoActual
+	@ManyToOne
+	@NotNull(message = "expediente.despacho.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
+	private Despacho despachoActual;
 
 	public Expediente() {
 	}
@@ -139,20 +129,12 @@ public class Expediente extends GenericEntity {
 		this.moneda = moneda;
 	}
 
-	public String getObjetoCausa() {
-		return objetoCausa;
+	public String getNroLiquidacion() {
+		return nroLiquidacion;
 	}
 
-	public void setObjetoCausa(String objetoCausa) {
-		this.objetoCausa = objetoCausa;
-	}
-
-	public String getNroLiquidación() {
-		return nroLiquidación;
-	}
-
-	public void setNroLiquidación(String nroLiquidación) {
-		this.nroLiquidación = nroLiquidación;
+	public void setNroLiquidacion(String nroLiquidacion) {
+		this.nroLiquidacion = nroLiquidacion;
 	}
 
 	public Date getFechaSelloCargo() {
@@ -163,39 +145,20 @@ public class Expediente extends GenericEntity {
 		this.fechaSelloCargo = fechaSelloCargo;
 	}
 
-	// public EstadoExternoInterno getEstadoExterno() {
-	// return estadoExterno;
-	// }
-	//
-	// public void setEstadoExterno(EstadoExternoInterno estadoExterno) {
-	// this.estadoExterno = estadoExterno;
-	// }
-	//
-	// public TipoDemanda getTipoDemanda() {
-	// return tipoDemanda;
-	// }
-	//
-	// public void setTipoDemanda(TipoDemanda tipoDemanda) {
-	// this.tipoDemanda = tipoDemanda;
-	// }
-	//
-	// public Despacho getDespacho() {
-	// return despacho;
-	// }
-	//
-	// public void setDespacho(Despacho despacho) {
-	// this.despacho = despacho;
-	// }
-	//
-	// @Override
-	// public String toString() {
-	// return "Expediente [id=" + id + ", caratula=" + caratula + ",
-	// nroExpediente=" + nroExpediente + ", anho=" + anho
-	// + ", monto=" + monto + ", moneda=" + moneda + ", objetoCausa=" +
-	// objetoCausa + ", nroLiquidación="
-	// + nroLiquidación + ", fechaSelloCargo=" + fechaSelloCargo + ",
-	// estadoExterno=" + estadoExterno
-	// + ", tipoDemanda=" + tipoDemanda + ", despacho=" + despacho + "]";
-	// }
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
+
+	public Despacho getDespachoActual() {
+		return despachoActual;
+	}
+
+	public void setDespachoActual(Despacho despacho) {
+		this.despachoActual = despacho;
+	}
 
 }

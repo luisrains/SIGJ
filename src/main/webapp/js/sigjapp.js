@@ -126,7 +126,7 @@
 				//2
 				var arrayCol = colsStr.split(";");
 				//3 , se puede crear una funcion aparte en vez de hacer function
-				columnsArray.push({'defaultContent':"<input type='radio' name='radio-dt'>"});
+				columnsArray.push({'defaultContent':"<input type='radio' name='radio-dt' class='radio-dt'>"});
 				jQuery.each(arrayCol, function(i, val){
 					
 							if(val==true){val = "Si";}else if(val == false){val="No";}
@@ -219,37 +219,6 @@
 		
 		function crearDataTableEsp(dataTableId, ajaxSource, columnas, tipoObjeto){
 			
-			 /*var config={};
-			 config['processing'] = true;
-			 config['sAjaxSource'] = ajaxSource;
-			 config['serverSide'] = true;
-			 config['columns']= getColumnasArray(columnas);*/
-//             var LENGUAJE = {
-//                    "sProcessing": "Procesando...",
-//                    "sLengthMenu": "Mostrar _MENU_ registros",
-//                    "sZeroRecords": "No se encontraron resultados",
-//                    "sEmptyTable": "Ningún dato disponible en esta tabla",
-//                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-//                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-//                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-//                    "sInfoPostFix": "",
-//                    "sSearch": "Buscar:",
-//                    "sUrl": "",
-//                    "sInfoThousands": ",",
-//                    "sLoadingRecords": "Cargando...",
-//                    "oPaginate": {
-//                        "sFirst": "Primero",
-//                        "sLast": "Último",
-//                        "sNext": "Siguiente",
-//                        "sPrevious": "Anterior"
-//                    },
-//                    "oAria": {
-//                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-//                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-//                    }
-//                }
-			
-			 //var dataTable = $('#'+ dataTableId).dataTable(config);
 			 var dataTable = $('#'+ dataTableId).DataTable({
                 'processing' : true,
 //                'responsive': true,
@@ -273,8 +242,8 @@
                     "sLengthMenu": "Mostrar _MENU_ registros",
                     "sZeroRecords": "No se encontraron resultados",
                     "sEmptyTable": "Ningún dato disponible en esta tabla",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+//                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+//                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "sInfoFiltered": "\n(filtrado de un total de _MAX_ registros)",
                     "sInfoPostFix": "",
                     "sSearch": "Buscar:",
@@ -304,7 +273,7 @@
          			$(".object_id").val("");
          		}
          		else {
-         			dataTable.$('tr td.checked').removeClass('checked');
+         			dataTable.$('tr.checked').removeClass('checked');
          			$(this).addClass('checked');
          			var data = dataTable.row( this ).data();
          			$(".object_id").val(data["id"]);
@@ -342,5 +311,30 @@
 				  
 				});
 	    }*/
+		
+		function iniciarSpinner(spinnerID){
+			var opts = {
+					className: 'spinner',
+					color: ' #005EB8',
+					length: 7,
+					lines: 12,
+					radius: 9,
+					width: 3,
+					scale: 2.5,
+			};
+			var m_spinner = new Spinner(opts);
+			if(m_spinner.el==undefined){
+		    	m_spinner.spin();
+		        $("#"+spinnerID).append(m_spinner.el);
+			}
+			
+			return m_spinner;
+		}
+		
+		function pararSpinner(m_spinner){
+			if(m_spinner.el!=undefined){
+				m_spinner.stop();
+			}
+		}
 		
 		

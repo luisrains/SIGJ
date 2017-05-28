@@ -115,6 +115,7 @@
 		<property name="basename" value="Messages" />
 	</bean>
 	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 </beans>
 
 

@@ -15,34 +15,11 @@
 					class="field-label col-xs-7 col-sm-7">Descripción:</label> <input type="text"
 					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
 			</div>
-			<div class="form-group col-xs-12 col-sm-12 hidden" id="expediente_div">
-				<label for="expediente" th:text="#{despacho.expediente.lbl}"
-					class="field-label col-xs-7 col-sm-7">Expediente con dicho Objeto de Causa</label>
-					<select
-					class="form-control expediente" multiple="multiple"
-					id="expediente" name="selec" style="width: 250px !important;">
-					<option th:each=" exp : ${expedienteList}" th:value="${exp.id}"
-						th:text="${exp.descripcion}">caratula</option>
-				</select>
-			</div>
 			</div>
 			<!-- Inicio panel botones -->
 			<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
-		<!-- Fin panel botones -->
-		<script type="text/javascript">
-		$(function () {
-		    //Initialize Select2 Elements
-		    $(".expediente").select2({
-				placeholder: "Seleccione los procesos...",
-				language: {
-					noResults:  function (params) {
-					      return "No existen registros.";
-				    }
-				}
-			});
-		 });
-		</script>
+		<!-- Fin panel botones -->		
 	</div>
 </body>
 </html>

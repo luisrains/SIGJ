@@ -23,6 +23,10 @@ import java.util.zip.ZipOutputStream;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class WebUtils {
 
 	private static final String PADDING_CHAR = "*";
@@ -578,6 +582,22 @@ public class WebUtils {
 		int m1 = beginningDate.get(Calendar.YEAR) * 12 + beginningDate.get(Calendar.MONTH);
 		int m2 = endingDate.get(Calendar.YEAR) * 12 + endingDate.get(Calendar.MONTH);
 		return m2 - m1;
+	}
+
+	public static RenderingInfo deserializeRenderingInfo(String rInfoStr) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		RenderingInfo rInfoUser = new RenderingInfo();
+
+		try {
+			rInfoUser = objectMapper.readValue(rInfoStr, RenderingInfo.class);
+		} catch (JsonParseException e) {
+			throw new Exception("El registro recibido no se puede deserializar.");
+		} catch (JsonMappingException e) {
+			throw new Exception("El registro recibido no se puede deserializar.");
+		} catch (IOException e) {
+			throw new Exception("El registro recibido no se puede deserializar.");
+		}
+		return rInfoUser;
 	}
 
 }

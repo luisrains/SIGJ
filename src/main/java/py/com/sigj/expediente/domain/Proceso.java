@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +48,8 @@ public class Proceso extends GenericEntity {
 	@Size(max = 20, message = "proceso.descripcion.size")
 	private String descripcion;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinTable(name = "proceso_tipo_demanda", joinColumns = @JoinColumn(name = "proceso_id"), inverseJoinColumns = @JoinColumn(name = "tipodemanda_id"))
 	private List<TipoDemanda> listTipoDemanda;
 
@@ -91,19 +93,8 @@ public class Proceso extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Proceso [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", tipoDemanda="
+		return "Proceso [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + ", listTipoDemanda="
 				+ listTipoDemanda + "]";
 	}
-
-	// @Override
-	// public List<TipoDemanda> getListaObject() {
-	// return getTipoDemanda();
-	// }
-	//
-	// @Override
-	// public <TipoDemanda> void setListaObject(List<TipoDemanda> obj) {
-	// setTipoDemanda((List<py.com.sigj.expediente.domain.TipoDemanda>) obj);
-	//
-	// }
 
 }
