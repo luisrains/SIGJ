@@ -331,7 +331,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		return "expediente/expediente_section_2";
 
 	}
-	
+	 @RequestMapping(value = "archivos", method = RequestMethod.POST)  
+	  public String confirmar_expediente(HttpServletRequest request,ModelMap map, 
+	      @RequestParam(value = "expediente-archivo", required = false) MultipartFile archivo2){ 
+	    logger.info("hola"); 
+	     
+	    return ""; 
+	  } 
 	@RequestMapping(value = "archivo", method = RequestMethod.POST)
 	public String setArchivo(ModelMap map,@RequestParam("file_act") MultipartFile multipartRequest) {
 		logger.info("elarchivo {}" , multipartRequest);

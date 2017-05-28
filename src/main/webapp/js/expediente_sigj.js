@@ -335,12 +335,22 @@ function registrar_expediente(){
 	});
 }
 
-		/*$("#confirmar-expediente").on( "click", function() {
-		$("#upload").on("submit", function(e){
-		var filedata = document.getElementsByName("expediente-archivo"),
+	$("#confirmar_expediente").on( "click", function() {
+//			$iframe = $('<iframe id="' + _frame_id + '">').hide().appendTo('body');
+//			
+//			$icontent = $iframe[0].contentWindow.document;
+//			$ibody = $('body', $icontent);
+//			$ibody.html('<form id="' + _form_id + '" method="post" action="/RegionalWeb/transferencia/attach/' + _tx_token + '" enctype="multipart/form-data"></form>');
+//			$('#' + _form_id, $ibody).append($('#ext_nombre_archivo'));
+//			$("#" + _frame_id).contents().find('form').submit();
+			
+			
+			
+			
+		var filedata = document.getElementsByName("expediente_archivo"),
 	            formdata = false;
 	    if (window.FormData) {
-	        formdata = new FormData($("#upload"));
+	        formdata = new FormData();
 	        
 	    }
 	    var i = 0, len = filedata[0].files.length, img, reader, file;
@@ -353,7 +363,7 @@ function registrar_expediente(){
 	    }
 	    if (formdata) {
 	        $.ajax({
-	            url: "expediente/archivo",
+	            url: "expediente/archivos",
 	            type: "POST",
 	            data: formdata,
 	            processData: false,
@@ -368,6 +378,6 @@ function registrar_expediente(){
 	            }
 	       
 	    return true;
-});
+
 	
-		});*/
+		});
