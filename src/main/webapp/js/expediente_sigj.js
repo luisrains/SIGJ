@@ -2,6 +2,7 @@
 /*
     Archivo para el manejo de todos los datos relacionados al expediente
 */
+var listDespachos=''; // variable global para guardar el listado de despachos
 $("select[name=materia]").on("change", function(e){
 	console.log($('select[name=materia]').val());
 	var codigo_materia = $('select[name=materia]').val();
@@ -33,6 +34,7 @@ $("select[name=materia]").on("change", function(e){
 			$('.selectDespacho').select2('destroy');
 			$('.selectDespacho').html('');
 			$('.selectDespacho').select2();
+			listDespachos = rdinfo.materia.listaDespacho;
 			$.each(rdinfo.materia.listaDespacho, function( index, value ) {
 				var o = new Option(value.descripcion, value.id);
 				$('.selectDespacho').append(o);
@@ -305,6 +307,11 @@ function datos_caratula(){
 	
 	var expediente = $("#o-nombre_demandante").text() +" "+$("#o-apellido_demandante").text()+" C/ "+ $("#o-nombre_demandado").text() +" "+$("#o-apellido_demandado").text()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
 	var juzgado = $("select[name=despacho]").find(":selected").text();
+	$.each(listDespachos, function( index, value ) {
+		if( $("#despacho").find(":selected").val() == value.id){
+			$("#juez_caract").val(value.juez);
+		}
+	});
 	$("#anho_caract").text($("#anho").val());
 	$("#nro_caract").text($("#nroExpediente").val());
 	$("#folio_caract").text($("#folio").val());

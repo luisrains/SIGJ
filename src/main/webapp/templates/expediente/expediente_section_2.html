@@ -8,32 +8,32 @@
 				<label th:text="#{expediente.nroExpediente.lbl}"
 					class="field-label section-02">Nro Expediente:</label> 
 				<!-- Para prueba -->	
-					<label
-					class="field-label section-02">4512</label> 
-				<!-- <label th:text="${expediente.nro_expediente}"
-					class="field-label section-02"></label>  -->	
+					<!-- <label
+					class="field-label section-02">4512</label>  -->
+				 <label th:text="${expediente.nroExpediente}"
+					class="field-label section-02"></label> 
 					
 			</div>
 			
 		<div class="form-group col-lg-6" style="margin-top:10px;">
 				<label th:text="#{expediente.anho.lbl}"
 					class="field-label section-02">Año:</label> 
-					<label
-					class="field-label section-02"> 2015</label> 
-					
-				<!-- <label th:text="${expediente.juez}"
-					class="field-label section-02"></label>  -->	
+					<!-- <label
+					class="field-label section-02"> 2015</label>  -->
+					<label th:text="${expediente.anho}"
+					class="field-label section-02"></label> 
+				 	
 					
 					
 			</div>	
 		<div class="form-group col-lg-6">
 				<label th:text="#{expediente.juez.lbl}"
 					class="field-label section-02">Juez:</label> 
-					<label
-					class="field-label section-02"> Pedro Ayala</label> 
+					<!-- <label
+					class="field-label section-02"> Pedro Ayala</label>  -->
 					
-				<!-- <label th:text="${expediente.juez}"
-					class="field-label section-02"></label>  -->	
+				<label th:text="${expediente.despachoActual.juez}"
+					class="field-label section-02"></label> 	
 					
 					
 			</div>
@@ -41,10 +41,10 @@
 				<label th:text="#{expediente.folio.lbl}"
 					class="field-label section-02">Folio:</label> 
 					
-				<label 
-					class="field-label section-02">100</label> 	
-				<!-- <label th:text="${expediente.folio}"
-					class="field-label section-02"></label>  -->
+				<!-- <label 
+					class="field-label section-02">100</label> 	 -->
+				 <label th:text="${expediente.folio}"
+					class="field-label section-02"></label>  
 					
 					
 			</div>
@@ -53,13 +53,15 @@
 			<div class="form-group col-lg-6">
 				<label th:text="#{expediente.clientes_demandantes.lbl}"
 					class="field-label section-02">Cliente Demandante:</label> 
+				<th:block th:each=" tip : ${clienteList}">
 				
-				<label 
-					class="field-label section-02">Marcos Duarte</label> 	
-					
+					<label 
+						class="field-label section-02" th:if="${tip.tipoCliente == 'D'}" th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label> 
+						
+				</th:block>	
 				
-				<label 
-					class="field-label section-02">Carlos Duarte</label> 	
+				<!-- <label 
+					class="field-label section-02">Carlos Duarte</label>  -->	
 			</div>
 		<!-- <div class="form-group col-lg-6" th:each=" cli: ${expediente.mapa.expediente.clientes}" th:value="${cli.id_cliente}"
 			th:text="">
@@ -75,11 +77,12 @@
 				<label th:text="#{expediente.clientes_demandados.lbl}"
 					class="field-label section-02">Cliente Demandado:</label> 
 				
-				<label 
-					class="field-label section-02">Daniel Bogado</label> 
-					
-				<label 
-					class="field-label section-02">Gabriela Benitez</label> 			
+				<th:block th:each=" tip : ${clienteList}">
+				
+					<label 
+						class="field-label section-02" th:if="${tip.tipoCliente == 'C'}" th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label> 
+						
+				</th:block>	 			
 				
 				<!-- Todos los labels que hacen ya referencia al map que recibiremos se comenta hasta saber como obtener esos datos del controlador -->
 				<!-- <label th:text="${cliente_demandado}"
@@ -91,13 +94,12 @@
 				<label th:text="#{expediente.abogados_apoderados.lbl}"
 					class="field-label section-02">Abogado Apoderado:</label> 
 			
-				<label 
-					class="field-label section-02">Marcelo Marecos</label>
-					
-				<label 
-					class="field-label section-02">Antonio Gonzalez</label>	
-				<!-- <label th:text="${abogado_apoderado}"
-					class="field-label section-02"></label> --> 
+				<th:block th:each=" tip : ${abogadoList}">
+				
+					<label 
+						class="field-label section-02" th:if="${tip.tipoAbogado == 'AP'}" th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label> 
+						
+				</th:block>	 
 					
 					
 			</div>
@@ -105,12 +107,12 @@
 				<label th:text="#{expediente.abogados_contrapartes.lbl}"
 					class="field-label section-02">Abogado Contraparte:</label> 
 				
-				<label 
-					class="field-label section-02">Laura Villamayor</label>
-				<label 
-					class="field-label section-02">David Torres</label>	
-				<!-- <label th:text="${abogado_contraparte}"
-					class="field-label section-02"></label>  -->
+				<th:block th:each=" tip : ${abogadoList}">
+				
+					<label 
+						class="field-label section-02" th:if="${tip.tipoAbogado == 'CO'}" th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label> 
+						
+				</th:block>	 
 					
 					
 			</div>
