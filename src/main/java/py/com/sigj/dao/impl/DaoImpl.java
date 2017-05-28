@@ -117,7 +117,7 @@ public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {
 	@Override
 	@Transactional
 	public List<T> getListAll(String sSearch) {
-		logger.info("Obteniendo lista de personas, sSearch: {}", sSearch);
+		logger.info("Obteniendo lista de {}, sSearch: {}",getEntityName(), sSearch);
 
 		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
 		sql = sql.replace("#ENTITY#", getEntityName());

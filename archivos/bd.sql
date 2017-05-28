@@ -24,7 +24,7 @@ INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'O
 INSERT INTO proceso_tipo_demanda values (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
 -- MATERIA CIVIL COMERCIAL - ESPECIAL
-INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'CIV','CIVIL COMERCIAL');
+
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'ESC','ESPECIAL');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción puramente declarativa');

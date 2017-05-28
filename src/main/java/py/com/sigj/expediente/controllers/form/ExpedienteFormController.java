@@ -129,8 +129,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
 		map.addAttribute("tipoDemandaList", tipoDemandaDao.getListAll(null));
 		map.addAttribute("DespachoList", despachoDao.getListAll(null));
-		map.addAttribute("DespachoList", despachoDao.getListAll(null));
-
+		logger.info("despchos {} ",despachoDao.getListAll(null) );
 		map.addAttribute("columnasMateria", materiaList.getColumnas());
 		map.addAttribute("columnasStrMateria", materiaList.getColumnasStr(materiaList.getColumnas()));
 		super.agregarValoresAdicionales(map);
