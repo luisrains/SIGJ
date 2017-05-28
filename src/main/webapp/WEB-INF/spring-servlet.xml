@@ -116,6 +116,14 @@
 	</bean>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+		<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+			<property name="templateEngine" ref="templateEngine" />
+			<property name="characterEncoding" value="UTF-8"></property>
+			<property name="cache" value="false"></property>
+		</bean>
+	
 </beans>
+
 
 

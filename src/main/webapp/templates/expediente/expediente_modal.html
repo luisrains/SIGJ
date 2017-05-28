@@ -152,8 +152,17 @@
 								</div>
 								<div class="form-group">
 									<label for="moneda" th:text="#{expediente.moneda.lbl}"
-										class="field-label">Moneda:</label> <input type="text"
-										name="moneda" id="moneda" maxlength="100" class="form-control" />
+										class="field-label">Moneda:</label> 
+										<select name="moneda"
+										id="moneda" for="moneda"
+										class="form-control form-group moneda selectMoneda selecciones hidden">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+											<option selected="selected" value="GS"> Guaraníes</option>
+											<option selected="selected" value="US"> Dólares</option>
+
+									</select>
+
 								</div>
 
 								<div class="form-group">
@@ -251,8 +260,9 @@
 
 		<script type="text/javascript">
 $(document).ready(function () {
-	
-	
+	var fecha = new Date();
+	var ano = fecha.getFullYear();
+	$('#anho').val(ano);
 	mostrarModalStep();
 		});
 
