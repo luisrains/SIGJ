@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			expression = expression.antMatchers(url).access("hasAuthority('" + permiso + "')");
 
 		}
-		expression.and().formLogin().loginPage("/login").and().formLogin().successHandler(successHandler).and()
+	expression.and().formLogin().loginPage("/login").and().formLogin().successHandler(successHandler).and()
 				.exceptionHandling().accessDeniedPage("/403").and().formLogin();
 
 	}

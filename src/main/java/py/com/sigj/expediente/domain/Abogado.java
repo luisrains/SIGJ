@@ -29,8 +29,7 @@ import py.com.sigj.rrhh.domain.Empleado;
  *
  */
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "abogado_empleado_tipoAbogado_uk", columnNames = { "empleado_id",
-		"tipoAbogado_id" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "abogado_empleado_tipoAbogado_uk", columnNames = { "empleado_id" }) })
 public class Abogado extends GenericEntity {
 
 	private static final String SECUENCIA = "abogado_id_seq";
@@ -55,10 +54,7 @@ public class Abogado extends GenericEntity {
 	private Empleado empleado;
 
 	// tabla dependencia , tabla que depende y fk
-	@ManyToOne
-	@NotNull(message = "cliente.tipoCliente.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "abogado_tipoAbogado_fk"))
-	private TipoAbogado tipoAbogado;
+	
 
 	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
@@ -100,14 +96,7 @@ public class Abogado extends GenericEntity {
 		this.empleado = empleado;
 	}
 
-	public TipoAbogado getTipoAbogado() {
-		return tipoAbogado;
-	}
-
-	public void setTipoAbogado(TipoAbogado tipoAbogado) {
-		this.tipoAbogado = tipoAbogado;
-	}
-
+	
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -119,8 +108,7 @@ public class Abogado extends GenericEntity {
 	@Override
 	public String toString() {
 		return "Abogado [id=" + id + ", domicilioLaboral=" + domicilioLaboral + ", domicilioActual=" + domicilioActual
-				+ ", empleado=" + empleado + ", tipoAbogado=" + tipoAbogado + ", fechaNacimiento=" + fechaNacimiento
-				+ "]";
+				+ ", empleado=" + empleado + ", fechaNacimiento=" + fechaNacimiento + "]";
 	}
 
 }

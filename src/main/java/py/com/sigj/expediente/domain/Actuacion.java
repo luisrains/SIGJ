@@ -52,7 +52,7 @@ public class Actuacion extends GenericEntity {
 	private TipoActuacion tipoActuacion;
 
 	@OneToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_documento_fk"))
+	@JoinColumn(foreignKey = @ForeignKey(name = "actuacion_expediente_fk"))
 	private Expediente expediente;
 
 	@OneToOne

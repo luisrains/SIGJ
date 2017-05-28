@@ -129,9 +129,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			
 	@RequestMapping(value = "archivo", method = RequestMethod.POST) 
 	public String confirmar_expediente(HttpServletRequest request,ModelMap map,
-			@RequestParam(value = "expediente-archivo", required = false) MultipartFile archivo2,
-			@RequestParam(value = "file", required = false) List<MultipartFile> archivo){
-		logger.info("hola");
+			//@RequestParam(value = "expediente-archivo", required = false) MultipartFile archivo2,
+			@RequestParam(value = "file", required = false) MultipartFile archivo){
+		logger.info("hola2");
 		
 		return "";
 	}
