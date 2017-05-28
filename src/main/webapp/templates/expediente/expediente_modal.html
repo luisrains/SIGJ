@@ -93,10 +93,10 @@
 								<div id="modal_spinner"></div>
 								<h3>Mesa de Entrada</h3>
 								<div class="form-group">
-									<label for="materia" th:text="#{expediente.materia.lbl}"
-										class="field-label control-label">Materia:</label> <select
+									<label for="materia"
+										class="field-label control-label">Materia(*):</label> <select
 										name="materia" id="materia" for="materia"
-										class="form-control form-group materia selecciones">
+										class="form-control materia selecciones">
 										<option selected="selected" value="0">-Elegir una
 											opcion-</option>
 										<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
@@ -105,31 +105,28 @@
 								</div>
 
 								<div class="form-group hidden" id="selectTipoProceso">
-									<label for="tipoProceso"
-										th:text="#{expediente.tipoProceso.lbl}" class="field-label">Tipo
-										Proceso:</label> <select name="tipoProceso" id="tipoProceso"
-										for="tipoProceso"
-										class="form-control form-group tipoProceso selectTipoProceso selecciones hidden">
+									<label for="tipoProceso" class="field-label">Tipo
+										Proceso (*):</label> <select name="tipoProceso" id="tipoProceso"
+										for="tipoProceso" required="required"
+										class="form-control tipoProceso selectTipoProceso selecciones hidden">
 										<option selected="selected" value="0">-Elegir una
-											opcion-</option> 
+											opcion-</option>
 									</select>
 								</div>
 								<div class="form-group hidden" id="selectTipoDemanda">
-									<label for="tipoDemanda"
-										th:text="#{expediente.tipoDemanda.lbl}" class="field-label">Tipo
-										Demanda:</label> <select name="tipoDemanda" id="tipoDemanda"
-										for="tipoDemanda"
-										class="form-control form-group tipoDemanda selectTipoDemanda selecciones hidden">
-										<option selected="selected" value="0">-Elegir una
+									<label for="tipoDemanda" class="field-label">Tipo
+										Demanda (*):</label> <select name="tipoDemanda" id="tipoDemanda"
+										for="tipoDemanda" required="required"
+										class="form-control tipoDemanda selectTipoDemanda selecciones hidden">
+										 <option selected="selected" value="0">-Elegir una
 											opcion-</option>
 
 									</select>
 								</div>
 								<div class="form-group hidden" id="selectDespacho">
-									<label for="despacho" th:text="#{expediente.despacho.lbl}"
-										class="field-label">Despacho:</label> <select name="despacho"
-										id="despacho" for="despacho"
-										class="form-control form-group despacho selectDespacho selecciones hidden">
+									<label for="despacho" class="field-label">Despacho (*):</label> <select name="despacho"
+										id="despacho" for="despacho" required="required"
+										class="form-control despacho selectDespacho selecciones hidden">
 										<option selected="selected" value="0">-Elegir una
 											opcion-</option>
 
@@ -148,18 +145,18 @@
 								<div class="form-group">
 									<label for="anho" th:text="#{expediente.anho.lbl}"
 										class="field-label">Año:</label> <input type="text"
-										name="anho" id="anho" maxlength="100" class="form-control" />
+										name="anho" id="anho" maxlength="100" required="required" class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="moneda" th:text="#{expediente.moneda.lbl}"
 										class="field-label">Moneda:</label> 
 										<select name="moneda"
 										id="moneda" for="moneda"
-										class="form-control form-group moneda selectMoneda selecciones hidden">
+										class="form-control moneda selectMoneda selecciones hidden">
 										<option selected="selected" value="0">-Elegir una
 											opcion-</option>
-											<option selected="selected" value="GS"> Guaraníes</option>
-											<option selected="selected" value="US"> Dólares</option>
+											<option value="GS"> Guaraníes</option>
+											<option value="USD"> Dólares</option>
 
 									</select>
 
@@ -167,14 +164,14 @@
 
 								<div class="form-group">
 									<label for="monto" th:text="#{expediente.monto.lbl}"
-										class="field-label">Monto:</label> <input type="text"
-										name="monto" id="monto" maxlength="100" class="form-control" />
+										class="field-label">Monto:</label> <input type="text" required="required"
+										name="monto" id="monto" maxlength="100" class="form-control importe" />
 								</div>
 								<div class="form-group">
 									<label for="nroExpediente"
 										th:text="#{expediente.nroExpediente.lbl}" class="field-label">
 										Nro. Expediente:</label> <input type="text" name="nroExpediente"
-										id="nroExpediente" maxlength="100" class="form-control" />
+										id="nroExpediente" maxlength="100" required="required" class="form-control" />
 								</div>
 								<button class="btn btn-primary prevBtn btn-lg pull-left"
 									type="button">Anterior</button>
@@ -191,7 +188,7 @@
 									<label for="nroLiquidacion"
 										th:text="#{expediente.folio.lbl}" class="field-label">Folio:</label> <input type="text" id="folio"
 										name="folio" for="folio" maxlength="100"
-										class="form-control" autofocus="autofocus" />
+										class="form-control" required="required" autofocus="autofocus" />
 								</div>
 								<div class="form-group">
 									<label for="nroLiquidacion"
@@ -205,7 +202,7 @@
 										th:text="#{expediente.estadoExterno.lbl}" class="field-label">Estado
 										Actual:</label> <select name="estadoExterno" id="estadoExterno"
 										for="estadoExterno"
-										class="form-control form-group estadoExterno selecciones">
+										class="form-control estadoExterno selecciones">
 										<option th:each=" tip : ${estadoExternoList}"
 											th:value="${tip.id}" th:text="${tip.descripcion}">Inicio</option>
 									</select>
@@ -217,7 +214,7 @@
 											<i class="fa fa-calendar"></i>
 										</div>
 										<input type="text" class="form-control pull-right"
-											name="fecha" id="datepicker" style="width: 186px;">
+											name="fecha" id="datepicker" required="required" style="width: 186px;">
 									</div>
 									<script type="text/javascript">
 							        $(function () {
