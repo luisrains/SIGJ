@@ -67,6 +67,7 @@
 										<thead>
 											<tr>
 												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th></th>
 												<th th:each="col : ${columnasClient}" th:text="#{${col} + '.header'}">
 											</tr>
 										</thead>
@@ -80,6 +81,11 @@
 										onclick="agregar_demandado()">
 										<i class="glyphicon glyphicon-plus"></i> Agregar
 									</button>
+									<div id="error-cliente" class="hidden alert alert-danger" role="alert">
+												<span class="glyphicon glyphicon-exclamation-sign"
+													aria-hidden="true"></span> <span class="sr-only">Error:</span>
+												Debe Seleccionar un Cliente Demandante y Demandado de la Tabla
+											</div>
 									<p id="demandate_agregado">nombre o ci de los agregados.</p>
 									<div class="hidden demandado" style="padding-bottom:10px;">
 										<label id="o-id_demandado" style="padding-right:10px;"></label>
@@ -137,6 +143,7 @@
 										<thead>
 											<tr>
 												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th></th>
 												<th th:each="col : ${columnasAbogado}" th:text="#{${col} + '.header'}">
 											</tr>
 										</thead>
@@ -150,6 +157,11 @@
 										onclick="agregar_abogado()">
 										<i class="glyphicon glyphicon-plus"></i> Agregar
 									</button>
+									<div id="error-abogado" class="hidden alert alert-danger" role="alert">
+												<span class="glyphicon glyphicon-exclamation-sign"
+													aria-hidden="true"></span> <span class="sr-only">Error:</span>
+												Debe Seleccionar un Abogado Apoderado y Contraparte de la Tabla
+											</div>
 									<p id="demandate_agregado">nombre o ci de los agregados.</p>
 									<div class="hidden apoderado" style="padding-bottom:10px;">
 										<label id="o-id_apoderado" style="padding-right:10px;"></label>

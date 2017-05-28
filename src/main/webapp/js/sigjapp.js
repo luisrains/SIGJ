@@ -126,7 +126,7 @@
 				//2
 				var arrayCol = colsStr.split(";");
 				//3 , se puede crear una funcion aparte en vez de hacer function
-				columnsArray.push({'defaultContent':"<input type='radio' name='radio-dt'>"});
+				columnsArray.push({'defaultContent':"<input type='radio' name='radio-dt' class='radio-dt'>"});
 				jQuery.each(arrayCol, function(i, val){
 					
 							if(val==true){val = "Si";}else if(val == false){val="No";}
@@ -273,7 +273,7 @@
          			$(".object_id").val("");
          		}
          		else {
-         			dataTable.$('tr td.checked').removeClass('checked');
+         			dataTable.$('tr.checked').removeClass('checked');
          			$(this).addClass('checked');
          			var data = dataTable.row( this ).data();
          			$(".object_id").val(data["id"]);
