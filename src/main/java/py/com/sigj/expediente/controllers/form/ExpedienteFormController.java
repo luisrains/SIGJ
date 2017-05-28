@@ -1,6 +1,7 @@
 package py.com.sigj.expediente.controllers.form;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -248,18 +249,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		Expediente obj = new Expediente();
 		List<RenderingInfo> listaAbogados = null;
 		List<RenderingInfo> listaCliente = null;
+		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
+		List<ExpedienteCliente> clienteList = new ArrayList<>();
+		
 		try {
-			// fake
-
-			obj.setAnho("20170");
-			obj.setCaratula("ninguno");
-			// obj.setFechaSelloCargo("25-02-2017");
-			obj.setFolio("21");
-			obj.setMoneda("gs");
-			obj.setMonto(10000);
-			obj.setNroExpediente("402");
-			obj.setNroLiquidacion("154654");
-			// HttpSession session = request.getSession();
 			RenderingInfo rdInfo = null;
 			Map<String, Object> rdExpediente = null;
 			List<String> abogados = null;
@@ -270,11 +263,6 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
 				logger.info("expediente _>{}", rdInfo.get("expediente"));
 				rdExpediente = (Map<String, Object>) rdInfo.get("expediente");
-				
-				
-				
-				//RenderingInfo rdInfoExp = WebUtils.deserializeRenderingInfo(exp);
-				//rdExpediente = (RenderingInfo) rdInfo.get("expediente");
 			}
 			// TODO ver como registrar en despachos el expediente
 			obj.setAnho((String) rdExpediente.get("anho"));
@@ -301,6 +289,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 					ea.setExpediente(obj);
 					ea.setTipoAbogado((String) rd.get("tipo_abogado"));
 					expedienteAbogadoDao.create(ea);
+					abogadoList.add(ea);
 				}
 
 			}
@@ -313,18 +302,21 @@ public class ExpedienteFormController extends FormController<Expediente> {
 					ec.setExpediente(obj);
 					ec.setTipoCliente((String) rd.get("tipo_cliente"));
 					expedienteClienteDao.create(ec);
+					clienteList.add(ec);
 
 				}
 
 			}
 
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
+			map.addAttribute("clienteList",clienteList );
+			map.addAttribute("abogadoList",abogadoList );
+			
 			logger.info("Se crea un nuevo Rol -> {}", obj);
 		} catch (Exception ex) {
 			obj.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
 		}
-		map.addAttribute(getNombreObjeto(), obj);
 		agregarValoresAdicionales(map);
 		map.addAttribute("expediente", obj);
 		return "expediente/expediente_section_2";
