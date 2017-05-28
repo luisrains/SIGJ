@@ -120,7 +120,7 @@ function mostrarModalStep(){
 	      var curStep = $(this).closest(".setup-content"),
 	          curStepBtn = curStep.attr("id"),
 	          nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-	          curInputs = curStep.find("input[type='text'], select"),
+	          curInputs = curStep.find("input[type='text'], select:visible"),
 	          isValid = true;
 
 	      $(".form-group").removeClass("has-error");
@@ -130,7 +130,7 @@ function mostrarModalStep(){
 	              $(curInputs[i]).closest(".form-group").addClass("has-error");
 	          }
 	          
-	          if (!curInputs[i].value == 0){
+	          if (curInputs[i].value == 0){
 	              isValid = false;
 	              var a = $(curInputs[i]).closest(".form-group").addClass("has-error");
 	              $(curInputs[i]).closest(".form-group").addClass("has-error");
