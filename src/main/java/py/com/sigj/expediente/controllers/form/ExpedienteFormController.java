@@ -269,7 +269,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setFolio((String) rdExpediente.get("folio"));
 			obj.setCaratula((String) rdExpediente.get("caratula"));
 			obj.setMoneda((String) rdExpediente.get("moneda"));
-			obj.setMonto(Integer.parseInt((String) rdExpediente.get("monto")));
+			String monto = (String) rdExpediente.get("monto");
+			monto = monto.replaceAll("\\.", "");
+			obj.setMonto(Integer.parseInt(monto));
 			obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
 			String fecha = (String)rdExpediente.get("fecha");
 			obj.setFechaSelloCargo(WebUtils.getDate(fecha.replace("/", "")));
