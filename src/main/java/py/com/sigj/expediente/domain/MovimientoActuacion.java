@@ -67,7 +67,7 @@ public class MovimientoActuacion extends GenericEntity {
 	@JsonIgnore
 	@Lob
 	@Basic(fetch = FetchType.LAZY, optional = true)
-	private byte[] documento;// logo
+	private byte[] documento;// documento
 
 	
 	public MovimientoActuacion() {

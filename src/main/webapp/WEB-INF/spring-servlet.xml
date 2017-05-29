@@ -49,8 +49,7 @@
 
 		<property name="converters">
 			<set>
-				
-				<bean class="py.com.sigj.converters.TipoAbogadoConverter" />
+
 				<bean class="py.com.sigj.converters.MateriaConverter" />
 				<bean class="py.com.sigj.converters.PersonaConverter" />
 				<bean class="py.com.sigj.converters.EmpleadoConverter" />
@@ -115,7 +114,11 @@
 		<property name="basename" value="Messages" />
 	</bean>
 	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- one of the properties available; the maximum file size in bytes -->
+	    <property name="maxUploadSize" value="1000000"/>
+	</bean>
 
 		<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 			<property name="templateEngine" ref="templateEngine" />
