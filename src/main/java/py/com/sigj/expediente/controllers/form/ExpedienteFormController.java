@@ -287,6 +287,15 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		return "registro_agregado";
 
 	}
+	
+	
+	
+	@RequestMapping(value = "archivo", method = RequestMethod.POST) 
+    public String importParse(@RequestParam("myFile") MultipartFile myFile) { 
+       logger.info("multipar {}", myFile);
+         return "redirect:uploadSuccess.html"; 
+    } 
+	
 
 
 }

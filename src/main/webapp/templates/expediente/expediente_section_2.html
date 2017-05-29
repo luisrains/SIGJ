@@ -233,6 +233,14 @@
 	</div>
 
 </form>
+
+
+<form th:action="@{/expediente/archivo}" method="post" enctype="multipart/form-data">
+       
+       <!-- <input id="file-es" name="file_act"	type="file" multiple> -->
+       <input type="file" name="myFile" />
+       <input type="submit" />
+    </form>
 <!-- Fin panel botones -->
 		<script type="text/javascript">
 		$(function () {
