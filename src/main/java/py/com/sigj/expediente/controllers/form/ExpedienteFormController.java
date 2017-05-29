@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -131,7 +132,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStrClient", clienteList.getColumnasStr(null));
 		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getListAll(null));
-		//map.addAttribute("columnasStrActuacion", expedienteList.getColumnasStr(actuacionList.getColumnas()));
+		logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
 
 		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
 		map.addAttribute("materiaList", materiaDao.getListAll(null));
@@ -162,12 +163,18 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	 * @return String
 	 */
 	@RequestMapping(value = "save_listado2", method = RequestMethod.GET)
-	public String guardar_listado2(ModelMap map, @RequestParam(value = "rd_expediente") String rdInfoAbogadoCliente) {
+	public String guardar_listado2(HttpServletRequest request, ModelMap map, @RequestParam(value = "rd_expediente") String rdInfoAbogadoCliente) {
+		HttpSession sesion = request.getSession();
+		
+		
+		
 		Expediente obj = new Expediente();
 		List<RenderingInfo> listaAbogados = null;
 		List<RenderingInfo> listaCliente = null;
 		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
 		List<ExpedienteCliente> clienteList = new ArrayList<>();
+		
+		
 		
 		try {
 			RenderingInfo rdInfo = null;
@@ -237,6 +244,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			obj.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
 		}
+		
+		sesion.setAttribute("expediente", obj);
 		MovimientoActuacion ma = new MovimientoActuacion();
 		agregarValoresAdicionales(map);
 		map.addAttribute("expediente", obj);
@@ -246,15 +255,21 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "actuacion", method = RequestMethod.POST)
-	public String setArchivo(ModelMap map,@Valid MovimientoActuacion actuacion, BindingResult bindingResult,
-			@RequestParam(required = false) String id_expediente) {
-			Expediente exp = null;
-			MovimientoActuacion mov = new MovimientoActuacion();
+	public @ResponseBody String setArchivo(HttpServletRequest request, ModelMap map,@Valid MovimientoActuacion actuacion, BindingResult bindingResult,
+			@RequestParam(value = "expediente") String id_exp,
+			@RequestParam(value = "tipoActuacion") String id_act) {
+		HttpSession sesion = request.getSession();
+		
+		Expediente exp = (Expediente) sesion.getAttribute("expediente");
+		TipoActuacion tp = null;
+		MovimientoActuacion mov = new MovimientoActuacion();
 
 		try {
 			if(actuacion.getId() == null){
-				exp = expedienteDao.find(Long.parseLong(id_expediente));
+				exp = expedienteDao.find(Long.parseLong(id_exp));
+				tp = tipoActuacionDao.find(Long.parseLong(id_act));
 				actuacion.setExpediente(exp);
+				actuacion.setTipoActuacion(tp);
 				movimientoActuacionDao.create(actuacion);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 			}			
@@ -269,7 +284,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		}
 		agregarValoresAdicionales(map);
 		map.addAttribute("movmientoActuacion", mov);
-		return "expediente/expediente_section_2";
+		return "registro_agregado";
 
 	}
 

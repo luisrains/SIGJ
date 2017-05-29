@@ -58,7 +58,7 @@ public class MovimientoActuacion extends GenericEntity {
 	@ManyToOne
 	@NotNull(message = "movimiento_actuacion.tipo_actuacion.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_actuacion_tipo_actuacion_fk"))
-	private TipoActuacion tipo_actuacion;
+	private TipoActuacion tipoActuacion;
 
 	@OneToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_actuacion_expediente_fk"))
@@ -108,12 +108,12 @@ public class MovimientoActuacion extends GenericEntity {
 		this.fechaVencimiento = fechaVencimiento;
 	}
 
-	public TipoActuacion getTipo_actuacion() {
-		return tipo_actuacion;
+	public TipoActuacion getTipoActuacion() {
+		return tipoActuacion;
 	}
 
-	public void setTipo_actuacion(TipoActuacion tipo_actuacion) {
-		this.tipo_actuacion = tipo_actuacion;
+	public void setTipoActuacion(TipoActuacion tipo_actuacion) {
+		this.tipoActuacion = tipo_actuacion;
 	}
 
 	public Expediente getExpediente() {
@@ -135,7 +135,7 @@ public class MovimientoActuacion extends GenericEntity {
 	@Override
 	public String toString() {
 		return "MovimientoActuacion [id=" + id + ", observacion=" + observacion + ", fechaPresentacion="
-				+ fechaPresentacion + ", fechaVencimiento=" + fechaVencimiento + ", tipo_actuacion=" + tipo_actuacion
+				+ fechaPresentacion + ", fechaVencimiento=" + fechaVencimiento + ", tipoActuacion=" + tipoActuacion
 				+ ", expediente=" + expediente + ", documento=" + Arrays.toString(documento) + "]";
 	}
 

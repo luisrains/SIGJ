@@ -71,13 +71,21 @@ public class TipoActuacion extends GenericEntity {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public String getAbrevitura() {
 		return abrevitura;
 	}
 
 	public void setAbrevitura(String abrevitura) {
 		this.abrevitura = abrevitura;
+	}
+
+	public int getPlazo() {
+		return plazo;
+	}
+
+	public void setPlazo(int plazo) {
+		this.plazo = plazo;
 	}
 
 	@Override
