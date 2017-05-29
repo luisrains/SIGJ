@@ -7,26 +7,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import py.com.sigj.controllers.list.ListController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.dao.ActuacionDao;
-import py.com.sigj.expediente.domain.Actuacion;
+import py.com.sigj.expediente.dao.MovimientoActuacionDao;
+import py.com.sigj.expediente.domain.MovimientoActuacion;
 
 @Controller
 @Scope("session")
 @RequestMapping("actuacion")
-public class ActuacionListController extends ListController<Actuacion> {
+public class MovimientoActuacionListController extends ListController<MovimientoActuacion> {
 
 	@Autowired
-	private ActuacionDao actuacionDao;
+	private MovimientoActuacionDao movimientoActuacionDao;
 
 	// , "documento.descripcion" "expediente.nroExpediente",
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "fechaEstado", "descripcion", "tipoActuacion.descripcion" };
+		return new String[] { "id", "abrevitura", "observacion", "fechaPresentacion", "fechaVencimiento", "tipo_actuacion.descripcion", "tipo_actuacion.plazo" };
 	}
 
 	@Override
-	public Dao<Actuacion> getDao() {
-		return actuacionDao;
+	public Dao<MovimientoActuacion> getDao() {
+		return movimientoActuacionDao;
 	}
 
 	/*
