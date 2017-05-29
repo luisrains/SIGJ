@@ -14,52 +14,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.expediente.controllers.list.ActuacionListController;
-import py.com.sigj.expediente.dao.ActuacionDao;
-import py.com.sigj.expediente.domain.Actuacion;
+import py.com.sigj.expediente.controllers.list.MovimientoActuacionListController;
+import py.com.sigj.expediente.dao.MovimientoActuacionDao;
+import py.com.sigj.expediente.domain.MovimientoActuacion;
 
 @Controller
 @Scope("request")
-@RequestMapping("actuacion")
-public class ActuacionFormController extends FormController<Actuacion> {
+@RequestMapping("movimiento-actuacion")
+public class MovimientoActuacionFormController extends FormController<MovimientoActuacion> {
 
 	@Autowired
-	private ActuacionDao actuacionDao;
+	private MovimientoActuacionDao movimientoActuacionDao;
 
 	@Autowired
-	private ActuacionListController actuacionList;
+	private MovimientoActuacionListController movimientoActuacionList;
 
 	@Override
 	public String getTemplatePath() {
-		return "expediente/actuacion_index";
+		return "";
 	}
 
 	@Override
 	public String getNombreObjeto() {
-		return "actuacion";
+		return "movimientoActuacion";
 	}
 
 	@Override
-	public Actuacion getNuevaInstancia() {
-		return new Actuacion();
+	public MovimientoActuacion getNuevaInstancia() {
+		return new MovimientoActuacion();
 	}
 
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
-		map.addAttribute("actuacionList", actuacionDao.getList(0, 20, null));
-		map.addAttribute("columnas", actuacionList.getColumnas());
-		map.addAttribute("columnasStr", actuacionList.getColumnasStr(null));
+		map.addAttribute("movimientoActuacionList", movimientoActuacionDao.getList(0, 20, null));
+		map.addAttribute("columnas", movimientoActuacionList.getColumnas());
+		map.addAttribute("columnasStr", movimientoActuacionList.getColumnasStr(null));
 
 		super.agregarValoresAdicionales(map);
 	}
 
 	@Override
-	public Dao<Actuacion> getDao() {
-		return actuacionDao;
+	public Dao<MovimientoActuacion> getDao() {
+		return movimientoActuacionDao;
 	}
 
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
-	public String accion2(ModelMap map, @Valid Actuacion obj, BindingResult bindingResult,
+	public String accion2(ModelMap map, @Valid MovimientoActuacion obj, BindingResult bindingResult,
 			@RequestParam(required = false) String accion,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
@@ -76,7 +76,7 @@ public class ActuacionFormController extends FormController<Actuacion> {
 	}
 
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
-	public String guardar_listado(ModelMap map, @Valid Actuacion obj, BindingResult bindingResult) {
+	public String guardar_listado(ModelMap map, @Valid MovimientoActuacion obj, BindingResult bindingResult) {
 		try {
 			if (obj.getId() == null) {
 				getDao().createOrUpdate(obj);
@@ -99,7 +99,7 @@ public class ActuacionFormController extends FormController<Actuacion> {
 	}
 
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
-	public String editar_listado(ModelMap map, @Valid Actuacion obj, BindingResult bindingResult) {
+	public String editar_listado(ModelMap map, @Valid MovimientoActuacion obj, BindingResult bindingResult) {
 		try {
 			logger.info("ID DE OBJ {}", obj);
 			if (obj != null) {
@@ -123,7 +123,7 @@ public class ActuacionFormController extends FormController<Actuacion> {
 
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
 	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
-		Actuacion actuacion = null;
+		MovimientoActuacion actuacion = null;
 		try {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
