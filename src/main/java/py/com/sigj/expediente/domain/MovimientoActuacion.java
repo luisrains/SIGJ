@@ -35,7 +35,7 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
-@Table(name = "movimiento_movimiento_actuacion")
+@Table(name = "movimiento_actuacion")
 public class MovimientoActuacion extends GenericEntity {
 	private static final String SECUENCIA = "movimiento_movimiento_actuacion_id_seq";
 
