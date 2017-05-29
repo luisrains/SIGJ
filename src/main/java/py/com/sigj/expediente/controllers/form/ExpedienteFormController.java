@@ -37,6 +37,7 @@ import py.com.sigj.expediente.dao.EstadoExternoInternoDao;
 import py.com.sigj.expediente.dao.ExpedienteAbogadoDao;
 import py.com.sigj.expediente.dao.ExpedienteClienteDao;
 import py.com.sigj.expediente.dao.ExpedienteDao;
+import py.com.sigj.expediente.dao.ExpedienteDocumentoDao;
 import py.com.sigj.expediente.dao.MateriaDao;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
@@ -45,6 +46,7 @@ import py.com.sigj.expediente.dao.TipoDemandaDao;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
+import py.com.sigj.expediente.domain.ExpedienteDocumento;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.expediente.domain.TipoActuacion;
 import py.com.sigj.util.RenderingInfo;
@@ -105,6 +107,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	@Autowired
 	private MovimientoActuacionDao movimientoActuacionDao;
+	
+	@Autowired
+	private ExpedienteDocumentoDao expedienteDocumentoDao;
 
 	@Override
 	public String getTemplatePath() {
@@ -257,7 +262,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "actuacion", method = RequestMethod.POST)
-	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,@Valid MovimientoActuacion actuacion, BindingResult bindingResult,
+	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,@Valid ExpedienteDocumento expdienteDoc, BindingResult bindingResult,
 			@RequestParam(value = "expediente") String id_exp,
 			@RequestParam(value = "tipoActuacion") String id_act,
 			@RequestParam("documento") MultipartFile documento) {
@@ -265,30 +270,29 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		
 		Expediente exp = (Expediente) sesion.getAttribute("expediente");
 		TipoActuacion tp = null;
-		MovimientoActuacion mov = new MovimientoActuacion();
+		ExpedienteDocumento expDoc = new ExpedienteDocumento();
 
 		try {
-			if(actuacion.getId() == null){
+			if(expdienteDoc.getId() == null){
 				exp = expedienteDao.find(Long.parseLong(id_exp));
 				tp = tipoActuacionDao.find(Long.parseLong(id_act));
-				actuacion.setExpediente(exp);
-				actuacion.setTipoActuacion(tp);
+				expdienteDoc.setExpediente(exp);
 				
 				MultipartFile multipartFile = documento;
 				byte[] doc = multipartFile.getBytes();
-				actuacion.setDocumento(doc);
+				expdienteDoc.setDocumento(doc);
 				
 				
-				movimientoActuacionDao.create(actuacion);
+				expedienteDocumentoDao.create(expdienteDoc);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 			}			
-			logger.info("Se crea un nuevo movimiento actuacion -> {}", actuacion);
+			logger.info("Se agregar un nuevo documento al expediente -> {}", expdienteDoc);
 		} catch (Exception ex) {
-			mov.setId(null);
+			expDoc.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
 		}
 		agregarValoresAdicionales(map);
-		map.addAttribute("movmientoActuacion", mov);
+		map.addAttribute("expedienteDocumento", expDoc);
 		Expediente ex = (Expediente) sesion.getAttribute("expediente");
 		map.addAttribute("expediente", ex);
 		return "expediente/expediente_section_2";
