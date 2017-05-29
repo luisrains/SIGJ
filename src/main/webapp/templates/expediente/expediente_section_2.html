@@ -8,32 +8,32 @@
 				<label th:text="#{expediente.nroExpediente.lbl}"
 					class="field-label section-02">Nro Expediente:</label> 
 				<!-- Para prueba -->	
-					<label
-					class="field-label section-02">4512</label> 
-				<!-- <label th:text="${expediente.nro_expediente}"
-					class="field-label section-02"></label>  -->	
+					<!-- <label
+					class="field-label section-02">4512</label>  -->
+				 <label th:text="${expediente.nroExpediente}"
+					class="field-label section-02"></label> 
 					
 			</div>
 			
 		<div class="form-group col-lg-6" style="margin-top:10px;">
 				<label th:text="#{expediente.anho.lbl}"
 					class="field-label section-02">Año:</label> 
-					<label
-					class="field-label section-02"> 2015</label> 
-					
-				<!-- <label th:text="${expediente.juez}"
-					class="field-label section-02"></label>  -->	
+					<!-- <label
+					class="field-label section-02"> 2015</label>  -->
+					<label th:text="${expediente.anho}"
+					class="field-label section-02"></label> 
+				 	
 					
 					
 			</div>	
 		<div class="form-group col-lg-6">
 				<label th:text="#{expediente.juez.lbl}"
 					class="field-label section-02">Juez:</label> 
-					<label
-					class="field-label section-02"> Pedro Ayala</label> 
+					<!-- <label
+					class="field-label section-02"> Pedro Ayala</label>  -->
 					
-				<!-- <label th:text="${expediente.juez}"
-					class="field-label section-02"></label>  -->	
+				<label th:text="${expediente.despachoActual.juez}"
+					class="field-label section-02"></label> 	
 					
 					
 			</div>
@@ -41,10 +41,10 @@
 				<label th:text="#{expediente.folio.lbl}"
 					class="field-label section-02">Folio:</label> 
 					
-				<label 
-					class="field-label section-02">100</label> 	
-				<!-- <label th:text="${expediente.folio}"
-					class="field-label section-02"></label>  -->
+				<!-- <label 
+					class="field-label section-02">100</label> 	 -->
+				 <label th:text="${expediente.folio}"
+					class="field-label section-02"></label>  
 					
 					
 			</div>
@@ -52,14 +52,16 @@
 			<!-- Aca deberia ir un for each que esta comentado porque no sabemos como va a venir el listado de clientes -->
 			<div class="form-group col-lg-6">
 				<label th:text="#{expediente.clientes_demandantes.lbl}"
-					class="field-label section-02">Cliente Demandante:</label> 
+					class="field-label section-02">Cliente Demandante:</label><br> 
+				<th:block th:each=" tip : ${clienteList}">
 				
-				<label 
-					class="field-label section-02">Marcos Duarte</label> 	
-					
+					<label 
+						class="field-label section-02" th:if="${tip.tipoCliente == 'D'}" th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+						
+				</th:block>	
 				
-				<label 
-					class="field-label section-02">Carlos Duarte</label> 	
+				<!-- <label 
+					class="field-label section-02">Carlos Duarte</label>  -->	
 			</div>
 		<!-- <div class="form-group col-lg-6" th:each=" cli: ${expediente.mapa.expediente.clientes}" th:value="${cli.id_cliente}"
 			th:text="">
@@ -73,13 +75,14 @@
 			
 			<div class="form-group col-lg-6">
 				<label th:text="#{expediente.clientes_demandados.lbl}"
-					class="field-label section-02">Cliente Demandado:</label> 
+					class="field-label section-02">Cliente Demandado:</label> <br>
 				
-				<label 
-					class="field-label section-02">Daniel Bogado</label> 
-					
-				<label 
-					class="field-label section-02">Gabriela Benitez</label> 			
+				<th:block th:each=" tip : ${clienteList}">
+				
+					<label 
+						class="field-label section-02" th:if="${tip.tipoCliente == 'C'}" th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+						
+				</th:block>	 			
 				
 				<!-- Todos los labels que hacen ya referencia al map que recibiremos se comenta hasta saber como obtener esos datos del controlador -->
 				<!-- <label th:text="${cliente_demandado}"
@@ -89,28 +92,27 @@
 			</div>
 			<div class="form-group col-lg-6">
 				<label th:text="#{expediente.abogados_apoderados.lbl}"
-					class="field-label section-02">Abogado Apoderado:</label> 
+					class="field-label section-02">Abogado Apoderado:</label> <br>
 			
-				<label 
-					class="field-label section-02">Marcelo Marecos</label>
-					
-				<label 
-					class="field-label section-02">Antonio Gonzalez</label>	
-				<!-- <label th:text="${abogado_apoderado}"
-					class="field-label section-02"></label> --> 
+				<th:block th:each=" tip : ${abogadoList}">
+				
+					<label 
+						class="field-label section-02" th:if="${tip.tipoAbogado == 'AP'}" th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label>
+						
+				</th:block>	 
 					
 					
 			</div>
 			<div class="form-group col-lg-6">
 				<label th:text="#{expediente.abogados_contrapartes.lbl}"
-					class="field-label section-02">Abogado Contraparte:</label> 
+					class="field-label section-02">Abogado Contraparte:</label><br> 
 				
-				<label 
-					class="field-label section-02">Laura Villamayor</label>
-				<label 
-					class="field-label section-02">David Torres</label>	
-				<!-- <label th:text="${abogado_contraparte}"
-					class="field-label section-02"></label>  -->
+				<th:block th:each=" tip : ${abogadoList}">
+				
+					<label 
+						class="field-label section-02" th:if="${tip.tipoAbogado == 'CO'}" th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label> 
+						
+				</th:block>	 
 					
 					
 			</div>
@@ -120,15 +122,84 @@
 			<!-- Inicio panel botones -->
 			
 		</div>
-<form th:action="@{/expediente/archivo}" method="post" enctype="multipart/form-data" role="form">
+<form th:action="@{/expediente/actuacion}" method="post" enctype="multipart/form-data" role="form">
 	<hr style="border: 2px dotted">
-	<label>Spanish Input</label> 
+	<div class="col-sm-12">
+	<div class="col-sm-8" style="padding:0px;">
+		<div class="form-group" style="width:50%;">
+			<label for="tipo-actuacion" class="field-label control-label">Actuación(*):</label>
+			<select th:name="tipo-actuacion" th:id="tipo-actuacion" class="form-control tipo-actuacion selecciones">
+				<option selected="selected" value="0">-Elegir una opcion-</option>
+				<option th:each=" tip : ${tipoActuacionList}" th:value="${tip.id}"
+					th:text="${tip.descripcion}">Civil</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label>Fecha de Presentacion:</label>
+			<div class="input-group date" style="width: 50%;">
+				<div class="input-group-addon">
+					<i class="fa fa-calendar"></i>
+				</div>
+				<input type="text" class="form-control pull-right" name="fecha-presentacion"
+					id="fecha-presentacion">
+			</div>
+			<script type="text/javascript">
+				$(function() {
+					$(".selecciones").select2();
+
+					$('#fecha-presentacion').datepicker(
+							{
+								autoclose : true,
+								
+								language : 'es',
+								
+							});
+
+				});
+			</script>
+			<!-- /.input group -->
+		</div>
+		<div class="form-group">
+			<label>Fecha de Vencimiento:</label>
+			<div class="input-group date" style="width: 50%;">
+				<div class="input-group-addon">
+					<i class="fa fa-calendar"></i>
+				</div>
+				<input type="text" class="form-control pull-right" name="fecha-vencimiento"
+					id="fecha-vencimiento">
+			</div>
+			<script type="text/javascript">
+				$(function() {
+					$(".selecciones").select2();
+
+					$('#fecha-vencimiento').datepicker(
+							{
+								autoclose : true,
+								
+								language : 'es',
+								
+							});
+
+				});
+			</script>
+			<!-- /.input group -->
+		</div>
+		<div class="form-group col-xs-6 col-sm-6" style="padding:0px;">
+			<label for="observacion" th:text="#{expediente.tipoActuacion.observacion.lbl}"
+				class="field-label col-xs-7 col-sm-7">Domicilio Actual:</label> <input
+				type="text" name="observacion" id="observacion" maxlength="100"
+				class="form-control col-xs-7 col-sm-6" autofocus="autofocus" />
+		</div>
+	</div>
+	<div class="col-sm-4" style="padding:0px;">
+	<label style="margin-left:40%;">Sección de Archivos</label> 
 	<input id="file-es" name="file_act"	type="file" multiple>
-
-
+	</div>	
+	</div>
 	<div class="row">
-		<div class="col-xs-8"></div>
-		<div class="col-xs-4">
+		<div class="col-sm-8"></div>
+		<div class="col-sm-4">
 			<button id="confirmar-expediente" class="btn btn-siguiente"
 				type="submit">
 				CONFIRMAR <i class="fa fa-chevron-right" aria-hidden="true"></i>
