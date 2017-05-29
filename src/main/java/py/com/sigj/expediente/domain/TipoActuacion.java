@@ -45,8 +45,6 @@ public class TipoActuacion extends GenericEntity {
 //	private String modeloHoja;
 	
 	@NotNull(message = "tipoActuacion.plazo.notNull")
-	@NotBlank(message = "tipoActuacion.plazo.notBlank")
-	@Size(max = 3, message = "tipoActuacion.plazo.size")
 	private int plazo;
 	
 
