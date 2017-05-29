@@ -163,7 +163,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	 * @return String
 	 */
 	@RequestMapping(value = "save_listado2", method = RequestMethod.GET)
-	public String guardar_listado2(HttpServletRequest request, ModelMap map, @RequestParam(value = "rd_expediente") String rdInfoAbogadoCliente) {
+	public String guardar_listado2(HttpServletRequest request, ModelMap map, @RequestParam(value = "rd_expediente", required=false) String rdInfoAbogadoCliente) {
 		HttpSession sesion = request.getSession();
 		
 		
@@ -181,83 +181,86 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			Map<String, Object> rdExpediente = null;
 			List<String> abogados = null;
 			List<String> cliente = null;
-			if (rdInfoAbogadoCliente != null && rdInfoAbogadoCliente != "") {
+
+			if (rdInfoAbogadoCliente == null || rdInfoAbogadoCliente.isEmpty()) {
+				rdInfoAbogadoCliente = (String) sesion.getAttribute("rdInfoAbogadoCliente");
+			} else if (rdInfoAbogadoCliente != null && rdInfoAbogadoCliente != "") {
 				rdInfo = WebUtils.deserializeRenderingInfo(rdInfoAbogadoCliente);
 				listaAbogados = (List<RenderingInfo>) rdInfo.get("abogados");
 				listaCliente = (List<RenderingInfo>) rdInfo.get("clientes");
 				logger.info("expediente _>{}", rdInfo.get("expediente"));
 				rdExpediente = (Map<String, Object>) rdInfo.get("expediente");
-			}
-			// TODO ver como registrar en despachos el expediente
-			obj.setAnho((String) rdExpediente.get("anho"));
-			obj.setFolio((String) rdExpediente.get("folio"));
-			obj.setCaratula((String) rdExpediente.get("caratula"));
-			obj.setMoneda((String) rdExpediente.get("moneda"));
-			String monto = (String) rdExpediente.get("monto");
-			monto = monto.replaceAll("\\.", "");
-			obj.setMonto(Integer.parseInt(monto));
-			obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
-			String fecha = (String)rdExpediente.get("fecha");
-			obj.setFechaSelloCargo(WebUtils.getDate(fecha.replace("/", "")));
-			obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidación"));
-			// validar el despacho
-			Long id_desp = (Long) Long.parseLong((String)rdExpediente.get("despacho"));
-			obj.setDespachoActual(despachoDao.find(id_desp));
 
-			if (obj.getId() == null && listaAbogados != null) {
-				getDao().create(obj);
-				
-				for (int i = 0; i < listaAbogados.size(); i++) {
-					Map<String, Object> rd = (Map<String, Object>) listaAbogados.get(i);
-					ExpedienteAbogado ea = new ExpedienteAbogado();
-					Long idFormat = Long.parseLong((String) rd.get("id_abogado"));
-					ea.setAbogado(abogadoDao.find(idFormat));
-					ea.setExpediente(obj);
-					ea.setTipoAbogado((String) rd.get("tipo_abogado"));
-					expedienteAbogadoDao.create(ea);
-					abogadoList.add(ea);
+				// TODO ver como registrar en despachos el expediente
+				obj.setAnho((String) rdExpediente.get("anho"));
+				obj.setFolio((String) rdExpediente.get("folio"));
+				obj.setCaratula((String) rdExpediente.get("caratula"));
+				obj.setMoneda((String) rdExpediente.get("moneda"));
+				String monto = (String) rdExpediente.get("monto");
+				monto = monto.replaceAll("\\.", "");
+				obj.setMonto(Integer.parseInt(monto));
+				obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
+				String fecha = (String) rdExpediente.get("fecha");
+				obj.setFechaSelloCargo(WebUtils.getDate(fecha.replace("/", "")));
+				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidación"));
+				// validar el despacho
+				Long id_desp = (Long) Long.parseLong((String) rdExpediente.get("despacho"));
+				obj.setDespachoActual(despachoDao.find(id_desp));
+
+				if (obj.getId() == null && listaAbogados != null) {
+					getDao().create(obj);
+
+					for (int i = 0; i < listaAbogados.size(); i++) {
+						Map<String, Object> rd = (Map<String, Object>) listaAbogados.get(i);
+						ExpedienteAbogado ea = new ExpedienteAbogado();
+						Long idFormat = Long.parseLong((String) rd.get("id_abogado"));
+						ea.setAbogado(abogadoDao.find(idFormat));
+						ea.setExpediente(obj);
+						ea.setTipoAbogado((String) rd.get("tipo_abogado"));
+						expedienteAbogadoDao.create(ea);
+						abogadoList.add(ea);
+					}
+
 				}
-
-			}
-			if (listaCliente != null) {
-				for (int i = 0; i < listaCliente.size(); i++) {
+				if (listaCliente != null) {
+					for (int i = 0; i < listaCliente.size(); i++) {
 						Map<String, Object> rd = (Map<String, Object>) listaCliente.get(i);
-					ExpedienteCliente ec = new ExpedienteCliente();
-					Long idFormat = Long.parseLong((String)rd.get("id_cliente"));
-					ec.setCliente(clienteDao.find(idFormat));
-					ec.setExpediente(obj);
-					ec.setTipoCliente((String) rd.get("tipo_cliente"));
-					expedienteClienteDao.create(ec);
-					clienteList.add(ec);
+						ExpedienteCliente ec = new ExpedienteCliente();
+						Long idFormat = Long.parseLong((String) rd.get("id_cliente"));
+						ec.setCliente(clienteDao.find(idFormat));
+						ec.setExpediente(obj);
+						ec.setTipoCliente((String) rd.get("tipo_cliente"));
+						expedienteClienteDao.create(ec);
+						clienteList.add(ec);
+
+					}
 
 				}
-
+				logger.info("Se crea un nuevo expediente -> {}", obj);
+				map.addAttribute("msgExito", msg.get("Registro agregado"));
+				map.addAttribute("clienteList", clienteList);
+				map.addAttribute("abogadoList", abogadoList);
+				map.addAttribute("expediente", obj);
+				sesion.setAttribute("expediente", obj);
+				sesion.setAttribute("clienteList",clienteList);
+				sesion.setAttribute("abogadoList",abogadoList );
 			}
-
-			map.addAttribute("msgExito", msg.get("Registro agregado"));
-			map.addAttribute("clienteList",clienteList );
-			map.addAttribute("abogadoList",abogadoList );
-			
-			
-			logger.info("Se crea un nuevo expediente -> {}", obj);
 		} catch (Exception ex) {
 			obj.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
-		}
-		
-		sesion.setAttribute("expediente", obj);
+		}		
 		MovimientoActuacion ma = new MovimientoActuacion();
 		agregarValoresAdicionales(map);
-		map.addAttribute("expediente", obj);
 		map.addAttribute("movimientoActuacion", ma);
 		return "expediente/expediente_section_2";
 
 	}
 	
 	@RequestMapping(value = "actuacion", method = RequestMethod.POST)
-	public @ResponseBody String setArchivo(HttpServletRequest request, ModelMap map,@Valid MovimientoActuacion actuacion, BindingResult bindingResult,
+	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,@Valid MovimientoActuacion actuacion, BindingResult bindingResult,
 			@RequestParam(value = "expediente") String id_exp,
-			@RequestParam(value = "tipoActuacion") String id_act) {
+			@RequestParam(value = "tipoActuacion") String id_act,
+			@RequestParam("documento") MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
 		Expediente exp = (Expediente) sesion.getAttribute("expediente");
@@ -270,13 +273,15 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				tp = tipoActuacionDao.find(Long.parseLong(id_act));
 				actuacion.setExpediente(exp);
 				actuacion.setTipoActuacion(tp);
+				
+				MultipartFile multipartFile = documento;
+				byte[] doc = multipartFile.getBytes();
+				actuacion.setDocumento(doc);
+				
+				
 				movimientoActuacionDao.create(actuacion);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 			}			
-			
-			
-			
-			
 			logger.info("Se crea un nuevo movimiento actuacion -> {}", actuacion);
 		} catch (Exception ex) {
 			mov.setId(null);
@@ -284,18 +289,33 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		}
 		agregarValoresAdicionales(map);
 		map.addAttribute("movmientoActuacion", mov);
-		return "registro_agregado";
+		Expediente ex = (Expediente) sesion.getAttribute("expediente");
+		map.addAttribute("expediente", ex);
+		return "expediente/expediente_section_2";
 
 	}
+
 	
 	
-	
-	@RequestMapping(value = "archivo", method = RequestMethod.POST) 
-    public String importParse(@RequestParam("myFile") MultipartFile myFile) { 
-       logger.info("multipar {}", myFile);
-         return "redirect:uploadSuccess.html"; 
-    } 
-	
+	@RequestMapping(value = "ver_actuacion", method = RequestMethod.POST)
+	public @ResponseBody String setArchivo(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "id_actuacion") String id_act) {
+		try {
+			MultipartFile doc = null;
+			MovimientoActuacion ac = null;
+//			ac = tipoActuacionDao.find(Long.parseLong(id_act));
+//			
+//			doc = ac.get
+			
+					
+			return "";
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return id_act;
+		
+		
+	}
 
 
 }
