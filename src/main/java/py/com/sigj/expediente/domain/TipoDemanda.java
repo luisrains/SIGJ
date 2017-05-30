@@ -37,7 +37,7 @@ public class TipoDemanda extends GenericEntity {
 
 	@NotNull(message = "tipoDemanda.descripcion.notNull")
 	@NotBlank(message = "tipoDemanda.descripcion.notBlank")
-	@Size(max = 20, message = "tipoDemanda.descripcion.size")
+	@Size(max = 100, message = "tipoDemanda.descripcion.size")
 	private String Descripcion;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH })
