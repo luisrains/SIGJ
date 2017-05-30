@@ -296,7 +296,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("expedienteDocumento", expedienteDoc);
 		Expediente ex = (Expediente) sesion.getAttribute("expediente");
 		map.addAttribute("expediente", ex);
-		return "expediente/expediente_section_3";
+		return "expediente/expediente_section3";
 
 	}
 
