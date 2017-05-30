@@ -59,6 +59,11 @@ public class ExpedienteDocumento extends GenericEntity {
 	@Basic(fetch = FetchType.LAZY, optional = true)
 	private byte[] documento;// documento
 	
+	@NotNull(message = "expediente_documento.titulo.notNull")
+	@NotBlank(message = "expediente_documento.titulo.notBlank")
+	@Size(max = 50, message = "expediente_documento.titulo.size")
+	private String titulo;
+	
 	public ExpedienteDocumento() {
 		super();
 	}
@@ -95,10 +100,19 @@ public class ExpedienteDocumento extends GenericEntity {
 		this.documento = documento;
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
 	@Override
 	public String toString() {
 		return "ExpedienteDocumento [id=" + id + ", expediente=" + expediente + ", fechaPresentacion="
-				+ fechaPresentacion + ", documento=" + Arrays.toString(documento) + "]";
+				+ fechaPresentacion + ", documento=" + Arrays.toString(documento) + ", titulo=" + titulo + "]";
 	}
+
 	
 }
