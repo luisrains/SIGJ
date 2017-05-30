@@ -263,8 +263,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "documento", method = RequestMethod.POST)
-	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,@Valid ExpedienteDocumento expedienteDoc, BindingResult bindingResult,
+	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp,
+			@RequestParam(value = "fechaPresentacion") String fecha,
+			@RequestParam(value = "titulo") String titulo,
 			@RequestParam("documento") MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
