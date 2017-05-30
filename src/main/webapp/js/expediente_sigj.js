@@ -361,32 +361,3 @@ function registrar_expediente(){
 		$("#expediente_section_2").removeClass("hidden");
 	});
 }
-$("#form-documento").on("submit",function(e){
-	 e.preventDefault();
-     var f = $(this);
-     var formData = new FormData($("#form-documento"));
-     formData.append("dato", "valor");
-//     var filedata = $("#file-es"); 
-//     var f = new FormData();        
-      
-    /*var i = 0, len = filedata[0].files.length, img, reader, file; 
-
-    f.append("clave","valor");
-     f.append("documento",filedata[0].files[0]);
-    
-      	var fecha = $("#fechaPresentacion").val();
-      	var expediente = $("#expediente").val();
-      	var titulo = $("#titulo").val();*/
-         $.ajax({ 
-             url: "expediente/documento", 
-             type: "post",
-             dataType: "html",
-             data: formData,
-             cache: false,
-             contentType: false,
-             processData: false
-         	
-         }).done(function(json_data){ 
-        	 
-         });
-});

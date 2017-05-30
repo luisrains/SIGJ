@@ -265,14 +265,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "documento", method = RequestMethod.POST)
 	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp,
-			@RequestParam(value = "fechaPresentacion") String fecha,
 			@RequestParam(value = "titulo") String titulo,
 			@RequestParam("documento") MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
-		Expediente exp = (Expediente) sesion.getAttribute("expediente");
-		ExpedienteDocumento expDoc = new ExpedienteDocumento();
-		Date fecha = new Date();
+		Expediente exp = null;
+		ExpedienteDocumento expedienteDoc = new ExpedienteDocumento();
+		Date fechaNow = new Date();
 
 		try {
 			if(expedienteDoc.getId() == null){
@@ -282,22 +281,22 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				MultipartFile multipartFile = documento;
 				byte[] doc = multipartFile.getBytes();
 				expedienteDoc.setDocumento(doc);
-				expedienteDoc.setFechaPresentacion(fecha);
-				
+				expedienteDoc.setTitulo(titulo);
+				expedienteDoc.setFechaPresentacion(fechaNow);
 				
 				expedienteDocumentoDao.create(expedienteDoc);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 			}			
 			logger.info("Se agregar un nuevo documento al expediente -> {}", expedienteDoc);
 		} catch (Exception ex) {
-			expDoc.setId(null);
+			expedienteDoc.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
 		}
 		agregarValoresAdicionales(map);
-		map.addAttribute("expedienteDocumento", expDoc);
+		map.addAttribute("expedienteDocumento", expedienteDoc);
 		Expediente ex = (Expediente) sesion.getAttribute("expediente");
 		map.addAttribute("expediente", ex);
-		return "expediente/expediente_section_2";
+		return "expediente/expediente_section_3";
 
 	}
 
