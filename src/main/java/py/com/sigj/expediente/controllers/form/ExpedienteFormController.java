@@ -249,6 +249,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				sesion.setAttribute("expediente", obj);
 				sesion.setAttribute("clienteList",clienteList);
 				sesion.setAttribute("abogadoList",abogadoList );
+				
 			}
 		} catch (Exception ex) {
 			obj.setId(null);
@@ -262,28 +263,30 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "documento", method = RequestMethod.POST)
-	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,@Valid ExpedienteDocumento expdienteDoc, BindingResult bindingResult,
+	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,@Valid ExpedienteDocumento expedienteDoc, BindingResult bindingResult,
 			@RequestParam(value = "expediente") String id_exp,
 			@RequestParam("documento") MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
 		Expediente exp = (Expediente) sesion.getAttribute("expediente");
 		ExpedienteDocumento expDoc = new ExpedienteDocumento();
+		Date fecha = new Date();
 
 		try {
-			if(expdienteDoc.getId() == null){
+			if(expedienteDoc.getId() == null){
 				exp = expedienteDao.find(Long.parseLong(id_exp));
-				expdienteDoc.setExpediente(exp);
+				expedienteDoc.setExpediente(exp);
 				
 				MultipartFile multipartFile = documento;
 				byte[] doc = multipartFile.getBytes();
-				expdienteDoc.setDocumento(doc);
+				expedienteDoc.setDocumento(doc);
+				expedienteDoc.setFechaPresentacion(fecha);
 				
 				
-				expedienteDocumentoDao.create(expdienteDoc);
+				expedienteDocumentoDao.create(expedienteDoc);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 			}			
-			logger.info("Se agregar un nuevo documento al expediente -> {}", expdienteDoc);
+			logger.info("Se agregar un nuevo documento al expediente -> {}", expedienteDoc);
 		} catch (Exception ex) {
 			expDoc.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
@@ -298,22 +301,22 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	
 	
-	@RequestMapping(value = "ver_actuacion", method = RequestMethod.POST)
+	@RequestMapping(value = "ver-documento", method = RequestMethod.GET)
 	public @ResponseBody String setArchivo(HttpServletRequest request, ModelMap map,
-			@RequestParam(value = "id_actuacion") String id_act) {
+			@RequestParam(value = "id_expediente") String id_exp) {
 		try {
 			MultipartFile doc = null;
 			MovimientoActuacion ac = null;
 //			ac = tipoActuacionDao.find(Long.parseLong(id_act));
 //			
 //			doc = ac.get
-			
-					
+			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente("ninguno");
+					logger.info("listado ..{}",listExpDoc);
 			return "";
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return id_act;
+		return id_exp;
 		
 		
 	}

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -46,12 +47,10 @@ public class ExpedienteDocumento extends GenericEntity {
 	private Long id;
 	
 	@ManyToOne
-	@NotNull(message = "expediente_documento.observacion.notNull")
-	@NotBlank(message = "expediente_documento.observacion.notBlank")
 	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_documento_expediente_fk"))
 	private Expediente expediente;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Column
 	private Date fechaPresentacion;
 
 	@JsonIgnore
