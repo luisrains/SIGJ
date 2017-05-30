@@ -262,32 +262,34 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "documento", method = RequestMethod.POST)
-	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,@Valid ExpedienteDocumento expdienteDoc, BindingResult bindingResult,
+	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp,
+			@RequestParam(value = "fechaPresentacion") String fecha,
+			@RequestParam(value = "titulo") String titulo,
 			@RequestParam("documento") MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
 		Expediente exp = (Expediente) sesion.getAttribute("expediente");
 		ExpedienteDocumento expDoc = new ExpedienteDocumento();
 
-		try {
-			if(expdienteDoc.getId() == null){
-				exp = expedienteDao.find(Long.parseLong(id_exp));
-				expdienteDoc.setExpediente(exp);
-				
-				MultipartFile multipartFile = documento;
-				byte[] doc = multipartFile.getBytes();
-				expdienteDoc.setDocumento(doc);
-				
-				
-				expedienteDocumentoDao.create(expdienteDoc);
-				map.addAttribute("msgExito", msg.get("Registro agregado"));
-			}			
-			logger.info("Se agregar un nuevo documento al expediente -> {}", expdienteDoc);
-		} catch (Exception ex) {
-			expDoc.setId(null);
-			map.addAttribute("error", getErrorFromException(ex));
-		}
+//		try {
+//			if(expdienteDoc.getId() == null){
+//				exp = expedienteDao.find(Long.parseLong(id_exp));
+//				expdienteDoc.setExpediente(exp);
+//				
+//				MultipartFile multipartFile = documento;
+//				byte[] doc = multipartFile.getBytes();
+//				expdienteDoc.setDocumento(doc);
+//				
+//				
+//				expedienteDocumentoDao.create(expdienteDoc);
+//				map.addAttribute("msgExito", msg.get("Registro agregado"));
+//			}			
+//			logger.info("Se agregar un nuevo documento al expediente -> {}", expdienteDoc);
+//		} catch (Exception ex) {
+//			expDoc.setId(null);
+//			map.addAttribute("error", getErrorFromException(ex));
+//		}
 		agregarValoresAdicionales(map);
 		map.addAttribute("expedienteDocumento", expDoc);
 		Expediente ex = (Expediente) sesion.getAttribute("expediente");
