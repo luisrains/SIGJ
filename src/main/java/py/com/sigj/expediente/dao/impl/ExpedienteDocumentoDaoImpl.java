@@ -36,7 +36,7 @@ public class ExpedienteDocumentoDaoImpl extends DaoImpl<ExpedienteDocumento> imp
 		if (StringUtils.isBlank(sSearch)) {
 			query = entityManager.createQuery(sql);
 		} else {
-			sql = sql + " WHERE titulo = ?1 order by fechapresentacion asc" ;
+			sql = sql + " WHERE expediente_id = ?1 order by fechapresentacion asc" ;
 			query = entityManager.createQuery(sql);
 			query.setParameter(1,sSearch);
 		}

@@ -310,7 +310,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 //			ac = tipoActuacionDao.find(Long.parseLong(id_act));
 //			
 //			doc = ac.get
-			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente("ninguno");
+			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente(id_exp);
 					logger.info("listado ..{}",listExpDoc);
 			return "";
 		} catch (Exception e) {
