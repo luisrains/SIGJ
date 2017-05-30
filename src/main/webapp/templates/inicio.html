@@ -360,7 +360,27 @@
 							<h3 class="box-title">Expediente N°. 4875</h3>
 						</div>
 						<!-- /.box-header -->
-						<div class="box-body">DATOS MINIMOS DEL EXPEDIENTE</div>
+						<div class="box-body">
+							<div class="col-sm-6">
+								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
+								<h4 th:text="#{expediente.folio.lbl}+' '+ #{100}"></h4> 
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.anho.lbl}+' '+ #{2015}"></h4>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.juez.lbl}+' '+ #{Carlos Duarte}"></h4>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ #{Iniciado}"></h4>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.tipoActuacion.fechaPresentacion.lbl}+' '+ #{10/02/2016}"></h4>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ #{20/05/2016}"></h4>
+							</div>
+						</div>
 						<!-- /.box-body -->
 					</div>
 					<!-- /.box -->

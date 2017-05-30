@@ -20,7 +20,7 @@ public class TipoActuacionListController extends ListController<TipoActuacion> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "descripcion", "modeloHoja" };
+		return new String[] { "id", "descripcion", "abrevitura", "plazo" };
 	}
 
 	@Override
