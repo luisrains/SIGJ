@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<body>
+	<div th:fragment="contenido">
+<div th:replace="expediente/expediente_modal::modal_step"></div>
+
+<div class="container">
+
+  
+</div>
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Caso Judicial</a></li>
+				<li><a href="#menu2">Partes del caso</a></li>
+				<li ><a href="#menu3">Listado de Expedientes</a></li>
+			</ul>
+
+			<div  class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de Expediente</h3>
+						</div>
+						<div class="box-body" style="width: 99%; padding-left: 15px;">
+						<div id="section_1" class="box-body">
+						<button class="btn btn-success" id="botonAgregar"
+								 onclick="openWorkflow()">
+								<i class="glyphicon glyphicon-plus"></i> Agregar Juicio
+							</button>
+							<br><br>
+						
+						<div class="col-lg-6">
+							<div class="box box-primary collapsed-box">
+							  <div class="box-header with-border">
+							    <h3 class="box-title">Demandante - Demandado</h3>
+							    <div class="box-tools pull-right">
+							      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+							    </div><!-- /.box-tools -->
+							  </div><!-- /.box-header -->
+							  <div class="box-body">
+							  <div class="form-group hidden-xs col-sm-12">
+								<div class="box">
+									<div class="box-header with-border">
+										<h3 class="box-title">Tipo de Parte</h3>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+										<div class="radio">
+											<label><input name="tipo_cliente" id = "tipo_cliente_demandante" type="radio" value="D">
+											DEMANDANTE </label>
+										
+											<label> <input name="tipo_cliente" id="tipo_cliente_demandado" type="radio" value="C">DEMANDADO
+											</label>
+										</div>
+									</div>
+									<!-- /.box-body -->
+								</div>
+								<!-- /.box -->
+								</div>
+							   <div class="col-xs-12 col-sm-12">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
+										id="clienteDT">
+										<thead>
+											<tr>
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th></th>
+												<th th:each="col : ${columnasClient}" th:text="#{${col} + '.header'}">
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+										$(document).ready(function() {
+											crearDataTableEsp("clienteDT", "[[@{/cliente/json}]]", "[[${columnasStrClient}]]", "[[@{/cliente/edit/}]]");
+										});													 
+			 						</script>
+									<button class="btn btn-success" id="botonAgregar"
+										onclick="agregar_demandado()">
+										<i class="glyphicon glyphicon-plus"></i> Agregar
+									</button>
+									<div id="error-cliente" class="hidden alert alert-danger" role="alert">
+												<span class="glyphicon glyphicon-exclamation-sign"
+													aria-hidden="true"></span> <span class="sr-only">Error:</span>
+												Debe Seleccionar un Cliente Demandante y Demandado de la Tabla
+											</div>
+									<p id="demandate_agregado">nombre o ci de los agregados.</p>
+									<div class="hidden demandado" style="padding-bottom:10px;">
+										<label id="o-id_demandado" style="padding-right:10px;"></label>
+										<!-- <label id="o-cedula_demandado" style="padding-right:10px;"></label>-->
+										<label id="o-nombre_demandado" class="hidden" style="padding-right:10px;"></label>
+										<label id="o-apellido_demandado" class="hidden" style="padding-right:10px;"></label> 
+										<label id="o-demandado"  style="padding-right:10px;"></label>
+									</div>
+									<div class="hidden demandante">
+										<label id="o-id_demandante" style="padding-right:10px;"></label>
+										<!-- <label id="o-cedula_demandante"  style="padding-right:10px;"></label>-->
+										<label id="o-nombre_demandante" class="hidden" style="padding-right:10px;"></label>
+										<label id="o-apellido_demandante" class="hidden" style="padding-right:10px;"></label> 
+										<label id="o-demandante"  style="padding-right:10px;"></label>
+									</div>
+								</div>
+								
+								
+							  </div><!-- /.box-body -->
+							</div><!-- /.box -->
+						</div>
+						
+						<div class="col-lg-6">
+							<div class="box box-primary collapsed-box">
+							  <div class="box-header with-border">
+							    <h3 class="box-title">Abogados</h3>
+							    <div class="box-tools pull-right">
+							      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+							    </div><!-- /.box-tools -->
+							  </div><!-- /.box-header -->
+							  <div class="box-body">
+							  <div class="form-group hidden-xs col-sm-12">
+							    <div class="box">
+									<div class="box-header with-border">
+										<h3 class="box-title">Tipo de Abogado</h3>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+										<div class="radio">
+											<label><input name="tipo_abogado" id = "tipo_abogado_apoderado" type="radio" value="AP">APODERADO 
+											</label>
+										
+											<label> <input name="tipo_abogado" id="tipo_abogado_contraparte" type="radio" value="CO"> CONTRAPARTE
+											</label>
+										</div>
+									</div>
+									<!-- /.box-body -->
+								</div>
+								<!-- /.box -->
+								</div>
+							   <div class="col-xs-12 col-sm-12">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding"
+										id="abogadoDT">
+										<thead>
+											<tr>
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th></th>
+												<th th:each="col : ${columnasAbogado}" th:text="#{${col} + '.header'}">
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+										$(document).ready(function() {
+											crearDataTableEsp("abogadoDT", "[[@{/abogado/json}]]", "[[${columnasStrAbogado}]]", "[[@{/abogado/edit/}]]");
+										});													 
+			 						</script>
+			 						<button class="btn btn-success" id="botonAgregar"
+										onclick="agregar_abogado()">
+										<i class="glyphicon glyphicon-plus"></i> Agregar
+									</button>
+									<div id="error-abogado" class="hidden alert alert-danger" role="alert">
+												<span class="glyphicon glyphicon-exclamation-sign"
+													aria-hidden="true"></span> <span class="sr-only">Error:</span>
+												Debe Seleccionar un Abogado Apoderado y Contraparte de la Tabla
+											</div>
+									<p id="demandate_agregado">nombre o ci de los agregados.</p>
+									<div class="hidden apoderado" style="padding-bottom:10px;">
+										<label id="o-id_apoderado" style="padding-right:10px;"></label>
+										<!-- <label id="o-cedula_apoderado"  style="padding-right:10px;"></label>
+										<label id="o-nombre_apoderado"  style="padding-right:10px;"></label>
+										<label id="o-apellido_apoderado"  style="padding-right:10px;"></label> -->
+										<label id="o-apoderado"  style="padding-right:10px;"></label>
+									</div>
+									<div class="hidden contraparte">
+										<label id="o-id_contraparte" style="padding-right:10px;"></label>
+										<!-- <label id="o-cedula_contraparte"  style="padding-right:10px;"></label>
+										<label id="o-nombre_contraparte"  style="padding-right:10px;"></label>
+										<label id="o-apellido_contraparte"  style="padding-right:10px;"></label> -->
+										<label id="o-contraparte"  style="padding-right:10px;"></label>
+									</div>
+								</div>
+							  </div><!-- /.box-body -->
+							</div><!-- /.box -->
+						</div>
+						
+						<div th:replace="expediente/expediente_caratula::catarula_frag"></div>
+			
+							<div class="row">
+								<div class="col-xs-8">
+								</div>
+								<div class="col-xs-4">
+								<a class="btn btn-siguiente" onclick="registrar_expediente()">
+  									 SIGUIENTE <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+								</div>
+							</div>
+						</div>
+						<div id="expediente_section_2" class="hidden"></div>
+					</div>
+					</div>
+				</div>
+
+				<div id="menu2" class="tab-pane fade ">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Demandante</h3>
+							<div class="box-tools pull-right">
+						      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						    </div><!-- /.box-tools -->
+						</div>
+						<div class="box-body">
+
+							<div class="hidden-xs col-sm-4 no-padding">
+								
+								
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
+										id="materiaDT1">
+										<thead>
+											<tr>											
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th></th>
+												<th th:each="col : ${columnasMateria}" th:text="#{'materia.' + ${col} + '.header'}">CÓDIGO</th>												
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTableEsp("materiaDT1", "[[@{/materia/json}]]", "[[${columnasStrMateria}]]", "materia");
+									  });
+									   </script>
+								</div>
+								
+						</div>
+						
+						<div class="box box-success">
+				            <div class="box-header with-border">
+				              <h3 class="box-title">Demandado</h3>
+				              <div class="box-tools pull-right">
+						      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						    </div>
+				            </div>
+				            <div class="box-body">
+				              <div class="hidden-xs col-sm-4 no-padding">
+								
+								
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<table
+										class="table table-bordered table-hover table-striped display table-esp col-xs-12 no-padding" style="width:100%;"
+										id="materiaDT">
+										<thead>
+											<tr>											
+												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th></th>
+												<th th:each="col : ${columnasMateria}" th:text="#{'materia.' + ${col} + '.header'}">CÓDIGO</th>												
+											</tr>
+										</thead>
+									</table>
+									<script type="text/javascript">
+									   $(document).ready(function() {
+										   crearDataTableEsp("materiaDT", "[[@{/materia/json}]]", "[[${columnasStrMateria}]]", "materia");
+									  });
+									   </script>
+								</div>
+				            </div>
+				            <!-- /.box-body -->
+				          </div>
+					</div>
+				</div>
+				<!--LISTADO DE EXPEDIENTES  -->
+				<div id="menu3" class="tab-pane fade">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Partes</h3>
+						</div>
+						<div class="box-body">
+
+							<table
+								class="table table-bordered table-hover table-striped display"
+								id="expedienteDT">
+								<thead>
+									<tr>
+										<th th:each=" col : ${columnas}" th:text="${col}">colum1</th>
+										<th>Accion</th>
+									</tr>
+								</thead>
+							</table>
+							<script type="text/javascript">
+							 $(document).ready(function() {
+								 crearDataTable("expedienteDT", "[[@{/expediente/json}]]", "[[${columnasStr}]]", "[[@{/expediente/edit/}]]");
+							 });
+			 			</script>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<script>
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				    var abogados = [];
+				    var clientes = [];
+				   
+				});
+			</script>
+
+	</div>
+</body>
+</html>
