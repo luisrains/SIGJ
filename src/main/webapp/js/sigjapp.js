@@ -159,7 +159,7 @@
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
                     "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningun dato disponible en esta tabla",
+                    "sEmptyTable": "No hay datos disponibles en esta tabla",
                     "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                     "sInfoEmpty": "Mostrando _MAX_ registros",
                     "sInfoFiltered": " ",
@@ -231,17 +231,17 @@
                         "visible": true,
                         "searchable": false
                     },
-                    {
-                        "targets": [ 1 ],
-                        "visible": false,
-                        "searchable": false
-                    }
+//                    {
+//                        "targets": [ 1 ],
+//                        "visible": false,
+//                        "searchable": false
+//                    }
                 ],
                 'language' : {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
                     "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sEmptyTable": "No hay datos disponibles en esta tabla",
 //                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
 //                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "sInfoFiltered": "\n(filtrado de un total de _MAX_ registros)",
@@ -277,6 +277,7 @@
          			$(this).addClass('checked');
          			var data = dataTable.row( this ).data();
          			$(".object_id").val(data["id"]);
+         			console.log($(".object_id").val());
          		}
          	} );
              

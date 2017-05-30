@@ -2,6 +2,7 @@
 /*
     Archivo para el manejo de todos los datos relacionados al expediente
 */
+var listDespachos=''; // variable global para guardar el listado de despachos
 $("select[name=materia]").on("change", function(e){
 	console.log($('select[name=materia]').val());
 	var codigo_materia = $('select[name=materia]').val();
@@ -28,10 +29,12 @@ $("select[name=materia]").on("change", function(e){
 			$('.selectTipoProceso').append(o);
 			$('#selectTipoProceso').removeClass('hidden');
 			
+			
 			//despachos
 			$('.selectDespacho').select2('destroy');
 			$('.selectDespacho').html('');
 			$('.selectDespacho').select2();
+			listDespachos = rdinfo.materia.listaDespacho;
 			$.each(rdinfo.materia.listaDespacho, function( index, value ) {
 				var o = new Option(value.descripcion, value.id);
 				$('.selectDespacho').append(o);
@@ -91,6 +94,7 @@ function mostrarModalStep(){
 	          allWells = $('.setup-content'),
 	          allNextBtn = $('.nextBtn'),
 	  		  allPrevBtn = $('.prevBtn');
+	  		  allSuccBtn = $('.succesBtn');
 
 	  allWells.hide();
 
@@ -120,7 +124,7 @@ function mostrarModalStep(){
 	      var curStep = $(this).closest(".setup-content"),
 	          curStepBtn = curStep.attr("id"),
 	          nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-	          curInputs = curStep.find("input[type='text'],input[type='url']"),
+	          curInputs = curStep.find("input[type='text'], select:visible"),
 	          isValid = true;
 
 	      $(".form-group").removeClass("has-error");
@@ -129,10 +133,20 @@ function mostrarModalStep(){
 	              isValid = false;
 	              $(curInputs[i]).closest(".form-group").addClass("has-error");
 	          }
+	          
+	          if (curInputs[i].value == 0){
+	              isValid = false;
+	              var a = $(curInputs[i]).closest(".form-group").addClass("has-error");
+	              $(curInputs[i]).closest(".form-group").addClass("has-error");
+	          }
 	      }
 
-	      if (isValid)
+	      if (isValid){
 	          nextStepWizard.removeAttr('disabled').trigger('click');
+	      	if(curStepBtn== 'step-3'){
+	      		$('#modalStep').modal('toggle');
+	      	}
+	      }
 	  });
 
 	  $('div.setup-panel div a.btn-primary').trigger('click');
@@ -153,17 +167,17 @@ function agregar_demandado(){
 	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined && $('input:radio[name=radio-dt]').is(":checked") === true ){
 		if(seleccion == 'D'){
 			if(demandante == ""){
-				demandante = "["+ $("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
-				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				demandante = "["+ $("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
+				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
-				$("#o-nombre_demandante").text($("#clienteDT tbody tr.checked td").eq(2).text());
-				$("#o-apellido_demandante").text($("#clienteDT tbody tr.checked td").eq(3).text());
+				$("#o-nombre_demandante").text($("#clienteDT tbody tr.checked td").eq(3).text());
+				$("#o-apellido_demandante").text($("#clienteDT tbody tr.checked td").eq(4).text());
 			}
 			else{
 				demandante = demandante.substr(0,demandante.length-1);
-				demandante = demandante + ", "+$("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
-				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				demandante = demandante + ", "+$("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
+				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
 			}
@@ -180,18 +194,18 @@ function agregar_demandado(){
 			$("#o-demandante").text("Demandante");
 		}else if(seleccion == 'C'){
 			if(demandado == ""){
-				demandado = "["+ $("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
+				demandado = "["+ $("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
 			
-				var id = $("#clienteDT tbody tr.selected td").eq(0).text();
+				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
-				$("#o-nombre_demandado").text($("#clienteDT tbody tr.checked td").eq(2).text());
-				$("#o-apellido_demandado").text($("#clienteDT tbody tr.checked td").eq(3).text());
+				$("#o-nombre_demandado").text($("#clienteDT tbody tr.checked td").eq(3).text());
+				$("#o-apellido_demandado").text($("#clienteDT tbody tr.checked td").eq(4).text());
 			}
 			else{
 				demandado = demandado.substr(0,demandado.length-1);
-				demandado = demandado + ", "+$("#clienteDT tbody tr.checked td").eq(2).text() + " " + $("#clienteDT tbody tr.checked td").eq(1).text() + "]";
-				var id = $("#clienteDT tbody tr.checked td").eq(0).text();
+				demandado = demandado + ", "+$("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
+				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_cliente]:checked').val();
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
 			}
@@ -211,6 +225,7 @@ function agregar_demandado(){
 			$("#error-cliente").addClass("hidden");
 		}else {
 			$("#error-cliente").removeClass("hidden");
+			return;
 			
 		}
 		$("#error-cliente").addClass("hidden");
@@ -226,15 +241,15 @@ function agregar_abogado(){
 	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined && $('input:radio[name=radio-dt]').is(":checked") === true){
 		if(seleccion == 'AP'){
 			if(apoderado == ""){
-				apoderado = "["+ $("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
+				apoderado = "["+ $("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
 				
-				var id = $("#abogadoDT tbody tr.checked td").eq(0).text();
+				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
 				apoderado = apoderado.substr(0,apoderado.length-1);
-				apoderado = apoderado + ", "+$("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
-				var id = $("#abogadoDT tbody tr.selected td").eq(0).text();
+				apoderado = apoderado + ", "+$("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
+				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			
@@ -251,15 +266,15 @@ function agregar_abogado(){
 			$("#o-apoderado").text("Apoderado");
 		}else if(seleccion == 'CO'){
 			if(contraparte == ""){
-				contraparte = "["+ $("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
+				contraparte = "["+ $("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
 				
-				var id = $("#abogadoDT tbody tr.checked td").eq(0).text();
+				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
 				contraparte = contraparte.substr(0,contraparte.length-1);
-				contraparte = contraparte + ", "+$("#abogadoDT tbody tr.checked td").eq(2).text() + " " + $("#abogadoDT tbody tr.checked td").eq(1).text() + "]";
-				var id = $("#abogadoDT tbody tr.checked td").eq(0).text();
+				contraparte = contraparte + ", "+$("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
+				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
 				var tipo = $('input[name=tipo_abogado]:checked').val();
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			
@@ -279,6 +294,7 @@ function agregar_abogado(){
 			$("#error-abogado").addClass("hidden");
 		}else{
 			$("#error-abogado").removeClass("hidden");
+			return;
 		}
 		$("#error-abogado").addClass("hidden");
 	}else{
@@ -296,6 +312,11 @@ function datos_caratula(){
 	
 	var expediente = $("#o-nombre_demandante").text() +" "+$("#o-apellido_demandante").text()+" C/ "+ $("#o-nombre_demandado").text() +" "+$("#o-apellido_demandado").text()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
 	var juzgado = $("select[name=despacho]").find(":selected").text();
+	$.each(listDespachos, function( index, value ) {
+		if( $("#despacho").find(":selected").val() == value.id){
+			$("#juez_caract").val(value.juez);
+		}
+	});
 	$("#anho_caract").text($("#anho").val());
 	$("#nro_caract").text($("#nroExpediente").val());
 	$("#folio_caract").text($("#folio").val());
@@ -341,39 +362,3 @@ function registrar_expediente(){
 	});
 }
 
-		/*$("#confirmar-expediente").on( "click", function() {
-		$("#upload").on("submit", function(e){
-		var filedata = document.getElementsByName("expediente-archivo"),
-	            formdata = false;
-	    if (window.FormData) {
-	        formdata = new FormData($("#upload"));
-	        
-	    }
-	    var i = 0, len = filedata[0].files.length, img, reader, file;
-
-	    for (; i < len; i++) {
-	        file = filedata[0].files[i];
-	        if (formdata) {
-	            formdata.append("file", file);
-	        }
-	    }
-	    if (formdata) {
-	        $.ajax({
-	            url: "expediente/archivo",
-	            type: "POST",
-	            data: formdata,
-	            processData: false,
-	            contentType: false,
-	            success: function(res) {
-
-	            },       
-	            error: function(res) {
-
-	             }       
-	             });
-	            }
-	       
-	    return true;
-});
-	
-		});*/
