@@ -129,6 +129,14 @@ public class Expediente extends GenericEntity {
 		this.moneda = moneda;
 	}
 
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
+
 	public String getNroLiquidacion() {
 		return nroLiquidacion;
 	}
@@ -145,20 +153,19 @@ public class Expediente extends GenericEntity {
 		this.fechaSelloCargo = fechaSelloCargo;
 	}
 
-	public String getFolio() {
-		return folio;
-	}
-
-	public void setFolio(String folio) {
-		this.folio = folio;
-	}
-
 	public Despacho getDespachoActual() {
 		return despachoActual;
 	}
 
-	public void setDespachoActual(Despacho despacho) {
-		this.despachoActual = despacho;
+	public void setDespachoActual(Despacho despachoActual) {
+		this.despachoActual = despachoActual;
 	}
 
+	@Override
+	public String toString() {
+		return "Expediente [id=" + id + ", caratula=" + caratula + ", nroExpediente=" + nroExpediente + ", anho=" + anho
+				+ ", monto=" + monto + ", moneda=" + moneda + ", folio=" + folio + ", nroLiquidacion=" + nroLiquidacion
+				+ ", fechaSelloCargo=" + fechaSelloCargo + ", despachoActual=" + despachoActual + "]";
+	}
+	
 }
