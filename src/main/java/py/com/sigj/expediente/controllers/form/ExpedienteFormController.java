@@ -295,6 +295,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		agregarValoresAdicionales(map);
 		map.addAttribute("expedienteDocumento", expedienteDoc);
 		Expediente ex = (Expediente) sesion.getAttribute("expediente");
+		
 		map.addAttribute("expediente", ex);
 		return "expediente/expediente_section3";
 
@@ -321,6 +322,6 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		
 		
 	}
-
+	
 
 }

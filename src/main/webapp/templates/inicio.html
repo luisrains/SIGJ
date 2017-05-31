@@ -361,6 +361,7 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
+							<input type="hidden" id="id-expediente" th:value="1" > <!-- th:value="${session.expediente.id}" es lo que se va a usar -->
 							<div class="col-sm-6">
 								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
 								<h4 th:text="#{expediente.folio.lbl}+' '+ #{100}"></h4> 
@@ -379,6 +380,13 @@
 							</div>
 							<div class="col-sm-6">
 								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ #{20/05/2016}"></h4>
+							</div>
+							
+							<div class="col-sm-6" style="float:right;">
+							<button class="btn btn-success" onclick="agregar_actuacion()">
+								<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+							</button>
+							
 							</div>
 						</div>
 						<!-- /.box-body -->
