@@ -2,6 +2,31 @@
 /*
     Archivo para el manejo de todos los datos relacionados al expediente
 */
+ function createFileInput(){
+	 $('#file-es').fileinput({
+ 
+		        language: 'es',
+		        uploadUrl: '#',
+		        allowedFileExtensions: ['jpg', 'png', 'gif'],
+		        showUpload : false,
+				maxFileCount : 1,
+				mainClass : "input-group-lg",
+				layoutTemplates: { 
+					footer: '<div class="file-thumbnail-footer">\n' +
+			            '    <div class="file-footer-caption" style="width:{width}">{caption}<br> {size}</div>\n' +
+			            '    {actions}\n' +
+			            '</div>',
+		        	actions: '<div class="file-actions">\n' +
+			            '    <div class="file-footer-buttons">\n' +
+			            '      {delete} {zoom} {other}' +
+			            '    </div>\n' +
+			            '    <div class="clearfix"></div>\n' +
+			            '</div>',
+				}
+		    });		 
+ }
+ 
+ 
 var listDespachos=''; // variable global para guardar el listado de despachos
 $("select[name=materia]").on("change", function(e){
 	console.log($('select[name=materia]').val());

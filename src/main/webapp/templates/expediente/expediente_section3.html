@@ -187,6 +187,7 @@
 <!-- Fin panel botones -->
 <script type="text/javascript">
 		$(function () {
+			createFileInput();
 			$(".selecciones").select2();
 			$("#actuacion-table").DataTable();
 			});
@@ -198,12 +199,6 @@
 		
 		
 </script>
-
-
-					
-					
-					
-					
 					</div>
 					</div>
 				</div>
@@ -214,29 +209,10 @@
 			</div>
 			
 		</div>
-		<script type="text/javascript" src="../js/fileinput.js"
-		th:src="@{/js/fileinput.js}"></script>
+		<!-- <script type="text/javascript" src="../js/fileinput.js"
+		th:src="@{/js/fileinput.js}"></script> -->
 		<script>
-		 $('#file-es').fileinput({
-		        language: 'es',
-		        uploadUrl: '#',
-		        allowedFileExtensions: ['jpg', 'png', 'gif'],
-		        showUpload : false,
-				maxFileCount : 10,
-				mainClass : "input-group-lg",
-				layoutTemplates: { 
-					footer: '<div class="file-thumbnail-footer">\n' +
-			            '    <div class="file-footer-caption" style="width:{width}">{caption}<br> {size}</div>\n' +
-			            '    {actions}\n' +
-			            '</div>',
-		        	actions: '<div class="file-actions">\n' +
-			            '    <div class="file-footer-buttons">\n' +
-			            '      {delete} {zoom} {other}' +
-			            '    </div>\n' +
-			            '    <div class="clearfix"></div>\n' +
-			            '</div>',
-				}
-		    });		 
+		
 			</script>
 
 	</div>
