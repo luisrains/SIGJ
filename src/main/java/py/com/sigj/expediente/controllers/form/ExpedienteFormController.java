@@ -304,8 +304,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	
 	@RequestMapping(value = "ver-documento", method = RequestMethod.GET)
-	public @ResponseBody String setArchivo(HttpServletRequest request, ModelMap map,
-			@RequestParam(value = "id_expediente") String id_exp) {
+	public String setArchivo(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "expediente") String id_exp) {
 		try {
 			MultipartFile doc = null;
 			MovimientoActuacion ac = null;
@@ -318,7 +318,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return id_exp;
+		return "expediente/actuacion" ;
 		
 		
 	}

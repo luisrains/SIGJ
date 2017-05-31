@@ -391,6 +391,6 @@ function agregar_actuacion(){
 	if(id_expediente == null || id_expediente == undefined || id_expediente == ""){ // solo para probar si llega al controlador
 		id_expediente = 0;
 	}
-	var url = '/expediente/ver-documento?expediente='+id_expediente;
+	var url = '/sigj/expediente/ver-documento?expediente='+id_expediente;
 	location.href = url;
 }
