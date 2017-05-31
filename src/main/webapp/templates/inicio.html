@@ -364,7 +364,8 @@
 							<input type="hidden" id="id-expediente" th:value="1" > <!-- th:value="${session.expediente.id}" es lo que se va a usar -->
 							<div class="col-sm-6">
 								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
-								<h4 th:text="#{expediente.folio.lbl}+' '+ #{100}"></h4> 
+								<h4 th:text="#{expediente.folio.lbl}+' '+ #{100}"></h4>
+								<h4 th:text="${expediente}"></h4>  
 							</div>
 							<div class="col-sm-6">
 								<h4 th:text="#{expediente.anho.lbl}+' '+ #{2015}"></h4>
