@@ -354,7 +354,8 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<div class="col-md-12">
+				<div class="col-sm-12">
+					<div class="col-sm-9">
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">Expediente N°. 4875</h3>
@@ -365,7 +366,7 @@
 							<div class="col-sm-6">
 								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
 								<h4 th:text="#{expediente.folio.lbl}+' '+ #{100}"></h4>
-								<h4 th:text="${expediente}"></h4>  
+								 
 							</div>
 							<div class="col-sm-6">
 								<h4 th:text="#{expediente.anho.lbl}+' '+ #{2015}"></h4>
@@ -393,8 +394,14 @@
 						<!-- /.box-body -->
 					</div>
 					<!-- /.box -->
+					</div>
+					<div class="col-sm-3">
+						<div class="alert alert-warning">
+							  <strong><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención!</strong>
+							  <span> La actuación del expediente esta por vencer, vencera en los  <span th:text="#{3}"></span> proximos días</span>
+						</div>
+					</div>
 				</div>
-				
 				<div class="col-md-12">
 					<div class="box box-primary">
 						<div class="box-header with-border">
