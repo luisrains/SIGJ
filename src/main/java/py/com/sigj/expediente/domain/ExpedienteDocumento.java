@@ -53,10 +53,8 @@ public class ExpedienteDocumento extends GenericEntity {
 	@Column
 	private Date fechaPresentacion;
 
-	@JsonIgnore
-	@Lob
-	@Basic(fetch = FetchType.LAZY, optional = true)
-	private byte[] documento;// documento
+	@OneToOne
+	private Documento documento;// documento
 	
 	@NotNull(message = "expediente_documento.titulo.notNull")
 	@NotBlank(message = "expediente_documento.titulo.notBlank")
@@ -91,14 +89,6 @@ public class ExpedienteDocumento extends GenericEntity {
 		this.fechaPresentacion = fechaPresentacion;
 	}
 
-	public byte[] getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(byte[] documento) {
-		this.documento = documento;
-	}
-
 	public String getTitulo() {
 		return titulo;
 	}
@@ -107,11 +97,20 @@ public class ExpedienteDocumento extends GenericEntity {
 		this.titulo = titulo;
 	}
 
+	public Documento getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
+	}
+
 	@Override
 	public String toString() {
 		return "ExpedienteDocumento [id=" + id + ", expediente=" + expediente + ", fechaPresentacion="
-				+ fechaPresentacion + ", documento=" + Arrays.toString(documento) + ", titulo=" + titulo + "]";
+				+ fechaPresentacion + ", documento=" + documento + ", titulo=" + titulo + "]";
 	}
 
+	
 	
 }

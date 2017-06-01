@@ -1,9 +1,14 @@
 package py.com.sigj.expediente.domain;
 
+import java.util.Arrays;
+
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -29,15 +34,9 @@ public class Documento extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "documento.descripcion.notNull")
-	@NotBlank(message = "documento.descripcion.notBlank")
-	@Size(max = 60, message = "documento.descripcion.size")
-	private String descripcion;
-
-	@NotNull(message = "documento.linkPdf.notNull")
-	@NotBlank(message = "documento.linkPdf.notBlank")
-	@Size(max = 60, message = "documento.linkPdf.size")
-	private String linkPdf;
+	@Lob
+	@Basic(fetch = FetchType.LAZY, optional = true)
+	private byte[] documento;// documento
 
 	public Documento() {
 
@@ -53,25 +52,19 @@ public class Documento extends GenericEntity {
 		this.id = id;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public byte[] getDocumento() {
+		return documento;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getLinkPdf() {
-		return linkPdf;
-	}
-
-	public void setLinkPdf(String linkPdf) {
-		this.linkPdf = linkPdf;
+	public void setDocumento(byte[] documento) {
+		this.documento = documento;
 	}
 
 	@Override
 	public String toString() {
-		return "Documento [id=" + id + ", descripcion=" + descripcion + ", linkPdf=" + linkPdf + "]";
+		return "Documento [id=" + id + ", documento=" + Arrays.toString(documento) + "]";
 	}
+
+	
 
 }

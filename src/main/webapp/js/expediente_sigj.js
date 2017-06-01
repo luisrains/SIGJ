@@ -389,8 +389,10 @@ function registrar_expediente(){
 function agregar_actuacion(){
 	var id_expediente = $("#id-expediente").val();
 	if(id_expediente == null || id_expediente == undefined || id_expediente == ""){ // solo para probar si llega al controlador
-		id_expediente = 0;
+		id_expediente = 952;
 	}
+	//cambiar
+	id_expediente = 902;
 	var url = '/sigj/expediente/ver-documento?expediente='+id_expediente;
 	location.href = url;
 }

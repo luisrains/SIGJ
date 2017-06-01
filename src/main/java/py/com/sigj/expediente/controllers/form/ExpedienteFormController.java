@@ -1,6 +1,5 @@
 package py.com.sigj.expediente.controllers.form;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,31 +7,27 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.AbogadoListController;
-import py.com.sigj.expediente.controllers.list.MovimientoActuacionListController;
 import py.com.sigj.expediente.controllers.list.ClienteListController;
 import py.com.sigj.expediente.controllers.list.ExpedienteListController;
 import py.com.sigj.expediente.controllers.list.MateriaListController;
+import py.com.sigj.expediente.controllers.list.MovimientoActuacionListController;
 import py.com.sigj.expediente.dao.AbogadoDao;
 import py.com.sigj.expediente.dao.DespachoDao;
+import py.com.sigj.expediente.dao.DocumentoDao;
 import py.com.sigj.expediente.dao.EstadoExternoInternoDao;
 import py.com.sigj.expediente.dao.ExpedienteAbogadoDao;
 import py.com.sigj.expediente.dao.ExpedienteClienteDao;
@@ -43,12 +38,12 @@ import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoActuacionDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
+import py.com.sigj.expediente.domain.Documento;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.ExpedienteDocumento;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
-import py.com.sigj.expediente.domain.TipoActuacion;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
 
@@ -83,6 +78,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private ClienteDao clienteDao;
+	
+	@Autowired
+	private DocumentoDao documentoDao;
 
 	@Autowired
 	private MateriaDao materiaDao;
@@ -280,7 +278,11 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				
 				MultipartFile multipartFile = documento;
 				byte[] doc = multipartFile.getBytes();
-				expedienteDoc.setDocumento(doc);
+				Documento docu = new Documento();
+				docu.setDocumento(doc);
+				documentoDao.create(docu);
+				docu.setDocumento(doc);
+				expedienteDoc.setDocumento(docu);
 				expedienteDoc.setTitulo(titulo);
 				expedienteDoc.setFechaPresentacion(fechaNow);
 				
@@ -314,11 +316,11 @@ public class ExpedienteFormController extends FormController<Expediente> {
 //			doc = ac.get
 			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente(id_exp);
 					logger.info("listado ..{}",listExpDoc);
-			return "";
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "expediente/actuacion" ;
+		return "expediente/actuacion_hojear" ;
 		
 		
 	}
