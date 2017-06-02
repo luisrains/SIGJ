@@ -11,7 +11,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
-import py.com.sigj.expediente.domain.Expediente;
+import py.com.sigj.expediente.domain.ExpedienteCliente;
+import py.com.sigj.expediente.domain.MovimientoActuacion;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
@@ -31,13 +32,13 @@ public class Dashboard {
 
 	@RequestMapping("inicio")
 	public String start(ModelMap map) {
-		Long cedula = (long) 121321;
-		List<Expediente> exp = expedienteDao.getListByCedulaRuc(cedula);
+		String cedula = "121321";
+		List<ExpedienteCliente> exp = expedienteDao.getListByCedulaRuc(cedula);
 		
-//		for (Expediente expe : exp) {
-//			List<MovimientoActuacion> actuaciones = movimientoActuacionDao.getListActuacionByExpediente(expe.getId());
-//		
-//		}
+		for (ExpedienteCliente expe : exp) {
+			MovimientoActuacion actuacion = movimientoActuacionDao.getListActuacionByExpediente(expe.getExpediente().getId());
+			
+		}
 		map.addAttribute("expediente", exp);
 		return "inicio";
 	}

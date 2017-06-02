@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -49,7 +50,7 @@ public class MovimientoActuacion extends GenericEntity {
 	@Size(max = 100, message = "movimiento_actuacion.observacion.size")
 	private String observacion;
 	
-	@Temporal(TemporalType.DATE)
+	@Column
 	private Date fechaPresentacion;
 	
 	@Temporal(TemporalType.DATE)

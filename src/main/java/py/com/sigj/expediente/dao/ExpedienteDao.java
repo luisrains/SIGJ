@@ -4,8 +4,9 @@ import java.util.List;
 
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.domain.Expediente;
+import py.com.sigj.expediente.domain.ExpedienteCliente;
 
 public interface ExpedienteDao extends Dao<Expediente> {
 
-	public List<Expediente> getListByCedulaRuc(Long cedula);
+	public List<ExpedienteCliente> getListByCedulaRuc(String cedula);
 }
