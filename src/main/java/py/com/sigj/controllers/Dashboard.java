@@ -13,6 +13,7 @@ import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
+import py.com.sigj.util.ExpedienteActuacionBean;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
@@ -34,12 +35,19 @@ public class Dashboard {
 	public String start(ModelMap map) {
 		String cedula = "121321";
 		List<ExpedienteCliente> exp = expedienteDao.getListByCedulaRuc(cedula);
+		ExpedienteActuacionBean exAc = null;
 		
 		for (ExpedienteCliente expe : exp) {
 			MovimientoActuacion actuacion = movimientoActuacionDao.getListActuacionByExpediente(expe.getExpediente().getId());
+			if(actuacion != null){
+				exAc = new ExpedienteActuacionBean();
+				exAc.setActuacion(actuacion);
+				exAc.setExpediente(expe.getExpediente());
+			}
 			
 		}
 		map.addAttribute("expediente", exp);
+		map.addAttribute("expedienteActuacionBean", exAc);
 		return "inicio";
 	}
 

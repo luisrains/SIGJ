@@ -1,5 +1,7 @@
 package py.com.sigj.expediente.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
@@ -22,20 +24,31 @@ public class MovimientoActuacionDaoImpl extends DaoImpl<MovimientoActuacion> imp
 	@Override
 	public MovimientoActuacion getListActuacionByExpediente(Long id_expediente) {
 		logger.info("Obteniendo actuacion del expediente: {}", id_expediente);
-
+		List<MovimientoActuacion> actu = null;
 		String sql = "SELECT object(MovimientoActuacion) FROM MovimientoActuacion AS MovimientoActuacion";
 		Query query = null;
 		// Usuario no envió ningún filtro
 
-		if (id_expediente!= null) {
+		if (id_expediente== null) {
 			query = entityManager.createQuery(sql);		
-			} else {
+		} else {
 			sql = sql + " WHERE expediente_id = ?1" ;
 			query = entityManager.createQuery(sql);
 			query.setParameter(1,id_expediente);
 		}
-		MovimientoActuacion actu = (MovimientoActuacion) query.getSingleResult();
-		logger.info("Documentos encontrados: {}", actu);
-		return actu;
+		try {
+			actu = query.getResultList();
+			logger.info("Movimientos encontrados: {}", actu);
+			if(!actu.isEmpty()){
+				return actu.get(0);
+			}else{
+				return null;
+			}
+		} catch (Exception e) {
+			logger.info("No se encontraron actuaciones en el expediente");
+			return null;
+		}
+		
+		
 	}
 }

@@ -39,7 +39,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 
 		if (cedula!= null) {
 			query = entityManager.createQuery(sql);
-			query.setParameter(1,"121321");		
+			query.setParameter(1,cedula);		
 			} else {
 			sql = sql + " WHERE ec.cliente_id = ?1" ;
 			query = entityManager.createQuery(sql);
