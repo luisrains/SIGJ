@@ -43,7 +43,7 @@ public class ExpedienteDocumentoDaoImpl extends DaoImpl<ExpedienteDocumento> imp
 		} else {
 			sql = sql + " WHERE expediente_id = ?1 order by fechapresentacion asc" ;
 			query = entityManager.createQuery(sql);
-			query.setParameter(1,(long)1102);
+			query.setParameter(1,(long)1152);
 		}
 		Documento d = documentoDao.find((long)52);
 		List<ExpedienteDocumento> list = query.getResultList();

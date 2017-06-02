@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lowagie.text.pdf.codec.Base64;
+
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
@@ -282,7 +284,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				docu.setDocumento(doc);
 				documentoDao.create(docu);
 				docu.setDocumento(doc);
-				expedienteDoc.setDocumento(docu);
+				expedienteDoc.setDocumento(doc);
 				expedienteDoc.setTitulo(titulo);
 				expedienteDoc.setFechaPresentacion(fechaNow);
 				
@@ -317,6 +319,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente(id_exp);
 					logger.info("listado ..{}",listExpDoc);
 			
+				String base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
+				map.addAttribute("base",base64String);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

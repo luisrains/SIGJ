@@ -14,18 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import py.com.sigj.main.GenericEntity;
 
@@ -53,8 +47,9 @@ public class ExpedienteDocumento extends GenericEntity {
 	@Column
 	private Date fechaPresentacion;
 
-	@OneToOne
-	private Documento documento;// documento
+	@Lob
+	@Basic(fetch = FetchType.LAZY, optional = true)
+	private byte[] documento;// documento
 	
 	@NotNull(message = "expediente_documento.titulo.notNull")
 	@NotBlank(message = "expediente_documento.titulo.notBlank")
@@ -97,20 +92,18 @@ public class ExpedienteDocumento extends GenericEntity {
 		this.titulo = titulo;
 	}
 
-	public Documento getDocumento() {
+	public byte[] getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(Documento documento) {
+	public void setDocumento(byte[] documento) {
 		this.documento = documento;
 	}
 
 	@Override
 	public String toString() {
 		return "ExpedienteDocumento [id=" + id + ", expediente=" + expediente + ", fechaPresentacion="
-				+ fechaPresentacion + ", documento=" + documento + ", titulo=" + titulo + "]";
-	}
-
-	
+				+ fechaPresentacion + ", documento=" + Arrays.toString(documento) + ", titulo=" + titulo + "]";
+	}	
 	
 }
