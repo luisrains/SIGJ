@@ -267,7 +267,7 @@
              //dataTable.column( 0 ).visible( false );
              console.log("creando data:", dataTable)
              //codigo que selecciona la fila
-             $('#'+ dataTableId + ' tbody').on( 'click', 'tr', function () {
+             $('#'+ dataTableId + ' tbody').on( 'change', 'tr', function () {
          		if ( $(this).hasClass('checked') ) {
          			$(this).removeClass('checked');
          			$(".object_id").val("");
