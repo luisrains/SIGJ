@@ -187,7 +187,7 @@ var demandado = "";
 var apoderado = "";
 var contraparte = "";
 function agregar_demandado(){
-	var seleccion = $('input[name=tipo_cliente]:checked').val();
+	var seleccion = $('input[name=tipos_personas]:checked').val();
 	var seleccionDT = $("#clienteDT tbody tr").find(":checked");
 	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined && $('input:radio[name=radio-dt]').is(":checked") === true ){
 		if(seleccion == 'D'){
@@ -261,7 +261,7 @@ function agregar_demandado(){
 	
 }
 function agregar_abogado(){
-	var seleccion = $('input[name=tipo_abogado]:checked').val();
+	var seleccion = $('input[name=tipos_personas]:checked').val();
 	var seleccionDT = $("#abogadoDT tbody tr").find(":checked");
 	if(seleccionDT != null && seleccionDT != "" && seleccionDT != undefined && $('input:radio[name=radio-dt]').is(":checked") === true){
 		if(seleccion == 'AP'){
