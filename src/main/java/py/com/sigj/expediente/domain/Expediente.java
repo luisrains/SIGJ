@@ -75,6 +75,11 @@ public class Expediente extends GenericEntity {
 	@NotNull(message = "expediente.despacho.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
 	private Despacho despachoActual;
+	
+	@ManyToOne
+	@NotNull(message = "expediente.estado.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estado_fk"))
+	private EstadoExternoInterno estado;
 
 	public Expediente() {
 	}
@@ -161,11 +166,22 @@ public class Expediente extends GenericEntity {
 		this.despachoActual = despachoActual;
 	}
 
+	
+	
+	public EstadoExternoInterno getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoExternoInterno estado) {
+		this.estado = estado;
+	}
+
 	@Override
 	public String toString() {
 		return "Expediente [id=" + id + ", caratula=" + caratula + ", nroExpediente=" + nroExpediente + ", anho=" + anho
 				+ ", monto=" + monto + ", moneda=" + moneda + ", folio=" + folio + ", nroLiquidacion=" + nroLiquidacion
-				+ ", fechaSelloCargo=" + fechaSelloCargo + ", despachoActual=" + despachoActual + "]";
+				+ ", fechaSelloCargo=" + fechaSelloCargo + ", despachoActual=" + despachoActual + ", estado=" + estado
+				+ "]";
 	}
 	
 }

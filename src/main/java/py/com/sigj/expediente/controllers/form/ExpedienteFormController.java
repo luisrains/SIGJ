@@ -110,6 +110,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	@Autowired
 	private ExpedienteDocumentoDao expedienteDocumentoDao;
+	
 
 	@Override
 	public String getTemplatePath() {
@@ -210,6 +211,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidación"));
 				// validar el despacho
 				Long id_desp = (Long) Long.parseLong((String) rdExpediente.get("despacho"));
+				Long id_estado = (Long) Long.parseLong((String) rdExpediente.get("estado"));
+				obj.setEstado(estadoDao.find(id_estado));
 				obj.setDespachoActual(despachoDao.find(id_desp));
 
 				if (obj.getId() == null && listaAbogados != null) {

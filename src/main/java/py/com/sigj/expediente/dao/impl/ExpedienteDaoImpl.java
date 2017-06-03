@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import py.com.sigj.dao.impl.DaoImpl;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.domain.Expediente;
+import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 
 //hibernate recomendia repository para cuando trabaja con transacciones de base de datos, le decis que vas a trabajar con base de datos directos
@@ -19,15 +20,15 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 
 	@Override
 	public String getCamposFiltrables() {
-		return "caratula||nroExpediente||anho||moneda||objetoCausa||nroLiquidación";
+		return "caratula||nroExpediente||anho||moneda||estado.descripcion||nroLiquidación";
 	}
 
 	@Override
-	public List<ExpedienteCliente> getListByCedulaRuc(String cedula) {
+	public List<ExpedienteAbogado> getListByCedulaRuc(String cedula) {
 		logger.info("Obteniendo lista de expedientes..");
 
-		String sql = "SELECT object(ExpedienteCliente) FROM ExpedienteCliente AS ExpedienteCliente WHERE cliente_id = "
-				+ "(SELECT id FROM Cliente WHERE persona_id = (SELECT id FROM Persona WHERE cedula_ruc = ?1) )"; 
+		String sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id = "
+				+ "(SELECT id FROM Abogado WHERE empleado_id = (SELECT id FROM Empleado WHERE persona_id = (SELECT id FROM Persona WHERE cedula_ruc= ?1)))"; 
 //		INNER JOIN ExpedienteCliente WHERE id = expediente_id";
 //				+ " WHERE ExpedienteCliente.cliente_id = ?1";
 //				+ "ON e.id = ec.expediente_id JOIN Cliente AS c "
@@ -41,11 +42,11 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			query = entityManager.createQuery(sql);
 			query.setParameter(1,cedula);		
 			} else {
-			sql = sql + " WHERE ec.cliente_id = ?1" ;
+			sql = sql + " WHERE ec.abogado_id = ?1" ;
 			query = entityManager.createQuery(sql);
 			query.setParameter(1,(long)2);
 		}
-		List<ExpedienteCliente> list = query.getResultList();
+		List<ExpedienteAbogado> list = query.getResultList();
 		logger.info("Documentos encontrados: {}", list);
 		return list;
 	}

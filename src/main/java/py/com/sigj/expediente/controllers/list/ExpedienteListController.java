@@ -20,8 +20,7 @@ public class ExpedienteListController extends ListController<Expediente> {
 
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "caratula", "nroExpediente", "anho", "monto", "moneda", "objetoCausa",
-				"nroLiquidación", "fechaSelloCargo" };
+		return new String[] { "id", "caratula", "nroExpediente", "anho", "monto", "moneda", "estado.descripcion", "fechaSelloCargo" };
 	}
 
 	@Override

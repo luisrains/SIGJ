@@ -194,7 +194,7 @@ function agregar_demandado(){
 			if(demandante == ""){
 				demandante = "["+ $("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
 				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_cliente]:checked').val();
+				var tipo =  seleccion;
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
 				$("#o-nombre_demandante").text($("#clienteDT tbody tr.checked td").eq(3).text());
 				$("#o-apellido_demandante").text($("#clienteDT tbody tr.checked td").eq(4).text());
@@ -203,7 +203,7 @@ function agregar_demandado(){
 				demandante = demandante.substr(0,demandante.length-1);
 				demandante = demandante + ", "+$("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
 				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_cliente]:checked').val();
+				var tipo =  seleccion;
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
 			}
 //			demandante.id = $("#clienteDT tbody tr.selected td").eq(0).text();
@@ -222,7 +222,7 @@ function agregar_demandado(){
 				demandado = "["+ $("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
 			
 				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_cliente]:checked').val();
+				var tipo =  seleccion;
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
 				$("#o-nombre_demandado").text($("#clienteDT tbody tr.checked td").eq(3).text());
 				$("#o-apellido_demandado").text($("#clienteDT tbody tr.checked td").eq(4).text());
@@ -231,7 +231,7 @@ function agregar_demandado(){
 				demandado = demandado.substr(0,demandado.length-1);
 				demandado = demandado + ", "+$("#clienteDT tbody tr.checked td").eq(3).text() + " " + $("#clienteDT tbody tr.checked td").eq(2).text() + "]";
 				var id = $("#clienteDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_cliente]:checked').val();
+				var tipo =  seleccion;
 				clientes.push({"id_cliente":id, "tipo_cliente": tipo });
 			}
 			
@@ -269,13 +269,13 @@ function agregar_abogado(){
 				apoderado = "["+ $("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
 				
 				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_abogado]:checked').val();
+				var tipo =  seleccion;
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
 				apoderado = apoderado.substr(0,apoderado.length-1);
 				apoderado = apoderado + ", "+$("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
 				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_abogado]:checked').val();
+				var tipo =  seleccion;
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			
 			}
@@ -294,13 +294,13 @@ function agregar_abogado(){
 				contraparte = "["+ $("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
 				
 				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_abogado]:checked').val();
+				var tipo = seleccion;
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			}else{
 				contraparte = contraparte.substr(0,contraparte.length-1);
 				contraparte = contraparte + ", "+$("#abogadoDT tbody tr.checked td").eq(3).text() + " " + $("#abogadoDT tbody tr.checked td").eq(2).text() + "]";
 				var id = $("#abogadoDT tbody tr.checked td").eq(1).text();
-				var tipo = $('input[name=tipo_abogado]:checked').val();
+				var tipo = seleccion;
 				abogado.push({"id_abogado":id, "tipo_abogado": tipo });
 			
 			}
@@ -369,6 +369,7 @@ function registrar_expediente(){
 	expediente.monto = $("#monto").val();
 	expediente.nroExpediente = $("#nro_caract").text();
 	expediente.fecha = $('input[name=fecha]').val();
+	expediente.estado = $('#estadoExterno').val();
 	expediente.nroLiquidacion = $("#nroLiquidacion").val();
 	expediente.despacho = $("#despacho").val();
 	rInfo.mapa.expediente =  expediente;
@@ -389,10 +390,10 @@ function registrar_expediente(){
 function agregar_actuacion(){
 	var id_expediente = $("#id-expediente").val();
 	if(id_expediente == null || id_expediente == undefined || id_expediente == ""){ // solo para probar si llega al controlador
-		id_expediente = 952;
+		id_expediente = 0;
 	}
 	//cambiar
-	id_expediente = 902;
+	
 	var url = '/sigj/expediente/ver-documento?expediente='+id_expediente;
 	location.href = url;
 }
