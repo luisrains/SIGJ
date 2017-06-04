@@ -22,7 +22,26 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 	public String getCamposFiltrables() {
 		return "caratula||nroExpediente||anho||moneda||estado.descripcion||nroLiquidación";
 	}
+	
+	@Override
+	public List<ExpedienteCliente> getListByCedulaRucCliente(String cedula){
+		String sql = "SELECT object(ExpedienteCliente) FROM ExpedienteCliente AS ExpedienteCliente WHERE cliente_id = " 
+		        + "(SELECT id FROM Cliente WHERE persona_id = (SELECT id FROM Persona WHERE cedula_ruc = ?1) )";
+		
+		
+		sql = sql.replace("#ENTITY#", getEntityName());
+		Query query = null;
+		// Usuario no envió ningún filtro
 
+		if (cedula!= null) {
+			query = entityManager.createQuery(sql);
+			query.setParameter(1,cedula);
+		}
+		List<ExpedienteCliente> list = query.getResultList();
+		logger.info("Expedientes del cliente encontrado: {}", list);
+		 return list;
+	}
+	
 	@Override
 	public List<ExpedienteAbogado> getListByCedulaRuc(String cedula) {
 		logger.info("Obteniendo lista de expedientes..");

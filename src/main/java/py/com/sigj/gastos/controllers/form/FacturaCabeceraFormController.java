@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,8 +33,13 @@ import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.dao.ClienteFacturaDao;
+import py.com.sigj.expediente.dao.ExpedienteDao;
+import py.com.sigj.expediente.dao.ExpedienteFacturaDao;
 import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.ClienteFactura;
+import py.com.sigj.expediente.domain.Expediente;
+import py.com.sigj.expediente.domain.ExpedienteCliente;
+import py.com.sigj.expediente.domain.ExpedienteFactura;
 import py.com.sigj.gastos.controllers.list.FacturaCabeceraListController;
 import py.com.sigj.gastos.controllers.list.ServicioListController;
 import py.com.sigj.gastos.dao.FacturaCabeceraDao;
@@ -70,6 +76,12 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 	@Autowired
 	private FacturaDetalleDao facturaDetalleDao;
 	
+	@Autowired
+	private ExpedienteDao expedienteDao;
+	
+	@Autowired
+	private ExpedienteFacturaDao expedienteFacturaDao;
+	
 	@Override
 	public String getTemplatePath() {
 		return "gastos/factura_cabecera_index";
@@ -91,7 +103,23 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 		map.addAttribute("columnasStr", facturaCabeceraList.getColumnasStr(null));
 		map.addAttribute("listaServicios", servicioDao.getList(0, 20, null));
 		map.addAttribute("clienteList", clienteDao.getList(0, 100, null));
+		
 		super.agregarValoresAdicionales(map);
+	}
+	
+	
+	@RequestMapping(value = "/cliente-exp", method = RequestMethod.GET)
+	public  String clienteExpediente(HttpServletRequest request,
+			@RequestParam(value = "cliente", required = false) String cliente,ModelMap map) throws Exception{
+		Long id_cliente = Long.parseLong(cliente);
+		Cliente c = new Cliente();
+		if(id_cliente != 0){
+			c = clienteDao.find(id_cliente);
+		}
+		java.util.List<ExpedienteCliente> list = expedienteDao.getListByCedulaRucCliente(c.getPersona().getCedula_ruc());
+		map.addAttribute("expedienteList",list);
+		return "gastos/factura_cabecera_form :: expedienteList";
+		//return  new ModelAndView("gastos/factura_cabecera_index","expedienteList", expedienteDao.getListByCedulaRucCliente(c.getPersona().getCedula_ruc()));
 	}
 	@RequestMapping(value = "/factura/confirmar", method = RequestMethod.GET)
 	public @ResponseBody String confirmarFactura(HttpServletRequest request,ModelMap map) throws Exception{
@@ -127,15 +155,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 		servicio = servicioDao.getList(0, 20, null);
 		
 		
-		/*Set ref1 = nz.keySet();
-		Iterator it3 = ref1.iterator();
-		while(it3.hasNext()) { 
-            String s = (String)it3.next();
-            String s1 = (String)nz.get(s);
-            logger.info(s);
-            logger.info(s1);
-        }
-		*/
+		
 		try{
 			fc.setDireccion(mapaFc.get("direccion"));
 			fc.setFechaEmision(mapaFc.get("fecha_emision"));
@@ -150,6 +170,8 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 			fc.setTotalIvaDiez(Integer.parseInt(totalIvaDiez));
 			facturaCabeceraDao.create(fc);
 			String id =  session.getAttribute("cliente").toString();
+			String id_exp =  session.getAttribute("expediente").toString();
+			Long id_expediente = Long.parseLong(id_exp);
 			Long id_cliente = Long.parseLong(id);
 			if(id_cliente != 0){
 				ClienteFactura cf = new ClienteFactura();
@@ -157,6 +179,14 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 				cf.setCliente(cliente);
 				cf.setFactura(fc);
 				clienteFacturaDao.create(cf);
+				if(id_expediente != 0){
+					ExpedienteFactura ef = new ExpedienteFactura();
+					Expediente expediente = expedienteDao.find(id_expediente);
+					ef.setFactura(fc);
+					ef.setExpediente(expediente);
+					expedienteFacturaDao.create(ef);
+					
+				}
 			}
 			while(Integer.parseInt(j) <= index){
 				k=0;
@@ -238,6 +268,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 	@RequestMapping(value = "/factura", method = RequestMethod.GET)
 	public String generarFactura(HttpServletRequest request,ModelMap map,
 			@RequestParam(value = "cliente", required = true) String cliente,
+			@RequestParam(value = "expediente", required = true) String expediente,
 			@RequestParam(value = "factura_cabecera", required = true) String facturaCabecera,
 			@RequestParam(value = "factura_detalle", required = true) String facturaDetalle) throws JsonParseException, JsonMappingException, IOException {
 			
@@ -305,6 +336,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 			session.setAttribute("monto_total", montoTotal);
 			session.setAttribute("total_iva_5", totalIvaCinco);
 			session.setAttribute("cliente", cliente);
+			session.setAttribute("expediente", expediente);
 			session.setAttribute("total_iva_10", totalIvaDiez);
 			mapaFd.remove("monto_total", mapaFd.get("monto_total"));
 			mapaFd.remove("total_iva_10", mapaFd.get("total_iva_10"));

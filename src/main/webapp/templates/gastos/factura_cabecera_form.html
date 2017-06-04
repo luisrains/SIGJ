@@ -50,8 +50,20 @@
 									th:text="${cliente.persona.cedula_ruc + ' '+ cliente.persona.nombre_razonSocial + ' '+ cliente.persona.apellido}">Prueba</option>
 			</select>
 			</div>
-			<input type="hidden" id="cliente_ruc" value="">
-			<input type="hidden" id="cliente_razonSocial" value="">
+			
+			<div id="expediente-div" class="form-group col-sm-7 hidden">
+			<label for="expediente" th:text="#{factura_cabecera.expediente.lbl}" class="field-label"></label>
+			
+			<select class="col-xs-12 col-sm-12 factura-expediente"
+									id="expediente-factura" name="expediente-factura" >
+								
+							 <option th:fragment="expedienteList" th:each=" exp : ${expedienteList}" th:value="${exp.expediente.id}"
+									th:text="#{expediente.nroExpediente} + ': ' + ${exp.expediente.nroExpediente}">Prueba</option>
+							<option value="0" selected>Seleccione el expediente a Facturar</option>
+			</select>
+			
+			</div>
+			
 			<div class="form-group col-sm-6">
 				<label for="ruc" th:text="#{factura_cabecera.ruc.lbl}"
 					class="field-label">Ruc:</label> <input type="text" id="ruc"
@@ -176,6 +188,15 @@
 				}
 			}
 		});
+		
+		$(".factura-expediente").select2({
+			placeholder : "Seleccione el Expediente...",
+			language : {
+				noResults : function(params) {
+					return "No existen registros.";
+				}
+			}
+		});
 		$(".descripcion").select2({
 			placeholder : "Seleccione el Servicio...",
 			language : {
@@ -185,10 +206,40 @@
 			}
 		});
 		var seleccion="";
+		var expediente_select = "";
 		$("#cliente").on('change',function(e){
 			seleccion = $("select[name=cliente]").find("option:selected").val();
+			if(seleccion == 0){
+				$("#expediente-div").addClass("hidden");
+			}
+			  $("#expediente-factura").load('factura_cabecera/cliente-exp?cliente='+seleccion, function(response, status, xhr) {
+				 if(status == "success"){
+					 $('#expediente-factura').append('<option value="0" selected="selected">Seleccione el expediente a Facturar</option>');
+					 $("#expediente-div").removeClass("hidden");
+				 }
+			  }); 
+			
+			 /* $.ajax({
+		           type: "GET",
+		           url: "factura_cabecera/cliente-exp",
+		           data: { 
+		               cliente: seleccion
+		           }
+		       }).done(function(data){
+		           
+		           console.log(data);
+		           $("#expediente-factura").html(data);
+		           $("#expediente-div").removeClass("hidden");
+		           
+		          
+		           
+		       }); */
 			
 		});
+		$("#expediente-factura").on('change',function(e){
+			expediente_select = $("select[name=expediente-factura]").find("option:selected").val();
+		});
+		
        $("#btn-cabecera").on('click',function(e){
            console.log("entro en el onclick");
            var map = new Array();
@@ -261,6 +312,7 @@
                dataType:"json",
         	   factura_cabecera: jsonStringCab,
         	   cliente : seleccion,
+        	   expediente : expediente_select,
                factura_detalle: jsonStringDet
            }
        }).done(function(data){
