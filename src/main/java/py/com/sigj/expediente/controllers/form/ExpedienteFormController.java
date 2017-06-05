@@ -324,6 +324,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			
 				String base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
 				map.addAttribute("base",base64String);
+				map.addAttribute("id_expediente", id_exp);
+				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
+				logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -332,5 +335,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		
 	}
 	
-
+	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
+	public String MovimientoAgregar(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "expediente") String id_exp,
+			@RequestParam(value = "fecha-presentacion") String fecha_presentacion,
+			@RequestParam(value = "fecha-vencimiento") String fecha_vencimiento,
+			@RequestParam(value = "movimiento-observacion") String observacion,
+			@RequestParam("documento") MultipartFile documento) {
+		
+		
+		return "ok"; //modificar luego	
+		
+	}
 }
