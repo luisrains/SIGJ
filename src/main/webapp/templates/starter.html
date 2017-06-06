@@ -180,6 +180,8 @@
 									style="color: blue"></i>Consultar Expediente</a></li>
 							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
 									style="color: blue"></i>Registrar Juicio</a></li>
+							<li><a th:href="@{/expediente/buscar}"><i class="fa fa-search"
+									style="color: blue"></i>Buscar Expediente</a></li>		
 						</ul></li>
 
 					<!-- Menú de Gastos -->
@@ -338,19 +340,19 @@
 						}
 					});
 					$(".menu-expedientes").on("click",function(){ 
-					      (".menu-expedientes").addClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
+					      $(".menu-expedientes").addClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
 					    });   
 					    $(".menu-rrhh").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").addClass("active"); 
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").addClass("active"); 
 					    }); 
 					    $(".menu-gastos").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").addClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").addClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
 					    });  	
 					
 								/*]]>*/

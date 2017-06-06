@@ -347,4 +347,17 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		return "ok"; //modificar luego	
 		
 	}
+	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
+	public String buscar(HttpServletRequest request, ModelMap map) {
+		return "expediente/buscar_expediente";
+	}
+	@RequestMapping(value = "buscar-resultado", method = RequestMethod.GET)
+	public String buscar_seccion2(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "nro_expediente") String nroExpediente) {
+		
+			List<Expediente> expediente = expedienteDao.getListAll(nroExpediente);
+			
+			map.addAttribute("expedienteList",expediente);
+		return "expediente/buscar_expediente :: expedienteList";
+	}
 }

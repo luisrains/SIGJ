@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+
+	<div class="row" th:fragment="contenido">
+
+		<div class="col-xs-12 col-sm-12 no-padding body-style">
+			<div class="box box-solid box-primary box-pc">
+				<div class="box-header">
+					<h3>Busqueda de Expedientes</h3>
+				</div>
+				<div class="box-body"></div>
+				    
+					<div class="container">
+	<div class="row">
+        <div class="col-md-6">
+    		<h2>Introduzca un campo de Referencia</h2>
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" name="nroExpediente" class="form-control input-lg" placeholder="Buscar" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg btn-expediente" style="background-color:orange;" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+					<div class="col-sm-12 hidden expediente-div">
+					<div id="expediente-resultado" class="col-sm-12" style="margin-top:10px;border-top-color:red;border-top-style:solid;" th:fragment="expedienteList" th:each="exp : ${expedienteList}">
+						<div class="form-group" style="margin-left:5px;">
+						<label>N° Expediente:</label>
+							<span class="texto-resultado" th:text="${exp.nroExpediente}"></span>
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Año:</label>
+							<span class="texto-resultado" th:text="${exp.anho}"></span>
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Folio:</label>
+							<span class="texto-resultado" th:text="${exp.folio}"></span>
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Fecha Sello:</label>
+							<span class="texto-resultado" th:text="${exp.fechaSelloCargo}"></span>
+						<!-- /.input group -->
+						
+						</div>
+						
+						<div class="form-group" style="margin-left:5px;">
+						<label>Monto:</label>
+							<span class="texto-resultado" th:text="${exp.monto} + ' '+ ${exp.moneda}"></span>
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Caratula:</label>
+							<span class="texto-resultado" th:text="${exp.caratula}"></span>
+						<!-- /.input group -->
+						
+						</div>
+					</div>
+					</div>
+					<div class="alert alert-danger div-error hidden" style="margin-top:10px;margin-left:15px;margin-right:15px;">
+  						<strong>No existen Expedientes con ese campo</strong>
+					</div>
+					<script type="text/javascript">
+       				
+          
+				       $(".btn-expediente").on('click',function(e){
+				           console.log("entro en el onclick");
+				            var nro_expediente = $('input[name=nroExpediente]').val();
+				            
+				       $.ajax({
+				           type: "GET",
+				           url: "/sigj/expediente/buscar-resultado",
+				           data: { 
+				               nro_expediente : nro_expediente
+				           }
+				       }).done(function(data){
+				           console.log("entro en el ajax");
+				           console.log(data);
+				           /* $("#expediente-resultado").load(); */
+				           if(data == ""){
+				        	   $(".div-error").removeClass("hidden");
+				        	   $(".expediente-div").addClass("hidden");  
+				           }else{
+				        	   $(".expediente-div").removeClass("hidden");
+				        	   $(".div-error").addClass("hidden");
+					           $(".expediente-div").html(data); 
+				           }
+				          
+				          
+				           
+				       });
+				       });
+      
+      			 </script>
+				
+				
+			</div>
+		</div>
+
+		
+
+	</div>
+       
+
+</body>
+</html>

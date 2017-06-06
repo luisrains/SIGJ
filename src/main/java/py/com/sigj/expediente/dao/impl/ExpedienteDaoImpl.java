@@ -20,7 +20,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 
 	@Override
 	public String getCamposFiltrables() {
-		return "caratula||nroExpediente||anho||moneda||estado.descripcion||nroLiquidación";
+		return "caratula||nroExpediente||anho||moneda||estado.descripcion";
 	}
 	
 	@Override
