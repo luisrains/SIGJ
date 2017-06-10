@@ -11,5 +11,6 @@ public interface ExpedienteDao extends Dao<Expediente> {
 
 	public List<ExpedienteAbogado> getListByCedulaRuc(String cedula);
 	public List<ExpedienteCliente> getListByCedulaRucCliente(String cedula);
+	public List<Expediente> filtro(String nroExpediente,String abogado,String despacho, String estado, String anho);
 	
 }

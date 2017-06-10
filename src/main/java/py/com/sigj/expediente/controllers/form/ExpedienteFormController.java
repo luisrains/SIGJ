@@ -349,15 +349,23 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
 	public String buscar(HttpServletRequest request, ModelMap map) {
+		map.addAttribute("despachoList", despachoDao.getListAll(null));
+		map.addAttribute("abogadoList", abogadoDao.getListAll(null));
+		map.addAttribute("estadoList", estadoDao.getListAll(null));
 		return "expediente/buscar_expediente";
 	}
 	@RequestMapping(value = "buscar-resultado", method = RequestMethod.GET)
 	public String buscar_seccion2(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "anho") String anho,
+			@RequestParam(value = "estado") String estado,
+			@RequestParam(value = "despacho_buscar") String despacho,
+			@RequestParam(value = "abogado") String abogado,
 			@RequestParam(value = "nro_expediente") String nroExpediente) {
-		
-			List<Expediente> expediente = expedienteDao.getListAll(nroExpediente);
 			
+			List<Expediente> expediente = expedienteDao.filtro(nroExpediente,abogado,despacho,estado,anho);
+			String aux = (expediente.get(0).getNroExpediente() == null)?"expediente_abogado":"expediente";
 			map.addAttribute("expedienteList",expediente);
+			map.addAttribute("aux", aux);
 		return "expediente/buscar_expediente :: expedienteList";
 	}
 }

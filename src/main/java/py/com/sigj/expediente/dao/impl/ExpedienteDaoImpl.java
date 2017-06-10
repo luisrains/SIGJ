@@ -1,6 +1,9 @@
 package py.com.sigj.expediente.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Query;
 
@@ -67,6 +70,154 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 		}
 		List<ExpedienteAbogado> list = query.getResultList();
 		logger.info("Documentos encontrados: {}", list);
+		return list;
+	}
+
+	@Override
+	public List<Expediente> filtro(String nroExpediente, String abogado, String despacho, String estado, String anho) {
+
+		boolean band_exp = false;
+		boolean band_abg = false;
+		boolean band_est = false;
+		boolean band_anho = false;
+		boolean band_desp = false;
+		String sql = "";
+		Query query = null;
+		List<Expediente> list = new  ArrayList<Expediente>();
+		List<ExpedienteAbogado> list2 = new  ArrayList<ExpedienteAbogado>();
+		if(nroExpediente != null && !nroExpediente.equalsIgnoreCase("")){
+			if(!band_exp){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente = ?1";
+				band_exp = true;
+			}else{
+				sql = "AND nroexpediente= ?1";
+			}
+			
+		}
+		if(abogado != null && !abogado.equalsIgnoreCase("") && !abogado.equalsIgnoreCase("0")){
+			if(!band_exp){
+				sql = sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)";
+				band_abg = true;
+			}else{
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente=?1)";
+				band_abg = true;
+				band_exp = true;
+			}
+			
+		}
+		
+		
+		
+		if(estado != null && !estado.equalsIgnoreCase("") && !estado.equalsIgnoreCase("0")){
+			if(!band_exp && !band_abg){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estado_id = ?4";
+				band_est = true;
+			}
+			else if(!band_exp && band_abg){
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE estado_id=?4)";
+				band_abg = true;
+				band_est = true;
+			}
+			else if(band_exp && !band_abg){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente = ?1 AND estado_id = ?4";
+				band_exp = true;
+				band_est = true;
+			}else{
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND estado_id= ?4)";
+				band_exp = true;
+				band_est = true;
+				band_abg = true;
+			}
+		}
+		if(anho != null && ! anho.equalsIgnoreCase("")){
+			if(!band_exp && !band_abg && !band_est){
+				sql =  "SELECT object(Expediente) FROM Expediente AS Expediente WHERE anho = ?5";
+				band_anho = true;
+			}
+			else if(!band_exp && !band_abg && band_est){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estado_id = ?4 AND anho = ?5";
+				band_anho = true;
+				band_est = true;
+			}
+			else if(!band_exp && band_abg && band_est){
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE anho = ?5 AND estado_id= ?4)";
+				band_abg = true;
+				band_anho = true;
+				band_est = true;
+			}
+			else if(band_exp && band_abg && band_est){
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estado_id= ?4)";
+				band_abg = true;
+				band_anho = true;
+				band_est = true;
+				band_exp = true;
+			}
+		}
+		if(despacho != null && !despacho.equalsIgnoreCase("") && !despacho.equalsIgnoreCase("0")){
+			if(!band_exp && !band_abg && !band_est && !band_anho){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3";
+				band_desp = true;
+			}
+			else if(!band_exp && !band_abg && !band_est && band_anho){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND anho = ?5";
+				band_desp = true;
+				band_anho = true;
+			}
+			else if(!band_exp && !band_abg && band_est && band_anho){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND anho = ?5 AND estado_id= ?4";
+				band_est = true;
+				band_anho = true;
+				band_desp = true;
+			}
+			else if(band_exp && !band_abg && band_est && band_anho){
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente= ?1 AND despachoactual_id = ?3 AND anho = ?5 AND estado_id= ?4";
+				band_est = true;
+				band_exp = true;
+				band_desp = true;
+				band_anho = true;
+			}
+			else if(band_exp && band_abg && band_est && band_anho){
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estado_id= ?4 AND despachoactual_id = ?3)";
+				band_est = true;
+				band_exp = true;
+				band_desp = true;
+				band_anho = true;
+				band_abg = true;
+			}
+		}
+		
+		query = entityManager.createQuery(sql);
+		if(nroExpediente != null && !nroExpediente.equalsIgnoreCase("")){
+			query.setParameter(1,nroExpediente);
+		}
+		if(abogado != null && !abogado.equalsIgnoreCase("") && !abogado.equalsIgnoreCase("0")){
+			query.setParameter(2,Long.parseLong(abogado));
+		}
+		if(despacho != null && !despacho.equalsIgnoreCase("") && !despacho.equalsIgnoreCase("0")){
+			query.setParameter(3,Long.parseLong(despacho));
+		}
+		if(estado != null && !estado.equalsIgnoreCase("") && !estado.equalsIgnoreCase("0")){
+			query.setParameter(4,Long.parseLong(estado));
+		}
+		if(anho != null && ! anho.equalsIgnoreCase("")){
+			query.setParameter(5,anho);
+		}
+		
+		
+		String nombreClase =  getEntityName();
+		logger.info(nombreClase);
+		list = query.getResultList();
+		if(list == null){
+			for(int i=0;i< list2.size();i++){
+				list.add(list2.get(i).getExpediente());
+			}
+		}
 		return list;
 	}
 }

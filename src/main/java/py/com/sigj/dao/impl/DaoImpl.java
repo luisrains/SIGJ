@@ -154,6 +154,7 @@ public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {
 	public Class<T> getEntityClass() {
 		if (entityClass == null) {
 			ParameterizedType superClass = (ParameterizedType) this.getClass().getGenericSuperclass();
+			logger.info(String.valueOf(this.getClass()));
 			entityClass = (Class<T>) superClass.getActualTypeArguments()[0];
 		}
 		return entityClass;
