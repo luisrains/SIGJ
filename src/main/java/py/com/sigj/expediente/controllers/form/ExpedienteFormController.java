@@ -319,12 +319,26 @@ public class ExpedienteFormController extends FormController<Expediente> {
 //			ac = tipoActuacionDao.find(Long.parseLong(id_act));
 //			
 //			doc = ac.get
+			String base64String = "";
 			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente(id_exp);
-					logger.info("listado ..{}",listExpDoc);
-			
-				String base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
-				map.addAttribute("base",base64String);
+			logger.info("listado ..{}",listExpDoc);
+				if(listExpDoc != null && !listExpDoc.isEmpty()){
+					base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
+					map.addAttribute("base",base64String);
+				}
+				
+				Expediente expediente = new Expediente();
+				expediente = expedienteDao.find(Long.parseLong(id_exp));
+				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+				
+				
+				
+				
 				map.addAttribute("id_expediente", id_exp);
+				map.addAttribute("abogadoList", abogadoList);
+				map.addAttribute("clienteList", clienteList);
+				map.addAttribute("expediente", expediente);
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
 		} catch (Exception e) {
@@ -337,7 +351,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
 	public String MovimientoAgregar(HttpServletRequest request, ModelMap map,
-			@RequestParam(value = "expediente") String id_exp,
+			@RequestParam(value = "expediente") String id_exp,	
+			@RequestParam(value = "tipo-actuacion") String tipo_actuacion,
 			@RequestParam(value = "fecha-presentacion") String fecha_presentacion,
 			@RequestParam(value = "fecha-vencimiento") String fecha_vencimiento,
 			@RequestParam(value = "movimiento-observacion") String observacion,

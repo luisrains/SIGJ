@@ -1,7 +1,20 @@
+function modal_pag1(){
+	var tipo = $("#tipoDemanda").val();
+	var descripcion = $("#tipoDemanda").text();
+	if (tipo != 0 && tipo != '0') {
+		if (tipo != '1' || tipo != 1) {
+			$("#moneda").prop("disabled","disabled");
+			$("#monto").prop("disabled","disabled");
 
+		} else {
+			$("#moneda").prop("disabled",false);
+			$("#monto").prop("disabled",false);
+		}
+	}
+}
 /*
-    Archivo para el manejo de todos los datos relacionados al expediente
-*/
+ * Archivo para el manejo de todos los datos relacionados al expediente
+ */
  function createFileInput(){
 	 $('#file-es').fileinput({
  

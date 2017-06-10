@@ -50,12 +50,10 @@ public class Expediente extends GenericEntity {
 	@Size(max = 20, message = "expediente.anho.size")
 	private String anho;
 
-	@NotNull(message = "expediente.monto.notNull")
+	
 	private int monto;
 
-	@NotNull(message = "expediente.moneda.notNull")
-	@NotBlank(message = "expediente.moneda.notBlank")
-	@Size(max = 20, message = "expediente.moneda.size")
+	
 	private String moneda;
 
 	@NotNull(message = "expediente.folio.notNull")

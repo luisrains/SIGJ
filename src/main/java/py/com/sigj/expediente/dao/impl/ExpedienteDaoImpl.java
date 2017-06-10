@@ -220,4 +220,40 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 		}
 		return list;
 	}
+
+	@Override
+	public List<ExpedienteCliente> getListByExpedienteId(String id_expediente) {
+		
+		String sql = "SELECT object(ExpedienteCliente) FROM ExpedienteCliente AS ExpedienteCliente WHERE expediente_id = ?1"; 
+
+		Query query = null;
+		// Usuario no envió ningún filtro
+
+		if (id_expediente != null) {
+			query = entityManager.createQuery(sql);
+			query.setParameter(1,Long.parseLong(id_expediente));		
+			
+		}
+		List<ExpedienteCliente> list = query.getResultList();
+		logger.info("Documentos encontrados: {}", list);
+		return list;
+	}
+
+	@Override
+	public List<ExpedienteAbogado> getListByExpedienteIdAb(String id_expediente) {
+		String sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE expediente_id = ?1"; 
+
+		Query query = null;
+		// Usuario no envió ningún filtro
+
+		if (id_expediente != null) {
+			query = entityManager.createQuery(sql);
+			query.setParameter(1,Long.parseLong(id_expediente));		
+			
+		}
+		List<ExpedienteAbogado> list = query.getResultList();
+		logger.info("Documentos encontrados: {}", list);
+		return list;
+	
+	}
 }
