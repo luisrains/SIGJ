@@ -40,6 +40,7 @@ import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoActuacionDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
+import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.Documento;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
@@ -369,6 +370,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("estadoList", estadoDao.getListAll(null));
 		return "expediente/buscar_expediente";
 	}
+	
+	
 	@RequestMapping(value = "buscar-resultado", method = RequestMethod.GET)
 	public String buscar_seccion2(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "anho") String anho,
@@ -383,4 +386,17 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			map.addAttribute("aux", aux);
 		return "expediente/buscar_expediente :: expedienteList";
 	}
+
+
+
+	@RequestMapping(value = "/buscar-parte", method = RequestMethod.GET)
+	public String buscar_parte(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "search") String search) {
+			List<Cliente> listCliente = expedienteDao.buscarParte(search);
+			
+			map.addAttribute("listCliente", listCliente);
+			
+		return "expediente/expediente_resultado";
+	}
+
 }

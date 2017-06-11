@@ -1,0 +1,24 @@
+<table class ="table table-bordered table-hover table-striped display
+	table-esp col-xs-12 no-padding"	id="clienteDT">
+<thead>
+	<tr>
+		<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+		<th></th>
+		<th>Cédula o Ruc</th>
+		<th>Nombre o Razón Social</th>
+		<th></th>
+	</tr>
+</thead>
+<tbody>
+
+<th:block th:if="${listCliente != null}" th:each=" client : ${listCliente}">			
+	<tr>
+		<td><input type='radio' name='radio-dt' class='radio-dt'></td>
+		<td th:text="${client.persona.cedula_ruc}"></td>
+		<td th:text="${client.persona.nombre_razonSocial  + ' ' + client.persona.apellido}"></td>
+		<td><button type='button' class='editar btn btn-primary btn-xs'><i class='fa fa-plus'></i></button></td>
+		
+	</tr>
+	</th:block>
+</tbody>
+</table>

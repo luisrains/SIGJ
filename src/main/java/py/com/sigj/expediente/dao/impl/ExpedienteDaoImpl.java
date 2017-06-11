@@ -1,17 +1,17 @@
 package py.com.sigj.expediente.dao.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Query;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import py.com.sigj.dao.impl.DaoImpl;
 import py.com.sigj.expediente.dao.ExpedienteDao;
+import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
@@ -240,6 +240,29 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 	}
 
 	@Override
+	public List<Cliente> buscarParte(String search) {
+		logger.info("Obteniendo lista de clientes, sSearch: {}", search);
+
+		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
+		sql = sql.replace("#ENTITY#", "Cliente");
+		Query query = null;
+		// Usuario no envió ningún filtro
+
+		if (StringUtils.isBlank(search)) {
+			query = entityManager.createQuery(sql);
+		} else {
+			sql = sql + " WHERE lower(persona.cedula_ruc||persona.nombre_razonSocial||persona.apellido) LIKE lower(?1)";
+			query = entityManager.createQuery(sql);
+			query.setParameter(1, "%" + search.replace(" ", "%") + "%");
+		}
+		
+		List<Cliente> list = query.getResultList();
+		logger.info("Cantidad de registros encontrados: {}", list);
+		return list;
+	
+	}
+	
+	@Override
 	public List<ExpedienteAbogado> getListByExpedienteIdAb(String id_expediente) {
 		String sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE expediente_id = ?1"; 
 
@@ -256,4 +279,5 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 		return list;
 	
 	}
+
 }

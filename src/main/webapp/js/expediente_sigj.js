@@ -1,17 +1,3 @@
-function modal_pag1(){
-	var tipo = $("#tipoDemanda").val();
-	var descripcion = $("#tipoDemanda").text();
-	if (tipo != 0 && tipo != '0') {
-		if (tipo != '1' || tipo != 1) {
-			$("#moneda").prop("disabled","disabled");
-			$("#monto").prop("disabled","disabled");
-
-		} else {
-			$("#moneda").prop("disabled",false);
-			$("#monto").prop("disabled",false);
-		}
-	}
-}
 /*
  * Archivo para el manejo de todos los datos relacionados al expediente
  */
@@ -409,4 +395,48 @@ function agregar_actuacion(){
 	
 	var url = '/sigj/expediente/ver-documento?expediente='+id_expediente;
 	location.href = url;
+}
+
+function modal_pag1(){
+	  var tipo = $("#tipoDemanda").val();
+	var descripcion = $("select[name=tipoDemanda]").find(":selected").text();
+	descripcion = descripcion.toLowerCase();
+	if (tipo != 0 && tipo != '0') {
+		if (descripcion != 'acción ejecutiva' && descripcion != 'acción preparatoria de juicio ejecutivo') {
+			$("#moneda").prop("disabled","disabled");
+			$("#monto").prop("disabled","disabled");
+		} else {
+			$("#moneda").prop("disabled",false);
+			$("#monto").prop("disabled",false);
+		}
+	}
+}
+
+
+function buscar_parte(){
+	var sSearch = $('#buscar_parte').val();
+	if(sSearch != null && sSearch != "" && sSearch != undefined){
+		var modalSpinner = iniciarSpinner("modal_spinner");
+		$.ajax({
+	           type: "GET",
+	           url: "/sigj/expediente/buscar-parte",
+	           data: { 
+	               search : sSearch
+	           }
+	       }).done(function(data){
+	           
+	           if(data == ""){
+	        	   $("#div-result").addClass("hidden");  
+	           }else{
+	        	   $("#div-result").removeClass("hidden");
+
+	        	   $("#div-result").empty();
+		           $("#div-result").html(data); 
+	           }
+	           pararSpinner(modalSpinner);
+	       });
+	       
+		
+	}
+	
 }
