@@ -211,7 +211,7 @@
 						</ul></li>
 
 					<!-- Configuraciones jurídicas  -->
-					<li cl ass="treeview menu-personas"><a href="#"> <i
+					<li class="treeview menu-personas"><a href="#"> <i
 							class="fa fa-balance-scale"></i> <span>Administraciones</span> <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
@@ -334,19 +334,19 @@
 						}
 					});
 					$(".menu-expedientes").on("click",function(){ 
-					      (".menu-expedientes").addClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
+					      $(".menu-expedientes").addClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
 					    });   
 					    $(".menu-rrhh").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").addClass("active"); 
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").addClass("active"); 
 					    }); 
 					    $(".menu-gastos").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").addClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").addClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
 					    });  	
 					
 								/*]]>*/
@@ -356,70 +356,284 @@
 
 			<!-- Main content -->
 			<section class="content">
-				
-					
-					
-					<div class="col-sm-12" style="background-color:white; border-top-color:#3c8dbc;border-bottom-color:#3c8dbc;border-bottom-style:solid;border-top-style:solid;" th:each="ex : ${expediente}">
-					
-						<div class="col-sm-9">
-						<div class="box-header with-border">
-							<h3 class="box-title" th:text=" #{expediente.inicio.nroExpediente.lbl}+' '+${ex.expediente.nroExpediente}"></h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" > <!-- th:value="${session.expediente.id}" es lo que se va a usar -->
-							<div class="col-sm-6">
-								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
-								<h4 th:text="#{expediente.folio.lbl}+' '+ ${ex.expediente.folio}"></h4>
-								 
-							</div>
-							<div class="col-sm-6">
-								<h4 th:text="#{expediente.anho.lbl}+' '+ ${ex.expediente.anho}"></h4>
-							</div>
-							<div class="col-sm-6">
-								<h4 th:text="#{expediente.juez.lbl}+' '+ ${ex.expediente.despachoActual.juez}"></h4>
-							</div>
-							<div class="col-sm-6">
-								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estado.descripcion}"></h4>
-							</div>
-							<th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
-								<th:block th:if="${exb.expediente.id} == ${ex.expediente.id}">
-									<div class="col-sm-6">
-										<h4 th:text="#{expediente.tipoActuacion.fechaPresentacion.lbl}+' '+ ${exb.actuacion.fechaPresentacion}"></h4>
-									</div>
-									<div class="col-sm-6">
-										<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${exb.actuacion.fechaVencimiento}"></h4>
-									</div>
-								</th:block>
-							</th:block>
-							<div class="col-sm-6" style="float:right;">
-							<button class="btn btn-success" 
-							th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">
-								<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
-							</button>
-							
-							</div>
-						</div>
-						<!-- /.box-body -->
-					</div>
-					<!-- /.box -->
-					<div class="col-sm-3">
-						<th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
-							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">				
-								<div class="alert alert-warning">
-									  <strong><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
-									  <span> La actuación del expediente esta por vencer, vencera en los  <span th:text="#{3}"></span> proximos días</span>
-								</div>
-							</th:block>
-						</th:block>
-					</div>
-					
-					
-					
-					
-				</div>
-				
+				<div class="col-md-12">
+					<div class="box box-primary">
+					<div class="col-sm-12">
+						<div></div>
+						<h3>CARATULA DEL EXPEDIENTE</h3>
+	<div class="form-group col-lg-6" style="margin-top: 10px;">
+		<label th:text="#{expediente.nroExpediente.lbl}"
+			class="field-label section-02">Nro Expediente:</label>
+		<!-- Para prueba -->
+		<!-- <label
+					class="field-label section-02">4512</label>  -->
+		<label th:text="${expediente.nroExpediente}"
+			class="field-label section-02"></label>
 
+	</div>
+
+	<div class="form-group col-lg-6" style="margin-top: 10px;">
+		<label th:text="#{expediente.anho.lbl}" class="field-label section-02">Año:</label>
+		<!-- <label
+					class="field-label section-02"> 2015</label>  -->
+		<label th:text="${expediente.anho}" class="field-label section-02"></label>
+
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.juez.lbl}" class="field-label section-02">Juez:</label>
+		<!-- <label
+					class="field-label section-02"> Pedro Ayala</label>  -->
+
+		<label th:text="${expediente.despachoActual.juez}"
+			class="field-label section-02"></label>
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.folio.lbl}"
+			class="field-label section-02">Folio:</label>
+
+		<!-- <label 
+					class="field-label section-02">100</label> 	 -->
+		<label th:text="${expediente.folio}" class="field-label section-02"></label>
+
+
+	</div>
+
+	<!-- Aca deberia ir un for each que esta comentado porque no sabemos como va a venir el listado de clientes -->
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.clientes_demandantes.lbl}"
+			class="field-label section-02">Cliente Demandante:</label><br>
+		<th:block th:each=" tip : ${clienteList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoCliente == 'D'}"
+				th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+
+		</th:block>
+
+		<!-- <label 
+					class="field-label section-02">Carlos Duarte</label>  -->
+	</div>
+	<!-- <div class="form-group col-lg-6" th:each=" cli: ${expediente.mapa.expediente.clientes}" th:value="${cli.id_cliente}"
+			th:text="">
+				<label th:text="#{expediente.cliente_demandante.lbl}"
+					class="field-label section-02">Cliente Demandante:</label> 
+				<label th:text="${cliente_demandante}"
+					class="field-label section-02"></label> 
+					
+					
+			</div> -->
+
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.clientes_demandados.lbl}"
+			class="field-label section-02">Cliente Demandado:</label> <br>
+
+		<th:block th:each=" tip : ${clienteList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoCliente == 'C'}"
+				th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+
+		</th:block>
+
+		<!-- Todos los labels que hacen ya referencia al map que recibiremos se comenta hasta saber como obtener esos datos del controlador -->
+		<!-- <label th:text="${cliente_demandado}"
+					class="field-label section-02"></label>  -->
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.abogados_apoderados.lbl}"
+			class="field-label section-02">Abogado Apoderado:</label> <br>
+
+		<th:block th:each=" tip : ${abogadoList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoAbogado == 'AP'}"
+				th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label>
+
+		</th:block>
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.abogados_contrapartes.lbl}"
+			class="field-label section-02">Abogado Contraparte:</label><br>
+
+		<th:block th:each=" tip : ${abogadoList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoAbogado == 'CO'}"
+				th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label>
+
+		</th:block>
+
+
+	</div>
+	<div></div>				
+	</div>				
+					
+					
+					
+					
+						<form method="post"  th:action="@{/expediente/actuacion-agregar}"
+								enctype="multipart/form-data"
+								role="form" id="form-movimiento">
+								<h3 style="color:blue;text-align:center;">Registrar Actuación</h3>
+								<input type="hidden" name="expediente" th:value="${id_expediente}">
+								<div class="form-group" style="width: 50%;padding-left:15px;">
+									<label for="tipo-actuacion" class="field-label control-label">Actuación(*):</label>
+									<select th:name="tipo-actuacion" th:id="tipo-actuacion"
+										class="form-control tipo-actuacion selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+										<option th:each=" tip : ${tipoActuacionList}"
+											th:value="${tip.id}" th:text="${tip.descripcion}">Civil</option>
+									</select>
+								</div>
+
+								<div class="form-group" style="padding-left:15px;">
+									<label>Fecha de Presentacion:</label>
+									<div class="input-group date" style="width: 50%;">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right"
+											name="fecha-presentacion" id="fecha-presentacion">
+									</div>
+								
+									<script type="text/javascript"> 
+								        $(function() { 
+								          $(".selecciones").select2(); 
+								 
+								          $('#fecha-presentacion').datepicker( 
+								              { 
+								                autoclose : true, 
+								                format: 'dd/mm/yyyy',
+								                daysOfWeekDisabled: [0,6],
+								                language : 'es', 
+								                 
+								              }); 
+								 
+								        }); 
+								  </script>
+									<!-- /.input group -->
+								</div>
+								<div class="form-group" style="padding-left:15px;">
+									<label>Fecha de Vencimiento:</label>
+									<div class="input-group date" style="width: 50%;">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right"
+											name="fecha-vencimiento" id="fecha-vencimiento">
+									</div>
+									<script type="text/javascript"> 
+								        $(function() { 
+								          $(".selecciones").select2(); 
+								 
+								          $('#fecha-vencimiento').datepicker( 
+								              { 
+								                autoclose : true, 
+								                startDate: "today",
+								                daysOfWeekDisabled: [0,6],
+								                language : 'es',
+								                format: 'dd/mm/yyyy',
+								                 
+								              }); 
+								 
+								        }); 
+								   </script>
+									<!-- /.input group -->
+								</div>
+								<div class="form-group" style="width:60%;padding-left:15px;">
+									<label>Observación:</label>
+									<textarea rows="7" cols="50" id="movimiento-observacion" name="movimiento-observacion" required="false" class="form-control"></textarea>
+								</div>
+								
+								<div class="col-sm-10" style="padding: 15px;">
+									<label style="margin-left: 10%;">Sección de Archivos</label> <input
+										id="file-es" name="documento" type="file" multiple>
+								</div>
+								
+								<div class="col-sm-4" style="padding-top: 20px;">
+									<button id="confirmar-actuacion" class="btn btn-siguiente"
+										type="submit">
+										CONFIRMAR <i class="fa fa-chevron-right" aria-hidden="true"></i>
+									</button>
+								</div>
+						</form>
+
+						<!-- /.box-header -->
+							<div class="col-xs-12 col-sm-12" style="margin-top:10%;">
+									<h3 style="color:blue;text-align:center;">Lista de Actuaciones</h3>
+									<table
+								class="table table-bordered table-hover table-striped display"
+										id="movimientoActuacionDT">
+										<thead>
+											<tr>
+												<th class="hidden">Id</th>
+												<th>Observación</th>
+												<th>Fecha Presentación</th>
+												<th>Fecha Vencimiento</th>
+												<th>Tipo de Actuación</th>
+												<th>Plazo</th>
+											</tr>
+										</thead>
+										<tbody id="table-body">
+									<!--  <tr><td th:text="${planilla_salario}"></td></tr>-->
+
+											<tr th:each="ma : ${movimiento_actuacion}">
+												<td th:text="${ma.id}" class="hidden"></td>
+												<td th:text="${ma.observacion}"></td>
+												<td th:text="${ma.fechaPresentacion}"></td>
+												<td th:text="${ma.fechaVencimiento}"></td>
+												<td th:text="${ma.tipoActuacion.descripcion}"></td>
+												<td th:text="${ma.tipoActuacion.plazo}"></td>
+											</tr>
+										</tbody>
+
+							</table>
+									<script type="text/javascript">
+										$(document).ready(function() {
+											 $('#movimientoActuacionDT').dataTable( {
+											        "bScrollCollapse": true,
+											        "responsive":true,
+											        'language' : {
+										                "sProcessing": "Procesando...",
+										                "sLengthMenu": "Mostrar _MENU_ registros",
+										                "sZeroRecords": "No se encontraron resultados",
+										                "sEmptyTable": "No posee Actuaciones",
+										                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+										                "sInfoEmpty": "Mostrando _MAX_ registros",
+										                "sInfoFiltered": " ",
+										                "sInfoPostFix": "",
+										                "sSearch": "Buscar:",
+										                "sUrl": "",
+										                "sInfoThousands": ",",
+										                "sLoadingRecords": "Cargando...",
+										                "oPaginate": {
+										                    "sFirst": "Primero",
+										                    "sLast": "Último",
+										                    "sNext": "Siguiente",
+										                    "sPrevious": "Anterior"
+										                },
+										                "oAria": {
+										                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+										                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+										                }
+										            }
+											    } );
+											 createFileInput();
+										});
+									</script>
+								</div>
+						<!-- /.box -->
+				
+				
 			</section>
 			<!-- /.content -->
 		</div>
@@ -495,6 +709,8 @@
 	<script th:src="@{/dist/js/demo.js}" src="../dist/js/demo.js"></script>
 
 	<!-- SIGJ -->
+	<script type="text/javascript" src="../js/fileinput.js"
+		th:src="@{/js/fileinput.js}"></script>
 	<script type="text/javascript" src="../js/sigjapp.js"
 		th:src="@{/js/sigjapp.js}"></script>
 	<script type="text/javascript" src="../js/expediente_sigj.js"

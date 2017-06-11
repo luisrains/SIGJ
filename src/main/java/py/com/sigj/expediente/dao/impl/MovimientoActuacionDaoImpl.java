@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import py.com.sigj.dao.impl.DaoImpl;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
@@ -22,25 +23,23 @@ public class MovimientoActuacionDaoImpl extends DaoImpl<MovimientoActuacion> imp
 	}
 
 	@Override
-	public MovimientoActuacion getListActuacionByExpediente(Long id_expediente) {
+	@Transactional
+	public List<MovimientoActuacion> getListActuacionByExpediente(Long id_expediente) {
 		logger.info("Obteniendo actuacion del expediente: {}", id_expediente);
 		List<MovimientoActuacion> actu = null;
-		String sql = "SELECT object(MovimientoActuacion) FROM MovimientoActuacion AS MovimientoActuacion";
+		String sql = "SELECT object(MovimientoActuacion) FROM MovimientoActuacion AS MovimientoActuacion WHERE expediente_id = ?1";
 		Query query = null;
 		// Usuario no envió ningún filtro
 
-		if (id_expediente== null) {
-			query = entityManager.createQuery(sql);		
-		} else {
-			sql = sql + " WHERE expediente_id = ?1" ;
+		
 			query = entityManager.createQuery(sql);
 			query.setParameter(1,id_expediente);
-		}
+		
 		try {
 			actu = query.getResultList();
 			logger.info("Movimientos encontrados: {}", actu);
 			if(!actu.isEmpty()){
-				return actu.get(0);
+				return actu;
 			}else{
 				return null;
 			}

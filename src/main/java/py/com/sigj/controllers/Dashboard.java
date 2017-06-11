@@ -1,5 +1,8 @@
 package py.com.sigj.controllers;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.util.ExpedienteActuacionBean;
+import py.com.sigj.util.WebUtils;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
@@ -37,19 +41,24 @@ public class Dashboard {
 		String cedula = "4152639";
 		List<ExpedienteAbogado> exp = expedienteDao.getListByCedulaRuc(cedula);
 		ExpedienteActuacionBean exAc = null;
-		
+		List<ExpedienteActuacionBean> listExAc = new ArrayList<>();
+		Date fechaActual = new Date();
 		for (ExpedienteAbogado expe : exp) {
-			MovimientoActuacion actuacion = movimientoActuacionDao.getListActuacionByExpediente(expe.getExpediente().getId());
-			if(actuacion != null){
-				exAc = new ExpedienteActuacionBean();
-				exAc.setActuacion(actuacion);
-				exAc.setExpediente(expe.getExpediente());
+			List<MovimientoActuacion> actuacion = movimientoActuacionDao.getListActuacionByExpediente(expe.getExpediente().getId());
+			if(actuacion != null && !actuacion.isEmpty()){
+				for(MovimientoActuacion ma : actuacion){
+					exAc = new ExpedienteActuacionBean();
+					exAc.setActuacion(ma);
+					exAc.setExpediente(expe.getExpediente());
+					exAc.setDiaVencimiento(WebUtils.getDaysBetweenDates(fechaActual,ma.getFechaVencimiento()));
+				}
+				listExAc.add(exAc);
+				
 			}
 			
 		}
-		
 		map.addAttribute("expediente", exp);
-		map.addAttribute("expedienteActuacionBean", exAc);
+		map.addAttribute("expedienteActuacionBean", listExAc);
 		return "inicio";
 	}
 

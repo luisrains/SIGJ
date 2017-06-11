@@ -7,6 +7,7 @@ public class ExpedienteActuacionBean {
 
 	private Expediente expediente;
 	private MovimientoActuacion actuacion;
+	private int diaVencimiento;
 	
 	
 	
@@ -27,9 +28,17 @@ public class ExpedienteActuacionBean {
 	public void setActuacion(MovimientoActuacion actuacion) {
 		this.actuacion = actuacion;
 	}
+	
+	public int getDiaVencimiento() {
+		return diaVencimiento;
+	}
+	public void setDiaVencimiento(int diaVencimiento) {
+		this.diaVencimiento = diaVencimiento;
+	}
 	@Override
 	public String toString() {
-		return "ExpedienteActuacionBean [expediente=" + expediente + ", actuacion=" + actuacion + "]";
+		return "ExpedienteActuacionBean [expediente=" + expediente + ", actuacion=" + actuacion + ", diaVencimiento="
+				+ diaVencimiento + "]";
 	}
 	
 	

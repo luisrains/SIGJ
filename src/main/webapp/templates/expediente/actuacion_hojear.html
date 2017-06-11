@@ -173,6 +173,8 @@
 									style="color: blue"></i>Consultar Expediente</a></li>
 							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
 									style="color: blue"></i>Registrar Juicio</a></li>
+							<li><a th:href="@{/expediente/buscar}"><i class="fa fa-search"
+									style="color: blue"></i>Buscar Expediente</a></li>			
 						</ul></li>
 
 					<!-- Menú de Gastos -->
@@ -332,19 +334,19 @@
 						}
 					});
 					$(".menu-expedientes").on("click",function(){ 
-					      (".menu-expedientes").addClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
+					      $(".menu-expedientes").addClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
 					    });   
 					    $(".menu-rrhh").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").addClass("active"); 
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").addClass("active"); 
 					    }); 
 					    $(".menu-gastos").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").addClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").addClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
 					    });  	
 					
 								/*]]>*/
@@ -471,7 +473,7 @@
 
 
 	</div>
-	<div></div>				
+	<div class="box box-success form-group col-sm-12"></div>				
 	</div>				
 					
 					
@@ -480,6 +482,8 @@
 						<form method="post"  th:action="@{/expediente/actuacion-agregar}"
 								enctype="multipart/form-data"
 								role="form" id="form-movimiento">
+								<h3 style="color:blue;text-align:center;">Registrar Actuación</h3>
+								<input type="hidden" name="expediente" th:value="${id_expediente}">
 								<div class="form-group" style="width: 50%;padding-left:15px;">
 									<label for="tipo-actuacion" class="field-label control-label">Actuación(*):</label>
 									<select th:name="tipo-actuacion" th:id="tipo-actuacion"
@@ -508,7 +512,8 @@
 								          $('#fecha-presentacion').datepicker( 
 								              { 
 								                autoclose : true, 
-								                 
+								                format: 'dd/mm/yyyy',
+								                daysOfWeekDisabled: [0,6],
 								                language : 'es', 
 								                 
 								              }); 
@@ -533,7 +538,8 @@
 								          $('#fecha-vencimiento').datepicker( 
 								              { 
 								                autoclose : true, 
-								                 
+								                startDate: "today",
+								                daysOfWeekDisabled: [0,6],
 								                language : 'es',
 								                format: 'dd/mm/yyyy',
 								                 
@@ -548,7 +554,7 @@
 									<textarea rows="7" cols="50" id="movimiento-observacion" name="movimiento-observacion" required="false" class="form-control"></textarea>
 								</div>
 								
-								<div class="col-sm-4" style="padding: 15px;">
+								<div class="col-sm-10" style="padding: 15px;">
 									<label style="margin-left: 10%;">Sección de Archivos</label> <input
 										id="file-es" name="documento" type="file" multiple>
 								</div>
@@ -562,12 +568,69 @@
 						</form>
 
 						<!-- /.box-header -->
-							<div class="form-group" style="width:60%;">
-								plugins de hojear <img th:src="${'data:image/png;base64,'+base}">
-							</div>
-							<!-- /.box-body -->
-						</div>
-						</div>
+							<div class="col-xs-12 col-sm-12" style="margin-top:5%;border-top-color:#00a65a;border-top-style:solid;">
+									<h3 style="color:blue;text-align:center;">Lista de Actuaciones</h3>
+									<table
+								class="table table-bordered table-hover table-striped display"
+										id="movimientoActuacionDT">
+										<thead>
+											<tr>
+												<th class="hidden">Id</th>
+												<th>Observación</th>
+												<th>Fecha Presentación</th>
+												<th>Fecha Vencimiento</th>
+												<th>Tipo de Actuación</th>
+												<th>Plazo</th>
+											</tr>
+										</thead>
+										<tbody id="table-body">
+									<!--  <tr><td th:text="${planilla_salario}"></td></tr>-->
+
+											<tr th:each="ma : ${movimiento_actuacion}">
+												<td th:text="${ma.id}" class="hidden"></td>
+												<td th:text="${ma.observacion}"></td>
+												<td th:text="${ma.fechaPresentacion}"></td>
+												<td th:text="${ma.fechaVencimiento}"></td>
+												<td th:text="${ma.tipoActuacion.descripcion}"></td>
+												<td th:text="${ma.tipoActuacion.plazo}"></td>
+											</tr>
+										</tbody>
+
+							</table>
+									<script type="text/javascript">
+										$(document).ready(function() {
+											 $('#movimientoActuacionDT').dataTable( {
+											        "bScrollCollapse": true,
+											        "responsive":true,
+											        'language' : {
+										                "sProcessing": "Procesando...",
+										                "sLengthMenu": "Mostrar _MENU_ registros",
+										                "sZeroRecords": "No se encontraron resultados",
+										                "sEmptyTable": "No posee Actuaciones",
+										                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+										                "sInfoEmpty": "Mostrando _MAX_ registros",
+										                "sInfoFiltered": " ",
+										                "sInfoPostFix": "",
+										                "sSearch": "Buscar:",
+										                "sUrl": "",
+										                "sInfoThousands": ",",
+										                "sLoadingRecords": "Cargando...",
+										                "oPaginate": {
+										                    "sFirst": "Primero",
+										                    "sLast": "Último",
+										                    "sNext": "Siguiente",
+										                    "sPrevious": "Anterior"
+										                },
+										                "oAria": {
+										                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+										                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+										                }
+										            }
+											    } );
+											 createFileInput();
+										});
+									</script>
+								</div>
 						<!-- /.box -->
 				
 				
@@ -646,6 +709,8 @@
 	<script th:src="@{/dist/js/demo.js}" src="../dist/js/demo.js"></script>
 
 	<!-- SIGJ -->
+	<script type="text/javascript" src="../js/fileinput.js"
+		th:src="@{/js/fileinput.js}"></script>
 	<script type="text/javascript" src="../js/sigjapp.js"
 		th:src="@{/js/sigjapp.js}"></script>
 	<script type="text/javascript" src="../js/expediente_sigj.js"

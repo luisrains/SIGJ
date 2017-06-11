@@ -400,8 +400,7 @@ function registrar_expediente(){
 		$("#expediente_section_2").removeClass("hidden");
 	});
 }
-function agregar_actuacion(){
-	var id_expediente = $("#id-expediente").val();
+function agregar_actuacion(id_expediente){
 	if(id_expediente == null || id_expediente == undefined || id_expediente == ""){ // solo para probar si llega al controlador
 		id_expediente = 0;
 	}
