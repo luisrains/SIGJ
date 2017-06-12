@@ -74,6 +74,12 @@ $("select[name=materia]").on("change", function(e){
 		});
 });
 
+$("#btn-informe").on('click',function(e){
+	   var fecha_rec = $('input[name=fecha]').val();
+	   var url = '/sigj/planilla_salario/reporte_planilla_salario?fecha='+fecha_rec;
+	   location.href =  url;
+});
+
 $("select[name=tipoProceso]").on("change", function(e){
 	console.log($('select[name=tipoProceso]').val());
 	var codigo_proceso = $('select[name=tipoProceso]').val();

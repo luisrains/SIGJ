@@ -1,5 +1,6 @@
 package py.com.sigj.rrhh.controllers.form;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -284,16 +286,17 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	// < ----------------- JASPER ------------------>
 
 	@RequestMapping(value = "/reporte_planilla_salario", method = RequestMethod.GET)
-	public void getComprobanteAhorroProgramado(HttpServletResponse response,
-			@RequestParam(value = "fecha", required = false) String fecha) throws Exception {
-		final String FOLDER = "/reporJaspert/panilla_salario";
+	public void getComprobanteAhorroProgramado(HttpServletResponse response,HttpServletRequest request,
+			@RequestParam(value = "fecha", required = true) String fecha) throws Exception {
+		String FOLDER = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/reportes/");
+
 		List<PlanillaSalario> lista = obtenerListaPlanilla(fecha);
 		logger.info("llega hasta aca");
 
-		logger.info(loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper")
-				.getInputStream().toString());
+		InputStream jasperStream = null;
+		jasperStream = new FileInputStream(FOLDER + "/comprobante_pago_salarios.jasper");
 		try {
-			InputStream jasperStream = null;
+			
 			Map<String, Object> params = new HashMap<>();
 
 			Date ahora = Calendar.getInstance().getTime();
@@ -307,7 +310,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 			Date fecha1 = WebUtils.getDateFromString(fecha, WebUtils.DATETIME_PATTERN);
 			params.put("FECHA_SOLICITUD", WebUtils.getStringFromDate(fecha1, "dd/MM/yyyy"));
 			params.put("HORA_SOLICITUD", WebUtils.getStringFromDate(fecha1, "HH:mm:ss"));
-			params.put("LISTA_PLANILLA", lista);
+			//params.put("LISTA_PLANILLA", lista);
 
 			jasperStream = loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper")
 					.getInputStream();
