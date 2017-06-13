@@ -173,6 +173,8 @@
 									style="color: blue"></i>Consultar Expediente</a></li>
 							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
 									style="color: blue"></i>Registrar Juicio</a></li>
+							<li><a th:href="@{/expediente/buscar}"><i class="fa fa-search"
+									style="color: blue"></i>Buscar Expediente</a></li>			
 						</ul></li>
 
 					<!-- Menú de Gastos -->
@@ -331,11 +333,12 @@
 							$("#alerta").fadeOut(1000);
 						}
 					});
-					$(".menu-expedientes").on("click",function(){ 
+					/* $(".menu-expedientes").on("click",function(){ 
 					      (".menu-expedientes").addClass("active"); 
 					      (".menu-gastos").removeClass("active"); 
 					      (".menu-rrhh").removeClass("active"); 
 					    });   
+					
 					    $(".menu-rrhh").on("click",function(){ 
 					      (".menu-expedientes").removeClass("active"); 
 					      (".menu-gastos").removeClass("active"); 
@@ -345,7 +348,7 @@
 					      (".menu-expedientes").removeClass("active"); 
 					      (".menu-gastos").addClass("active"); 
 					      (".menu-rrhh").removeClass("active"); 
-					    });  	
+					    }); */  	
 					
 								/*]]>*/
 					</script>
@@ -354,49 +357,69 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<div class="col-md-12">
-					<div class="box box-primary">
+				
+					
+					
+					<div class="col-sm-12" style="background-color:white; border-top-color:#3c8dbc;border-bottom-color:#3c8dbc;border-bottom-style:solid;border-top-style:solid;" th:each="ex : ${expediente}">
+					
+						<div class="col-sm-9">
 						<div class="box-header with-border">
-							<h3 class="box-title">Expediente N°. 4875</h3>
+							<h3 class="box-title" th:text=" #{expediente.inicio.nroExpediente.lbl}+' '+${ex.expediente.nroExpediente}"></h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
+							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" > <!-- th:value="${session.expediente.id}" es lo que se va a usar -->
 							<div class="col-sm-6">
 								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
-								<h4 th:text="#{expediente.folio.lbl}+' '+ #{100}"></h4> 
+								<h4 th:text="#{expediente.folio.lbl}+' '+ ${ex.expediente.folio}"></h4>
+								 
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.anho.lbl}+' '+ #{2015}"></h4>
+								<h4 th:text="#{expediente.anho.lbl}+' '+ ${ex.expediente.anho}"></h4>
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.juez.lbl}+' '+ #{Carlos Duarte}"></h4>
+								<h4 th:text="#{expediente.juez.lbl}+' '+ ${ex.expediente.despachoActual.juez}"></h4>
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ #{Iniciado}"></h4>
+								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estado.descripcion}"></h4>
 							</div>
-							<div class="col-sm-6">
-								<h4 th:text="#{expediente.tipoActuacion.fechaPresentacion.lbl}+' '+ #{10/02/2016}"></h4>
-							</div>
-							<div class="col-sm-6">
-								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ #{20/05/2016}"></h4>
+							<th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
+								<th:block th:if="${exb.expediente.id} == ${ex.expediente.id}">
+									<div class="col-sm-6">
+										<h4 th:text="#{expediente.tipoActuacion.fechaPresentacion.lbl}+' '+ ${exb.actuacion.fechaPresentacion}"></h4>
+									</div>
+									<div class="col-sm-6">
+										<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${exb.actuacion.fechaVencimiento}"></h4>
+									</div>
+								</th:block>
+							</th:block>
+							<div class="col-sm-6" style="float:right;">
+							<button class="btn btn-success" 
+							th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">
+								<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+							</button>
+							
 							</div>
 						</div>
 						<!-- /.box-body -->
 					</div>
 					<!-- /.box -->
+					<div class="col-sm-3">
+						<th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
+							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">				
+								<div class="alert alert-warning">
+									  <strong><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
+									  <span> La actuación del expediente esta por vencer, vencera en los  <span th:text="#{3}"></span> proximos días</span>
+								</div>
+							</th:block>
+						</th:block>
+					</div>
+					
+					
+					
+					
 				</div>
 				
-				<div class="col-md-12">
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">Expediente N°. 4542</h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">DATOS MINIMOS DEL EXPEDIENTE</div>
-						<!-- /.box-body -->
-					</div>
-					<!-- /.box -->
-				</div>
 
 			</section>
 			<!-- /.content -->

@@ -1,6 +1,7 @@
 package py.com.sigj.expediente.controllers.form;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,31 +9,29 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.lowagie.text.pdf.codec.Base64;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.AbogadoListController;
-import py.com.sigj.expediente.controllers.list.MovimientoActuacionListController;
 import py.com.sigj.expediente.controllers.list.ClienteListController;
 import py.com.sigj.expediente.controllers.list.ExpedienteListController;
 import py.com.sigj.expediente.controllers.list.MateriaListController;
+import py.com.sigj.expediente.controllers.list.MovimientoActuacionListController;
 import py.com.sigj.expediente.dao.AbogadoDao;
 import py.com.sigj.expediente.dao.DespachoDao;
+import py.com.sigj.expediente.dao.DocumentoDao;
 import py.com.sigj.expediente.dao.EstadoExternoInternoDao;
 import py.com.sigj.expediente.dao.ExpedienteAbogadoDao;
 import py.com.sigj.expediente.dao.ExpedienteClienteDao;
@@ -43,12 +42,14 @@ import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoActuacionDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
+import py.com.sigj.expediente.domain.Abogado;
+import py.com.sigj.expediente.domain.Cliente;
+import py.com.sigj.expediente.domain.Documento;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.ExpedienteDocumento;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
-import py.com.sigj.expediente.domain.TipoActuacion;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
 
@@ -68,6 +69,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private ClienteListController clienteList;
+	
+	@Autowired
+	private MovimientoActuacionListController movimientoActuacionList;
 
 	@Autowired
 	private ExpedienteListController expedienteList;
@@ -83,6 +87,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private ClienteDao clienteDao;
+	
+	@Autowired
+	private DocumentoDao documentoDao;
 
 	@Autowired
 	private MateriaDao materiaDao;
@@ -110,6 +117,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	@Autowired
 	private ExpedienteDocumentoDao expedienteDocumentoDao;
+	
 
 	@Override
 	public String getTemplatePath() {
@@ -138,7 +146,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getListAll(null));
 		logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
-
+		
 		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
 		map.addAttribute("materiaList", materiaDao.getListAll(null));
 		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
@@ -210,6 +218,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidación"));
 				// validar el despacho
 				Long id_desp = (Long) Long.parseLong((String) rdExpediente.get("despacho"));
+				Long id_estado = (Long) Long.parseLong((String) rdExpediente.get("estado"));
+				obj.setEstado(estadoDao.find(id_estado));
 				obj.setDespachoActual(despachoDao.find(id_desp));
 
 				if (obj.getId() == null && listaAbogados != null) {
@@ -280,6 +290,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				
 				MultipartFile multipartFile = documento;
 				byte[] doc = multipartFile.getBytes();
+				Documento docu = new Documento();
+				docu.setDocumento(doc);
+				documentoDao.create(docu);
+				docu.setDocumento(doc);
 				expedienteDoc.setDocumento(doc);
 				expedienteDoc.setTitulo(titulo);
 				expedienteDoc.setFechaPresentacion(fechaNow);
@@ -295,6 +309,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		agregarValoresAdicionales(map);
 		map.addAttribute("expedienteDocumento", expedienteDoc);
 		Expediente ex = (Expediente) sesion.getAttribute("expediente");
+		
 		map.addAttribute("expediente", ex);
 		return "expediente/expediente_section3";
 
@@ -303,24 +318,124 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	
 	@RequestMapping(value = "ver-documento", method = RequestMethod.GET)
-	public @ResponseBody String setArchivo(HttpServletRequest request, ModelMap map,
-			@RequestParam(value = "id_expediente") String id_exp) {
+	public String setArchivo(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "expediente") String id_exp) {
 		try {
 			MultipartFile doc = null;
 			MovimientoActuacion ac = null;
 //			ac = tipoActuacionDao.find(Long.parseLong(id_act));
 //			
 //			doc = ac.get
+			String base64String = "";
 			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente(id_exp);
-					logger.info("listado ..{}",listExpDoc);
-			return "";
+			logger.info("listado ..{}",listExpDoc);
+				if(listExpDoc != null && !listExpDoc.isEmpty()){
+					base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
+					map.addAttribute("base",base64String);
+				}
+				
+				Expediente expediente = new Expediente();
+				expediente = expedienteDao.find(Long.parseLong(id_exp));
+				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+				List<MovimientoActuacion> ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
+				map.addAttribute("id_expediente", id_exp);
+				map.addAttribute("abogadoList", abogadoList);
+				map.addAttribute("clienteList", clienteList);
+				map.addAttribute("expediente", expediente);
+				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
+				map.addAttribute("movimiento_actuacion",ma);
+				logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return id_exp;
+		return "expediente/actuacion_hojear" ;
 		
 		
 	}
+	
+	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
+	public String MovimientoAgregar(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "expediente") String id_exp,	
+			@RequestParam(value = "tipo-actuacion") String tipo_actuacion,
+			@RequestParam(value = "fecha-presentacion") String fecha_presentacion,
+			@RequestParam(value = "fecha-vencimiento") String fecha_vencimiento,
+			@RequestParam(value = "movimiento-observacion") String observacion,
+			@RequestParam("documento") MultipartFile documento) throws IOException, ParseException {
+		MovimientoActuacion ma = new MovimientoActuacion();
+		MultipartFile multipartFile = documento;
+		byte[] doc = multipartFile.getBytes();
+		ma.setDocumento(doc);
+		ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
+		//fecha_presentacion = fecha_presentacion.replace("/", "");
+		//fecha_vencimiento = fecha_vencimiento.replace("/", "");
+		Date fe_pre = WebUtils.getDateFromString(fecha_presentacion, "dd/MM/yyyy");
+		Date fe_ve = WebUtils.getDateFromString(fecha_vencimiento, "dd/MM/yyyy");
+		ma.setFechaPresentacion(fe_pre);
+		ma.setFechaVencimiento(fe_ve);
+		ma.setObservacion(observacion);
+		ma.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
+		movimientoActuacionDao.create(ma);
+		
+		
+		Expediente expediente = new Expediente();
+		expediente = expedienteDao.find(Long.parseLong(id_exp));
+		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+		map.addAttribute("id_expediente", id_exp);
+		map.addAttribute("abogadoList", abogadoList);
+		map.addAttribute("clienteList", clienteList);
+		map.addAttribute("expediente", expediente);
+		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+		return "expediente/actuacion_hojear2"; //modificar luego	
+		
+	}
+	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
+	public String buscar(HttpServletRequest request, ModelMap map) {
+		map.addAttribute("despachoList", despachoDao.getListAll(null));
+		map.addAttribute("abogadoList", abogadoDao.getListAll(null));
+		map.addAttribute("estadoList", estadoDao.getListAll(null));
+		return "expediente/buscar_expediente";
+	}
+	
+	
+	@RequestMapping(value = "buscar-resultado", method = RequestMethod.GET)
+	public String buscar_seccion2(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "anho") String anho,
+			@RequestParam(value = "estado") String estado,
+			@RequestParam(value = "despacho_buscar") String despacho,
+			@RequestParam(value = "abogado") String abogado,
+			@RequestParam(value = "nro_expediente") String nroExpediente) {
+			
+			List<Expediente> expediente = expedienteDao.filtro(nroExpediente,abogado,despacho,estado,anho);
+			String aux = (expediente.get(0).getNroExpediente() == null)?"expediente_abogado":"expediente";
+			map.addAttribute("expedienteList",expediente);
+			map.addAttribute("aux", aux);
+		return "expediente/buscar_expediente :: expedienteList";
+	}
 
+
+
+	@RequestMapping(value = "/buscar-parte", method = RequestMethod.GET)
+	public String buscar_parte(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "search") String search,
+			@RequestParam(value = "tipo_parte") String tipoParte) {
+		if("C".equals(tipoParte.toUpperCase())){
+			List<Cliente> listParte = expedienteDao.buscarParteCliente(search);
+			
+			map.addAttribute("listParte", listParte);
+			map.addAttribute("tipoParte", tipoParte);
+		}else if ("A".equals(tipoParte.toUpperCase())){
+			List<Abogado> listParte = expedienteDao.buscarParteAbogado(search);
+			
+			map.addAttribute("listParte", listParte);
+			map.addAttribute("tipoParte", tipoParte);
+		}else{
+			map.addAttribute("listParte", null);
+			map.addAttribute("tipoParte", null);
+		}
+		
+		return "expediente/expediente_resultado";
+	}
 
 }

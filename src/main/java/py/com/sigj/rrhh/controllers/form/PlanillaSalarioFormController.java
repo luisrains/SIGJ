@@ -1,7 +1,9 @@
 package py.com.sigj.rrhh.controllers.form;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +100,19 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 	@RequestMapping(value = "/validar_fecha", method = RequestMethod.GET)
 	public String validar_fecha(ModelMap map, @RequestParam(value = "fecha", required = true) String fecha) {
-		List<PlanillaSalario> lista = obtenerListaPlanilla(fecha);
+		List<PlanillaSalario> lista = new ArrayList<PlanillaSalario>();
+		if(fecha != null && !fecha.equalsIgnoreCase("") && fecha != ""){
+			 lista = obtenerListaPlanilla(fecha);
+			 if(lista == null || lista.isEmpty()){
+				 map.addAttribute("vacio", "si");
+			 }else{
+				 map.addAttribute("vacio", "no");
+			 }
+			
+		}else{
+			lista = null;
+			map.addAttribute("vacio", "si");
+		}
 		map.addAttribute("planilla_salario", lista);
 		return "rrhh/planillaSalario_form";
 	}
@@ -106,6 +121,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 		String aux1 = null;
 		String aux2 = null;
+		
 		aux1 = fecha.substring(0, 2);
 		aux2 = fecha.substring(3, 7);
 		List<PlanillaSalario> listResult = new ArrayList<PlanillaSalario>();
@@ -122,6 +138,10 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 		List<Movimiento> mb = movimientoDao.getList(0, 10, null);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 		int val = 2;
+		if(mb == null || mb.isEmpty()){
+			listResult = null;
+			return listResult;
+		}
 		for (Movimiento ml : mb) {
 			String fechaCad1 = sdf1.format(ml.getFecha());
 			logger.info("Lee el fechaCad que pusimos para mes:{}", fechaCad1.substring(3, 5));
@@ -275,8 +295,8 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 				}
 				cont++;
 			}
-			logger.info("La planilla queda asi:{}", planillaSalarioDao.getList(0, 10, null));
-			listResult = planillaSalarioDao.getList(0, 10, null);
+			logger.info("La planilla queda asi:{}", planillaSalarioDao.getList(0, 100, null));
+			listResult = planillaSalarioDao.getList(0, 100, null);
 		}
 		return listResult;
 
@@ -284,33 +304,63 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 	// < ----------------- JASPER ------------------>
 
 	@RequestMapping(value = "/reporte_planilla_salario", method = RequestMethod.GET)
-	public void getComprobanteAhorroProgramado(HttpServletResponse response,
-			@RequestParam(value = "fecha", required = false) String fecha) throws Exception {
-		final String FOLDER = "/reporJaspert/panilla_salario";
+	public void getComprobanteAhorroProgramado(HttpServletResponse response,HttpServletRequest request,
+			@RequestParam(value = "fecha", required = true) String fecha) throws Exception {
+		String FOLDER = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/reportes/");
+
 		List<PlanillaSalario> lista = obtenerListaPlanilla(fecha);
 		logger.info("llega hasta aca");
 
-		logger.info(loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper")
-				.getInputStream().toString());
+		InputStream jasperStream = null;
+		jasperStream = new FileInputStream(FOLDER + "/comprobante_pago_salarios.jasper");
 		try {
-			InputStream jasperStream = null;
 			Map<String, Object> params = new HashMap<>();
-
+			Map<String,String> meses = new HashMap<>();
+			meses.put("01", "Enero");
+			meses.put("02", "Febrero");
+			meses.put("03", "Marzo");
+			meses.put("04", "Abril");
+			meses.put("05", "Mayo");
+			meses.put("06", "Junio");
+			meses.put("07", "Julio");
+			meses.put("08", "Agosto");
+			meses.put("09", "Septiembre");
+			meses.put("10", "Octubre");
+			meses.put("11", "Noviembre");
+			meses.put("12", "Diciembre");
+			String aux1 = fecha.substring(0, 2);
+			String aux2 = fecha.substring(3, 7);
+			String key = "";
+			if(fecha != null && !fecha.equalsIgnoreCase("") && fecha != ""){
+				key = aux1;
+				if(meses.containsKey(key)){
+					params.put("MES", meses.get(key));
+				}
+			}
+			
+			params.put("ANHO", aux2);
 			Date ahora = Calendar.getInstance().getTime();
 			// params.put("LOGO", loader.getResource("classpath:" +
 			// "/logo_regional.jpg").getInputStream());
 			// params.put("USUARIO" , session.getAttribute("nombre_completo"));
 			// logger.info(loader.getResource("classpath:" +
 			// "/logo_regional.jpg").toString());
+			int monto = 0;
+			for(int i=0;i<lista.size();i++){
+				monto += lista.get(i).getMontoCobro();
+			}
 			params.put("FECHA", WebUtils.getStringFromDate(ahora, "dd/MM/yyyy"));
-			params.put("HORA", WebUtils.getStringFromDate(ahora, "HH:mm:ss"));
-			Date fecha1 = WebUtils.getDateFromString(fecha, WebUtils.DATETIME_PATTERN);
-			params.put("FECHA_SOLICITUD", WebUtils.getStringFromDate(fecha1, "dd/MM/yyyy"));
-			params.put("HORA_SOLICITUD", WebUtils.getStringFromDate(fecha1, "HH:mm:ss"));
+			params.put("TITULO", "PLANILLA DE SALARIOS");
+			params.put("MONEDA_DEBITO", "GUARANIES");
+			params.put("MONEDA", "Gs.");
+			params.put("CANTIDAD", String.valueOf(lista.size()));
+			BigDecimal b = new BigDecimal(monto);
+			String ver =  WebUtils.getFormatNumber(b,"GS");
+			params.put("MONTO_CREDITO_O_DEBITO_OPERACION",ver);
+			params.put("NRO_CUENTA", "PAGO DE SALARIOS DEL MES");
 			params.put("LISTA_PLANILLA", lista);
-
-			jasperStream = loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper")
-					.getInputStream();
+			
+			//jasperStream = loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper").getInputStream();
 			logger.info(jasperStream.toString());
 			if (jasperStream != null) {
 				JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);

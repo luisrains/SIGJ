@@ -71,13 +71,13 @@
 					class="form-control col-xs-7 col-sm-6" />
 			</div>
 			<div class="form-group hidden-xs col-sm-12">
-				<label for="nombre_razonSocial"
-					th:text="#{persona.nombre_razonSocial.lbl}"
-					class="field-label col-xs-7 col-sm-7">Nombre o Razón
-					Social:</label> <input type="text" th:field="*{nombre_razonSocial}"
-					maxlength="60" class="form-control col-xs-7 col-sm-6" />
-			</div>
-
+					<label for="nombre_razonSocial"
+						th:text="#{persona.nombre_razonSocial.lbl}"
+						class="field-label col-xs-7 col-sm-7">Nombre o Razón
+						Social:</label> <input type="text" th:field="*{nombre_razonSocial}"
+						maxlength="60" class="form-control col-xs-7 col-sm-6 letters-only" />
+				</div>
+			
 			<div id="persona_fisica"
 				class="form-group hidden-xs col-sm-12 hidden">
 				
@@ -178,20 +178,20 @@
 
 			</div>
 			<div class="form-group hidden-xs col-sm-12">
-				<label for="correoElectronico"
-					th:text="#{persona.correoElectronico.lbl}"
-					class="field-label col-xs-7 col-sm-7">correoElectronico:</label> <input
-					type="text" th:field="*{correoElectronico}" maxlength="100"
-					class="form-control col-xs-7 col-sm-6" />
-			</div>
-			<div class="form-group hidden-xs col-sm-12">
-				<label for="descripcion" th:text="#{persona.telefono.lbl}"
-					class="field-label col-xs-7 col-sm-7">telefono:</label> <input
-					type="text" th:field="*{telefono}" maxlength="15"
-					class="form-control col-xs-7 col-sm-6" />
-			</div>
-			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal">aqui van los botones</div>
+					<label for="correoElectronico"
+						th:text="#{persona.correoElectronico.lbl}"
+						class="field-label col-xs-7 col-sm-7">correoElectronico:</label> <input
+						type="text" th:field="*{correoElectronico}" maxlength="100"
+						class="form-control col-xs-7 col-sm-6" />
+				</div>
+				<div class="form-group hidden-xs col-sm-12">
+					<label for="descripcion" th:text="#{persona.telefono.lbl}"	
+						class="field-label col-xs-7 col-sm-7">telefono:</label> <input
+						type="text" th:field="*{telefono}" maxlength="15"
+						class="form-control col-xs-7 col-sm-6 numbers-only" />
+				</div>
+				<!-- Inicio panel botones -->
+				<div th:replace="botones::footerModal">aqui van los botones</div>
 		</form>
 		<script type="text/javascript">
 			$(document).ready(function() {

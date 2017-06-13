@@ -50,8 +50,20 @@
 									th:text="${cliente.persona.cedula_ruc + ' '+ cliente.persona.nombre_razonSocial + ' '+ cliente.persona.apellido}">Prueba</option>
 			</select>
 			</div>
-			<input type="hidden" id="cliente_ruc" value="">
-			<input type="hidden" id="cliente_razonSocial" value="">
+			
+			<div id="expediente-div" class="form-group col-sm-7 hidden">
+			<label for="expediente" th:text="#{factura_cabecera.expediente.lbl}" class="field-label"></label>
+			
+			<select class="col-xs-12 col-sm-12 factura-expediente"
+									id="expediente-factura" name="expediente-factura" >
+								
+							 <option th:fragment="expedienteList" th:each=" exp : ${expedienteList}" th:value="${exp.expediente.id}"
+									th:text="#{expediente.nroExpediente} + ': ' + ${exp.expediente.nroExpediente}">Prueba</option>
+							<option value="0" selected>Seleccione el expediente a Facturar</option>
+			</select>
+			
+			</div>
+			
 			<div class="form-group col-sm-6">
 				<label for="ruc" th:text="#{factura_cabecera.ruc.lbl}"
 					class="field-label">Ruc:</label> <input type="text" id="ruc"
@@ -72,14 +84,19 @@
 			<div class="form-group col-sm-6">
 				<label for="telefono" th:text="#{factura_cabecera.telefono.lbl}"
 					class="field-label">Telefono:</label> <input type="text" id="telefono"
-					th:field="*{telefono}" maxlength="100" class="form-control col-sm-6" />
+					th:field="*{telefono}" maxlength="100" class="form-control col-sm-6 numbers-only" />
 			</div>
 			
 			<div class="form-group col-sm-6">
 
 				<label for="tipo_pago" th:text="#{factura_cabecera.tipo_pago.lbl}"
-					class="field-label">Tipo Pago:</label> <input type="text" id="tipo_pago"
-					th:field="*{tipoPago}" maxlength="60" class="form-control col-sm-6"/>
+					class="field-label">Tipo Pago:</label>
+					<select class="col-xs-12 col-sm-12 tipo_pago"
+									id="tipo_pago" name="tipo_pago" >
+						<option value="0">Seleccione un Tipo de Pago</option>
+						<option value="Efectivo">Efectivo</option>
+						<option value="Tarjeta de Credito">Tarjeta de Credito</option>
+					</select>
 			</div>
 			
 			<div class="form-group col-sm-6">
@@ -125,9 +142,9 @@
 							 <option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
 									th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
@@ -142,9 +159,9 @@
 								<option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
 									th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
@@ -176,6 +193,25 @@
 				}
 			}
 		});
+		
+		$(".tipo_pago").select2({
+			placeholder : "Seleccione el Tipo de Pago...",
+			language : {
+				noResults : function(params) {
+					return "No existen registros.";
+				}
+			}
+		});
+		
+		
+		$(".factura-expediente").select2({
+			placeholder : "Seleccione el Expediente...",
+			language : {
+				noResults : function(params) {
+					return "No existen registros.";
+				}
+			}
+		});
 		$(".descripcion").select2({
 			placeholder : "Seleccione el Servicio...",
 			language : {
@@ -185,10 +221,40 @@
 			}
 		});
 		var seleccion="";
+		var expediente_select = "";
 		$("#cliente").on('change',function(e){
 			seleccion = $("select[name=cliente]").find("option:selected").val();
+			if(seleccion == 0){
+				$("#expediente-div").addClass("hidden");
+			}
+			  $("#expediente-factura").load('factura_cabecera/cliente-exp?cliente='+seleccion, function(response, status, xhr) {
+				 if(status == "success"){
+					 $('#expediente-factura').append('<option value="0" selected="selected">Seleccione el expediente a Facturar</option>');
+					 $("#expediente-div").removeClass("hidden");
+				 }
+			  }); 
+			
+			 /* $.ajax({
+		           type: "GET",
+		           url: "factura_cabecera/cliente-exp",
+		           data: { 
+		               cliente: seleccion
+		           }
+		       }).done(function(data){
+		           
+		           console.log(data);
+		           $("#expediente-factura").html(data);
+		           $("#expediente-div").removeClass("hidden");
+		           
+		          
+		           
+		       }); */
 			
 		});
+		$("#expediente-factura").on('change',function(e){
+			expediente_select = $("select[name=expediente-factura]").find("option:selected").val();
+		});
+		
        $("#btn-cabecera").on('click',function(e){
            console.log("entro en el onclick");
            var map = new Array();
@@ -196,7 +262,7 @@
            map.push("fecha_emision",$("#datepicker").val());
           
            map.push("ruc",$("#ruc").val());
-           
+           console.log($("#tipo_pago").val());
            map.push("tipo_pago",$("#tipo_pago").val());
            map.push("razon_social",$("#razon_social").val());
            map.push("direccion",$("#direccion").val());
@@ -261,6 +327,7 @@
                dataType:"json",
         	   factura_cabecera: jsonStringCab,
         	   cliente : seleccion,
+        	   expediente : expediente_select,
                factura_detalle: jsonStringDet
            }
        }).done(function(data){

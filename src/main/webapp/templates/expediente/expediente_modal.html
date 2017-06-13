@@ -133,7 +133,7 @@
 									</select>
 								</div>
 								<button class="btn btn-primary nextBtn btn-lg pull-right"
-									type="button">Siguiente</button>
+									type="button" onclick="modal_pag1()">Siguiente</button>
 							</div>
 						</div>
 					</div>
@@ -141,12 +141,17 @@
 						<div class="col-xs-6 col-md-offset-3">
 							<div class="col-md-12">
 								<h3>Carátula</h3>
-
+								
 								<div class="form-group">
-									<label for="anho" class="field-label">Año(*):</label> <input type="text"
-										name="anho" id="anho" maxlength="100" required="required" class="form-control" />
+									<label for="nroExpediente" class="field-label">
+										Nro. Expediente(*):</label> <input type="text" name="nroExpediente"
+										id="nroExpediente" maxlength="100" required="required" class="form-control numbers-only" />
 								</div>
 								<div class="form-group">
+									<label for="anho" class="field-label">Año(*):</label> <input type="text"
+										name="anho" id="anho" maxlength="100" required="required" class="form-control numbers-only" />
+								</div>
+								<div class="form-group control-moneda">
 									<label for="moneda" class="field-label">Moneda(*):</label> 
 										<select name="moneda"
 										id="moneda" for="moneda"
@@ -160,15 +165,11 @@
 
 								</div>
 
-								<div class="form-group">
+								<div class="form-group control-monto">
 									<label for="monto" class="field-label">Monto(*):</label> <input type="text" required="required"
-										name="monto" id="monto" maxlength="100" class="form-control importe" />
+										name="monto" id="monto" maxlength="100" class="form-control importe numbers-only" />
 								</div>
-								<div class="form-group">
-									<label for="nroExpediente" class="field-label">
-										Nro. Expediente(*):</label> <input type="text" name="nroExpediente"
-										id="nroExpediente" maxlength="100" required="required" class="form-control" />
-								</div>
+								
 								<button class="btn btn-primary prevBtn btn-lg pull-left"
 									type="button">Anterior</button>
 								<button class="btn btn-primary nextBtn btn-lg pull-right"
@@ -188,7 +189,7 @@
 								<div class="form-group">
 									<label for="nroLiquidacion" class="field-label">Nro.
 										de Liquidacion (*):</label> 
-										<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" required="false" class="form-control"/>
+										<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" required="false" class="form-control numbers-only"/>
 								</div>
 								<div class="form-group">
 									<label for="estadoExterno" class="field-label">Estado
@@ -215,15 +216,13 @@
 							        	 
 							        	 $('#datepicker').datepicker({       
 							                 autoclose: true,
-							                 format: 'mm/yyyy', 
-							                 viewMode: "years",
+							                 format: 'dd/mm/yyyy',
 							                 language: 'es',   
-							                 minViewMode: "months",  
-							                 monthNames:["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-							                 monthNamesShort:["Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+							                 
 							              });
 							             
 							        });
+							        
 							    </script>
 									<!-- /.input group -->
 								</div>

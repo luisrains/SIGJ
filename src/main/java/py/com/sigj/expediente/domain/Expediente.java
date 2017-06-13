@@ -50,12 +50,10 @@ public class Expediente extends GenericEntity {
 	@Size(max = 20, message = "expediente.anho.size")
 	private String anho;
 
-	@NotNull(message = "expediente.monto.notNull")
+	
 	private int monto;
 
-	@NotNull(message = "expediente.moneda.notNull")
-	@NotBlank(message = "expediente.moneda.notBlank")
-	@Size(max = 20, message = "expediente.moneda.size")
+	
 	private String moneda;
 
 	@NotNull(message = "expediente.folio.notNull")
@@ -75,6 +73,11 @@ public class Expediente extends GenericEntity {
 	@NotNull(message = "expediente.despacho.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_despacho_fk"))
 	private Despacho despachoActual;
+	
+	@ManyToOne
+	@NotNull(message = "expediente.estado.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estado_fk"))
+	private EstadoExternoInterno estado;
 
 	public Expediente() {
 	}
@@ -129,6 +132,14 @@ public class Expediente extends GenericEntity {
 		this.moneda = moneda;
 	}
 
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
+
 	public String getNroLiquidacion() {
 		return nroLiquidacion;
 	}
@@ -145,20 +156,30 @@ public class Expediente extends GenericEntity {
 		this.fechaSelloCargo = fechaSelloCargo;
 	}
 
-	public String getFolio() {
-		return folio;
-	}
-
-	public void setFolio(String folio) {
-		this.folio = folio;
-	}
-
 	public Despacho getDespachoActual() {
 		return despachoActual;
 	}
 
-	public void setDespachoActual(Despacho despacho) {
-		this.despachoActual = despacho;
+	public void setDespachoActual(Despacho despachoActual) {
+		this.despachoActual = despachoActual;
 	}
 
+	
+	
+	public EstadoExternoInterno getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoExternoInterno estado) {
+		this.estado = estado;
+	}
+
+	@Override
+	public String toString() {
+		return "Expediente [id=" + id + ", caratula=" + caratula + ", nroExpediente=" + nroExpediente + ", anho=" + anho
+				+ ", monto=" + monto + ", moneda=" + moneda + ", folio=" + folio + ", nroLiquidacion=" + nroLiquidacion
+				+ ", fechaSelloCargo=" + fechaSelloCargo + ", despachoActual=" + despachoActual + ", estado=" + estado
+				+ "]";
+	}
+	
 }

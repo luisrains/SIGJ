@@ -21,7 +21,7 @@ public class MovimientoActuacionListController extends ListController<Movimiento
 	// , "documento.descripcion" "expediente.nroExpediente",
 	@Override
 	public String[] getColumnas() {
-		return new String[] { "id", "abrevitura", "observacion", "fechaPresentacion", "fechaVencimiento", "tipo_actuacion.descripcion", "tipo_actuacion.plazo" };
+		return new String[] { "id", "observacion", "fechaPresentacion", "fechaVencimiento", "tipo_actuacion.descripcion", "tipo_actuacion.plazo" };
 	}
 
 	@Override

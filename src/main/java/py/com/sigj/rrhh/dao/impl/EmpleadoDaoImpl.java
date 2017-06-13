@@ -13,7 +13,7 @@ public class EmpleadoDaoImpl extends DaoImpl<Empleado> implements EmpleadoDao {
 
 	@Override
 	public String getCamposFiltrables() {
-		return null;
+		return "persona.cedula_ruc||persona.nombre_razonSocial||persona.apellido";
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -60,7 +61,7 @@ public class MovimientoActuacion extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_actuacion_tipo_actuacion_fk"))
 	private TipoActuacion tipoActuacion;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_actuacion_expediente_fk"))
 	private Expediente expediente;
 	
