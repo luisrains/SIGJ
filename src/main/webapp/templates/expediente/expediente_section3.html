@@ -1,17 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<body>
+	<div th:fragment="contenido">
+<!-- <div th:replace="expediente/expediente_modal::modal_step"></div> -->
 
+<div class="container">
+
+  
+</div>
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Caso Judicial</a></li>
+				<li><a href="#menu2">Partes del caso</a></li>
+				<li ><a href="#menu3">Listado de Expedientes</a></li>
+			</ul>
+
+			<div  class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de Expediente</h3>
+						</div>
+						<div class="box-body" style="width: 99%; padding-left: 15px;">
+	
+						
 
 <!-- <input type="hidden" th:field="*{id}" /> -->
 <div class="col-lg-12" style="border-style: solid; margin-top: 10px;">
 
 	<h3>CARATULA DEL EXPEDIENTE</h3>
 	<div class="form-group col-lg-6" style="margin-top: 10px;">
+		
+					
 		<label th:text="#{expediente.nroExpediente.lbl}"
 			class="field-label section-02">Nro Expediente:</label>
-		<!-- Para prueba -->
-		<!-- <label
-					class="field-label section-02">4512</label>  -->
-		<label th:text="${session.expediente}"
-			class="field-label section-02"></label>
 		<label th:text="${session.expediente.nroExpediente}"
 			class="field-label section-02"></label>
 
@@ -21,7 +47,7 @@
 		<label th:text="#{expediente.anho.lbl}" class="field-label section-02">Año:</label>
 		<!-- <label
 					class="field-label section-02"> 2015</label>  -->
-		<label th:text="${expediente.anho}" class="field-label section-02"></label>
+		<label th:text="${session.expediente.anho}" class="field-label section-02"></label>
 
 
 
@@ -31,7 +57,7 @@
 		<!-- <label
 					class="field-label section-02"> Pedro Ayala</label>  -->
 
-		<label th:text="${expediente.despachoActual.juez}"
+		<label th:text="${session.expediente.despachoActual.juez}"
 			class="field-label section-02"></label>
 
 
@@ -42,7 +68,7 @@
 
 		<!-- <label 
 					class="field-label section-02">100</label> 	 -->
-		<label th:text="${expediente.folio}" class="field-label section-02"></label>
+		<label th:text="${session.expediente.folio}" class="field-label section-02"></label>
 
 
 	</div>
@@ -51,7 +77,7 @@
 	<div class="form-group col-lg-6">
 		<label th:text="#{expediente.clientes_demandantes.lbl}"
 			class="field-label section-02">Cliente Demandante:</label><br>
-		<th:block th:each=" tip : ${clienteList}">
+		<th:block th:each=" tip : ${session.clienteList}">
 
 			<label class="field-label section-02"
 				th:if="${tip.tipoCliente == 'D'}"
@@ -76,7 +102,7 @@
 		<label th:text="#{expediente.clientes_demandados.lbl}"
 			class="field-label section-02">Cliente Demandado:</label> <br>
 
-		<th:block th:each=" tip : ${clienteList}">
+		<th:block th:each=" tip : ${session.clienteList}">
 
 			<label class="field-label section-02"
 				th:if="${tip.tipoCliente == 'C'}"
@@ -94,7 +120,7 @@
 		<label th:text="#{expediente.abogados_apoderados.lbl}"
 			class="field-label section-02">Abogado Apoderado:</label> <br>
 
-		<th:block th:each=" tip : ${abogadoList}">
+		<th:block th:each=" tip : ${session.abogadoList}">
 
 			<label class="field-label section-02"
 				th:if="${tip.tipoAbogado == 'AP'}"
@@ -108,7 +134,7 @@
 		<label th:text="#{expediente.abogados_contrapartes.lbl}"
 			class="field-label section-02">Abogado Contraparte:</label><br>
 
-		<th:block th:each=" tip : ${abogadoList}">
+		<th:block th:each=" tip : ${session.abogadoList}">
 
 			<label class="field-label section-02"
 				th:if="${tip.tipoAbogado == 'CO'}"
@@ -170,25 +196,48 @@
 			});	
 	
 		
-		 $('#file-es').fileinput({
-	        language: 'es',
-	        uploadUrl: '#',
-	        allowedFileExtensions: ['jpg', 'png', 'gif'],
-	        showUpload : false,
-			maxFileCount : 10,
-			mainClass : "input-group-lg",
-			layoutTemplates: { 
-				footer: '<div class="file-thumbnail-footer">\n' +
-		            '    <div class="file-footer-caption" style="width:{width}">{caption}<br> {size}</div>\n' +
-		            '    {actions}\n' +
-		            '</div>',
-	        	actions: '<div class="file-actions">\n' +
-		            '    <div class="file-footer-buttons">\n' +
-		            '      {delete} {zoom} {other}' +
-		            '    </div>\n' +
-		            '    <div class="clearfix"></div>\n' +
-		            '</div>',
-			}
-	    });		 
+		
 </script>
 
+
+					
+					
+					
+					
+					</div>
+					</div>
+				</div>
+
+			
+				<!--LISTADO DE EXPEDIENTES  -->
+				
+			</div>
+			
+		</div>
+		
+		<script>
+		 $('#file-es').fileinput({
+		        language: 'es',
+		        uploadUrl: '#',
+		        allowedFileExtensions: ['jpg', 'png', 'gif'],
+		        showUpload : false,
+				maxFileCount : 10,
+				mainClass : "input-group-lg",
+				layoutTemplates: { 
+					footer: '<div class="file-thumbnail-footer">\n' +
+			            '    <div class="file-footer-caption" style="width:{width}">{caption}<br> {size}</div>\n' +
+			            '    {actions}\n' +
+			            '</div>',
+		        	actions: '<div class="file-actions">\n' +
+			            '    <div class="file-footer-buttons">\n' +
+			            '      {delete} {zoom} {other}' +
+			            '    </div>\n' +
+			            '    <div class="clearfix"></div>\n' +
+			            '</div>',
+				}
+		    });		 
+			</script>
+
+	</div>
+</body>
+</html>

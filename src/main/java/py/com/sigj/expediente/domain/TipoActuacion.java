@@ -34,10 +34,19 @@ public class TipoActuacion extends GenericEntity {
 	@Size(max = 60, message = "tipoActuacion.descripcion.size")
 	private String descripcion;
 
-	@NotNull(message = "tipoActuacion.modeloHoja.notNull")
-	@NotBlank(message = "tipoActuacion.modeloHoja.notBlank")
-	@Size(max = 60, message = "tipoActuacion.modeloHoja.size")
-	private String modeloHoja;
+	@NotNull(message = "movimiento_actuacion.abrevitura.notNull")
+	@NotBlank(message = "movimiento_actuacion.abrevitura.notBlank")
+	@Size(max = 5, message = "movimiento_actuacion.abrevitura.size")
+	private String abrevitura;
+
+	//	@NotNull(message = "tipoActuacion.modeloHoja.notNull")
+//	@NotBlank(message = "tipoActuacion.modeloHoja.notBlank")
+//	@Size(max = 60, message = "tipoActuacion.modeloHoja.size")
+//	private String modeloHoja;
+	
+	@NotNull(message = "tipoActuacion.plazo.notNull")
+	private int plazo;
+	
 
 	public TipoActuacion() {
 
@@ -61,17 +70,26 @@ public class TipoActuacion extends GenericEntity {
 		this.descripcion = descripcion;
 	}
 
-	public String getModeloHoja() {
-		return modeloHoja;
+	public String getAbrevitura() {
+		return abrevitura;
 	}
 
-	public void setModeloHoja(String modeloHoja) {
-		this.modeloHoja = modeloHoja;
+	public void setAbrevitura(String abrevitura) {
+		this.abrevitura = abrevitura;
+	}
+
+	public int getPlazo() {
+		return plazo;
+	}
+
+	public void setPlazo(int plazo) {
+		this.plazo = plazo;
 	}
 
 	@Override
 	public String toString() {
-		return "TipoActuacion [id=" + id + ", descripcion=" + descripcion + ", modeloHoja=" + modeloHoja + "]";
+		return "TipoActuacion [id=" + id + ", descripcion=" + descripcion + ", abrevitura=" + abrevitura + ", plazo="
+				+ plazo + "]";
 	}
 
 }
