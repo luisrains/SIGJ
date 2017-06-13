@@ -192,6 +192,11 @@ var demandado = "";
 var apoderado = "";
 var contraparte = "";
 var idPartes = [];
+var banDem=0;
+var banDe=0;
+var banApo=0;
+var banCon=0;
+
 function agregar_cliente(id, nombre){
 	var seleccion = $('input[name=tipo_cliente]:checked').val();
 	if(notInTable(id,"C")){//si no esta en la tabla de partes
@@ -208,11 +213,19 @@ function agregar_cliente(id, nombre){
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
 				 $('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>DEMANDANTE</td><td>"+nombre+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"C"});
+				 if(banDem == 0){
+					 $('#o-demandante').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					 banDem++;
+				 }
 				 $("#div-result_cliente").addClass("hidden");
 			}else{
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
 				$('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>DEMANDADO</td><td>"+nombre+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"C"});
+				if(banDe == 0){
+					$('#o-demandado').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					banDe++;
+				}
 				$("#div-result_cliente").addClass("hidden");
 			}
 		}
@@ -242,11 +255,19 @@ function agregar_abogado(id, nombre){
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
 				 $('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>APODERADO</td><td>"+nombre+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"A"});
+				 if(banApo == 0){
+					 $('#o-apoderado').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					 banApo++;
+				 }
 				 $("#div-result_abogado").addClass("hidden");
 			}else{
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
 				$('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>CONTRAPARTE</td><td>"+nombre+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"A"});
+				if(banCon == 0){
+					$('#o-contraparte').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					banCon++;
+				}
 				$("#div-result_abogado").addClass("hidden");
 			}
 		}
@@ -267,7 +288,7 @@ function datos_caratula(){
 	rInfo.mapa.clientes=clientes;
 	
 	
-	var expediente = $("#o-nombre_demandante").text() +" "+$("#o-apellido_demandante").text()+" C/ "+ $("#o-nombre_demandado").text() +" "+$("#o-apellido_demandado").text()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
+	var expediente = $("#o-demandante").val() +" C/ "+ $("#o-demandado").val()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
 	var juzgado = $("select[name=despacho]").find(":selected").text();
 	$.each(listDespachos, function( index, value ) {
 		if( $("#despacho").find(":selected").val() == value.id){
