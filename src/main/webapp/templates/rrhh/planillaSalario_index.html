@@ -25,6 +25,7 @@
 						<div id="planilla_body">
                     
                			</div>
+               			
 					</div>
 						
 					<script type="text/javascript">
@@ -54,7 +55,7 @@
 					<div class="col-xs-12 col-sm-12 col-sm-offset-3">
 						<button id="btn-planilla" type="button" class="btn btn-primary col-xs-5 col-sm-3"
 						style="padding:5px; margin:10px;">Mostrar Planilla</button>
-						<button id="btn-informe" type="button" class="btn btn-primary col-xs-5 col-sm-3"
+						<button id="btn-informe" type="button" class="btn btn-primary col-xs-5 col-sm-3 hidden"
 						style="padding:5px; margin:10px;">Generar Planilla</button>
 						
 						</div>
@@ -77,7 +78,11 @@
            console.log(data);
            $("#planilla_body").load();
            $("#planilla_body").html(data);
-          
+           if($("#error-vacio").val() == "no"){
+        	   $("#btn-informe").removeClass("hidden"); 
+           }else{
+        	   $("#btn-informe").addClass("hidden");
+           }
            
        });
        });

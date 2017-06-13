@@ -50,7 +50,7 @@ public class MovimientoActuacion extends GenericEntity {
 	@Size(max = 100, message = "movimiento_actuacion.observacion.size")
 	private String observacion;
 	
-	@Column
+	@Temporal(TemporalType.DATE)
 	private Date fechaPresentacion;
 	
 	@Temporal(TemporalType.DATE)
@@ -61,7 +61,7 @@ public class MovimientoActuacion extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_actuacion_tipo_actuacion_fk"))
 	private TipoActuacion tipoActuacion;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_actuacion_expediente_fk"))
 	private Expediente expediente;
 	

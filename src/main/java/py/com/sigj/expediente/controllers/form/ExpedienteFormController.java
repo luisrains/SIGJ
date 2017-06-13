@@ -1,5 +1,7 @@
 package py.com.sigj.expediente.controllers.form;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +69,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private ClienteListController clienteList;
+	
+	@Autowired
+	private MovimientoActuacionListController movimientoActuacionList;
 
 	@Autowired
 	private ExpedienteListController expedienteList;
@@ -141,7 +146,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getListAll(null));
 		logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
-
+		
 		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
 		map.addAttribute("materiaList", materiaDao.getListAll(null));
 		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
@@ -333,15 +338,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				expediente = expedienteDao.find(Long.parseLong(id_exp));
 				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
 				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-				
-				
-				
-				
+				List<MovimientoActuacion> ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
 				map.addAttribute("id_expediente", id_exp);
 				map.addAttribute("abogadoList", abogadoList);
 				map.addAttribute("clienteList", clienteList);
 				map.addAttribute("expediente", expediente);
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
+				map.addAttribute("movimiento_actuacion",ma);
 				logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -358,10 +361,33 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			@RequestParam(value = "fecha-presentacion") String fecha_presentacion,
 			@RequestParam(value = "fecha-vencimiento") String fecha_vencimiento,
 			@RequestParam(value = "movimiento-observacion") String observacion,
-			@RequestParam("documento") MultipartFile documento) {
+			@RequestParam("documento") MultipartFile documento) throws IOException, ParseException {
+		MovimientoActuacion ma = new MovimientoActuacion();
+		MultipartFile multipartFile = documento;
+		byte[] doc = multipartFile.getBytes();
+		ma.setDocumento(doc);
+		ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
+		//fecha_presentacion = fecha_presentacion.replace("/", "");
+		//fecha_vencimiento = fecha_vencimiento.replace("/", "");
+		Date fe_pre = WebUtils.getDateFromString(fecha_presentacion, "dd/MM/yyyy");
+		Date fe_ve = WebUtils.getDateFromString(fecha_vencimiento, "dd/MM/yyyy");
+		ma.setFechaPresentacion(fe_pre);
+		ma.setFechaVencimiento(fe_ve);
+		ma.setObservacion(observacion);
+		ma.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
+		movimientoActuacionDao.create(ma);
 		
 		
-		return "ok"; //modificar luego	
+		Expediente expediente = new Expediente();
+		expediente = expedienteDao.find(Long.parseLong(id_exp));
+		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+		map.addAttribute("id_expediente", id_exp);
+		map.addAttribute("abogadoList", abogadoList);
+		map.addAttribute("clienteList", clienteList);
+		map.addAttribute("expediente", expediente);
+		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+		return "expediente/actuacion_hojear2"; //modificar luego	
 		
 	}
 	@RequestMapping(value = "/buscar", method = RequestMethod.GET)

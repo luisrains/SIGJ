@@ -74,6 +74,12 @@ $("select[name=materia]").on("change", function(e){
 		});
 });
 
+$("#btn-informe").on('click',function(e){
+	   var fecha_rec = $('input[name=fecha]').val();
+	   var url = '/sigj/planilla_salario/reporte_planilla_salario?fecha='+fecha_rec;
+	   location.href =  url;
+});
+
 $("select[name=tipoProceso]").on("change", function(e){
 	console.log($('select[name=tipoProceso]').val());
 	var codigo_proceso = $('select[name=tipoProceso]').val();
@@ -313,8 +319,7 @@ function registrar_expediente(){
 		$("#expediente_section_2").removeClass("hidden");
 	});
 }
-function agregar_actuacion(){
-	var id_expediente = $("#id-expediente").val();
+function agregar_actuacion(id_expediente){
 	if(id_expediente == null || id_expediente == undefined || id_expediente == ""){ // solo para probar si llega al controlador
 		id_expediente = 0;
 	}

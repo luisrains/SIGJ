@@ -192,6 +192,8 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 				band_abg = true;
 			}
 		}
+		try{
+			
 		
 		query = entityManager.createQuery(sql);
 		if(nroExpediente != null && !nroExpediente.equalsIgnoreCase("")){
@@ -214,12 +216,13 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 		String nombreClase =  getEntityName();
 		logger.info(nombreClase);
 		list = query.getResultList();
-		if(list == null){
-			for(int i=0;i< list2.size();i++){
-				list.add(list2.get(i).getExpediente());
-			}
+		if(list == null || list.isEmpty()){
+			list = null;	
 		}
 		return list;
+		}catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
