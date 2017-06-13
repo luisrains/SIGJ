@@ -1,6 +1,8 @@
 //Validamos los campos numericos y alphanumeric
 
 var REGEX_NUMBERS_ONLY = "^[0-9\b]+$";
+var REGEX_LETTERS = "^[a-zA-Z\b ]+$";
+
 $('.importe').on("input", function (e) {
 	var num = $(this).val();
 	var moneda="";
@@ -134,6 +136,17 @@ function format(input)
 		
 $('.numbers-only').bind('keypress', function (event) {
     var regex = new RegExp(REGEX_NUMBERS_ONLY);
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+
+
+/*validador de solo letras*/
+$('.letters-only').bind('keypress', function (event) {
+    var regex = new RegExp(REGEX_LETTERS);
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
        event.preventDefault();

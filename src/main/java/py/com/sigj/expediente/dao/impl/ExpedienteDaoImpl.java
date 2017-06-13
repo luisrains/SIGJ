@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import py.com.sigj.dao.impl.DaoImpl;
 import py.com.sigj.expediente.dao.ExpedienteDao;
+import py.com.sigj.expediente.domain.Abogado;
 import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
@@ -240,27 +241,47 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 	}
 
 	@Override
-	public List<Cliente> buscarParte(String search) {
+	public List<Cliente> buscarParteCliente(String search) {
 		logger.info("Obteniendo lista de clientes, sSearch: {}", search);
-
-		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
-		sql = sql.replace("#ENTITY#", "Cliente");
 		Query query = null;
-		// Usuario no envió ningún filtro
-
-		if (StringUtils.isBlank(search)) {
-			query = entityManager.createQuery(sql);
-		} else {
-			sql = sql + " WHERE lower(persona.cedula_ruc||persona.nombre_razonSocial||persona.apellido) LIKE lower(?1)";
-			query = entityManager.createQuery(sql);
-			query.setParameter(1, "%" + search.replace(" ", "%") + "%");
-		}
 		
-		List<Cliente> list = query.getResultList();
+			String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
+			sql = sql.replace("#ENTITY#", "Cliente");
+			
+			if (StringUtils.isBlank(search)) {
+				query = entityManager.createQuery(sql);
+			} else {
+				sql = sql + " WHERE lower(persona.cedula_ruc||persona.nombre_razonSocial||persona.apellido) LIKE lower(?1)";
+				query = entityManager.createQuery(sql);
+				query.setParameter(1, "%" + search.replace(" ", "%") + "%");
+			}
+			List<Cliente> list = (List<Cliente>) query.getResultList();
 		logger.info("Cantidad de registros encontrados: {}", list);
 		return list;
 	
 	}
+	
+	@Override
+	public List<Abogado> buscarParteAbogado(String search) {
+		logger.info("Obteniendo lista de Abogadosp, sSearch: {}", search);
+		Query query = null;
+		
+			String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
+			sql = sql.replace("#ENTITY#", "Abogado");
+			
+			if (StringUtils.isBlank(search)) {
+				query = entityManager.createQuery(sql);
+			} else {
+				sql = sql + " WHERE lower(empleado.persona.cedula_ruc||empleado.persona.nombre_razonSocial||empleado.persona.apellido) LIKE lower(?1)";
+				query = entityManager.createQuery(sql);
+				query.setParameter(1, "%" + search.replace(" ", "%") + "%");
+			}
+			List<Abogado> list = (List<Abogado>) query.getResultList();
+		logger.info("Cantidad de registros encontrados: {}", list);
+		return list;
+	
+	}
+	
 	
 	@Override
 	public List<ExpedienteAbogado> getListByExpedienteIdAb(String id_expediente) {

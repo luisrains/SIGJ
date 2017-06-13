@@ -40,6 +40,7 @@ import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoActuacionDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
+import py.com.sigj.expediente.domain.Abogado;
 import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.Documento;
 import py.com.sigj.expediente.domain.Expediente;
@@ -391,11 +392,23 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@RequestMapping(value = "/buscar-parte", method = RequestMethod.GET)
 	public String buscar_parte(HttpServletRequest request, ModelMap map,
-			@RequestParam(value = "search") String search) {
-			List<Cliente> listCliente = expedienteDao.buscarParte(search);
+			@RequestParam(value = "search") String search,
+			@RequestParam(value = "tipo_parte") String tipoParte) {
+		if("C".equals(tipoParte.toUpperCase())){
+			List<Cliente> listParte = expedienteDao.buscarParteCliente(search);
 			
-			map.addAttribute("listCliente", listCliente);
+			map.addAttribute("listParte", listParte);
+			map.addAttribute("tipoParte", tipoParte);
+		}else if ("A".equals(tipoParte.toUpperCase())){
+			List<Abogado> listParte = expedienteDao.buscarParteAbogado(search);
 			
+			map.addAttribute("listParte", listParte);
+			map.addAttribute("tipoParte", tipoParte);
+		}else{
+			map.addAttribute("listParte", null);
+			map.addAttribute("tipoParte", null);
+		}
+		
 		return "expediente/expediente_resultado";
 	}
 

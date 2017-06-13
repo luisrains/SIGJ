@@ -14,6 +14,6 @@ public class AbogadoDaoImpl extends DaoImpl<Abogado> implements AbogadoDao {
 
 	@Override
 	public String getCamposFiltrables() {
-		return "empleado.persona.cedula_ruc||empleado.persona.nombre_razonSocial||empleado.persona.apellido||domicilioLaboral||domicilioActual";
+		return "empleado.persona.cedula_ruc||empleado.persona.nombre_razonSocial||empleado.persona.apellido";
 	}
 }
