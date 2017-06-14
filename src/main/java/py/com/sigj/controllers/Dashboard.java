@@ -1,7 +1,6 @@
 package py.com.sigj.controllers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import org.springframework.web.context.WebApplicationContext;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
-import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.util.ExpedienteActuacionBean;
 import py.com.sigj.util.WebUtils;
@@ -38,7 +36,7 @@ public class Dashboard {
 
 	@RequestMapping("inicio")
 	public String start(ModelMap map) {
-		String cedula = "4152639";
+		String cedula = "4810026";
 		List<ExpedienteAbogado> exp = expedienteDao.getListByCedulaRuc(cedula);
 		ExpedienteActuacionBean exAc = null;
 		List<ExpedienteActuacionBean> listExAc = new ArrayList<>();
