@@ -1,0 +1,1 @@
+INSERT INTO persona(id,apellido,cedula_ruc,correoelectronico,edad,fechanacimiento,nombre_razonsocial,sexo,telefono,tipopersona,estadocivil) VALUES(NEXTVAL('personafisica_id_seq'),'Riquelme','4213902','analiariquelme@gmail.com','22','soltera','04/06/1994','Analia','f','0961475337','fisica');
