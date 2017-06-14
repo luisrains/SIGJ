@@ -356,10 +356,9 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 			params.put("CANTIDAD", String.valueOf(lista.size()));
 			BigDecimal b = new BigDecimal(monto);
 			String ver =  WebUtils.getFormatNumber(b,"GS");
-			params.put("MONTO_CREDITO_O_DEBITO_OPERACION",ver);
+			params.put("MONTO",ver);
 			params.put("NRO_CUENTA", "PAGO DE SALARIOS DEL MES");
 			params.put("LISTA_PLANILLA", lista);
-			
 			//jasperStream = loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper").getInputStream();
 			logger.info(jasperStream.toString());
 			if (jasperStream != null) {
@@ -368,7 +367,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 
 				byte[] pdfReport = JasperExportManager.exportReportToPdf(jasperPrint);
 				response.setContentType("application/x-pdf");
-				response.setHeader("Content-disposition", "inline; filename=comprobante.pdf");
+				response.setHeader("Content-disposition", "inline; filename=planilla_salario.pdf");
 				response.reset();
 				response.setContentType("application/pdf");
 				response.setHeader("Cache-Control", "no-store");
