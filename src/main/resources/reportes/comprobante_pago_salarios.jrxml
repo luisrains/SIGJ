@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobante_pago_salarios" pageWidth="595" pageHeight="842" columnWidth="523" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="115e6336-3a20-43f8-8444-d7a5c7034ddd">
 	<property name="ireport.zoom" value="1.6105100000000012"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="120"/>
+	<property name="ireport.y" value="624"/>
 	<subDataset name="dataset1" uuid="e34f5769-3d1c-4eba-8268-3816ca076b4d">
 		<field name="montoCobro" class="java.lang.Integer"/>
 		<field name="ingresoTotal" class="java.lang.Integer"/>
@@ -240,7 +240,7 @@
 			<staticText>
 				<reportElement x="0" y="51" width="100" height="10" uuid="5b8eebf8-ebb0-427b-a937-adc2028f24cf"/>
 				<textElement>
-					<font fontName="Verdana" size="8" isBold="true"/>
+					<font fontName="Verdana" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad de Empleados:]]></text>
 			</staticText>
