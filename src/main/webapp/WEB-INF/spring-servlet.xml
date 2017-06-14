@@ -28,6 +28,8 @@
 	<mvc:resources location="/build/" mapping="/build/**" />
 	<mvc:resources location="/dist/" mapping="/dist/**" />
 	<mvc:resources location="/plugins/" mapping="/plugins/**" />
+	<mvc:resources location="/extras/" mapping="/extras/**" />
+	<mvc:resources location="/lib/" mapping="/lib/**" />
 
 
 	<!-- **************************************************************** -->
@@ -79,6 +81,7 @@
 		<property name="prefix" value="/templates/" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="HTML5" />
+		<property name="characterEncoding" value="UTF-8"/>
 	</bean>
 	
 
@@ -124,9 +127,9 @@
 			<property name="templateEngine" ref="templateEngine" />
 			<property name="characterEncoding" value="UTF-8"></property>
 			<property name="cache" value="false"></property>
+			<property name="contentType" value="text/html;charset=UTF-8"/>
 		</bean>
 	
 </beans>
-
 
 

@@ -6,7 +6,7 @@
  
 		        language: 'es',
 		        uploadUrl: '#',
-		        allowedFileExtensions: ['jpg', 'png', 'gif'],
+		        allowedFileExtensions: ['jpg', 'png', 'gif','jpeg'],
 		        showUpload : false,
 				maxFileCount : 1,
 				mainClass : "input-group-lg",

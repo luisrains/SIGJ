@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -327,7 +328,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 //			
 //			doc = ac.get
 			String base64String = "";
-			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpediente(id_exp);
+			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
 			logger.info("listado ..{}",listExpDoc);
 				if(listExpDoc != null && !listExpDoc.isEmpty()){
 					base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
@@ -438,4 +439,31 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		return "expediente/expediente_resultado";
 	}
 
+	
+	@RequestMapping(value = "hojar-expediente/{id}", method = RequestMethod.GET)
+	public String getExpedienteDigital(HttpServletRequest request, ModelMap map,@PathVariable Long id){
+		try {
+			MultipartFile doc = null;
+			MovimientoActuacion ac = null;
+			String id_exp = String.valueOf(id);
+			String base64String = "";
+			List<String> base64StringList = new ArrayList<String>();
+			List<MovimientoActuacion> listExpDoc = expedienteDocumentoDao.getListByExpedienteActuacion(id_exp);
+			logger.info("listado ..{}",listExpDoc);
+				if(listExpDoc != null && !listExpDoc.isEmpty()){
+					for (MovimientoActuacion movimientoActuacion : listExpDoc) {
+						base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
+						base64StringList.add(base64String);
+					}
+				}
+				map.addAttribute("actuacionList",base64StringList);
+				logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "expediente/expediente_digital" ;
+		
+		
+	}
+	
 }
