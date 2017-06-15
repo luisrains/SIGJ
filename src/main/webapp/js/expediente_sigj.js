@@ -381,11 +381,15 @@ function modal_pag1(){
 	if (tipo != 0 && tipo != '0') {
 		if (descripcion != 'acción ejecutiva' && descripcion != 'acción preparatoria de juicio ejecutivo') {
 			$("#moneda").addClass("hidden");
+			$('.control-moneda').css('display','none');
 			$("#moneda").val(0);
 			$("#monto").addClass("hidden");
-			$("#monto").val(0);
+			$('.control-monto').css('display','none');
+			$("#monto").val(1);
 		} else {
 			$("#moneda").removeClass("hidden");
+			$('.control-moneda').css('display','block');
+			$('.control-monto').css('display','block');
 			$("#monto").removeClass("hidden");
 		}
 	}
@@ -393,15 +397,22 @@ function modal_pag1(){
 
 function modal_pag2(){
 	  var monto = $("#monto").val();
-	  monto = monto.replaceAll("\\.", "");
+	  monto = monto.replace("\\.", "");
+	  monto = monto.replace("\\.", "");
 		var descripcion = $("select[name=tipoDemanda]").find(":selected").text();
 		descripcion = descripcion.toLowerCase();
 	if (monto != 0 && monto > 7555800) {
-		if (descripcion != 'acción ejecutiva' && descripcion != 'acción preparatoria de juicio ejecutivo') {
-			$("#nroLiquidacion").prop("disabled","disabled");
+		if (descripcion == 'acción ejecutiva' || descripcion == 'acción preparatoria de juicio ejecutivo') {
+			$(".nroLiquidacion-control").css("display","block");
+			
 		} else {
-			$("#nroLiquidacion").prop("disabled",false);
+			$(".nroLiquidacion-control").css("display",'none');
+			$('#nroLiquidacion').val(1);
 		}
+	}else{
+		$(".nroLiquidacion-control").css("display",'none');
+		$('#nroLiquidacion').val(1);
+		
 	}
 }
 

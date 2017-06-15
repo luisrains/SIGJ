@@ -61,9 +61,8 @@
 			<div class="modal-content container"
 				style="background-color: #f7f7f7;">
 				<div class="modal-header">
-				<!-- class="close" data-dismiss="modal" -->
-					<!-- <button type="button" onclick="botonOK()"
-						aria-hidden="true">&times;</button> -->
+					<button type="button" class="close" data-dismiss="modal" 
+            aria-hidden="true">&times;</button> 
 
 				</div>
 				<div class="modal-body">
@@ -174,7 +173,7 @@
 								<button class="btn btn-primary prevBtn btn-lg pull-left"
 									type="button">Anterior</button>
 								<button class="btn btn-primary nextBtn btn-lg pull-right"
-									type="button" onclick="modal_pag1()">Siguiente</button>
+									type="button" onclick="modal_pag2()">Siguiente</button>
 							</div>
 						</div>
 					</div>
@@ -187,7 +186,7 @@
 										name="folio" for="folio" maxlength="100"
 										class="form-control numbers-only" required="required" autofocus="autofocus" />
 								</div>
-								<div class="form-group">
+								<div class="form-group nroLiquidacion-control" style="display:none;">
 									<label for="nroLiquidacion" class="field-label">Nro.
 										de Liquidacion:</label> 
 										<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" required="false" class="form-control numbers-only"/>
