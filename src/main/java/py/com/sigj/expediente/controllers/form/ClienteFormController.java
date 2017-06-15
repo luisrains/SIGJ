@@ -20,8 +20,10 @@ import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.ClienteListController;
 import py.com.sigj.expediente.controllers.list.ExpedienteListController;
+import py.com.sigj.expediente.dao.AbogadoDao;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.PersonaDao;
+import py.com.sigj.expediente.domain.Abogado;
 import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.Persona;
@@ -37,7 +39,6 @@ public class ClienteFormController extends FormController<Cliente> {
 	@Autowired
 	private ClienteDao clienteDao;
 
-	
 
 	@Autowired
 	private PersonaDao personaDao;
@@ -105,6 +106,9 @@ public class ClienteFormController extends FormController<Cliente> {
 			BindingResult bindingResult) {
 		try {
 			if (obj.getId() == null) {
+				Persona persona = personaDao.find(obj.getPersona().getId());
+				persona.setDisponible("NO");
+				personaDao.createOrUpdate(persona);
 				getDao().createOrUpdate(obj);
 			}
 
