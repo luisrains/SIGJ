@@ -397,13 +397,14 @@ function modal_pag1(){
 
 function modal_pag2(){
 	  var monto = $("#monto").val();
-	  monto = monto.replace("\\.", "");
-	  monto = monto.replace("\\.", "");
+	  monto = monto.replace(/\./g, "");
+	  
 		var descripcion = $("select[name=tipoDemanda]").find(":selected").text();
 		descripcion = descripcion.toLowerCase();
 	if (monto != 0 && monto > 7555800) {
 		if (descripcion == 'acción ejecutiva' || descripcion == 'acción preparatoria de juicio ejecutivo') {
 			$(".nroLiquidacion-control").css("display","block");
+			$('#nroLiquidacion').val('');
 			
 		} else {
 			$(".nroLiquidacion-control").css("display",'none');
