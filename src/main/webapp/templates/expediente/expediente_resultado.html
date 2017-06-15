@@ -21,7 +21,7 @@
 <th:block th:if="${listParte != null and tipoParte !=null and tipoParte=='A' }" th:each=" abog : ${listParte}">			
 	<tr>
 		<td><button type='button' class='editar btn btn-primary btn-xs' 
-		th:onclick="'agregar_abogado(\''+${abog.id}+' \', \''+${abog.empleado.persona.nombre_razonSocial  + ' ' + abog.empleado.persona.apellido + ' - C.I.: ' + abog.empleado.persona.cedula_ruc}+' \');'"><i class='fa fa-plus'></i> Agregar</button></td>
+		th:onclick="'agregar_abogado(\''+${abog.id}+'\', \''+${abog.empleado.persona.nombre_razonSocial  + ' ' + abog.empleado.persona.apellido + ' - C.I.: ' + abog.empleado.persona.cedula_ruc}+'\');'"><i class='fa fa-plus'></i> Agregar</button></td>
 		<td th:text="${abog.id}"></td>
 		<td th:text="${abog.empleado.persona.nombre_razonSocial  + ' ' + abog.empleado.persona.apellido + ' - C.I.: ' + abog.empleado.persona.cedula_ruc}"></td>
 	</tr>

@@ -205,7 +205,7 @@ function agregar_cliente(id, nombre){
 	if(notInTable(id,"C")){//si no esta en la tabla de partes
 		if(seleccion == undefined || seleccion=="" || seleccion==null){
 			//$("#div-result_cliente").empty();
-			$(".error-cliente").empty();
+			$(".error-cliente").html('');
 			$("#error-cliente").removeClass("hidden");
 			var msg= "Debe seleccionar el tipo de Cliente."
 				$(".error-cliente").html(msg);
@@ -234,8 +234,8 @@ function agregar_cliente(id, nombre){
 		}
 	
 	}else{
-		$("#div-result_cliente").empty();
-		$(".error-cliente").empty();
+		$("#div-result_cliente").html('');
+		$(".error-cliente").html('');
 		$("#error-cliente").removeClass("hidden");
 		var msg= "Este cliente ya fue agregado al listado de Partes."
 		$(".error-cliente").html(msg);
@@ -249,13 +249,13 @@ function agregar_abogado(id, nombre){
 	var seleccion = $('input[name=tipo_abogado]:checked').val();
 	if(notInTable(id,"A")){//si no esta en la tabla de partes
 		if(seleccion == undefined || seleccion=="" || seleccion==null){
-			$("#div-result_abogado").empty();
-			$(".error-abogado").empty();
+			//$("#div-result_abogado").empty();
+			$(".error-abogado").html('');
 			$("#error-abogado").removeClass("hidden");
 			var msg= "Debe seleccionar el tipo de Abogado."
 				$(".error-abogado").html(msg);
 		}else{
-			$("#error-abogado").empty();
+			//$("#error-abogado").html('');
 			$("#error-abogado").addClass("hidden");
 			if(seleccion == 'AP'){
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
@@ -278,8 +278,8 @@ function agregar_abogado(id, nombre){
 			}
 		}
 	}else{
-		$("#div-result_abogado").empty();
-		$(".error-abogado").empty();
+		$("#div-result_abogado").html('');
+		$(".error-abogado").html('');
 		$("#error-abogado").removeClass("hidden");
 		var msg= "El/la abogado/a ya fue agregado/a al listado de Partes."
 		$(".error-abogado").html(msg);
@@ -315,8 +315,8 @@ function datos_caratula(){
 		$("#juzgado_caract").text(juzgado);
 		
 	}else{
-		$("#div-error-general").empty();
-		$(".error-general").empty();
+		$("#div-error-general").html('');
+		$(".error-general").html('');
 		$("#error-general").removeClass("hidden");
 		var msg= "Debe agregar todas las partes."
 			$(".error-general").html(msg);
@@ -451,15 +451,15 @@ function buscar_parte(tipo_parte){
 	        	   $("#div-result_abogado").addClass("hidden");
 	           }else if(tipo_parte =="C"){
 	        	   $("#div-result_abogado").addClass("hidden");
-	        	   $("#div-result_abogado").empty();
+	        	   $("#div-result_abogado").html('');
 	        	   
 	        	   $("#div-result_cliente").removeClass("hidden");
-	        	   $("#div-result_cliente").empty();
+	        	   $("#div-result_cliente").html('');
 		           $("#div-result_cliente").html(data); 
 		   		   $("#error-cliente").addClass("hidden");
 	           }else if(tipo_parte == "A"){
 	        	   $("#div-result_cliente").addClass("hidden");
-	        	   $("#div-result_cliente").empty();
+	        	   $("#div-result_cliente").html('');
 	        	   
 	        	   $("#div-result_abogado").removeClass("hidden");
 	        	   
@@ -469,7 +469,7 @@ function buscar_parte(tipo_parte){
 	           pararSpinner(modalSpinner);
 	       });
 	}else{
-		$("#"+div_tipo).empty();
+		$("#"+div_tipo).html("");
 		$("#"+div_error).removeClass("hidden");
 		var msg= "Debe introducir un dato a buscar."
 			$("."+div_error).html(msg);
