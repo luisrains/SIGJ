@@ -12,8 +12,10 @@
 				</div>
 				<div class="box-body">
 					<th:block th:each=" act : ${actuacionList}">
-						<img th:src="${'data:image/jpeg;base64,'+act}" width="76"
+						<img th:src="'data:image/jpeg;base64,'+ ${act}" width="76"
 							height="100" class="page-1">
+							<!-- <div style="background-image:url("${'data:image/jpeg;base64,'+act}")"></div> -->
+							<div th:style="'background-image:url(data:image/jpeg;base64,'+${act}+')'"></div>
 					</th:block>
 				</div>
 
@@ -459,7 +461,7 @@ yepnope({
 	test : Modernizr.csstransforms,
 	yep: ['../../lib/turn.js'],
 	nope: ['../../lib/turn.html4.min.js'],
-	both: ['../../lib/zoom.min.js', 'js/magazine.js', 'css/magazine.css'],
+	both: ['../../lib/zoom.min.js', '../../js/magazine.js', '../../css/magazine.css'],
 	complete: loadApp
 });
 

@@ -177,6 +177,7 @@ function mostrarModalStep(){
 	          nextStepWizard.removeAttr('disabled').trigger('click');
 	      	if(curStepBtn== 'step-3'){
 	      		$('#modalStep').modal('toggle');
+	      		$(this).prop('disabled','disabled')
 	      	}
 	      }
 	  });
@@ -239,6 +240,9 @@ function agregar_cliente(id, nombre){
 		var msg= "Este cliente ya fue agregado al listado de Partes."
 		$(".error-cliente").html(msg);
 	}
+	$("#tipo_cliente_demandante").prop('checked', false);
+	$("#tipo_cliente_demandado").prop('checked', false);
+	$("#buscar_parte_cliente").val("");
 	
 }
 function agregar_abogado(id, nombre){
@@ -280,6 +284,10 @@ function agregar_abogado(id, nombre){
 		var msg= "El/la abogado/a ya fue agregado/a al listado de Partes."
 		$(".error-abogado").html(msg);
 	}
+	$("#tipo_abogado_apoderado").prop('checked', false);
+	$("#tipo_abogado_contraparte").prop('checked', false);
+	$("#buscar_parte_abogado").val("");
+	
 }
 
 function datos_caratula(){
@@ -288,20 +296,34 @@ function datos_caratula(){
 	rInfo.mapa= {};
 	rInfo.mapa.abogados=abogado;
 	rInfo.mapa.clientes=clientes;
-	
-	
-	var expediente = $("#o-demandante").val() +" C/ "+ $("#o-demandado").val()+" S/ "+ $("select[name=tipoDemanda]").find(":selected").text();
+	var demandante = $("#o-demandante").val();
+	var demandando = $("#o-demandado").val();
+	var tipoDemnda = $("select[name=tipoDemanda]").find(":selected").text();
 	var juzgado = $("select[name=despacho]").find(":selected").text();
-	$.each(listDespachos, function( index, value ) {
-		if( $("#despacho").find(":selected").val() == value.id){
-			$("#juez_caract").val(value.juez);
-		}
-	});
-	$("#anho_caract").text($("#anho").val());
-	$("#nro_caract").text($("#nroExpediente").val());
-	$("#folio_caract").text($("#folio").val());
-	$("#expediente_caract").text(expediente);
-	$("#juzgado_caract").text(juzgado);
+	if(demandante != null && demandante != undefined && demandando != null 
+			&& demandando != undefined && tipoDemnda != null && tipoDemnda != undefined){
+		var expediente = demandante +" C/ "+ demandando+" S/ "+ tipoDemnda;
+		$.each(listDespachos, function( index, value ) {
+			if( $("#despacho").find(":selected").val() == value.id){
+				$("#juez_caract").val(value.juez);
+			}
+		});
+		$("#anho_caract").text($("#anho").val());
+		$("#nro_caract").text($("#nroExpediente").val());
+		$("#folio_caract").text($("#folio").val());
+		$("#expediente_caract").text(expediente);
+		$("#juzgado_caract").text(juzgado);
+		
+	}else{
+		$("#div-error-general").empty();
+		$(".error-general").empty();
+		$("#error-general").removeClass("hidden");
+		var msg= "Debe agregar todas las partes."
+			$(".error-general").html(msg);
+		
+	}
+	
+	
 }
 
 function registrar_expediente(){
@@ -358,11 +380,27 @@ function modal_pag1(){
 	descripcion = descripcion.toLowerCase();
 	if (tipo != 0 && tipo != '0') {
 		if (descripcion != 'acción ejecutiva' && descripcion != 'acción preparatoria de juicio ejecutivo') {
-			$("#moneda").prop("disabled","disabled");
-			$("#monto").prop("disabled","disabled");
+			$("#moneda").addClass("hidden");
+			$("#moneda").val(0);
+			$("#monto").addClass("hidden");
+			$("#monto").val(0);
 		} else {
-			$("#moneda").prop("disabled",false);
-			$("#monto").prop("disabled",false);
+			$("#moneda").removeClass("hidden");
+			$("#monto").removeClass("hidden");
+		}
+	}
+}
+
+function modal_pag2(){
+	  var monto = $("#monto").val();
+	  monto = monto.replaceAll("\\.", "");
+		var descripcion = $("select[name=tipoDemanda]").find(":selected").text();
+		descripcion = descripcion.toLowerCase();
+	if (monto != 0 && monto > 7555800) {
+		if (descripcion != 'acción ejecutiva' && descripcion != 'acción preparatoria de juicio ejecutivo') {
+			$("#nroLiquidacion").prop("disabled","disabled");
+		} else {
+			$("#nroLiquidacion").prop("disabled",false);
 		}
 	}
 }
