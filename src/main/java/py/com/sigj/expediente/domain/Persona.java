@@ -70,6 +70,9 @@ public class Persona extends GenericEntity {
 	@NotNull(message = "persona.tipo_persona.notNull")
 	private char tipoPersona;
 
+	@NotNull(message = "persona.disponible.notNull") // Si o No
+	private String disponible;
+	
 	public Persona() {
 	}
 
@@ -164,12 +167,22 @@ public class Persona extends GenericEntity {
 		this.estadoCivil = estadoCivil;
 	}
 
+	
+	
+	public String getDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(String disponible) {
+		this.disponible = disponible;
+	}
+
 	@Override
 	public String toString() {
 		return "Persona [id=" + id + ", cedula_ruc=" + cedula_ruc + ", nombre_razonSocial=" + nombre_razonSocial
-				+ ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", sexo="
-				+ sexo + ", correoElectronico=" + correoElectronico + ", telefono=" + telefono + ", tipoPersona="
-				+ tipoPersona + "]";
+				+ ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad
+				+ ", estadoCivil=" + estadoCivil + ", sexo=" + sexo + ", correoElectronico=" + correoElectronico
+				+ ", telefono=" + telefono + ", tipoPersona=" + tipoPersona + ", disponible=" + disponible + "]";
 	}
 
 }
