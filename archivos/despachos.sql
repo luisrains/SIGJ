@@ -1,7 +1,7 @@
-INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'CORTE SUPREMA DE JUSTICIA','ninguno');
-INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'FUNCIONARIOS AUXILIARES AL PROCESO','ninguno');
-INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'Juzgado de Feria Civil y Comercial 2015','ninguno');
-INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE JUSTICIA LETRADA DEL 1° TURNO SRIA. 1','ninguno');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'CORTE SUPREMA DE JUSTICIA','juez1');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'FUNCIONARIOS AUXILIARES AL PROCESO','juez2');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'Juzgado de Feria Civil y Comercial 2015','juez3');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE JUSTICIA LETRADA DEL 1° TURNO SRIA. 1','juez4');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE JUSTICIA LETRADA DEL 1° TURNO SRIA. 2','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE JUSTICIA LETRADA DEL 2° TURNO SRIA. 3','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE JUSTICIA LETRADA DEL 2° TURNO SRIA. 4','ninguno');
@@ -62,9 +62,9 @@ INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZ
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PAZ DE ZEBALLOS CUE, 1º TURNO, SEC. Nº 1','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PAZ DE ZEBALLOS CUE, 1º TURNO, SEC. Nº 2','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL','ninguno');
-INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL CUARTO TURNO, Sria. 7','ninguno');
-INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL CUARTO TURNO, Sria. 8','ninguno');
-INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL DECIMO CUARTO TURNO, Sria. 27','ninguno');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL CUARTO TURNO, Sria. 7','juez1');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL CUARTO TURNO, Sria. 8','juez2');
+INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL DECIMO CUARTO TURNO, Sria. 27','juez3');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL DECIMO CUARTO TURNO, Sria.28','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL DECIMO NOVENO TURNO, Sria.37','ninguno');
 INSERT INTO despacho(id,descripcion,juez) VALUES(NEXTVAL('despacho_id_seq'),'JUZGADO DE PRIMERA INSTANCIA EN LO CIVIL Y COMERCIAL DEL DECIMO NOVENO TURNO, Sria.38','ninguno');
