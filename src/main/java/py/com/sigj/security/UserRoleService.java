@@ -103,7 +103,7 @@ public class UserRoleService implements UserDetailsService {
 			@Override
 			public String getUsername() {
 
-				return user.getCodigo();
+				return user.getCedulaRuc();
 			}
 
 			@Override

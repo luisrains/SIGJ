@@ -1,8 +1,5 @@
 package py.com.sigj.controllers.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,70 +12,64 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import py.com.sigj.controllers.list.UsuarioListController;
+import py.com.sigj.controllers.list.PermisoListController;
 import py.com.sigj.dao.Dao;
-import py.com.sigj.dao.RolDao;
-import py.com.sigj.dao.UsuarioDao;
+import py.com.sigj.dao.PermisoDao;
+import py.com.sigj.gastos.domain.IngresoEgreso;
+import py.com.sigj.security.Permiso;
 
-import py.com.sigj.security.Usuario;
-import py.com.sigj.util.Util;
 
 @Controller
 @Scope("request")
-@RequestMapping("usuario")
-public class UsuarioFormController extends FormController<Usuario> {
+@RequestMapping("permiso")
+public class PermisoFormController extends FormController<Permiso>{
 
 	@Autowired
-	private UsuarioDao usuarioDao;
-
+	PermisoDao permisoDao;
+	
 	@Autowired
-	private RolDao rolDao;
-	@Autowired
-	private UsuarioListController usuarioList;
-
+	private PermisoListController permisoList;
+	
 	@Override
 	public String getTemplatePath() {
-		return "usuario/usuario_index";
+		
+		return "seguridad/permiso_index";
 	}
 
 	@Override
 	public String getNombreObjeto() {
-		return "usuario";
+		
+		return "permiso";
 	}
 
 	@Override
-	public Usuario getNuevaInstancia() {
-		return new Usuario();
+	public Permiso getNuevaInstancia() {
+		
+		return new Permiso();
 	}
 
 	@Override
-	public Dao<Usuario> getDao() {
-		return usuarioDao;
+	public Dao<Permiso> getDao() {
+		
+		return permisoDao;
 	}
-
 	@Override
 	public void agregarValoresAdicionales(ModelMap map) {
-		
-		map.addAttribute("rolList", rolDao.getList(0, 20, null));
-		map.addAttribute("columnas", usuarioList.getColumnas());
-		map.addAttribute("columnasStr", usuarioList.getColumnasStr(null));
+		map.addAttribute("columnas", permisoList.getColumnas());
+		map.addAttribute("columnasStr", permisoList.getColumnasStr(null));
 		super.agregarValoresAdicionales(map);
 	}
 	
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
-	public String accion2(ModelMap map, @Valid Usuario obj, BindingResult bindingResult,
+	public String accion2(ModelMap map, @Valid Permiso obj, BindingResult bindingResult,
 			@RequestParam(required = false) String accion,
-			@RequestParam(required = true) String rol,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
-		
 		if (StringUtils.equals(accion, "save")) {
-			rol = rol.substring(0, 1);
-			return guardar_listado(map,rol,obj, bindingResult);
+			return guardar_listado(map, obj, bindingResult);
 		} else if (StringUtils.equals(accion, "edit")) {
-			logger.info("OBJETO Usuario {}", obj);
-			return editar_listado(map,rol,obj, bindingResult);
+			logger.info("OBJETO Permiso {}", obj);
+			return editar_listado(map, obj, bindingResult);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -87,18 +78,15 @@ public class UsuarioFormController extends FormController<Usuario> {
 
 	}
 
+	
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
-	public String guardar_listado(ModelMap map,@RequestParam(required = true) String rol, @Valid Usuario obj,
-			 BindingResult bindingResult) {
+	public String guardar_listado(ModelMap map, @Valid Permiso obj, BindingResult bindingResult) {
 		try {
-			if (obj.getId() == null && rol != null) {
-				Long idFormat = Long.parseLong(rol);
-				obj.setRol(rolDao.find(idFormat));
-				obj.setPassword(Util.md5(obj.getPassword()));
+			if (obj.getId() == null) {
 				getDao().createOrUpdate(obj);
-				 
+
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
-				logger.info("Se crea un nuevo Usuario -> {}", obj);
+				logger.info("Se crea un nuevo Permiso -> {}", obj);
 			}
 
 		} catch (Exception ex) {
@@ -112,14 +100,11 @@ public class UsuarioFormController extends FormController<Usuario> {
 	}
 
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
-	public String editar_listado(ModelMap map,@RequestParam(required = true) String rol,@Valid Usuario obj, BindingResult bindingResult) {
+	public String editar_listado(ModelMap map, @Valid Permiso obj, BindingResult bindingResult) {
 		try {
-			if (obj.getId() != null && rol != null) {
-				Long idFormat = Long.parseLong(rol);
-				obj.setRol(rolDao.find(idFormat));
-				obj.setPassword(Util.md5(obj.getPassword()));
+			if (obj != null) {
 				getDao().createOrUpdate(obj);
-				logger.info("Usuario Actualizado {}", obj);
+				logger.info("Permiso Actualizado {}", obj);
 				map.addAttribute("msgExito", msg.get("Registro Actualizado"));
 			}
 		} catch (Exception ex) {
@@ -134,26 +119,25 @@ public class UsuarioFormController extends FormController<Usuario> {
 	@RequestMapping(value = "eliminar_listado", method = RequestMethod.POST)
 	public String eliminar_listado(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
 		
-		Usuario usuario = null;
+		Permiso permiso = null;
 		try {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
-				usuario = getDao().find(id_objeto);
+				permiso = getDao().find(id_objeto);
 				
-				getDao().destroy(usuario);
+				getDao().destroy(permiso);
 
-				logger.info("Usuario eliminado  {}", usuario);
+				logger.info("Permiso eliminado  {}", permiso);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
 			}
 		} catch (UnexpectedRollbackException ex) {
-			usuario.setId(null);
+			permiso.setId(null);
 			map.addAttribute("error", "No puede borrar el Objeto");
-			map.addAttribute(getNombreObjeto(), usuario);
+			map.addAttribute(getNombreObjeto(), permiso);
 		}
 		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 
 	}
-	
 }

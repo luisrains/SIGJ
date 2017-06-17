@@ -142,7 +142,7 @@
 											contraseña</a>
 									</div>
 									<div class="pull-right">
-										<a href="#" class="btn btn-default btn-flat">Cerrar Sesión</a>
+										<a href="logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
 									</div>
 								</li>
 							</ul></li>
@@ -160,7 +160,10 @@
 
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
-				<ul class="sidebar-menu">
+				
+				
+				<ul th:if="${session} != null and (${session.usuario} =='Abg' or ${session.usuario}=='Des' or ${session.usuario}=='Ges')" 
+				 class="sidebar-menu mp">
 					<li class="header">Menú Principal</li>
 
 					<!-- Menu de Expediente -->
