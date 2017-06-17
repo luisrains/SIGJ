@@ -21,8 +21,8 @@
 		</script>
 		<h4 class="page-header" th:text="#{empleado.form.titulo}">Detalles
 			de Empleados</h4>
-		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
-			th:text="${msgExito}" style="color: green">Registro Guardado</span>
+		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <!-- <span
+			th:text="${msgExito}" style="color: green">Registro Guardado</span> -->
 		<ul>
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar código</li>
@@ -33,7 +33,7 @@
 			<div class="form-group hidden-xs col-sm-12">
 				<label for="salario" th:text="#{empleado.salario.lbl}"
 					class="field-label col-sm-7">Salario</label> <input type="text"
-					th:field="*{salario}" maxlength="100" class="form-control col-sm-6 numbers-only"
+					name="salario" id="salario" maxlength="100" class="form-control col-sm-6 numbers-only"
 					autofocus="autofocus" />
 			</div>
 			
@@ -45,7 +45,7 @@
 								<i class="fa fa-calendar"></i>
 							</div>
 							<input type="text" class="form-control pull-right col-sm-6 fecha"
-								th:field="*{fechaIngreso}" name="fechaIngreso" id="datepicker">
+								th:field="*{fechaIngreso}" name="fechaIngreso" id="fechaIngreso">
 						</div>
 						
 			</div>
@@ -53,7 +53,15 @@
 			
 			<input type="hidden" class="object_id" th:field="*{persona.id}" />
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal">aqui van los botones</div>
+			<div class="col-sm-12">
+				<div class="col-sm-9" style="padding-right:0px;">
+					<div th:replace="botones::footerModal"></div>
+				</div>
+				<div class="col-sm-3 form-group modal-footer" style="padding-left:0px;">
+					<button type="button" class="btn btn-warning" name="limpiar" id="limpiar"
+						value="limpiar" onclick="limpiarForm()">Limpiar</button>
+				</div>
+			</div>
 		</form>
 		<!-- Fin panel botones -->
 	</div>
