@@ -86,8 +86,8 @@
 		<div class="login-box-body">
 			<div class="login-logo">
 				<img src="../images/logo.png" alt="logo"
-					th:src="@{/images/logo.png}" style="max-width: 50px" /> <b
-					style="color: #3d80df;">SYS </b>
+					th:src="@{/img/sigj/logo.png}" style="max-width: 50px" /> <b
+					style="color: #3d80df;">SIGJ </b>
 			</div>
 			<form role="form" name="login" th:action="@{/login}" method="post">
 				<fieldset>
@@ -109,7 +109,6 @@
 							class="glyphicon glyphicon-lock form-control-feedback"
 							style="color: #ef5350;"></span>
 					</div>
-					<input type="hidden" name="next" th:value="${next}" />
 					<button type="submit" class="btn btn-lg btn-primary btnblock col-xs-12"
 						th:text="#{login.login_btn}">Ingresar</button>
 				</fieldset>

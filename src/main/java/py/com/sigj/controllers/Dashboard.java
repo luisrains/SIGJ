@@ -60,5 +60,10 @@ public class Dashboard {
 		return "inicio";
 	}
 	
-
+	
+	@RequestMapping("ingresar")
+	public String ingresar(ModelMap map) {
+		return "login";
+	}
+		
 }

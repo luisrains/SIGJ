@@ -1,7 +1,5 @@
 package py.com.sigj.controllers.form;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,13 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import py.com.sigj.dao.UsuarioDao;
 import py.com.sigj.main.SesionUsuario;
-import py.com.sigj.security.Usuario;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_REQUEST)
@@ -62,8 +58,10 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping("/login")
-	public String login(ModelMap modelMap,HttpServletRequest request) {
+	@RequestMapping(value = "/login")
+	public String login(ModelMap modelMap,
+			@RequestParam(value ="username", required = false) String username,
+			@RequestParam(value ="password", required = false) String password,HttpServletRequest request) {
 		
 		logger.info(String.valueOf(sesionUsuario.getUsuario()));
 		
@@ -73,7 +71,7 @@ public class LoginController {
 			session.setAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 			modelMap.addAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 			logger.info(String.valueOf(session.getAttribute("usuario")));
-			return "redirect:inicio";
+			return "inicio";
 		}
 		if (sesionUsuario.getUsuarioPorConfirmar() != null) {
 			logger.info("Contraseña incorrecta");
@@ -81,6 +79,7 @@ public class LoginController {
 			return "login";
 			
 		}
+		//llega desde el login y ver como hacer
 		if(sesionUsuario.getUsuario() == null){
 			
 			return "login";
