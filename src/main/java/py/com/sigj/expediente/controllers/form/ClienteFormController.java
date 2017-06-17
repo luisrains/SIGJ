@@ -19,16 +19,10 @@ import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.ClienteDao;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.ClienteListController;
-import py.com.sigj.expediente.controllers.list.ExpedienteListController;
-import py.com.sigj.expediente.dao.AbogadoDao;
-import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.PersonaDao;
-import py.com.sigj.expediente.domain.Abogado;
 import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.Persona;
-import py.com.sigj.gastos.controllers.list.FacturaCabeceraListController;
-import py.com.sigj.gastos.dao.FacturaCabeceraDao;
 import py.com.sigj.gastos.domain.FacturaCabecera;
 
 @Controller
@@ -166,6 +160,8 @@ public class ClienteFormController extends FormController<Cliente> {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				cliente = getDao().find(id_objeto);
+				cliente.getPersona().setDisponible("SI");
+				personaDao.edit(cliente.getPersona());
 				clienteDao.destroy(cliente);
 				logger.info("Cliente eliminado {}", cliente);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));

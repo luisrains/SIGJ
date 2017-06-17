@@ -1,8 +1,5 @@
 package py.com.sigj.rrhh.controllers.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -151,6 +148,8 @@ public class EmpleadoFormController extends FormController<Empleado> {
 			logger.info("ID DE OBJ {}", id_objeto);
 			if (id_objeto != null) {
 				empleado = getDao().find(id_objeto);
+				empleado.getPersona().setDisponible("SI");
+				personaDao.edit(empleado.getPersona());
 				empleadoDao.destroy(empleado);
 				logger.info("Cliente eliminado {}", empleado);
 				map.addAttribute("msgExito", msg.get("Registro Eliminado"));
