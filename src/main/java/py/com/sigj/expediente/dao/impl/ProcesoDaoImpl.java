@@ -23,4 +23,13 @@ public class ProcesoDaoImpl extends DaoImpl<Proceso> implements ProcesoDao {
 
 	}
 
+	@Override
+	public Proceso find(Long id) {
+		logger.info("Buscando registro con id: {}", id);
+		Proceso p = entityManager.find(getEntityClass(), id);
+		initializeCollection(p.getListTipoDemanda());
+		return p;
+
+	}
+
 }

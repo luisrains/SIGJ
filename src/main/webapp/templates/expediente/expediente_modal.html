@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<div th:fragment="modal_step" th:remove="tag">
+	<style>
+.stepwizard-step p {
+	margin-top: 10px;
+}
+
+.stepwizard-row {
+	display: table-row;
+}
+
+.stepwizard {
+	display: table;
+	width: 50%;
+	position: relative;
+}
+
+.stepwizard-step button[disabled] {
+	opacity: 1 !important;
+	filter: alpha(opacity = 100) !important;
+}
+
+.stepwizard-row:before {
+	top: 14px;
+	bottom: 0;
+	position: absolute;
+	content: " ";
+	width: 100%;
+	height: 1px;
+	background-color: #ccc;
+	z-order: 0;
+}
+
+.stepwizard-step {
+	display: table-cell;
+	/*text-align: center;*/
+	position: relative;
+}
+
+.btn-circle {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.428571429;
+	border-radius: 15px;
+}
+
+.datepicker {
+	z-index: 1151 !important;
+}
+</style>
+
+	<div class="modal fade" id="modalStep" data-backdrop="static"
+		aria-hidden="false">
+		<div class="modal-dialog">
+			<div class="modal-content container"
+				style="background-color: #f7f7f7;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" 
+            aria-hidden="true">&times;</button> 
+
+				</div>
+				<div class="modal-body">
+					<!-- <div class="container"> -->
+					<div class="stepwizard col-md-offset-3">
+						<div class="stepwizard-row setup-panel">
+							<div class="stepwizard-step" style="left: 23px;">
+								<a href="#step-1" type="button"
+									class="btn btn-primary btn-circle">1</a>
+								<p style="position: relative;right: 29px;">Mesa de Entrada</p>
+							</div>
+							<div class="stepwizard-step" style="right: 13px;">
+								<a href="#step-2" type="button"
+									class="btn btn-default btn-circle" disabled="disabled">2</a>
+								<p style="position: relative;right: 8px;">Cabecera</p>
+							</div>
+							<div class="stepwizard-step" style="right: 2px;">
+								<a href="#step-3" type="button"
+									class="btn btn-default btn-circle" disabled="disabled">3</a>
+								<p style="position: relative;left: 10px;">Fin</p>
+							</div>
+						</div>
+					</div>
+					<div class="row setup-content" id="step-1">
+						<div class="col-xs-6 col-md-offset-3"
+							style="margin-left: 100px !important;">
+							<div class="col-md-12" style="width: 150%;">
+								<div id="modal_spinner"></div>
+								<h3>Mesa de Entrada</h3>
+								<div class="form-group">
+									<label for="materia"
+										class="field-label control-label">Materia(*):</label> <select
+										name="materia" id="materia" for="materia"
+										class="form-control materia selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+										<option th:each=" tip : ${materiaList}" th:value="${tip.id}"
+											th:text="${tip.descripcion}">Civil</option>
+									</select>
+								</div>
+
+								<div class="form-group hidden" id="selectTipoProceso">
+									<label for="tipoProceso" class="field-label">Tipo
+										Proceso (*):</label> <select name="tipoProceso" id="tipoProceso"
+										for="tipoProceso" required="required"
+										class="form-control tipoProceso selectTipoProceso selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+									</select>
+								</div>
+								<div class="form-group hidden" id="selectTipoDemanda">
+									<label for="tipoDemanda" class="field-label">Tipo
+										Demanda (*):</label> <select name="tipoDemanda" id="tipoDemanda"
+										for="tipoDemanda" required="required"
+										class="form-control tipoDemanda selectTipoDemanda selecciones">
+										 <option selected="selected" value="0">-Elegir una
+											opcion-</option>
+
+									</select>
+								</div>
+								<div class="form-group hidden" id="selectDespacho">
+									<label for="despacho" class="field-label">Despacho (*):</label> <select name="despacho"
+										id="despacho" for="despacho" required="required"
+										class="form-control despacho selectDespacho selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+
+									</select>
+								</div>
+								<button class="btn btn-primary nextBtn btn-lg pull-right"
+									type="button" onclick="modal_pag1()">Siguiente</button>
+							</div>
+						</div>
+					</div>
+					<div class="row setup-content" id="step-2">
+						<div class="col-xs-6 col-md-offset-3">
+							<div class="col-md-12">
+								<h3>Carátula</h3>
+								
+								<div class="form-group">
+									<label for="nroExpediente" class="field-label">
+										Nro. Expediente(*):</label> <input type="text" name="nroExpediente"
+										id="nroExpediente" maxlength="100" required="required" class="form-control numbers-only" />
+								</div>
+								<div class="form-group">
+									<label for="anho" class="field-label">Año(*):</label> <input type="text"
+										name="anho" id="anho" maxlength="100" required="required" class="form-control numbers-only" />
+								</div>
+								<div class="form-group control-moneda">
+									<label for="moneda" class="field-label">Moneda(*):</label> 
+										<select name="moneda"
+										id="moneda" for="moneda"
+										class="form-control moneda selectMoneda selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+											<option value="GS"> Guaraníes</option>
+											<option value="USD"> Dólares</option>
+
+									</select>
+
+								</div>
+
+								<div class="form-group control-monto">
+									<label for="monto" class="field-label">Monto(*):</label> <input type="text" required="required"
+										name="monto" id="monto" maxlength="100" class="form-control importe numbers-only" />
+								</div>
+								
+								<button class="btn btn-primary prevBtn btn-lg pull-left"
+									type="button">Anterior</button>
+								<button class="btn btn-primary nextBtn btn-lg pull-right"
+									type="button" onclick="modal_pag2()">Siguiente</button>
+							</div>
+						</div>
+					</div>
+					<div class="row setup-content" id="step-3">
+						<div class="col-xs-6 col-md-offset-3">
+							<div class="col-md-12">
+								<h3>Datos del Juicio.</h3>
+								<div class="form-group">
+									<label for="nroLiquidacion" class="field-label">Folio:</label> <input type="text" id="folio"
+										name="folio" for="folio" maxlength="100"
+										class="form-control" required="required" autofocus="autofocus" />
+								</div>
+								<div class="form-group nroLiquidacion-control" style="display:none;">
+									<label for="nroLiquidacion" class="field-label">Nro.
+										de Liquidacion:</label> 
+										<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" required="false" class="form-control numbers-only"/>
+								</div>
+								<div class="form-group">
+									<label for="estadoExterno" class="field-label">Estado
+										Actual(*):</label> <select name="estadoExterno" id="estadoExterno"
+										for="estadoExterno" required="required"
+										class="form-control estadoExterno selecciones">
+										<option th:each=" tip : ${estadoExternoList}"
+											th:value="${tip.id}" th:text="${tip.descripcion}">Inicio</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Fecha del Sello del Cargo(*) :</label>
+									<div class="input-group date" style="width: 50%;">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right"
+											name="fecha" id="datepicker" required="required" style="width: 186px;">
+									</div>
+									<script type="text/javascript">
+							        $(function () {
+							        	 $(".selecciones").select2();
+							      
+							        	 
+							        	 $('#datepicker').datepicker({       
+							                 autoclose: true,
+							                 format: 'dd/mm/yyyy',
+							                 language: 'es',   
+							                 
+							              });
+							             
+							        });
+							        
+							    </script>
+									<!-- /.input group -->
+								</div>
+
+								<button class="btn btn-primary prevBtn btn-lg pull-left"
+									type="button">Anterior</button>
+								<button class="btn btn-primary nextBtn btn-lg pull-right"
+									type="button" >OK</button>
+								<!-- <button class="btn btn-success btn-lg pull-right" type="button">OK</button> data-dismiss="modal"-->
+							</div>
+						</div>
+					</div>
+					<!-- </div> -->
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		</form>
+		<!-- /.modal-dialog -->
+
+
+
+
+		<script type="text/javascript">
+$(document).ready(function () {
+	var fecha = new Date();
+	var ano = fecha.getFullYear();
+	$('#anho').val(ano);
+	mostrarModalStep();
+		});
+
+</script>
+		<!--  FIN PRUEBA BOOTPLY-->
+	</div>
+</html>

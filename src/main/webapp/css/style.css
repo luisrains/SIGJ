@@ -70,6 +70,23 @@
 	background: none !important;
 	border: none !important;
 }
+ .file-input{
+	width: 100% !important;
+	float:right;
+	margin-top:10px !important;
+}
+
+#confirmar-expediente{
+	margin-top:30px;
+	margin-left: 220px;
+	
+}
+.texto-resultado{
+	font-size: 15px;
+	font-family: sans-serif;
+	padding-left: 5px;
+	color: #0000FF;
+}
 
 @media screen and (min-device-width: 768px){
 	.th-pc{
@@ -90,11 +107,17 @@
 		width: 40px !important;
 		padding-left: 15px !important;
 	}
-	.sorting_asc{
-		display:none;
+	 table.table-esp thead tr th:nth-child(2){
+	 	display: none !important;
+	 }
+	 table.table-esp tbody tr td:nth-child(2){
+	 	display: none !important;
+	 }
+	table.table-esp thead tr th.sorting_asc{
+		display:block !important;
 	}
-	.sorting_1{
-		display:none;
+	table.table-esp tbody tr td.sorting_1{
+		display:block !important;
 	}
 	.btn-movil{
 		display:none;

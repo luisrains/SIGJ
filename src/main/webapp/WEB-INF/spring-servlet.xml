@@ -28,6 +28,8 @@
 	<mvc:resources location="/build/" mapping="/build/**" />
 	<mvc:resources location="/dist/" mapping="/dist/**" />
 	<mvc:resources location="/plugins/" mapping="/plugins/**" />
+	<mvc:resources location="/extras/" mapping="/extras/**" />
+	<mvc:resources location="/lib/" mapping="/lib/**" />
 
 
 	<!-- **************************************************************** -->
@@ -49,8 +51,7 @@
 
 		<property name="converters">
 			<set>
-				
-				<bean class="py.com.sigj.converters.TipoAbogadoConverter" />
+
 				<bean class="py.com.sigj.converters.MateriaConverter" />
 				<bean class="py.com.sigj.converters.PersonaConverter" />
 				<bean class="py.com.sigj.converters.EmpleadoConverter" />
@@ -80,6 +81,7 @@
 		<property name="prefix" value="/templates/" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="HTML5" />
+		<property name="characterEncoding" value="UTF-8"/>
 	</bean>
 	
 
@@ -114,6 +116,19 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="Messages" />
 	</bean>
+	
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- one of the properties available; the maximum file size in bytes -->
+	    <property name="maxUploadSize" value="1000000"/>
+	</bean>
+
+		<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+			<property name="templateEngine" ref="templateEngine" />
+			<property name="characterEncoding" value="UTF-8"></property>
+			<property name="cache" value="false"></property>
+			<property name="contentType" value="text/html;charset=UTF-8"/>
+		</bean>
 	
 </beans>
 

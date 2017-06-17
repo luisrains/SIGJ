@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<body>
+	<div th:fragment="contenido">
+<!-- <div th:replace="expediente/expediente_modal::modal_step"></div> -->
+
+<div class="container">
+
+  
+</div>
+		<div class="bd-example-row box-shadow">
+			<ul class="nav nav-tabs">
+				<!-- Standard button -->
+				<li class="active"><a href="#menu1">Caso Judicial</a></li>
+				<li><a href="#menu2">Partes del caso</a></li>
+				<li ><a href="#menu3">Listado de Expedientes</a></li>
+			</ul>
+
+			<div  class="tab-content">
+
+				<div id="menu1" class="tab-pane fade in active">
+					<div class="box box-solid box-primary">
+						<div class="box-header">
+							<h3>Registro de Expediente</h3>
+						</div>
+						<div class="box-body" style="width: 99%; padding-left: 15px;">
+	
+						
+
+<!-- <input type="hidden" th:field="*{id}" /> -->
+<div class="col-lg-12" style="border-style: solid; margin-top: 10px;">
+
+	<h3>CARATULA DEL EXPEDIENTE</h3>
+	<div class="form-group col-lg-6" style="margin-top: 10px;">
+		
+					
+		<label th:text="#{expediente.nroExpediente.lbl}"
+			class="field-label section-02">Nro Expediente:</label>
+		<label th:text="${session.expediente.nroExpediente}"
+			class="field-label section-02"></label>
+
+	</div>
+
+	<div class="form-group col-lg-6" style="margin-top: 10px;">
+		<label th:text="#{expediente.anho.lbl}" class="field-label section-02">Año:</label>
+		<!-- <label
+					class="field-label section-02"> 2015</label>  -->
+		<label th:text="${session.expediente.anho}" class="field-label section-02"></label>
+
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.juez.lbl}" class="field-label section-02">Juez:</label>
+		<!-- <label
+					class="field-label section-02"> Pedro Ayala</label>  -->
+
+		<label th:text="${session.expediente.despachoActual.juez}"
+			class="field-label section-02"></label>
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.folio.lbl}"
+			class="field-label section-02">Folio:</label>
+
+		<!-- <label 
+					class="field-label section-02">100</label> 	 -->
+		<label th:text="${session.expediente.folio}" class="field-label section-02"></label>
+
+
+	</div>
+
+	<!-- Aca deberia ir un for each que esta comentado porque no sabemos como va a venir el listado de clientes -->
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.clientes_demandantes.lbl}"
+			class="field-label section-02">Cliente Demandante:</label><br>
+		<th:block th:each=" tip : ${session.clienteList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoCliente == 'D'}"
+				th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+
+		</th:block>
+
+		<!-- <label 
+					class="field-label section-02">Carlos Duarte</label>  -->
+	</div>
+	<!-- <div class="form-group col-lg-6" th:each=" cli: ${expediente.mapa.expediente.clientes}" th:value="${cli.id_cliente}"
+			th:text="">
+				<label th:text="#{expediente.cliente_demandante.lbl}"
+					class="field-label section-02">Cliente Demandante:</label> 
+				<label th:text="${cliente_demandante}"
+					class="field-label section-02"></label> 
+					
+					
+			</div> -->
+
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.clientes_demandados.lbl}"
+			class="field-label section-02">Cliente Demandado:</label> <br>
+
+		<th:block th:each=" tip : ${session.clienteList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoCliente == 'C'}"
+				th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+
+		</th:block>
+
+		<!-- Todos los labels que hacen ya referencia al map que recibiremos se comenta hasta saber como obtener esos datos del controlador -->
+		<!-- <label th:text="${cliente_demandado}"
+					class="field-label section-02"></label>  -->
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.abogados_apoderados.lbl}"
+			class="field-label section-02">Abogado Apoderado:</label> <br>
+
+		<th:block th:each=" tip : ${session.abogadoList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoAbogado == 'AP'}"
+				th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label>
+
+		</th:block>
+
+
+	</div>
+	<div class="form-group col-lg-6">
+		<label th:text="#{expediente.abogados_contrapartes.lbl}"
+			class="field-label section-02">Abogado Contraparte:</label><br>
+
+		<th:block th:each=" tip : ${session.abogadoList}">
+
+			<label class="field-label section-02"
+				th:if="${tip.tipoAbogado == 'CO'}"
+				th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label>
+
+		</th:block>
+
+
+	</div>
+
+
+
+	<!-- Inicio panel botones -->
+
+</div>
+<form method="post"  th:action="@{/expediente/documento}"
+	enctype="multipart/form-data"
+	role="form" id="form-documento">
+	<hr style="border: 2px dotted">
+	<div class="col-sm-12">
+		<div class="col-sm-8" style="padding: 0px;">
+			
+			<div class="form-group col-xs-6 col-sm-6" style="padding: 0px;">
+				<label for="observacion"
+					th:text="#{expediente.tipoActuacion.observacion.lbl}"
+					class="field-label col-xs-7 col-sm-7">Titulo:</label> <input
+					type="text" name="titulo" id="titulo" maxlength="100"
+					class="form-control col-xs-7 col-sm-6" autofocus="autofocus" />
+			</div>
+		</div>
+		<input type="hidden" name="expediente" id="expediente"
+			for="expediente" th:value="${expediente.id}" />
+		<div class="col-sm-4" style="padding: 0px;">
+			<label style="margin-left: 40%;">Sección de Archivos</label> <input
+				id="file-es" name="documento" type="file" multiple>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8"></div>
+		<div class="col-sm-4">
+			<button id="confirmar-expediente" class="btn btn-siguiente"
+				type="submit">
+				CONFIRMAR <i class="fa fa-chevron-right" aria-hidden="true"></i>
+			</button>
+		</div>
+	</div>
+
+</form>
+
+<!-- Fin panel botones -->
+<script type="text/javascript">
+		$(function () {
+			createFileInput();
+			$(".selecciones").select2();
+			$("#actuacion-table").DataTable();
+			});
+			$('.fecha').datepicker({
+				autoclose : true,
+				language : 'es',
+			});	
+	
+		
+		
+</script>
+					</div>
+					</div>
+				</div>
+
+			
+				<!--LISTADO DE EXPEDIENTES  -->
+				
+			</div>
+			
+		</div>
+		<!-- <script type="text/javascript" src="../js/fileinput.js"
+		th:src="@{/js/fileinput.js}"></script> -->
+		<script>
+		
+			</script>
+
+	</div>
+</body>
+</html>

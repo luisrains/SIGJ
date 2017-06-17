@@ -34,6 +34,7 @@
 										<thead>
 											<tr>
 												<!--  <th th:each=" col : ${columnasPersona}" th:text="${col}">colum1</th>-->
+												<th></th>
 												<th th:each="col : ${columnasPersona}" th:text="#{'persona.'+${col} + '.header'}">
 											</tr>
 										</thead>
@@ -62,6 +63,7 @@
 								<thead>
 									<tr>
 										<!--  <th th:each=" col : ${columnas}" th:text="${col}">colum1</th>-->
+										
 										<th th:each="col : ${columnas}" th:text="#{${col} + '.header'}">
 										<th>Accion</th>
 									</tr>
@@ -150,7 +152,7 @@
 										    }
 										}
 								});
-								 $('#datepicker').datepicker({       
+								 $('#fechaIngreso').datepicker({       
 					                 autoclose: true,
 					                 format: 'dd/mm/yyyy',
 					                 language: 'es', 

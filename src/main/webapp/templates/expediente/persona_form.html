@@ -45,7 +45,7 @@
 		<form th:action="@{/persona/accion}" th:object="${persona}"
 			method="post" role="form">
 			<input type="hidden" th:field="*{id}" />
-
+			<input type="hidden"  name="disponible" value="SI"/>
 			<div class="form-group hidden-xs col-sm-12">
 				<div class="box">
 					<div class="box-header with-border">
@@ -71,12 +71,13 @@
 						type="text" th:field="*{cedula_ruc}" maxlength="15"
 						class="form-control col-xs-7 col-sm-6" />
 			</div>
+			
 			<div class="form-group hidden-xs col-sm-12">
 					<label for="nombre_razonSocial"
 						th:text="#{persona.nombre_razonSocial.lbl}"
 						class="field-label col-xs-7 col-sm-7">Nombre o Razón
 						Social:</label> <input type="text" th:field="*{nombre_razonSocial}"
-						maxlength="60" class="form-control col-xs-7 col-sm-6" />
+						maxlength="60" class="form-control col-xs-7 col-sm-6 letters-only" />
 				</div>
 			
 			<div id="persona_fisica"
@@ -109,6 +110,17 @@
 							<input type="text" class="form-control pull-right col-sm-6 fecha"
 								th:field="*{fechaNacimiento}" name="fechaNacimiento" id="datepicker">
 						</div>
+						<script type="text/javascript">
+							
+							$(function () {
+							    //Initialize Select2 Elements
+								 $('.fecha').datepicker({       
+					                 autoclose: true,
+					                 format: 'dd/mm/yyyy',
+					                 language: 'es', 
+							    });
+							});		
+							</script>
 			</div>
 
 			<div class="form-group hidden-xs col-sm-12">
@@ -185,10 +197,12 @@
 					<label for="descripcion" th:text="#{persona.telefono.lbl}"	
 						class="field-label col-xs-7 col-sm-7">telefono:</label> <input
 						type="text" th:field="*{telefono}" maxlength="15"
-						class="form-control col-xs-7 col-sm-6" />
+						class="form-control col-xs-7 col-sm-6 numbers-only" />
 				</div>
+				
 				<!-- Inicio panel botones -->
 				<div th:replace="botones::footerModal">aqui van los botones</div>
+				
 		</form>
 		<script type="text/javascript">
 			$(document).ready(function() {

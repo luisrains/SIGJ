@@ -92,6 +92,9 @@ public class EmpleadoFormController extends FormController<Empleado> {
 			BindingResult bindingResult) {
 		try {
 			if (obj.getId() == null) {
+				Persona persona = personaDao.find(obj.getPersona().getId());
+				persona.setDisponible("NO");
+				personaDao.createOrUpdate(persona);
 				getDao().createOrUpdate(obj);
 			}
 

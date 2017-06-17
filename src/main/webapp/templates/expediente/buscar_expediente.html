@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+
+	<div class="row" th:fragment="contenido">
+
+		<div class="col-xs-12 col-sm-12 no-padding body-style">
+			<div class="box box-solid box-primary box-pc">
+				<div class="box-header">
+					<h3>Consulta de Expediente Digital</h3>
+				</div>
+				<div class="box-body"></div>
+				    
+					<div class="container">
+	<div class="row">
+        <!-- <div class="col-md-6">
+            <div id="custom-search-input"> -->
+                <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                    	<label> Nº Expediente:</label>
+                   	 	<input type="text" name="nroExpediente" class="form-control input-md numbers-only" placeholder="Introduzca el Numero del Expediente" />
+                    </div>
+                    <div class="form-group col-md-6">
+						<label for="despacho"
+							class="field-label control-label">Despacho:</label> <select
+										name="despacho_buscar" id="despacho_buscar" for="despacho"
+										class="form-control despacho_buscar selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+										<option th:each=" tip : ${despachoList}" th:value="${tip.id}"
+											th:text="${tip.descripcion}">Civil</option>
+									</select>
+					</div>
+					
+					<div class="form-group col-md-6">
+						<label for="estado"
+							class="field-label control-label">Estado:</label> <select
+										name="estado" id="estado" for="estado"
+										class="form-control estado selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+										<option th:each=" tip : ${estadoList}" th:value="${tip.id}"
+											th:text="${tip.descripcion}">Civil</option>
+									</select>
+					</div>
+					
+					<div class="form-group col-md-6">
+						<label for="abogado"
+							class="field-label control-label">Abogado:</label> <select
+										name="abogado" id="abogado" for="abogado"
+										class="form-control abogado selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+										<option th:each=" abogado : ${abogadoList}" th:value="${abogado.id}"
+											th:text="${abogado.empleado.persona.nombre_razonSocial + ' ' +abogado.empleado.persona.apellido}">Civil</option>
+									</select>
+					</div>
+					
+					<div class="form-group col-md-6">
+                    	<label> Año:</label>
+                   	 	<input type="text" name="anho" class="form-control input-md numbers-only" placeholder="Introduzca el año del Expediente" />
+                    </div>
+                    <!-- <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg btn-expediente" style="background-color:orange;" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>  -->
+                    <div class="form-group col-md-6" style="padding-left:30px;margin-top:20px;">
+                     	<button class="btn btn-info btn-lg btn-expediente" style="background-color:orange;" type="button">
+                    		 <i class="glyphicon glyphicon-search"><span style="padding-left:10px;">Buscar</span></i>  
+                 		</button> 
+                 	</div>
+                </div>
+          		
+	</div>
+</div>
+					<div class="col-sm-12 hidden expediente-div">
+					<div id="expediente-resultado" class="col-sm-12" style="margin-top:10px;border-top-color:red;border-top-style:solid;" th:fragment="expedienteList" th:each="exp : ${expedienteList}">
+						<th:block th:if="${aux} == 'expediente_abogado'">
+						<div class="form-group" style="margin-left:5px; margin-top:15px;">
+						<label>N° Expediente:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.nroExpediente}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Año:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.anho}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Folio:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.folio}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Fecha Sello:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.fechaSelloCargo}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						
+						<div class="form-group" style="margin-left:5px;">
+						<label>Monto:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.monto} + ' '+ ${exp.expediente.moneda}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Caratula:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.caratula}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						
+						<div class="form-group" style="margin-left:5px;">
+						<label>Estado:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.estado.descripcion}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						</th:block>
+						
+						<th:block th:if="${aux} == 'expediente'">
+						<div class="form-group" style="margin-left:5px; margin-top:15px;">
+						<label>N° Expediente:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.nroExpediente}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Año:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.anho}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Folio:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.folio}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Fecha Sello:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.fechaSelloCargo}" disabled />
+							
+						<!-- /.input group -->
+						
+						</div>
+						
+						<div class="form-group" style="margin-left:5px;">
+						<label>Monto:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.monto} + ' '+ ${exp.moneda}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						<div class="form-group" style="margin-left:5px;">
+						<label>Caratula:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.caratula}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						
+						<div class="form-group" style="margin-left:5px;">
+						<label>Estado:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.estado.descripcion}" disabled />
+						<!-- /.input group -->
+						
+						</div>
+						</th:block>
+						
+						
+					</div>
+					</div>
+					<div class="alert alert-danger div-error hidden" style="margin-top:10px;margin-left:15px;margin-right:15px;">
+  						<strong>No existen Expedientes con esos valores</strong>
+					</div>
+					<script type="text/javascript">
+       				
+          
+				       $(".btn-expediente").on('click',function(e){
+				           console.log("entro en el onclick");
+				            var nro_expediente = $('input[name=nroExpediente]').val();
+				            var despacho = $('#despacho_buscar').val();
+				            var estado = $("#estado").val();
+				            var anho = $("input[name=anho]").val();
+				            var abogado = $("#abogado").val();
+				            
+				       $.ajax({
+				           type: "GET",
+				           url: "/sigj/expediente/buscar-resultado",
+				           data: { 
+				               nro_expediente : nro_expediente,
+				               despacho_buscar : despacho,
+				               estado : estado,
+				               anho : anho,
+				               abogado : abogado
+				           }
+				       }).done(function(data){
+				           console.log("entro en el ajax");
+				           console.log(data);
+				           /* $("#expediente-resultado").load(); */
+				           if(data == "" && data == null){
+				        	   $(".div-error").removeClass("hidden");
+				        	   $(".expediente-div").addClass("hidden");  
+				           }else{
+				        	   $(".expediente-div").removeClass("hidden");
+				        	   $(".div-error").addClass("hidden");
+				        	   $(".expediente-div").empty();
+					           $(".expediente-div").html(data); 
+				           }
+				          
+				          
+				           
+				       }).fail(function( jqXHR, textStatus ) {
+				    	   $(".div-error").removeClass("hidden");
+				       
+				       });
+				    });
+				       
+      			 </script>
+				
+				
+			</div>
+		</div>
+
+		
+
+	</div>
+       
+
+</body>
+</html>

@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="starter">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>SIGJ</title>
+
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
-<title>SIGJ</title>
+	name="viewport"/>
 
 <!-- Bootstrap 3.3.6 -->
 <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
-	href="../bootstrap/css/bootstrap.min.css">
+	href="../bootstrap/css/bootstrap.min.css"/>
 
 <!-- Moments -->
 <link rel="stylesheet"
 	th:href="@{/plugins/daterangepicker/daterangepicker.css}"
-	href="../plugins/daterangepicker/daterangepicker.css">
+	href="../plugins/daterangepicker/daterangepicker.css"/>
 <link rel="stylesheet" th:href="@{/plugins/datepicker/datepicker3.css}"
-	href="../plugins/datepicker/datepicker3.css">
+	href="../plugins/datepicker/datepicker3.css"/>
 <link rel="stylesheet"
 	th:href="@{/plugins/colorpicker/bootstrap-colorpicker.css}"
-	href="../plugins/colorpicker/bootstrap-colorpicker.css">
+	href="../plugins/colorpicker/bootstrap-colorpicker.css"/>
 <link rel="stylesheet"
 	th:href="@{/plugins/timepicker/bootstrap-timepicker.min.css}"
-	href="../plugins/timepicker/bootstrap-timepicker.min.css">
+	href="../plugins/timepicker/bootstrap-timepicker.min.css"/>
 
 <!-- Font Awesome -->
 <link rel="stylesheet"
@@ -33,38 +34,44 @@
 
 <!-- Ionicons -->
 <link rel="stylesheet" th:href="@{/bootstrap/fonts/ionicons.min.css}"
-	href="../bootstrap/fonts/ionicons.min.css">
+	href="../bootstrap/fonts/ionicons.min.css"/>
 
 <!-- jvectormap -->
 <link rel="stylesheet"
 	th:href="@{/plugins/jvectormap/jquery-jvectormap-1.2.2.css}"
-	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css"/>
 
 <!-- DataTables -->
 <!-- <link rel="stylesheet" th:href="@{/plugins/datatables/dataTables.bootstrap.css}" href="../plugins/datatables/dataTables.bootstrap.css"> -->
 <link rel="stylesheet"
 	th:href="@{/plugins/datatables/jquery.dataTables.min.css}"
-	href="../plugins/datatables/jquery.dataTables.min.css">
+	href="../plugins/datatables/jquery.dataTables.min.css"/>
 <!-- <link rel="stylesheet" th:href="@{/plugins/datatables/select.dataTables.min.css}" href="../plugins/datatables/select.dataTables.min.css"> -->
 <link rel="stylesheet"
-	th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}">
+	th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}"/>
 
 <!-- Select2 -->
 <link rel="stylesheet" th:href="@{/plugins/select2/select2.min.css}"
-	href="../plugins/select2/select2.min.css">
+	href="../plugins/select2/select2.min.css"/>
 
 <!-- Theme style -->
 <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"
-	href="../dist/css/AdminLTE.min.css">
+	href="../dist/css/AdminLTE.min.css"/>
+	
+	
 
 <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"
-	href="../dist/css/skins/_all-skins.min.css">
+	href="../dist/css/skins/_all-skins.min.css"/>
 
 <!-- Style Sigj -->
 <link rel="stylesheet" th:href="@{/css/style.css}"
-	href="../css/style.css">
+	href="../css/style.css"/>
+	
+	<!-- FileInput style -->
+	<link rel="stylesheet" th:href="@{/css/fileinput.css}"
+	href="../css/fileinput.css"/>
 
 <!-- jQuery 2.2.3 -->
 <script th:src="@{/plugins/jQuery/jquery-1.12.4.js}"
@@ -73,6 +80,12 @@
 <!-- Select2 -->
 <script th:src="@{/plugins/select2/select2.full.min.js}"
 	src="../plugins/select2/select2.full.min.js"></script>
+<!-- Turns -->
+<script th:src="@{/extras/modernizr.2.5.3.min.js}"
+	src="../../extras/modernizr.2.5.3.min.js"></script>
+	<script th:src="@{/lib/hash.js}"
+	src="../../lib/hash.js"></script>
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -85,7 +98,7 @@
 	<div class="wrapper">
 		<header class="main-header">
 			<!-- Logo -->
-			<a href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+			<a th:href="@{/inicio}" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>A</b>LT</span> <!-- logo for regular state and mobile devices -->
 				<span class="logo-lg"><b>Admin</b>SIGJ</span>
 			</a>
@@ -158,10 +171,13 @@
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
+							<li><a th:href="@{/inicio}"><i class="fa fa-folder"
 									style="color: blue"></i>Consultar Expediente</a></li>
-							<li><a th:href="@{/sigj/expediente}"><i
-									class="fa fa-gavel" style="color: blue"></i>Registrar Juicio</a></li>
+							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
+									style="color: blue"></i>Registrar Juicio</a></li>
+							<li><a th:href="@{/expediente/buscar}"><i class="fa fa-search"
+									style="color: blue"></i>Buscar Expediente</a></li>		
+
 						</ul></li>
 
 					<!-- Menú de Gastos -->
@@ -321,21 +337,21 @@
 							$("#alerta").fadeOut(1000);
 						}
 					});
-					$(".menu-expedientes").on("click",function(){ 
-					      (".menu-expedientes").addClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
+					/*$(".menu-expedientes").on("click",function(){ 
+					      $(".menu-expedientes").addClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
 					    });   
 					    $(".menu-rrhh").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").removeClass("active"); 
-					      (".menu-rrhh").addClass("active"); 
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").removeClass("active"); 
+					      $(".menu-rrhh").addClass("active"); 
 					    }); 
 					    $(".menu-gastos").on("click",function(){ 
-					      (".menu-expedientes").removeClass("active"); 
-					      (".menu-gastos").addClass("active"); 
-					      (".menu-rrhh").removeClass("active"); 
-					    });  	
+					      $(".menu-expedientes").removeClass("active"); 
+					      $(".menu-gastos").addClass("active"); 
+					      $(".menu-rrhh").removeClass("active"); 
+					    });  */	
 					
 								/*]]>*/
 					</script>
@@ -422,10 +438,23 @@
 	<script th:src="@{/dist/js/demo.js}" src="../dist/js/demo.js"></script>
 
 	<!-- SIGJ -->
+	<script type="text/javascript" src="../js/fileinput.js"
+		th:src="@{/js/fileinput.js}"></script>
+		<script type="text/javascript" src="../js/locales/es.js"
+		th:src="@{/js/locales/es.js}"></script>
 	<script type="text/javascript" src="../js/sigjapp.js"
 		th:src="@{/js/sigjapp.js}"></script>
 	<script type="text/javascript" src="../js/expediente_sigj.js"
 		th:src="@{/js/expediente_sigj.js}"></script>
+		<script type="text/javascript" src="../js/sigj_validator.js"
+		th:src="@{/js/sigj_validator.js}"></script>
+		<script type="text/javascript" src="../js/spin.min.js"
+		th:src="@{/js/spin.min.js}"></script>
+		
+		
+		
+		
+		
 </body>
 
 </html>

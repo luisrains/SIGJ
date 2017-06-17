@@ -7,10 +7,10 @@
 		
 		<script type="text/javascript">
 			function limpiarForm() {
-				$("id").val("");
-				$("descripcion").val("");
-				$("juez").val("");
-				$("materia1").val("");
+				$("#id").val("");
+				$("#domicilioActual").val("");
+				$("#domicilioLaboral").val("");
+				$("#empleado_id").val("");
 			}
 			function nuevoRegistro() {
 				limpiarForm();
@@ -50,7 +50,15 @@
 				<!-- seccion empleado -->
 				<input type="hidden" class="object_id" th:field="*{empleado.id}" />
 				<!-- Inicio panel botones -->
-				<div th:replace="botones::footerModal"></div>
+				<div class="col-sm-12">
+				<div class="col-sm-9" style="padding-right:0px;">
+					<div th:replace="botones::footerModal"></div>
+				</div>
+				<div class="col-sm-3 form-group modal-footer" style="padding-left:0px;">
+					<button type="button" class="btn btn-warning" name="limpiar" id="limpiar"
+						value="limpiar" onclick="limpiarForm()">Limpiar</button>
+				</div>
+			</div>
 			</form>
 		</div>
 		<!-- Fin panel botones -->

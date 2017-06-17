@@ -11,6 +11,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
@@ -41,6 +44,11 @@ public class ExpedienteCliente extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "expedienteCliente_cliente_fk"))
 	private Cliente cliente;
 
+	@NotNull(message = "expedienteCliente.tipo.notNull")
+	@NotBlank(message = "expedienteCliente.tipo.notBlank")
+	@Size(max = 3, message = "expedienteCliente.tipo.size")
+	private String TipoCliente;
+
 	public ExpedienteCliente() {
 	}
 
@@ -70,9 +78,18 @@ public class ExpedienteCliente extends GenericEntity {
 		this.cliente = cliente;
 	}
 
+	public String getTipoCliente() {
+		return TipoCliente;
+	}
+
+	public void setTipoCliente(String tipoCliente) {
+		TipoCliente = tipoCliente;
+	}
+
 	@Override
 	public String toString() {
-		return "expedienteCliente [id=" + id + ", cliente=" + cliente + ", expediente=" + expediente + "]";
+		return "ExpedienteCliente [id=" + id + ", expediente=" + expediente + ", cliente=" + cliente + ", TipoCliente="
+				+ TipoCliente + "]";
 	}
 
 }
