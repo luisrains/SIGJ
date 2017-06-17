@@ -34,6 +34,7 @@ public class TipoDemanda extends GenericEntity {
 	@Size(max = 100, message = "tipoDemanda.descripcion.size")
 	private String descripcion;
 
+
 	public TipoDemanda() {
 
 	}

@@ -1,4 +1,6 @@
+
 ﻿-- MATERIA CIVIL COMERCIAL - EJECUTIVO
+
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'CIV','CIVIL COMERCIAL');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'EJC','EJECUTIVO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
@@ -24,7 +26,6 @@ INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'O
 INSERT INTO proceso_tipo_demanda values (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
 -- MATERIA CIVIL COMERCIAL - ESPECIAL
-
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'ESC','ESPECIAL');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción puramente declarativa');
@@ -160,6 +161,7 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Venia para vender');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 -- MATERIA CIVIL COMERCIAL - ORDINARIO
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'CIV','CIVIL COMERCIAL');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'ORC','ORDINARIO');
@@ -213,6 +215,7 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Cumplimiento de contrato');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Cumplimiento de promesa unilateral de pago');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Declaración de desconocimiento de deuda');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -337,11 +340,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Usucapión');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 --MATERIA CIVIL COMERCIAL - SUMARIO
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'CIV','CIVIL COMERCIAL');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'SUC','SUMARIO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción de convocatoria de asambleas');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Desalojo');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -356,11 +361,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Oposición al matrimonio');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 --MATERIA JUSTCIA LETRADA - EJECUTIVO
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'JUS','JUSTICIA LETRADA');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'EJJ','EJECUTIVO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción Ejecutiva');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción Preparatoria de Juicio Ejecutivo');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -379,11 +386,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Ejecución prendaria');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 --MATERIA JUSTCIA LETRADA - ORDINARIO
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'JUS','JUSTICIA LETRADA');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'ORJ','ORDINARIO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción autónoma de nulidad');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción Confesoria');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -466,11 +475,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Retención de inmueble por cobro de mejoras');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 --MATERIA JUSTCIA LETRADA - SUMARIO
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'JUS','JUSTICIA LETRADA');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'EJJ','SUMARIO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Beneficio de litigar sin gastos');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Desalojo');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -483,11 +494,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Privación de eficacia jurídica');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));	
 
+
 --MATERIA LABORAL - EJECUTIVO
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'LAB','LABORAL');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'EJL','EJECUTIVO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Ejecución de Sentencia de resoluciones judiciales');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Documentos privados de deudor o causante, reconocido o declarado');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -500,11 +513,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Cobro de guaranies en diversos conceptos-juicio ejecutivo');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 --MATERIA LABORAL - ESPECIAL
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'LAB','LABORAL');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'ESL','ESPECIAL');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Beneficio de litigar sin gastos');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Homologación de acuerdo');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -522,6 +537,7 @@ INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'LAB
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'ORJ','ORDINARIO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Pago por Consignación');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Acción autónoma de nulidad');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -552,11 +568,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Justificación de causal de despido');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 --MATERIA NIÑEZ Y ADOLESCENCIA - ESPECIAL
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'NIÑ','NIÑEZ');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'ESN','ESPECIAL');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Adopción');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Asistencia alimenticia');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -677,11 +695,13 @@ INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipo
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Venia para el servicio militar obligatorio');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 
+
 --MATERIA NIÑEZ Y ADOLESCENCIA - GENERAL
 INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'NIÑ','NIÑEZ');
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'GEN','GENERAL');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Restitución');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Restitución de la patria potestad');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
@@ -691,9 +711,9 @@ INSERT INTO materia(id,codigo,descripcion) VALUES(NEXTVAL('materia_id_seq'),'NI�
 INSERT INTO proceso(id,codigo,descripcion) VALUES(NEXTVAL('proceso_id_seq'),'SUN','SUMARIO');
 INSERT INTO materia_proceso(materia_id, proceso_id) VALUES (currval('materia_id_seq'),currval('proceso_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Beneficio para litigar sin gastos');
+
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Restitución');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
 INSERT INTO tipo_demanda(id,descripcion) VALUES(NEXTVAL('tipodemanda_id_seq'),'Restitución de la patria potestad');
 INSERT INTO proceso_tipo_demanda VALUES (currval('proceso_id_seq'),currval('tipodemanda_id_seq'));
-
