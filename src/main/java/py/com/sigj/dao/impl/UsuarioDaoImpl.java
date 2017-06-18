@@ -49,7 +49,7 @@ public class UsuarioDaoImpl extends DaoImpl<Usuario> implements UsuarioDao {
 
 		try {
 			Usuario usuario = (Usuario) query.getSingleResult();
-			logger.info("Se encontro el usuario {}'", codigo);
+			logger.info("Se encontro el usuario {}", codigo);
 			return usuario;
 		} catch (NoResultException e) {
 			logger.info("No se encontro el usuario {}", codigo);

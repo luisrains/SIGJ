@@ -46,11 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private Map<String, String> rolUrl() {
 		Map<String, String> map = new HashMap<>();
-		map.put("/cliente/**", "Abg,Des");
-		map.put("/persona/**", "Abg,Des");
-		map.put("/empleado/**", "Abg,Des");
-		map.put("/usuario/**", "Admin,Des");
-		map.put("/inicio/**", "Abg,Des,Admin");
+		map.put("/cliente/**", "Abg");
+		//		map.put("/cliente/**", "Abg,Des");
+//		map.put("/persona/**", "Abg,Des");
+//		map.put("/empleado/**", "Abg,Des");
+//		map.put("/usuario/**", "Admin,Des");
+//		map.put("/inicio/**", "Abg,Des,Admin");
 		// map.put("/venta/**", "Venta_sel");
 		/*map.put("/iva/**", "Iva_sel");*/
 
