@@ -36,7 +36,7 @@ public class Caja extends GenericEntity {
 
 	@NotNull(message = "caja.codigo.notNull")
 	@NotBlank(message = "caja.codigo.notBlank")
-	@Size(max = 5, message = "caja.codigo.size")
+	@Size(max = 10, message = "caja.codigo.size")
 	private String codigo;
 	
 	@NotNull(message = "caja.monto.notNull")

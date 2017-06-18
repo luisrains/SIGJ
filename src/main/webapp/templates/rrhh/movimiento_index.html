@@ -234,15 +234,15 @@
 						$('#formModal #edit').removeClass('hidden');
 						$('#formModal #save').addClass('hidden');
 						$('#formModal #delete').addClass('hidden');
-						$('#empleado_edit_div').removeClass('hidden');
+						$('#empleado_edit_div').addClass('hidden');
 						$('.egreso').attr('disabled', false);
 						$('.ingreso').attr('disabled', false);
 						$('.descripcion').attr('disabled', false);
 						$('.fecha').attr('disabled', false);
 						$('.empleado').attr('disabled', true);
 						$('.id').val(obj["id"]);
-						$('.egreso').val(obj["egreso"]);
-						$('.ingreso').val(obj["ingreso"]);
+						$('#egreso').val(number_format(obj["egreso"],0));
+						$('#ingreso').val(number_format(obj["ingreso"],0));
 						$('.descripcion').val(obj["descripcion"]);
 						$('.fecha').val(obj["fecha"]);
 						
@@ -271,10 +271,10 @@
 					$('#edit').addClass('hidden');
 					$('#save').addClass('hidden');
 					$('.id').val(obj["id"]);
-					$('.egreso').val(obj["egreso"]);
-					$('.ingreso').val(obj["ingreso"]);
+					$('#egreso').val(number_format(obj["egreso"],0));
+					$('#ingreso').val(number_format(obj["ingreso"],0));
 					$('.fecha').val(obj["fecha"]);
-					
+					$('.descripcion').val(obj["descripcion"]);
 					var selec = $('.empleado');
 					var empleado = obj["empleado"];
 					var codigo = empleado.id;

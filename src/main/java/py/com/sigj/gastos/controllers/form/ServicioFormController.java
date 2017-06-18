@@ -104,6 +104,7 @@ public class ServicioFormController extends FormController<Servicio> {
 		try {
 
 			if (obj.getId() == null) {
+				obj.setCosto(obj.getCosto().replaceAll("\\.", ""));
 				getDao().createOrUpdate(obj);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 				logger.info("Se crea una nueva Servicio -> {}", obj);
@@ -122,6 +123,7 @@ public class ServicioFormController extends FormController<Servicio> {
 	public String editar_listado(ModelMap map, @Valid Servicio obj) {
 		try {
 			logger.info("ID DE OBJ {}", obj);
+			obj.setCosto(obj.getCosto().replaceAll("\\.", ""));
 			getDao().createOrUpdate(obj);
 			logger.info("Servicio Actualizada {}", obj);
 			map.addAttribute("msgExito", msg.get("Registro Actualizado"));

@@ -5,20 +5,20 @@
 	<div th:fragment="form">
 		<script type="text/javascript">
 			function limpiarForm() {
-				$("id").val("");
-				$("cedula_ruc").val("");
-				$("nombre_razonSocial").val("");
-				$("apellido").val("");
-				$("edad").val("");
-				$("fechaNacimiento").val("");
-				$("estadoCivil").val("");
-				$("sexo").val("");
-				$("tipoPersona").val("");
+				$("#id").val("");
+				$("#cedula_ruc").val("");
+				$("#nombre_razonSocial").val("");
+				$("#apellido").val("");
+				$("#edad").val("");
+				$("#fechaNacimiento").val("");
+				$("#estadoCivil").val("");
+				$("#sexo").val("");
+				$("#tipoPersona").val("");
 			}
 			function nuevoRegistro() {
 				limpiarForm();
 				$("botonNuevo").hide();
-				$("cedula_ruc").focus();
+				$("#cedula_ruc").focus();
 			}
 		</script>
 		<h4 id="header-normal" class="page-header hidden-xs"
@@ -81,7 +81,7 @@
 				</div>
 			
 			<div id="persona_fisica"
-				class="form-group hidden-xs col-sm-12 hidden">
+				class="form-group hidden-xs col-sm-12 hidden" style="padding:0px;">
 				
 
 				
@@ -90,14 +90,14 @@
 					<label for="apellido" th:text="#{persona.apellido.lbl}"
 						class="field-label col-xs-7 col-sm-7">Apellido:</label> <input
 						type="text" th:field="*{apellido}" maxlength="60"
-						class="form-control col-xs-7 col-sm-6" />
+						class="form-control col-xs-7 col-sm-6 letters-only" />
 				</div>
 
 				<div class="form-group hidden-xs col-sm-12">
 					<label for="edad" th:text="#{persona.edad.lbl}"
 						class="field-label col-xs-7 col-sm-7">Edad:</label> <input
-						type="text" th:field="*{edad}" maxlength="3"
-						class="form-control col-xs-7 col-sm-6" />
+						type="text" name="edad" id="edad" maxlength="3"
+						class="form-control col-xs-7 col-sm-6 numbers-only" />
 				</div>
 
 				<div class="form-group col-xs-12 col-sm-12">

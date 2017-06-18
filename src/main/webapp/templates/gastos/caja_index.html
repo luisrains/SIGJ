@@ -15,7 +15,7 @@
 					</button>
 					<br> <br>
 					<table
-						class="table table-bordered table-striped col-xs-12 no-padding table-esp"
+						class="table table-bordered table-striped col-xs-12 no-padding"
 						id="cajaDT">
 						<thead>
 							<tr>
@@ -111,7 +111,7 @@
 							$('#delete').addClass('hidden');
 							$('#id').val(id);
 							$('#codigo').val(obj["codigo"]);
-							$('#monto').val(obj["monto"]);
+							$('#monto_format').val(number_format(obj.monto,0));
 							$('#fecha').val(obj["fecha"]);
 							$("#formModal").modal("show");
 						}
@@ -130,8 +130,12 @@
 						$('#save').addClass('hidden');
 						$('#id').val(id);
 						$('#codigo').val(obj["codigo"]);
-						$('#monto').val(obj["monto"]);
+						$('#monto_format').val(number_format(obj.monto,0));
 						$('#fecha').val(obj["fecha"]);
+						
+						$('#codigo').attr('disabled', true);
+						$('#monto_format').attr('disabled', true);
+						$('#fecha').attr('disabled', true);
 						$("#formModal").modal("show");
 					}
 				}

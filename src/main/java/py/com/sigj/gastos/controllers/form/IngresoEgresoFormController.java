@@ -66,13 +66,14 @@ public class IngresoEgresoFormController extends FormController<IngresoEgreso> {
 
 	@RequestMapping(value = "accion2", method = RequestMethod.POST)
 	public String accion2(ModelMap map, @Valid IngresoEgreso obj, BindingResult bindingResult,
+			@RequestParam(value="monto_format", required = false) String monto,
 			@RequestParam(required = false) String accion,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult);
+			return guardar_listado(map, obj, bindingResult,monto);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO Ingreso Egreso {}", obj);
-			return editar_listado(map, obj, bindingResult);
+			return editar_listado(map, obj, bindingResult,monto);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -83,9 +84,11 @@ public class IngresoEgresoFormController extends FormController<IngresoEgreso> {
 
 	
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
-	public String guardar_listado(ModelMap map, @Valid IngresoEgreso obj, BindingResult bindingResult) {
+	public String guardar_listado(ModelMap map, @Valid IngresoEgreso obj, BindingResult bindingResult,String monto) {
 		try {
 			if (obj.getId() == null) {
+				monto = monto.replaceAll("\\.", "");
+				obj.setMonto(Integer.valueOf(monto));
 				getDao().createOrUpdate(obj);
 
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
@@ -103,9 +106,11 @@ public class IngresoEgresoFormController extends FormController<IngresoEgreso> {
 	}
 
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
-	public String editar_listado(ModelMap map, @Valid IngresoEgreso obj, BindingResult bindingResult) {
+	public String editar_listado(ModelMap map, @Valid IngresoEgreso obj, BindingResult bindingResult,String monto) {
 		try {
 			if (obj != null) {
+				monto = monto.replaceAll("\\.", "");
+				obj.setMonto(Integer.valueOf(monto));
 				getDao().createOrUpdate(obj);
 				logger.info("Estado Externo Interno Actualizado {}", obj);
 				map.addAttribute("msgExito", msg.get("Registro Actualizado"));

@@ -63,13 +63,12 @@
 			Movimientos de Empleados</h4>
 		<h4 id="registrar-movil" class="page-header hidden-lg">Registrar
 			Movimiento de Empleado</h4>
-		<span th:text="${error}" style="color: red"> Ocurrió un error</span> <span
-			th:text="${msgExito}" style="color: green">Registro Guardado</span>
+		<span th:text="${error}" style="color: red"> Ocurrió un error</span> 
 		<ul>
 			<li th:each=" err : ${errorList}" th:text="#{${err.defaultMessage}}"
 				style="color: red">Debe ingresar codigo</li>
 		</ul>
-		<form th:action="@{/movimiento/accion}" th:object="${movimiento}"
+		<form th:action="@{/movimiento/accion2}" th:object="${movimiento}"
 			method="post" role="form">
 
 			<input type="hidden" th:field="*{id}" />
@@ -77,14 +76,14 @@
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="egreso" th:text="#{movimiento.egreso.lbl}"
 						class="field-label col-xs-7 col-sm-7"> Egreso:</label> <input
-						type="text" th:field="*{egreso}" maxlength="100"
-						class="form-control col-xs-6 col-sm-6 numbers-only" autofocus="autofocus" />
+						type="text"  name="egreso_format" id="egreso_format" maxlength="100"
+						class="form-control col-xs-6 col-sm-6 numbers-only importe" autofocus="autofocus" />
 				</div>
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="ingreso" th:text="#{movimiento.ingreso.lbl}"
 						class="field-label col-xs-7 col-sm-7">Ingreso:</label> <input
-						type="text" th:field="*{ingreso}" maxlength="100"
-						class="form-control col-xs-6 col-sm-6 numbers-only" />
+						type="text" name="ingreso_format" id="ingreso_format" maxlength="100"
+						class="form-control col-xs-6 col-sm-6 numbers-only importe" />
 
 				</div>
 				<div class="form-group col-xs-12 col-sm-12">
