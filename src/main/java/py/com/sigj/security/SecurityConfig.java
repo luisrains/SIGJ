@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		Map<String, String> map = rolUrl();
 		for (String url : map.keySet()) {
 			String rol = map.get(url);
-			expression = expression.antMatchers(url).access("hasRole('" + rol + "')");
+			/**Se podria cargar una lista de string y cargar todo al hasRole como una variable y mandar directo como parametro a access***/
+			expression = expression.antMatchers(url).access("hasRole('" + rol + "')");//se debe cargar los roles de esta forma debe cargarse segun la web hasRole('Abg','Des')
 
 		}
 		expression.and().formLogin().loginPage("/login").and().formLogin().successHandler(successHandler).and()
@@ -45,11 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private Map<String, String> rolUrl() {
 		Map<String, String> map = new HashMap<>();
-		map.put("/cliente/**", "Abg");
-		map.put("/persona/**", "Abg");
-		map.put("/empleado/**", "Abg");
-		map.put("/usuario/**", "Admin");
-		map.put("/inicio/**", "Desarrollador");
+		map.put("/cliente/**", "Abg,Des");
+		map.put("/persona/**", "Abg,Des");
+		map.put("/empleado/**", "Abg,Des");
+		map.put("/usuario/**", "Admin,Des");
+		map.put("/inicio/**", "Abg,Des,Admin");
 		// map.put("/venta/**", "Venta_sel");
 		/*map.put("/iva/**", "Iva_sel");*/
 
