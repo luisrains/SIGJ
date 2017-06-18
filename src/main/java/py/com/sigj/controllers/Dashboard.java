@@ -59,5 +59,6 @@ public class Dashboard {
 		map.addAttribute("expedienteActuacionBean", listExAc);
 		return "inicio";
 	}
+	
 
 }

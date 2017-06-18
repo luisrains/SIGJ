@@ -4,4 +4,5 @@ import py.com.sigj.security.Rol;
 
 public interface RolDao extends Dao<Rol> {
 
+	public Rol buscarRol(String codigo);
 }
