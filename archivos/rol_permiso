@@ -1,0 +1,34 @@
+﻿insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),4,1);
+insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),5,1);
+insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),6,1);
+insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),3051,4);
+
+
+
+###Nuevo - solo 10 de los 27
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),5701,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),5901,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),6101,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),6301,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),6501,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),6701,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),6901,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),7101,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),7301,(select id from rol where codigo = 'Admin'));
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),7501,(select id from rol where codigo = 'Admin'));
+
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),7701,(select id from rol where codigo = 'Admin'));
+
+INSERT INTO rolpermiso(id, permiso_id, rol_id) 
+	VALUES (NEXTVAL('rolpermiso_id_seq'),11001,(select id from rol where codigo = 'Admin'));

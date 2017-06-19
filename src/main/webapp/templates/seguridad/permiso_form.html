@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
+
+<body class="hold-transition skin-blue-light sidebar-mini ">
+	<div class="row form-class-modal"
+		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
+		th:fragment="form">
+
+		<form th:action="@{/permiso/accion2}"
+			th:object="${permiso}" method="post" role="form">
+			<input type="hidden" th:field="*{id}" />
+			<div class="modal-movil hidden-xs col-sm-12">
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="permiso" th:text="#{permiso.codigo.lbl}"
+						class="field-label col-xs-7 col-sm-7">Codigo:</label> <input
+						type="text" th:field="*{codigo}" maxlength="60"
+						class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="descripcion"
+						th:text="#{permiso.descripcion.lbl}"
+						class="field-label col-xs-6 col-sm-7">Descripción:</label> <input
+						type="text" th:field="*{descripcion}" maxlength="100"
+						class="form-control col-xs-6 col-sm-6" />
+				</div>
+			</div>
+			<!-- Inicio panel botones -->
+			<div th:replace="botones::footerModal"></div>
+		</form>
+	</div>
+</body>
+</html>
