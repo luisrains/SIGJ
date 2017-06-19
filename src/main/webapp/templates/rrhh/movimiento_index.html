@@ -104,13 +104,13 @@
 									<label for="egreso" th:text="#{movimiento.egreso.lbl}"
 										class="field-label col-xs-7 col-sm-7"> Egreso:</label> <input
 										type="text" th:field="*{egreso}" maxlength="100"
-										class="form-control col-xs-6 col-sm-6 egreso" autofocus="autofocus" />
+										class="form-control col-xs-6 col-sm-6 egreso numbers-only importe" autofocus="autofocus" />
 								</div>
 								<div class="form-group col-xs-12 col-sm-12">
 									<label for="ingreso" th:text="#{movimiento.ingreso.lbl}"
 										class="field-label col-xs-7 col-sm-7">Ingreso:</label> <input
 										type="text" th:field="*{ingreso}" maxlength="100"
-										class="form-control col-xs-6 col-sm-6 ingreso" />
+										class="form-control col-xs-6 col-sm-6 ingreso numbers-only importe" />
 
 								</div>
 								<div class="form-group col-xs-12 col-sm-12">
@@ -158,7 +158,7 @@
 								
 								 $('#datepicker').datepicker({       
 					                 autoclose: true,
-					                 format: 'dd/mm/yyyy',
+					                
 					                 language: 'es', 
 							    });
 								 $('.fecha').datepicker({       

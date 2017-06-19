@@ -72,12 +72,14 @@ public class MovimientoFormController extends FormController<Movimiento> {
 			@RequestParam(required = false) String accion,
 			@RequestParam(value="egreso_format",required = false) String egreso,
 			@RequestParam(value="ingreso_format",required = false) String ingreso,
+			@RequestParam(value="egreso",required = false) String egreso_edit,
+			@RequestParam(value="ingreso",required = false) String ingreso_edit,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
 			return guardar_listado(map, obj, bindingResult,ingreso,egreso);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO MOVIMIENTO {}", obj);
-			return editar_listado(map, obj, bindingResult,ingreso,egreso);
+			return editar_listado(map, obj, bindingResult,ingreso_edit,egreso_edit);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 

@@ -113,16 +113,23 @@
 							$('#codigo').val(obj["codigo"]);
 							$('#monto_format').val(number_format(obj.monto,0));
 							$('#fecha').val(obj["fecha"]);
+							$("#div-error").addClass("hidden");
 							$("#formModal").modal("show");
+							$('#codigo').attr('disabled', false);
+							$('#monto_format').attr('disabled', false);
+							$('#fecha').attr('disabled', false);
 						}
 					} else if (accion === 'r') { //create
 						$('#delete').addClass('hidden');
 						$('#edit').addClass('hidden');
 						$('#save').removeClass('hidden');
 						$('#id').val('');
-						$('#monto').val('');
+						$('#monto_format').val('');
+						$('#codigo').val('');
 						$('#fecha').val('');
 						$('#selec').val('');
+						$("#div-error").addClass("hidden");
+						$(".botonera-div").removeClass("col-sm-6").addClass("col-sm-5");
 						$("#formModal").modal("show");
 					} else if (accion === 'v') { //veiw
 						$('#delete').addClass('hidden');
@@ -138,6 +145,57 @@
 						$('#fecha').attr('disabled', true);
 						$("#formModal").modal("show");
 					}
+					
+					/***Validaciones por si no carga uno de los imputs***/
+					 $("#save").on("click",function(){ //para crear
+						if($("#codigo").val() == ""){
+							var mensaje = "No puede dejar el codigo vacio";
+							$("#div-error").removeClass("hidden");
+							$("#mensaje-error").text(mensaje);
+							return false;
+						}else{$("#div-error").addClass("hidden");}
+						
+						if($("#monto_format").val() == ""){
+							var mensaje = "No puede dejar el monto vacio";
+							$("#div-error").removeClass("hidden");
+							$("#mensaje-error").text(mensaje);
+							return false;
+						}else{$("#div-error").addClass("hidden");}
+						
+						if($("#fecha").val() == ""){
+							var mensaje = "No puede dejar la fecha vacio";
+							$("#div-error").removeClass("hidden");
+							$("#mensaje-error").text(mensaje);
+							return false;
+						}else{$("#div-error").addClass("hidden");}
+						
+					}); 
+					
+					
+					 $("#edit").on("click",function(){ //para editar
+							if($("#codigo").val() == ""){
+								var mensaje = "No puede dejar el codigo vacio";
+								$("#div-error").removeClass("hidden");
+								$("#mensaje-error").text(mensaje);
+								return false;
+							}else{$("#div-error").addClass("hidden");}
+							
+							if($("#monto_format").val() == ""){
+								var mensaje = "No puede dejar el monto vacio";
+								$("#div-error").removeClass("hidden");
+								$("#mensaje-error").text(mensaje);
+								return false;
+							}else{$("#div-error").addClass("hidden");}
+							
+							if($("#fecha").val() == ""){
+								var mensaje = "No puede dejar la fecha vacio";
+								$("#div-error").removeClass("hidden");
+								$("#mensaje-error").text(mensaje);
+								return false;
+							}else{$("#div-error").addClass("hidden");}
+							
+						}); 
+					
 				}
 			</script>
 		</div>

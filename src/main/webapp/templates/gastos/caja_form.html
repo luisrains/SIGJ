@@ -42,10 +42,19 @@
                  		autoclose: true,
                  		language: 'es', 
                  		format: 'dd/mm/yyyy',
+                 		
                  	});
              	});
        		</script>
-       		<div th:replace="botones::footerModal"></div>
+       		<div class="col-sm-12">
+       			<div id="div-error" class="col-sm-6 hidden alert alert-warning" style="height:30px;margin-top:16px;margin-left:15px;width:235px !important;">
+       				<span id="mensaje-error" style="position:relative;bottom:10px;"></span>
+       			</div>
+       			<div class="col-sm-5 botonera-div" style="float:right; padding-right:0px;padding-left:0px;margin-left:5px;">
+       				<div th:replace="botones::footerModal"></div>
+       			</div>
+       			
+       		</div>
        	</form>
 	</div>
 	
