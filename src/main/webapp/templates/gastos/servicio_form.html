@@ -5,7 +5,7 @@
 	<div class="row form-class-modal"
 		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
 		th:fragment="form">
-		<form th:action="@{/servicio/accion}" th:object="${servicio}"
+		<form th:action="@{/servicio/accion2}" th:object="${servicio}"
 			method="post" role="form">
 			<input type="hidden" th:field="*{id}"/>
 			<div class="modal-movil hidden-xs col-sm-12">
@@ -19,13 +19,13 @@
 					<label for="tipoServicio" th:text="#{servicio.tipoServicio.lbl}"
 						class="field-label col-xs-7 col-sm-7">Tipo de Servicio:</label> <input
 						type="text" th:field="*{tipoServicio}" maxlength="60"
-						class="form-control col-xs-6 col-sm-6" />
+						class="form-control col-xs-6 col-sm-6 letters-only" />
 				</div>
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="costo" th:text="#{servicio.costo.lbl}"
 						class="field-label col-xs-7 col-sm-7">Costo:</label> <input
 						type="text" th:field="*{costo}" maxlength="60"
-						class="form-control col-xs-6 col-sm-6 numbers-only"/>
+						class="form-control col-xs-6 col-sm-6 numbers-only importe"/>
 				</div>
 				
 			</div>

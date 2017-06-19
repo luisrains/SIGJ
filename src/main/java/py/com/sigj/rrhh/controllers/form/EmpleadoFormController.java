@@ -69,12 +69,13 @@ public class EmpleadoFormController extends FormController<Empleado> {
 	public String accion2(ModelMap map, @Valid Empleado obj,
 			BindingResult bindingResult,
 			@RequestParam(required = false) String accion,
+			@RequestParam(value="salario_format",required = false) String salario,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult);
+			return guardar_listado(map, obj, bindingResult,salario);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO PROCESO {}", obj);
-			return editar_listado(map, obj, bindingResult);
+			return editar_listado(map, obj, bindingResult,salario);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -86,12 +87,14 @@ public class EmpleadoFormController extends FormController<Empleado> {
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map,
 			@Valid Empleado obj,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,String salario) {
 		try {
 			if (obj.getId() == null) {
 				Persona persona = personaDao.find(obj.getPersona().getId());
 				persona.setDisponible("NO");
 				personaDao.createOrUpdate(persona);
+				salario = salario.replaceAll("\\.", "");
+				obj.setSalario(Integer.valueOf(salario));
 				getDao().createOrUpdate(obj);
 			}
 
@@ -112,7 +115,7 @@ public class EmpleadoFormController extends FormController<Empleado> {
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
 	public String editar_listado(ModelMap map,
 			@Valid Empleado obj, 
-			BindingResult bindingResult) {
+			BindingResult bindingResult,String salario) {
 		try {
 			
 			Persona persona = null;
@@ -123,7 +126,8 @@ public class EmpleadoFormController extends FormController<Empleado> {
 				}
 
 			}
-			
+			salario = salario.replaceAll("\\.", "");
+			obj.setSalario(Integer.valueOf(salario));
 			getDao().createOrUpdate(obj);
 			logger.info("Empleado Actualizado {}", obj);
 			map.addAttribute("msgExito", msg.get("Registro Actualizado"));

@@ -70,12 +70,16 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	public String accion2(ModelMap map, @Valid Movimiento obj,
 			BindingResult bindingResult,
 			@RequestParam(required = false) String accion,
+			@RequestParam(value="egreso_format",required = false) String egreso,
+			@RequestParam(value="ingreso_format",required = false) String ingreso,
+			@RequestParam(value="egreso",required = false) String egreso_edit,
+			@RequestParam(value="ingreso",required = false) String ingreso_edit,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult);
+			return guardar_listado(map, obj, bindingResult,ingreso,egreso);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO MOVIMIENTO {}", obj);
-			return editar_listado(map, obj, bindingResult);
+			return editar_listado(map, obj, bindingResult,ingreso_edit,egreso_edit);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -87,9 +91,22 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map,
 			@Valid Movimiento obj,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,String ingreso,String egreso) {
 		try {
 			if (obj.getId() == null) {
+				if(ingreso.equals("") || ingreso == ""){
+					obj.setIngreso(0);
+				}else{
+					ingreso = ingreso.replaceAll("\\.", "");
+					obj.setIngreso(Integer.valueOf(ingreso));
+				}
+				if(egreso == "" || egreso.equals("")){
+					obj.setEgreso(0);
+				}else{
+					egreso = egreso.replaceAll("\\.", "");
+					obj.setEgreso(Integer.valueOf(egreso));
+				}
+				
 				getDao().create(obj);
 			}
 
@@ -110,7 +127,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
 	public String editar_listado(ModelMap map,
 			@Valid Movimiento obj, 
-			BindingResult bindingResult) {
+			BindingResult bindingResult,String ingreso,String egreso) {
 		try {
 			
 			Empleado empleado = null;
@@ -121,7 +138,18 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				}
 
 			}
-			
+			if(ingreso.equals("") || ingreso == ""){
+				ingreso = ingreso.replaceAll("\\.", "");
+				obj.setIngreso(Integer.valueOf(ingreso));
+			}else{
+				obj.setIngreso(0);
+			}
+			if(egreso == "" || egreso.equals("")){
+				egreso = egreso.replaceAll("\\.", "");
+				obj.setEgreso(Integer.valueOf(egreso));
+			}else{
+				obj.setEgreso(0);
+			}
 			getDao().createOrUpdate(obj);
 			logger.info("Movimiento Actualizado {}", obj);
 			map.addAttribute("msgExito", msg.get("Registro Actualizado"));

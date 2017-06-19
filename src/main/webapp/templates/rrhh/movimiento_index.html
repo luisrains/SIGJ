@@ -104,13 +104,13 @@
 									<label for="egreso" th:text="#{movimiento.egreso.lbl}"
 										class="field-label col-xs-7 col-sm-7"> Egreso:</label> <input
 										type="text" th:field="*{egreso}" maxlength="100"
-										class="form-control col-xs-6 col-sm-6 egreso" autofocus="autofocus" />
+										class="form-control col-xs-6 col-sm-6 egreso numbers-only importe" autofocus="autofocus" />
 								</div>
 								<div class="form-group col-xs-12 col-sm-12">
 									<label for="ingreso" th:text="#{movimiento.ingreso.lbl}"
 										class="field-label col-xs-7 col-sm-7">Ingreso:</label> <input
 										type="text" th:field="*{ingreso}" maxlength="100"
-										class="form-control col-xs-6 col-sm-6 ingreso" />
+										class="form-control col-xs-6 col-sm-6 ingreso numbers-only importe" />
 
 								</div>
 								<div class="form-group col-xs-12 col-sm-12">
@@ -158,7 +158,7 @@
 								
 								 $('#datepicker').datepicker({       
 					                 autoclose: true,
-					                 format: 'dd/mm/yyyy',
+					                
 					                 language: 'es', 
 							    });
 								 $('.fecha').datepicker({       
@@ -234,15 +234,15 @@
 						$('#formModal #edit').removeClass('hidden');
 						$('#formModal #save').addClass('hidden');
 						$('#formModal #delete').addClass('hidden');
-						$('#empleado_edit_div').removeClass('hidden');
+						$('#empleado_edit_div').addClass('hidden');
 						$('.egreso').attr('disabled', false);
 						$('.ingreso').attr('disabled', false);
 						$('.descripcion').attr('disabled', false);
 						$('.fecha').attr('disabled', false);
 						$('.empleado').attr('disabled', true);
 						$('.id').val(obj["id"]);
-						$('.egreso').val(obj["egreso"]);
-						$('.ingreso').val(obj["ingreso"]);
+						$('#egreso').val(number_format(obj["egreso"],0));
+						$('#ingreso').val(number_format(obj["ingreso"],0));
 						$('.descripcion').val(obj["descripcion"]);
 						$('.fecha').val(obj["fecha"]);
 						
@@ -271,10 +271,10 @@
 					$('#edit').addClass('hidden');
 					$('#save').addClass('hidden');
 					$('.id').val(obj["id"]);
-					$('.egreso').val(obj["egreso"]);
-					$('.ingreso').val(obj["ingreso"]);
+					$('#egreso').val(number_format(obj["egreso"],0));
+					$('#ingreso').val(number_format(obj["ingreso"],0));
 					$('.fecha').val(obj["fecha"]);
-					
+					$('.descripcion').val(obj["descripcion"]);
 					var selec = $('.empleado');
 					var empleado = obj["empleado"];
 					var codigo = empleado.id;

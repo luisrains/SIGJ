@@ -15,7 +15,7 @@
 					</button>
 					<br> <br>
 					<table
-						class="table table-bordered table-striped col-xs-12 no-padding "
+						class="table table-bordered table-striped col-xs-12 no-padding"
 						id="servicioDT">
 						<thead>
 							<tr>
@@ -116,7 +116,7 @@
 							$('#id').val(id);
 							$('#codigo').val(obj["codigo"]);
 							$('#tipoServicio').val(obj["tipoServicio"]);
-							$('#costo').val(obj["costo"]);
+							$('#costo').val(number_format(obj["costo"],0));
 							
 							$("#formModal").modal("show");
 						}
@@ -136,7 +136,7 @@
 						$('#id').val(id);
 						$('#codigo').val(obj["codigo"]);
 						$('#tipoServicio').val(obj["tipoServicio"]);
-						$('#costo').val(obj["costo"]);
+						$('#costo').val(number_format(obj["costo"],0));
 						$("#formModal").modal("show");
 					}
 				}

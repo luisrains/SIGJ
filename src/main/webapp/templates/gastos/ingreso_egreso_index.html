@@ -61,7 +61,7 @@
 									$('#save').addClass('hidden');
 									$('#delete').addClass('hidden');
 									$('#id').val(obj.id);
-									$('#monto').val(obj.monto);
+									$('#monto_format').val(number_format(obj.monto,0));
 									$('#tipo').val(obj.tipo);
 									$('#descripcion').val(obj.descripcion);
 									$('#monto').attr('disabled', false);
@@ -71,6 +71,7 @@
 									$("#formModal").modal("show");
 								}
 							} else if (accion === 'r') {
+									
 								$('#delete').addClass('hidden');
 								$('#edit').addClass('hidden');
 								$('#save').removeClass('hidden');
@@ -88,7 +89,7 @@
 								$('#edit').addClass('hidden');
 								$('#save').addClass('hidden');
 								$('#id').val(obj.id);
-								$('#monto').val(obj.monto);
+								$('#monto_format').val(number_format(obj.monto,0));
 								$('#descripcion').val(obj.descripcion);
 								$('#tipo').val(obj.tipo);
 

@@ -230,12 +230,12 @@
 						$('#formModal #edit').removeClass('hidden');
 						$('#formModal #save').addClass('hidden');
 						$('#formModal #delete').addClass('hidden');
-						$('#persona_edit_div').removeClass('hidden');
+						$('#persona_edit_div').addClass('hidden');
 						$('.salario').attr('disabled', false);
 						$('.fecha').attr('disabled', false);
 						$('.persona').attr('disabled', true);
 						$('.id').val(obj["id"]);
-						$('.salario').val(obj["salario"]);
+						$('.salario').val(number_format(obj["salario"],0));
 						$('.fecha').val(obj["fechaIngreso"]);
 						
 						var selec = $('.persona');
@@ -262,7 +262,7 @@
 					$('#save').addClass('hidden');
 					$('#persona_edit_div').removeClass('hidden');
 					$('.id').val(obj["id"]);
-					$('.salario').val(obj["salario"]);
+					$('.salario').val(number_format(obj["salario"],0));
 					$('.fecha').val(obj["fechaIngreso"]);
 					
 					var selec = $('.persona');
