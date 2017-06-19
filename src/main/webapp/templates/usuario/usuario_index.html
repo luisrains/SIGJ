@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
 
@@ -8,30 +9,33 @@
 			<div class="col-xs-12">		
 					<div class="box box-solid box-primary">
 						<div class="box-header">
-							<h3>Listado de Estados</h3>
+							<h3>Listado de Usuarios</h3>
 						</div>
+						
 						<div class="box-body no-padding">
 							<button class="btn btn-success" id="botonAgregar"
 								 onclick="agregar('','r')">
-								<i class="glyphicon glyphicon-plus"></i> Nuevo Estado
+								<i class="glyphicon glyphicon-plus"></i> Nuevo Usuario
 							</button>
+							
 							<br><br>
 							<table
-								class="table table-bordered table-striped col-xs-12 no-padding"
-								id="estado_externo_internoDT">
+								class="table table-bordered table-striped col-xs-12 no-padding "
+								id="usuarioDT">
 								<thead>
 									<tr>
-										 <th th:each="col : ${columnas}" th:text="#{'estado_externo_interno.' + ${col} + '.header'}">CÓDIGO</th>
+										 <th th:each="col : ${columnas}" th:text="#{'usuario.' + ${col} + '.header'}">CÓDIGO</th>
 										<th>Accion</th>
 									</tr>
 								</thead>
 							</table>
+							
 							<script type="text/javascript">
 							
 							 $(document).ready(function() {
-							   crearDataTable("estado_externo_internoDT", "[[@{/estado_externo_interno/json}]]", "[[${columnasStr}]]", "[[@{/estado_externo_interno/edit/}]]");
+							   crearDataTable("usuarioDT", "[[@{/usuario/json}]]", "[[${columnasStr}]]", "[[@{/usuario/edit/}]]");
 							 });
-							 
+							
 								function agregar(obj, accion){
 									
 									if(obj != ''){
@@ -45,10 +49,11 @@
 											$('#edit').addClass('hidden');
 											$('#id_objeto').val(obj.id);
 											$('#id').val('');
-											$('#descripcion').val('');						
-											$('#codigo').val('');
-											$('#tipoEstado').val('');
-											
+											$('#cedulaRuc').val('');						
+											$('#nombreRazonSocial').val('');
+											$('#apellido').val('');
+											$('#password').val('');
+											$('#rol').val('');
 											$("#borradoPopup").modal("show");
 										}	
 									}else if(accion === 'e'){
@@ -58,13 +63,17 @@
 											$('#delete').addClass('hidden');
 											
 											$('#id').val(obj.id);
-											$('#codigo').val(obj.codigo);
-											$('#descripcion').val(obj.descripcion);
-											$('#tipoEstado').val("");
-											$('#tipoEstado').val(obj.tipoEstado);
-											$('#descripcion').attr('disabled', false);
-											$('#codigo').attr('disabled', false);
-											$('#tipoEstado').attr('disabled', false);
+											$('#cedulaRuc').val(obj.cedulaRuc);
+											$('#nombreRazonSocial').val(obj.nombreRazonSocial);
+											$('#apellido').val(obj.apellido);
+											$('#password').val(obj.password);
+											var rol = obj.rol.id;
+											$('#rol').val(rol).change();
+											$('#cedulaRuc').attr('disabled', false);
+											$('#nombreRazonSocial').attr('disabled', false);
+											$('#apellido').attr('disabled', false);
+											$('#password').attr('disabled', false);
+											$('#rol').attr('disabled', false);
 
 											
 											$("#formModal").modal("show");
@@ -73,13 +82,18 @@
 										$('#delete').addClass('hidden');
 										$('#edit').addClass('hidden');
 										$('#save').removeClass('hidden');
-										$('#descripcion').attr('disabled', false);
-										$('#codigo').attr('disabled', false);
-										$('#tipoEstado').attr('disabled', false);
+										$('#cedulaRuc').attr('disabled', false);
+										$('#nombreRazonSocial').attr('disabled', false);
+										$('#apellido').attr('disabled', false);
+										$('#password').attr('disabled', false);
+										$('#rol').attr('disabled', false);
+										
 										$('#id').val('');
-										$('#codigo').val('');
-										$('#descripcion').val('');
-										$('#tipoEstado').val('');
+										$('#cedulaRuc').val('');
+										$('#nombreRazonSocial').val('');
+										$('#password').val('');
+										$('#apellido').val('');
+										$('#rol').val('');
 										
 										$("#formModal").modal("show");
 									}else if(accion === 'v'){
@@ -87,13 +101,17 @@
 										$('#edit').addClass('hidden');
 										$('#save').addClass('hidden');
 										$('#id').val(obj.id);
-										$('#codigo').val(obj.codigo);
-										$('#descripcion').val(obj.descripcion);
-										$('#tipoEstado').val(obj.tipoEstado);
+										$('#cedulaRuc').val(obj.cedulaRuc);
+										$('#nombreRazonSocial').val(obj.nombreRazonSocial);
+										$('#apellido').val(obj.apellido);
+										$('#password').val(obj.password);
+										$('#rol').val(obj.rol);
 										
-										$('#descripcion').attr('disabled', true);
-										$('#codigo').attr('disabled', true);
-										$('#tipoEstado').attr('disabled', true);
+										$('#cedulaRuc').attr('disabled', false);
+										$('#nombreRazonSocial').attr('disabled', false);
+										$('#apellido').attr('disabled', false);
+										$('#password').attr('disabled', false);
+										$('#rol').attr('disabled', false);
 										$("#formModal").modal("show");
 									}
 								}
@@ -107,8 +125,8 @@
 
 <div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
-			<form th:object="${estadoExternoInterno}" th:action="@{/estado_externo_interno/eliminar_listado}" method="post" role="form"
-						id="idEstado">
+			<form th:object="${usuario}" th:action="@{/usuario/eliminar_listado}" method="post" role="form"
+						id="idUsuario">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -146,7 +164,7 @@
 							>Nuevo Registro</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/estado_externo_interno_form::form">aqui va un
+						<div th:replace="usuario/usuario_form::form">aqui va un
 								fragmento de codigo del form</div>
 					</div>
 					
@@ -162,74 +180,6 @@
 			
 	</div>
 	 <!-- <script th:src="@{/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js}" src="../plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script> -->
-	 	<script>
-
-			function agregar(obj, accion){
-				
-				if(obj != ''){
-					var id = obj.id;
-				}
-				
-				if(accion === 'd'){
-					if(id !== null || id !== undefined || id !== "" ){
-						$('#delete').removeClass('hidden');
-						$('#save').addClass('hidden');
-						$('#edit').addClass('hidden');
-						$('#id_objeto').val(obj.id);
-						$('#id').val('');
-						$('#descripcion').val('');						
-						$('#codigo').val('');
-						$('#tipoEstado').val('');
-						
-						$("#borradoPopup").modal("show");
-					}	
-				}else if(accion === 'e'){
-					if(id !== null || id !== undefined || id !== "" ){
-						$('#edit').removeClass('hidden');
-						$('#save').addClass('hidden');
-						$('#delete').addClass('hidden');
-						
-						$('#id').val(obj.id);
-						$('#codigo').val(obj.codigo);
-						$('#descripcion').val(obj.descripcion);
-						$('#tipoEstado').val("");
-						$('#tipoEstado').val(obj.tipoEstado);
-						$('#descripcion').attr('disabled', false);
-						$('#codigo').attr('disabled', false);
-						$('#tipoEstado').attr('disabled', false);
-
-						
-						$("#formModal").modal("show");
-					}	
-				}else if(accion === 'r'){
-					$('#delete').addClass('hidden');
-					$('#edit').addClass('hidden');
-					$('#save').removeClass('hidden');
-					$('#descripcion').attr('disabled', false);
-					$('#codigo').attr('disabled', false);
-					$('#tipoEstado').attr('disabled', false);
-					$('#id').val('');
-					$('#codigo').val('');
-					$('#descripcion').val('');
-					$('#tipoEstado').val('');
-					
-					$("#formModal").modal("show");
-				}else if(accion === 'v'){
-					$('#delete').addClass('hidden');
-					$('#edit').addClass('hidden');
-					$('#save').addClass('hidden');
-					$('#id').val(obj.id);
-					$('#codigo').val(obj.codigo);
-					$('#descripcion').val(obj.descripcion);
-					$('#tipoEstado').val(obj.tipoEstado);
-					
-					$('#descripcion').attr('disabled', true);
-					$('#codigo').attr('disabled', true);
-					$('#tipoEstado').attr('disabled', true);
-					$("#formModal").modal("show");
-				}
-			}
-
-			</script>
+	 	
 </body>
 </html>
