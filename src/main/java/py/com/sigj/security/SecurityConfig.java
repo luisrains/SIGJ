@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
 		auth.userDetailsService(userRoleService).passwordEncoder(new Md5PasswordEncoder());
 	}
 
@@ -32,26 +33,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expression = http
 				.authorizeRequests();
 
-		Map<String, String> map = rolUrl();
+		Map<String, String> map = permisosUrl();
 		for (String url : map.keySet()) {
-			String rol = map.get(url);
-			expression = expression.antMatchers(url).access("hasRole('" + rol + "')");
+			String permiso = map.get(url);
+			expression = expression.antMatchers(url).access("hasAuthority('" + permiso + "')");
 
 		}
 		expression.and().formLogin().loginPage("/login").and().formLogin().successHandler(successHandler).and()
 				.exceptionHandling().accessDeniedPage("/403").and().formLogin();
-
 	}
 
-	private Map<String, String> rolUrl() {
+	private Map<String, String> permisosUrl() {
 		Map<String, String> map = new HashMap<>();
-		// map.put("/cliente/**", "Cliente_sel");
-		// map.put("/persona/**", "Persona_sel");
-		// map.put("/proveedor/**", "Proveedor_sel");
-		map.put("/usuario/", "Admin");
-		// map.put("/venta/**", "Venta_sel");
-		/*map.put("/iva/**", "Iva_sel");*/
-
+		map.put("/cliente/**", "ver-cli");
+		map.put("/materia/**", "ver-mat");
+		map.put("/usuario/**", "ver-usu");
+		map.put("/proceso/**", "ver-pro");
+		map.put("/expediente/**", "ver-exp");
+		map.put("/abogado/**", "ver-abg");
+		map.put("/actuacion/**", "ver-act");
+		map.put("/despacho/**", "ver-des");
+		map.put("/documento/**", "ver-doc");
+		map.put("/estado_externo_interno/**", "ver-estExtInt");
+		map.put("/inicio/**", "ver-inicio");
+		//faltan mas url que mapear, ver si no podemos meter en una base de datos la url y que lea de ahi para que no tener muchas lineas de codigo
 		return map;
 	}
 

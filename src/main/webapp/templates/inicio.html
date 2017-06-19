@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:fragment="starter">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="starter">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -112,7 +113,7 @@
 							class="dropdown-toggle" data-toggle="dropdown"> <img
 								th:src="@{/img/team/carlos_mendez.jpg}"
 								src="../dist/img/user2-160x160.jpg" class="user-image"
-								alt="User Image"> <span class="hidden-xs">Carlos A.
+								alt="User Image"> <span class="hidden-xs" th:text="${session.currentUserName + ' '+ session.currentUserLast}">Carlos A.
 									Méndez G. </span>
 						</a>
 							<ul class="dropdown-menu">
@@ -121,7 +122,7 @@
 									th:src="@{/dist/img/user2-160x160.jpg}"
 									src="../dist/img/user2-160x160.jpg" class="img-circle"
 									alt="User Image">
-									<p>
+									<p th:text="${session.currentUserName + ' '+ session.currentUserLast}">
 										Carlos Méndez - Abogado <small>Miembro desde 2017</small>
 									</p></li>
 								<!-- Menu Footer-->
@@ -149,15 +150,14 @@
 
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
-				
-				
-				
-				<ul th:if="${session} != null and (${session.usuario} =='Abg' or ${session.usuario}=='Des' or ${session.usuario}=='Ges')" 
+			
+			
+				<ul  th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Abg' or ${session.userSession.usuario.rol.codigo}=='abg' or ${session.userSession.usuario.rol.codigo}=='Admin')"
 				 class="sidebar-menu mp">
 					<li class="header">Menú Principal</li>
 
 					<!-- Menu de Expediente -->
-					<li class="treeview menu-expedientes"><a href="#"> <i
+					<li class="treeview menu-expedientes" th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='AbgAdmin' or ${session.userSession.usuario.rol.codigo}=='Abg')"><a href="#"> <i
 							class="fa fa-book"></i> <span>Menú de Expediente</span><span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
@@ -266,19 +266,19 @@
 								</ul></li>
 
 							<!--Menú de Usuario  -->
-							<li class="treeview menu-usuario"><a href="#"> <i
+							<li class="treeview menu-usuario" th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Admin')"><a href="#"> <i
 									class="fa fa-lock"></i> <span>Menú de Usuario</span> <span
 									class="pull-right-container"> <i
 										class="fa fa-angle-left pull-right"></i>
 								</span>
-							</a> <!-- <ul class="treeview-menu">
+							</a> <ul class="treeview-menu">
 							<li><a th:href="@{/usuario}"><i class="fa fa-user-plus"
 									style="color: blue"></i>Usuario</a></li>
 							<li><a th:href="@{/permiso}"><i class="fa fa-user-secret"
 									style="color: blue"></i>Permisos</a></li>
 							<li><a th:href="@{/rol}"><i class="fa fa-user-circle"
 									style="color: blue"></i>Roles</a></li>
-						</ul> --></li>
+						</ul></li>
 						</ul></li>
 				</ul>
 			
@@ -355,7 +355,8 @@
 			<!-- Main content -->
 			<!-- Main content -->
 			<section class="content">
-					<div class="col-sm-12" style="background-color:white; border-top-color:#3c8dbc;border-bottom-color:#3c8dbc;border-bottom-style:solid;border-top-style:solid;" th:each="ex : ${expediente}">
+					<div class="col-sm-12" style="background-color:white; border-top-color:#3c8dbc;border-bottom-color:#3c8dbc;border-bottom-style:solid;border-top-style:solid;"
+					 th:each="ex : ${expediente}">
 					
 						<div class="col-sm-9">
 						<div class="box-header with-border">

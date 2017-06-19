@@ -139,7 +139,6 @@ public class RolFormController extends FormController<Rol> {
 					Long idFormat = Long.parseLong(s);
 					listPermiso.add(permisoDao.find(idFormat));
 				}
-				obj.setListPermiso(listPermiso);
 				getDao().createOrUpdate(obj);
 				Rol rol_aux = rolDao.buscarRol(obj.getCodigo());
 				for (String idLong : permiso) {
@@ -194,7 +193,6 @@ public class RolFormController extends FormController<Rol> {
 				Long idFormat = Long.parseLong(s);
 				listPermiso.add(permisoDao.find(idFormat));
 			}
-			obj.setListPermiso(listPermiso);
 			getDao().createOrUpdate(obj);
 			logger.info("Rol Actualizado {}", obj);
 			

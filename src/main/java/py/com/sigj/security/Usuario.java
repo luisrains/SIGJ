@@ -1,8 +1,5 @@
 package py.com.sigj.security;
 
-import java.awt.Image;
-import java.util.Arrays;
-
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -51,12 +48,9 @@ public class Usuario extends GenericEntity {
 	@NotNull(message = "usuario.rol.notNull")
 	private Rol rol;
 	
-	
-	
-	
-	
-
-	
+	public Usuario() {
+		super();
+	}
 
 	public Rol getRol() {
 		return rol;

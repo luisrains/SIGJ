@@ -1,7 +1,5 @@
 package py.com.sigj.controllers.form;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,13 +10,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import py.com.sigj.dao.UsuarioDao;
 import py.com.sigj.main.SesionUsuario;
-import py.com.sigj.security.Usuario;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_REQUEST)
@@ -40,14 +35,11 @@ public class LoginController {
 
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		if(session.getMaxInactiveInterval() > 60){
-			sesionUsuario.setUsuario(null);
-			return "login";
-		}
-		
-		sesionUsuario.setUsuario(null);
-		return "login";
+		//SecurityContextHolder.clearContext();
+		request.getSession().invalidate();
+
+		return "redirect:/login";
+
 	}
 	
 	@RequestMapping("usuario/logout")
@@ -73,7 +65,7 @@ public class LoginController {
 			session.setAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 			modelMap.addAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 			logger.info(String.valueOf(session.getAttribute("usuario")));
-			return "redirect:inicio";
+			return "redirect:/inicio/";
 		}
 		if (sesionUsuario.getUsuarioPorConfirmar() != null) {
 			logger.info("Contraseña incorrecta");
@@ -90,7 +82,7 @@ public class LoginController {
 		session.setAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 		modelMap.addAttribute("usuario", sesionUsuario.getUsuario().getRol().getCodigo());
 		logger.info(String.valueOf(session.getAttribute("usuario")));
-		return "inicio";
+		return "redirect:/inicio/";
 	}
 
 	
