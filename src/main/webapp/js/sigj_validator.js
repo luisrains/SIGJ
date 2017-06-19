@@ -178,3 +178,8 @@ function number_format(amount, decimals) {
 	
 	    return amount_parts.join('.');
 	}
+
+function convertDateFormat(string) {
+	  var info = string.split('-');
+	  return info[2] + '/' + info[1] + '/' + info[0];
+	}

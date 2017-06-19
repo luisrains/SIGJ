@@ -236,8 +236,7 @@
 						$('.persona').attr('disabled', true);
 						$('.id').val(obj["id"]);
 						$('.salario').val(number_format(obj["salario"],0));
-						$('.fecha').val(obj["fechaIngreso"]);
-						
+						$('.fecha').val(convertDateFormat(obj["fechaIngreso"]));
 						var selec = $('.persona');
 						var persona = obj["persona"];
 						var codigo = persona.id;
@@ -263,7 +262,7 @@
 					$('#persona_edit_div').removeClass('hidden');
 					$('.id').val(obj["id"]);
 					$('.salario').val(number_format(obj["salario"],0));
-					$('.fecha').val(obj["fechaIngreso"]);
+					$('.fecha').val(convertDateFormat(obj["fechaIngreso"]));
 					
 					var selec = $('.persona');
 					var persona = obj["persona"];

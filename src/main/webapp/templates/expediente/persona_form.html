@@ -14,6 +14,7 @@
 				$("#estadoCivil").val("");
 				$("#sexo").val("");
 				$("#tipoPersona").val("");
+				
 			}
 			function nuevoRegistro() {
 				limpiarForm();
@@ -42,7 +43,7 @@
 			<li th:each=" err : ${errorList}" th:text="{${err.defaultMessage}}"
 				style="color: red">Debe ingresar código</li>
 		</ul>
-		<form th:action="@{/persona/accion}" th:object="${persona}"
+		<form th:action="@{/persona/accion2}" th:object="${persona}"
 			method="post" role="form">
 			<input type="hidden" th:field="*{id}" />
 			<input type="hidden"  name="disponible" value="SI"/>

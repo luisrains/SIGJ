@@ -112,7 +112,7 @@
 							$('#id').val(id);
 							$('#codigo').val(obj["codigo"]);
 							$('#monto_format').val(number_format(obj.monto,0));
-							$('#fecha').val(obj["fecha"]);
+							$('#fecha').val(convertDateFormat(obj["fecha"]));
 							$("#div-error").addClass("hidden");
 							$("#formModal").modal("show");
 							$('#codigo').attr('disabled', false);
@@ -138,7 +138,7 @@
 						$('#id').val(id);
 						$('#codigo').val(obj["codigo"]);
 						$('#monto_format').val(number_format(obj.monto,0));
-						$('#fecha').val(obj["fecha"]);
+						$('#fecha').val(convertDateFormat(obj["fecha"]));
 						
 						$('#codigo').attr('disabled', true);
 						$('#monto_format').attr('disabled', true);
