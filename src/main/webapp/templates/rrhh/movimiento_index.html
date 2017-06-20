@@ -166,6 +166,16 @@
 					                 format: 'dd/mm/yyyy',
 					                 language: 'es', 
 							    });
+								 $(".movimiento-expediente").select2({
+										placeholder : "Seleccione el Expediente...",
+										language : {
+											noResults : function(params) {
+												return "No existen registros.";
+											}
+										}
+									});
+								 
+								 
 							});		
 							</script>
 						</div>
