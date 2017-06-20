@@ -1,8 +1,8 @@
 /*
  * Archivo para el manejo de todos los datos relacionados al expediente
  */
- function createFileInput(){
-	 $('#file-es').fileinput({
+ function createFileInput(idFile){
+	 $('#'+idFile).fileinput({
  
 		        language: 'es',
 		        uploadUrl: '#',
@@ -200,7 +200,7 @@ var banDe=0;
 var banApo=0;
 var banCon=0;
 
-function agregar_cliente(id, nombre){
+function agregar_cliente(id, nombre, ci){
 	var seleccion = $('input[name=tipo_cliente]:checked').val();
 	if(notInTable(id,"C")){//si no esta en la tabla de partes
 		if(seleccion == undefined || seleccion=="" || seleccion==null){
@@ -214,19 +214,23 @@ function agregar_cliente(id, nombre){
 			$("#error-cliente").addClass("hidden");
 			if(seleccion == 'D'){
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
-				 $('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>DEMANDANTE</td><td>"+nombre+"</td></tr>");
+				 $('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o' ></i></button>"+
+						"</td> <td>"+id+"</td><td>DEMANDANTE</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"C"});
 				 if(banDem == 0){
-					 $('#o-demandante').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					 $('#o-demandante').val(nombre);
 					 banDem++;
 				 }
 				 $("#div-result_cliente").addClass("hidden");
 			}else{
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
-				$('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>DEMANDADO</td><td>"+nombre+"</td></tr>");
+				$('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o'></i></button>"+
+						"</td> <td>"+id+"</td><td>DEMANDADO</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"C"});
 				if(banDe == 0){
-					$('#o-demandado').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					$('#o-demandado').val(nombre);
 					banDe++;
 				}
 				$("#div-result_cliente").addClass("hidden");
@@ -245,7 +249,7 @@ function agregar_cliente(id, nombre){
 	$("#buscar_parte_cliente").val("");
 	
 }
-function agregar_abogado(id, nombre){
+function agregar_abogado(id, nombre, ci){
 	var seleccion = $('input[name=tipo_abogado]:checked').val();
 	if(notInTable(id,"A")){//si no esta en la tabla de partes
 		if(seleccion == undefined || seleccion=="" || seleccion==null){
@@ -259,19 +263,23 @@ function agregar_abogado(id, nombre){
 			$("#error-abogado").addClass("hidden");
 			if(seleccion == 'AP'){
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
-				 $('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>APODERADO</td><td>"+nombre+"</td></tr>");
+				 $('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o'></i></button>"+
+						"</td> <td>"+id+"</td><td>APODERADO</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"A"});
 				 if(banApo == 0){
-					 $('#o-apoderado').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					 $('#o-apoderado').val(nombre);
 					 banApo++;
 				 }
 				 $("#div-result_abogado").addClass("hidden");
 			}else{
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
-				$('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>CONTRAPARTE</td><td>"+nombre+"</td></tr>");
+				$('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o'></i></button>"+
+						"</td><td>"+id+"</td><td>CONTRAPARTE</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"A"});
 				if(banCon == 0){
-					$('#o-contraparte').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					$('#o-contraparte').val(nombre);
 					banCon++;
 				}
 				$("#div-result_abogado").addClass("hidden");
@@ -288,6 +296,16 @@ function agregar_abogado(id, nombre){
 	$("#tipo_abogado_contraparte").prop('checked', false);
 	$("#buscar_parte_abogado").val("");
 	
+}
+
+function eliminar_parte(id){
+	$.each(idPartes, function( index, value ) {
+		if(value["id"] == id){
+			idPartes.splice(index,1);
+		}
+	});
+	
+	var boton = $('#boton_'+id).closest('tr').remove();
 }
 
 function datos_caratula(){

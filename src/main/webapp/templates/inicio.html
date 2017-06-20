@@ -132,7 +132,7 @@
 											contraseña</a>
 									</div>
 									<div class="pull-right">
-										<a href="logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
+										<a th:href="@{/logout}" class="btn btn-default btn-flat">Cerrar Sesión</a>
 									</div>
 								</li>
 							</ul></li>
@@ -151,13 +151,14 @@
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 			
-			
-				<ul  th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Abg' or ${session.userSession.usuario.rol.codigo}=='abg' or ${session.userSession.usuario.rol.codigo}=='Admin')"
+			<!--  th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Abg' or ${session.userSession.usuario.rol.codigo}=='abg' or ${session.userSession.usuario.rol.codigo}=='Admin')"
+			th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='AbgAdmin' or ${session.userSession.usuario.rol.codigo}=='Abg')"-->
+				<ul  
 				 class="sidebar-menu mp">
 					<li class="header">Menú Principal</li>
 
 					<!-- Menu de Expediente -->
-					<li class="treeview menu-expedientes" th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='AbgAdmin' or ${session.userSession.usuario.rol.codigo}=='Abg')"><a href="#"> <i
+					<li class="treeview menu-expedientes" ><a href="#"> <i
 							class="fa fa-book"></i> <span>Menú de Expediente</span><span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>

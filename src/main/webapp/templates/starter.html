@@ -143,7 +143,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="starter
 											contraseña</a>
 									</div>
 									<div class="pull-right">
-										<a href="logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
+										<a th:href="@{/logout}" class="btn btn-default btn-flat">Cerrar Sesión</a>
 									</div>
 								</li>
 							</ul></li>
@@ -162,8 +162,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="starter
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				
-				
-				<ul th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Abg' or ${session.userSession.usuario.rol.codigo}=='abg' or ${session.userSession.usuario.rol.codigo}=='Admin')" 
+				<!--th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Abg' or ${session.userSession.usuario.rol.codigo}=='abg' or ${session.userSession.usuario.rol.codigo}=='Admin')"  -->
+				<ul  
 				 class="sidebar-menu mp">
 					<li class="header">Menú Principal</li>
 
@@ -277,8 +277,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="starter
 											style="color: blue"></i>Servicios</a></li>
 								</ul></li>
 							
-							<!--Menú de Usuario  -->
-							<li class="treeview menu-usuario" th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Admin')"><a href="#"> <i
+							<!--Menú de Usuario  th:if="${session} != null and (${session.userSession.usuario.rol.codigo} =='Admin')"-->
+							<li class="treeview menu-usuario" ><a href="#"> <i
 									class="fa fa-lock"></i> <span>Menú de Usuario</span> <span
 									class="pull-right-container"> <i
 										class="fa fa-angle-left pull-right"></i>
