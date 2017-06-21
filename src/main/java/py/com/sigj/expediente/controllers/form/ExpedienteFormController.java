@@ -216,10 +216,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
 				String fecha = (String) rdExpediente.get("fecha");
 				obj.setFechaSelloCargo(WebUtils.getDate(fecha.replace("/", "")));
-				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidación"));
+				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidacion"));
 				// validar el despacho
-				Long id_desp = (Long) Long.parseLong((String) rdExpediente.get("despacho"));
-				Long id_estado = (Long) Long.parseLong((String) rdExpediente.get("estado"));
+				Long id_desp = Long.parseLong((String) rdExpediente.get("despacho"));
+				Long id_estado = Long.parseLong((String) rdExpediente.get("estado"));
 				obj.setEstado(estadoDao.find(id_estado));
 				obj.setDespachoActual(despachoDao.find(id_desp));
 
@@ -277,6 +277,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp,
 			@RequestParam(value = "titulo") String titulo,
+			@RequestParam(value = "tipo_documento") String tipo_documento,
 			@RequestParam("documento") MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
@@ -293,6 +294,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				byte[] doc = multipartFile.getBytes();
 				Documento docu = new Documento();
 				docu.setDocumento(doc);
+//				TipoDocumento tipoDoc = tipoDocumentoDao.find(tipoDocumento);
+//				docu.setTipoDocumento(tipoDoc);
 				documentoDao.create(docu);
 				docu.setDocumento(doc);
 				expedienteDoc.setDocumento(doc);
@@ -347,8 +350,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				map.addAttribute("movimiento_actuacion",ma);
 				logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
+				
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.info("Error {}", e);
 		}
 		return "expediente/actuacion_hojear" ;
 		
@@ -363,31 +367,43 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			@RequestParam(value = "fecha-vencimiento") String fecha_vencimiento,
 			@RequestParam(value = "movimiento-observacion") String observacion,
 			@RequestParam("documento") MultipartFile documento) throws IOException, ParseException {
-		MovimientoActuacion ma = new MovimientoActuacion();
-		MultipartFile multipartFile = documento;
-		byte[] doc = multipartFile.getBytes();
-		ma.setDocumento(doc);
-		ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
-		//fecha_presentacion = fecha_presentacion.replace("/", "");
-		//fecha_vencimiento = fecha_vencimiento.replace("/", "");
-		Date fe_pre = WebUtils.getDateFromString(fecha_presentacion, "dd/MM/yyyy");
-		Date fe_ve = WebUtils.getDateFromString(fecha_vencimiento, "dd/MM/yyyy");
-		ma.setFechaPresentacion(fe_pre);
-		ma.setFechaVencimiento(fe_ve);
-		ma.setObservacion(observacion);
-		ma.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
-		movimientoActuacionDao.create(ma);
+		try {
+			MovimientoActuacion ma = new MovimientoActuacion();
+			MultipartFile multipartFile = documento;
+			byte[] doc = multipartFile.getBytes();
+			ma.setDocumento(doc);
+			Expediente exp = expedienteDao.find(Long.parseLong(id_exp));
+			
+			
+			//fecha_presentacion = fecha_presentacion.replace("/", "");
+			//fecha_vencimiento = fecha_vencimiento.replace("/", "");
+			Date fe_pre = WebUtils.getDateTime(fecha_presentacion);
+			Date fe_ve = WebUtils.getDateTime(fecha_vencimiento); // PASARLE CON HORA?
+			exp.setFechaActuacion(fe_ve);
+			expedienteDao.edit(exp);
+			ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
+			ma.setFechaPresentacion(fe_pre);
+			ma.setFechaVencimiento(fe_ve);
+			ma.setObservacion(observacion);
+			ma.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
+			movimientoActuacionDao.create(ma);
+			
+			
+			Expediente expediente = new Expediente();
+			expediente = expedienteDao.find(Long.parseLong(id_exp));
+			List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+			List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+			map.addAttribute("id_expediente", id_exp);
+			map.addAttribute("abogadoList", abogadoList);
+			map.addAttribute("clienteList", clienteList);
+			map.addAttribute("expediente", expediente);
+			map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
+			map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+			map.addAttribute("msgExito", msg.get("Actuación agregada con éxito"));
+		} catch (Exception e) {
+			map.addAttribute("error", msg.get("Error al agregar la actuación"));
+		}
 		
-		
-		Expediente expediente = new Expediente();
-		expediente = expedienteDao.find(Long.parseLong(id_exp));
-		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
-		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-		map.addAttribute("id_expediente", id_exp);
-		map.addAttribute("abogadoList", abogadoList);
-		map.addAttribute("clienteList", clienteList);
-		map.addAttribute("expediente", expediente);
-		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
 		return "expediente/actuacion_hojear2"; //modificar luego	
 		
 	}
