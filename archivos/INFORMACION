@@ -1,0 +1,11 @@
+##Los Tipos de Documentos
+id  COD DESCRIPCION
+1   ACT Actuacion
+2   ESC Escrito
+3   DIG Digital
+4   POD Poder
+5   VAR Varios
+6   REC Recibo
+7   PAG Pagare
+8   COMP Comprobante
+9   CED Cedula

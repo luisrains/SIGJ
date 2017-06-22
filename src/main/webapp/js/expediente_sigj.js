@@ -215,7 +215,7 @@ function agregar_cliente(id, nombre, ci){
 			if(seleccion == 'D'){
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
 				 $('#tbody_partes').append("<tr>"+
-						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o' ></i></button>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"C\""+")'><i class='fa fa-trash-o' ></i></button>"+
 						"</td> <td>"+id+"</td><td>DEMANDANTE</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"C"});
 				 if(banDem == 0){
@@ -226,7 +226,7 @@ function agregar_cliente(id, nombre, ci){
 			}else{
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
 				$('#tbody_partes').append("<tr>"+
-						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o'></i></button>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"C\""+")'><i class='fa fa-trash-o'></i></button>"+
 						"</td> <td>"+id+"</td><td>DEMANDADO</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"C"});
 				if(banDe == 0){
@@ -264,7 +264,7 @@ function agregar_abogado(id, nombre, ci){
 			if(seleccion == 'AP'){
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
 				 $('#tbody_partes').append("<tr>"+
-						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o'></i></button>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"A\""+")'><i class='fa fa-trash-o'></i></button>"+
 						"</td> <td>"+id+"</td><td>APODERADO</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"A"});
 				 if(banApo == 0){
@@ -275,7 +275,7 @@ function agregar_abogado(id, nombre, ci){
 			}else{
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
 				$('#tbody_partes').append("<tr>"+
-						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+")'><i class='fa fa-trash-o'></i></button>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"A\""+")'><i class='fa fa-trash-o'></i></button>"+
 						"</td><td>"+id+"</td><td>CONTRAPARTE</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"A"});
 				if(banCon == 0){
@@ -298,10 +298,11 @@ function agregar_abogado(id, nombre, ci){
 	
 }
 
-function eliminar_parte(id){
+function eliminar_parte(id,tipo){
 	$.each(idPartes, function( index, value ) {
-		if(value["id"] == id){
+		if(value["id"] == id && tipo == value["tipo"] ){
 			idPartes.splice(index,1);
+			return false;
 		}
 	});
 	

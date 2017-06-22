@@ -5,16 +5,15 @@ import java.util.Arrays;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import py.com.sigj.main.GenericEntity;
 
@@ -34,9 +33,17 @@ public class Documento extends GenericEntity {
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "documento_tipodocumento_fk"))
+	private TipoDocumento tipoDocumento;
+	
+	
+	
 	@Lob
 	@Basic(fetch = FetchType.LAZY, optional = true)
 	private byte[] documento;// documento
+	
+	
 
 	public Documento() {
 
@@ -60,10 +67,21 @@ public class Documento extends GenericEntity {
 		this.documento = documento;
 	}
 
+	public TipoDocumento getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
 	@Override
 	public String toString() {
-		return "Documento [id=" + id + ", documento=" + Arrays.toString(documento) + "]";
+		return "Documento [id=" + id + ", tipoDocumento=" + tipoDocumento + ", documento=" + Arrays.toString(documento)
+				+ "]";
 	}
+
+	
 
 	
 

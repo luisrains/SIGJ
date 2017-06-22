@@ -44,8 +44,13 @@ public class ExpedienteDocumento extends GenericEntity {
 	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_documento_expediente_fk"))
 	private Expediente expediente;
 	
-	@Column
+	@Column(name="fecha_presentacion")
 	private Date fechaPresentacion;
+	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipodocumento_fk"))
+	private TipoDocumento tipoDocumento;
+	
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY, optional = true)
@@ -60,10 +65,12 @@ public class ExpedienteDocumento extends GenericEntity {
 		super();
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -100,10 +107,21 @@ public class ExpedienteDocumento extends GenericEntity {
 		this.documento = documento;
 	}
 
+	public TipoDocumento getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
 	@Override
 	public String toString() {
 		return "ExpedienteDocumento [id=" + id + ", expediente=" + expediente + ", fechaPresentacion="
-				+ fechaPresentacion + ", documento=" + Arrays.toString(documento) + ", titulo=" + titulo + "]";
-	}	
+				+ fechaPresentacion + ", tipoDocumento=" + tipoDocumento + ", documento=" + Arrays.toString(documento)
+				+ ", titulo=" + titulo + "]";
+	}
+
+		
 	
 }
