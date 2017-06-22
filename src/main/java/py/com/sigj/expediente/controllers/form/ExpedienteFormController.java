@@ -2,9 +2,12 @@ package py.com.sigj.expediente.controllers.form;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +54,7 @@ import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.ExpedienteDocumento;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
+import py.com.sigj.expediente.domain.TipoActuacion;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
 
@@ -358,10 +362,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
 	public String MovimientoAgregar(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp,	
-			@RequestParam(value = "tipo-actuacion") String tipo_actuacion,
-			@RequestParam(value = "fecha-presentacion") String fecha_presentacion,
-			@RequestParam(value = "fecha-vencimiento") String fecha_vencimiento,
-			@RequestParam(value = "movimiento-observacion") String observacion,
+			@RequestParam(value = "tipo_actuacion") String tipo_actuacion,
+			@RequestParam(value = "fecha_presentacion") String fecha_presentacion,
+			@RequestParam(value = "fecha_vencimiento") String fecha_vencimiento,
+			@RequestParam(value = "movimiento_observacion") String observacion,
 			@RequestParam("documento") MultipartFile documento) throws IOException, ParseException {
 		MovimientoActuacion ma = new MovimientoActuacion();
 		MultipartFile multipartFile = documento;
@@ -388,6 +392,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("clienteList", clienteList);
 		map.addAttribute("expediente", expediente);
 		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 		return "expediente/actuacion_hojear2"; //modificar luego	
 		
 	}
@@ -464,6 +469,59 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		return "expediente/expediente_digital" ;
 		
 		
+	}
+	@RequestMapping(value = "/fecha-vencimiento", method = RequestMethod.GET)
+	public  String fecha(HttpServletRequest request,
+			@RequestParam(value = "actuacion", required = true) String actuacion_id,
+			@RequestParam(value = "fecha", required = true) Date fecha,ModelMap map) throws Exception{
+			Long id_actuacion = Long.parseLong(actuacion_id);
+			Calendar calendar = Calendar.getInstance();
+			Date fecha_aux = new Date();
+			String fecha_prue="";
+			if(fecha == null || id_actuacion == 0){
+				return "";
+			}else{
+				List<String> feriados = new ArrayList<>();
+				feriados.add("01/01");
+				feriados.add("01/03");
+				feriados.add("01/05");
+				feriados.add("14/05");
+				feriados.add("15/05");
+				feriados.add("12/06");
+				feriados.add("15/08");
+				feriados.add("29/09");
+				feriados.add("08/12");
+				feriados.add("25/12");
+				TipoActuacion ta = tipoActuacionDao.find(Long.parseLong(actuacion_id));
+				calendar.setTime(fecha);
+				String aux1 = "";
+				 calendar.add(Calendar.DAY_OF_YEAR, ta.getPlazo());
+				 fecha_aux = calendar.getTime();
+				 SimpleDateFormat f = new SimpleDateFormat("EEEE", new Locale("ES"));
+				 String nombre_dia = f.format(calendar.getTime());
+				 if(nombre_dia.equalsIgnoreCase("domingo")){
+					 calendar.setTime(fecha_aux);
+					 calendar.add(Calendar.DAY_OF_YEAR,1 );
+				 }else if(nombre_dia.equalsIgnoreCase("sábado")){
+					 calendar.setTime(fecha_aux);
+					 calendar.add(Calendar.DAY_OF_YEAR,2 );
+				 }else{
+					 fecha_prue = WebUtils.getStringFromDate(calendar.getTime(), "dd/MM/yyyy");
+					 fecha_aux = calendar.getTime();
+					 calendar.setTime(fecha_aux);
+					 aux1 = fecha_prue.substring(0, 5);
+					 for(String i : feriados){
+						 if(i.equals(aux1)){
+							 calendar.add(Calendar.DAY_OF_YEAR,1);
+							 break;
+							 
+						 }
+					 }
+				 }
+				 fecha_prue = WebUtils.getStringFromDate(calendar.getTime(), "dd/MM/yyyy");
+				map.addAttribute("fecha_ven", fecha_prue);
+			}
+			return "expediente/actuacion_hojear :: .fecha-venc2";
 	}
 	
 }

@@ -483,7 +483,7 @@
 								enctype="multipart/form-data"
 								role="form" id="form-movimiento">
 								<h3 style="color:blue;text-align:center;">Registrar Actuación</h3>
-								<input type="hidden" name="expediente" th:value="${id_expediente}">
+								<input type="hidden" name="expediente" id="expediente_id" th:value="${id_expediente}">
 								<div class="form-group" style="width: 50%;padding-left:15px;">
 									<label for="tipo-actuacion" class="field-label control-label">Actuación(*):</label>
 									<select th:name="tipo-actuacion" th:id="tipo-actuacion"
@@ -501,8 +501,8 @@
 										<div class="input-group-addon">
 											<i class="fa fa-calendar"></i>
 										</div>
-										<input type="text" class="form-control pull-right"
-											name="fecha-presentacion" id="fecha-presentacion">
+										<input type="text" class="form-control pull-right fecha-pre"
+											name="fecha-presentacion" id="fecha-presentacion" onfocusout="fechaVenc()">
 									</div>
 								
 									<script type="text/javascript"> 
@@ -516,7 +516,8 @@
 								                daysOfWeekDisabled: [0,6],
 								                language : 'es', 
 								                 
-								              }); 
+								             }); 
+								         
 								 
 								        }); 
 								  </script>
@@ -528,14 +529,15 @@
 										<div class="input-group-addon">
 											<i class="fa fa-calendar"></i>
 										</div>
-										<input type="text" class="form-control pull-right"
+										<input  type="text" class="form-control pull-right"
 											name="fecha-vencimiento" id="fecha-vencimiento">
+										<input type="hidden" class="fecha-venc2" id="fecha-venc2" name="fecha-venc2" th:value="${fecha_ven}">	
 									</div>
 									<script type="text/javascript"> 
 								        $(function() { 
 								          $(".selecciones").select2(); 
 								 
-								          $('#fecha-vencimiento').datepicker( 
+								         /*  $('#fecha-vencimiento').datepicker( 
 								              { 
 								                autoclose : true, 
 								                startDate: "today",
@@ -543,7 +545,9 @@
 								                language : 'es',
 								                format: 'dd/mm/yyyy',
 								                 
-								              }); 
+								              });  */
+								              
+								           
 								 
 								        }); 
 								   </script>
@@ -560,8 +564,8 @@
 								</div>
 								
 								<div class="col-sm-4" style="padding-top: 20px;">
-									<button id="confirmar-actuacion" class="btn btn-siguiente"
-										type="submit">
+									<button id="confirmar-actuacion" class="btn btn-siguiente" onclick="actuacion_agregar()"
+										type="button">
 										CONFIRMAR <i class="fa fa-chevron-right" aria-hidden="true"></i>
 									</button>
 								</div>

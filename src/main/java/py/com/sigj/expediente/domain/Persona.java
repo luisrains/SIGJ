@@ -53,7 +53,7 @@ public class Persona extends GenericEntity {
 	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 
-	@NotNull(message = "persona.edad.notNull")
+	
 	private int edad;
 
 	@Size(max = 15, message = "persona.estadoCivil.size")

@@ -510,3 +510,53 @@ function notInTable(id,tipo){
 	}
 	
 }
+
+function fechaVenc(){
+//	$(".fecha-pre").on('focusout', function(e){
+  	  var seleccion = $("#fecha-presentacion").val();
+  	  var actuacion = $("#tipo-actuacion").val();
+  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
+  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
+  	  	  $(".fecha-venc2").load(url, function(response, status, xhr) {
+  				 if(status == "success"){
+  					 var aux = $("input.fecha-venc2")[1];
+  					 $("input.fecha-venc2")[0].remove();
+//  					 var v = [];
+//  					 if(aux != null && aux != undefined && aux != ""){
+//  						aux = aux.value.split(" ");
+//  						 var v = aux[5] + '-'+aux[1] + '-'+ aux[2];
+//  					 }
+//  					 
+//  					
+//  					 var date = Date.parse(v);
+//  					 var fecha = new Date(date);
+  					 $("#fecha-vencimiento").attr('value',aux.value);
+  					$("#fecha-vencimiento").prop("disabled","disabled");
+  				 }
+  			  });  
+  	  }
+  	
+    //}); 
+	
+}
+function actuacion_agregar(){ //verificar si llega bien
+	var f = new FormData();
+	f.append("documento",$("#file-es")[0].files);
+	f.append("fecha_presentacion",$("#fecha-presentacion").val());
+	f.append("fecha_vencimiento", $("#fecha-vencimiento").val());
+	f.append("tipo_actuacion",$("#tipo-actuacion").val());
+	f.append("expediente",$("#expediente_id").val());
+	f.append("movimiento_observacion",$("#movimiento-observacion").val());
+            
+	$.ajax({
+        type: "POST",
+        url: "/expediente/actuacion-agregar",
+        data: f,
+        processData: false,
+        contentType: false,
+    }).done(function(data){
+        console.log("ver html donde mandar");
+        
+        pararSpinner(modalSpinner);
+    });
+}
