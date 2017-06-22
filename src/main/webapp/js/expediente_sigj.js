@@ -542,22 +542,24 @@ function fechaVenc(){
 }
 function actuacion_agregar(){ //verificar si llega bien
 	var f = new FormData();
-	f.append("documento",$("#file-es")[0].files);
+	f.append("documento",$("#file-es")[0].files[0]);
 	f.append("fecha_presentacion",$("#fecha-presentacion").val());
 	f.append("fecha_vencimiento", $("#fecha-vencimiento").val());
 	f.append("tipo_actuacion",$("#tipo-actuacion").val());
 	f.append("expediente",$("#expediente_id").val());
 	f.append("movimiento_observacion",$("#movimiento-observacion").val());
-            
+	var csrf =$('form#' + 'form-movimiento' + ' input[name=_csrf]').val();
+	f.append("_csrf",csrf);
+	 
 	$.ajax({
         type: "POST",
-        url: "/expediente/actuacion-agregar",
+        url: "/sigj/expediente/actuacion-agregar",
         data: f,
+        cache:false,
         processData: false,
         contentType: false,
     }).done(function(data){
-        console.log("ver html donde mandar");
-        
-        pararSpinner(modalSpinner);
+        console.log(data);
+      
     });
 }

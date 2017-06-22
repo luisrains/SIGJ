@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -364,13 +365,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
-	public String MovimientoAgregar(HttpServletRequest request, ModelMap map,
+	public String MovimientoAgregar(ModelMap map,HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "expediente") String id_exp,	
 			@RequestParam(value = "tipo_actuacion") String tipo_actuacion,
 			@RequestParam(value = "fecha_presentacion") String fecha_presentacion,
 			@RequestParam(value = "fecha_vencimiento") String fecha_vencimiento,
 			@RequestParam(value = "movimiento_observacion") String observacion,
-			@RequestParam("documento") MultipartFile documento) throws IOException, ParseException {
+			@RequestParam(value = "documento") MultipartFile documento) throws IOException, ParseException {
 		try {
 			MovimientoActuacion ma = new MovimientoActuacion();
 			MultipartFile multipartFile = documento;
@@ -379,12 +380,17 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			Expediente exp = expedienteDao.find(Long.parseLong(id_exp));
 			
 			
-			//fecha_presentacion = fecha_presentacion.replace("/", "");
-			//fecha_vencimiento = fecha_vencimiento.replace("/", "");
+			fecha_presentacion = fecha_presentacion.replace("/", "");
+			fecha_vencimiento = fecha_vencimiento.replace("/", "");
+			Calendar calendario = Calendar.getInstance();
+			int hora = calendario.get(Calendar.HOUR_OF_DAY);
+			int minuto = calendario.get(Calendar.MINUTE);
+			int segundo = calendario.get(Calendar.SECOND);
+			String tiempo = String.valueOf(hora)+":"+String.valueOf(minuto)+":"+String.valueOf(segundo);
+			fecha_presentacion = fecha_presentacion + tiempo;
+			fecha_vencimiento = fecha_vencimiento + tiempo;
 			Date fe_pre = WebUtils.getDateTime(fecha_presentacion);
-			Date fe_ve = WebUtils.getDateTime(fecha_vencimiento); // PASARLE CON HORA?
-			exp.setFechaActuacion(fe_ve);
-			expedienteDao.edit(exp);
+			Date fe_ve = WebUtils.getDateTime(fecha_vencimiento); // PASARLE CON HORA?a
 			ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
 			ma.setFechaPresentacion(fe_pre);
 			ma.setFechaVencimiento(fe_ve);
@@ -420,7 +426,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 
-		return "expediente/actuacion_hojear2"; //modificar luego	
+		return "expediente/actuacion_hojear"; //modificar luego	
 		
 	}
 	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
