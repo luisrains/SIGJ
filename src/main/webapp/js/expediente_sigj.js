@@ -521,7 +521,12 @@ function fechaVenc(){
   	  	  $(".fecha-venc2").load(url, function(response, status, xhr) {
   				 if(status == "success"){
   					 var aux = $("input.fecha-venc2")[1];
-  					 $("input.fecha-venc2")[0].remove();
+  					 if($("input.fecha-venc2")[0] != undefined){
+  						 $("input.fecha-venc2")[0].remove();
+  						$("#fecha-vencimiento").attr('value',aux.value);
+  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+  					 }
+  					
 //  					 var v = [];
 //  					 if(aux != null && aux != undefined && aux != ""){
 //  						aux = aux.value.split(" ");
@@ -531,9 +536,10 @@ function fechaVenc(){
 //  					
 //  					 var date = Date.parse(v);
 //  					 var fecha = new Date(date);
-  					 $("#fecha-vencimiento").attr('value',aux.value);
-  					$("#fecha-vencimiento").prop("disabled","disabled");
+  					
+  					return true;
   				 }
+  				
   			  });  
   	  }
   	
@@ -548,9 +554,10 @@ function actuacion_agregar(){ //verificar si llega bien
 	f.append("tipo_actuacion",$("#tipo-actuacion").val());
 	f.append("expediente",$("#expediente_id").val());
 	f.append("movimiento_observacion",$("#movimiento-observacion").val());
+	f.append("hora_presentacion",$("#hora-presentacion").val());
 	var csrf =$('form#' + 'form-movimiento' + ' input[name=_csrf]').val();
 	f.append("_csrf",csrf);
-	 
+	var modalSpinner = iniciarSpinner("modal_spinner"); 
 	$.ajax({
         type: "POST",
         url: "/sigj/expediente/actuacion-agregar",
@@ -560,6 +567,9 @@ function actuacion_agregar(){ //verificar si llega bien
         contentType: false,
     }).done(function(data){
         console.log(data);
-      
+        $("#seccion3").html(data);
+        $("#seccion1").addClass("hidden");
+        $("#seccion3").removeClass("hidden");
+        pararSpinner(modalSpinner);	
     });
 }

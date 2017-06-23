@@ -56,6 +56,7 @@ import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.ExpedienteDocumento;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.expediente.domain.TipoActuacion;
+import py.com.sigj.main.SesionUsuario;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
 
@@ -124,6 +125,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@Autowired
 	private ExpedienteDocumentoDao expedienteDocumentoDao;
 	
+	@Autowired
+	private SesionUsuario sesionUsuario;
 
 	@Override
 	public String getTemplatePath() {
@@ -371,8 +374,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			@RequestParam(value = "fecha_presentacion") String fecha_presentacion,
 			@RequestParam(value = "fecha_vencimiento") String fecha_vencimiento,
 			@RequestParam(value = "movimiento_observacion") String observacion,
+			@RequestParam(value = "hora_presentacion") String hora_presentacion,
 			@RequestParam(value = "documento") MultipartFile documento) throws IOException, ParseException {
 		try {
+			HttpSession session = request.getSession();
+			session.setAttribute("currentUserName", sesionUsuario.getUsuario().getNombreRazonSocial());
+			session.setAttribute("currentUserLast", sesionUsuario.getUsuario().getApellido());
+			session.setAttribute("userSession", sesionUsuario);
 			MovimientoActuacion ma = new MovimientoActuacion();
 			MultipartFile multipartFile = documento;
 			byte[] doc = multipartFile.getBytes();
@@ -386,7 +394,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			int hora = calendario.get(Calendar.HOUR_OF_DAY);
 			int minuto = calendario.get(Calendar.MINUTE);
 			int segundo = calendario.get(Calendar.SECOND);
-			String tiempo = String.valueOf(hora)+":"+String.valueOf(minuto)+":"+String.valueOf(segundo);
+			String tiempo = hora_presentacion+":"+String.valueOf(segundo);
 			fecha_presentacion = fecha_presentacion + tiempo;
 			fecha_vencimiento = fecha_vencimiento + tiempo;
 			Date fe_pre = WebUtils.getDateTime(fecha_presentacion);
@@ -424,9 +432,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("clienteList", clienteList);
 		map.addAttribute("expediente", expediente);
 		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
-		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
-
-		return "expediente/actuacion_hojear"; //modificar luego	
+		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
+		
+		
+		return "expediente/actuacion_hojear2"; //modificar luego	
 		
 	}
 	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
