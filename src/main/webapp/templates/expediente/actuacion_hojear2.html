@@ -1,11 +1,10 @@
 	<div id="seccion2" class="box box-solid box-primary">
-				<span th:text="${error}" style="color: red"> Ocurrió un error </span>
-		<span  style="color: green">
-			<div class="alert alert-success" role="alert" th:text="${msgExito}">
-				<strong>Well done!</strong> You successfully read this important
-				alert message.
-			</div>
-		</span>
+				<div class="alert alert-success alert-dismissable alinear col-sm-5"
+						role="alert" id="alerta" style="display: none;">
+						<button type="button" class="close" data-dismiss="alert">x</button>
+						<strong th:text="${msgExito} ? ${msgExito} : ${error}">Well
+							done!</strong>
+					</div>
 				<div class="box-header">
 					<h3>Actuaciones</h3>
 				</div>
