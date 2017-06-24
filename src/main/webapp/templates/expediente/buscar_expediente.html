@@ -77,45 +77,45 @@
 					<div class="col-sm-12 hidden expediente-div">
 					<div id="expediente-resultado" class="col-sm-12" style="margin-top:10px;border-top-color:red;border-top-style:solid;" th:fragment="expedienteList" th:each="exp : ${expedienteList}">
 						<th:block th:if="${aux} == 'expediente_abogado'">
-						<div class="form-group" style="margin-left:5px; margin-top:15px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>N° Expediente:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.nroExpediente}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Año:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.anho}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Folio:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.folio}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Fecha Sello:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.fechaSelloCargo}" disabled />
 						<!-- /.input group -->
 						
 						</div>
 						
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Monto:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.monto} + ' '+ ${exp.expediente.moneda}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;margin-bottom:10px;">
 						<label>Caratula:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.caratula}" disabled />
 						<!-- /.input group -->
 						
 						</div>
 						
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;margin-bottom:10px;">
 						<label>Estado:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.estado.descripcion}" disabled />
 						<!-- /.input group -->
@@ -124,25 +124,25 @@
 						</th:block>
 						
 						<th:block th:if="${aux} == 'expediente'">
-						<div class="form-group" style="margin-left:5px; margin-top:15px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>N° Expediente:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.nroExpediente}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Año:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.anho}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Folio:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.folio}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Fecha Sello:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.fechaSelloCargo}" disabled />
 							
@@ -150,20 +150,20 @@
 						
 						</div>
 						
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>Monto:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.monto} + ' '+ ${exp.moneda}" disabled />
 						<!-- /.input group -->
 						
 						</div>
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;margin-bottom:10px;">
 						<label>Caratula:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.caratula}" disabled />
 						<!-- /.input group -->
 						
 						</div>
 						
-						<div class="form-group" style="margin-left:5px;">
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;margin-bottom:10px;">
 						<label>Estado:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.estado.descripcion}" disabled />
 						<!-- /.input group -->
@@ -174,9 +174,11 @@
 						
 					</div>
 					</div>
-					<div class="alert alert-danger div-error hidden" style="margin-top:10px;margin-left:15px;margin-right:15px;">
+					
+					<div class="col-sm-11 alert alert-danger div-error hidden" style="margin-top:10px;margin-left:30px;margin-right:15px;">
   						<strong>No existen Expedientes con esos valores</strong>
 					</div>
+					
 					<script type="text/javascript">
        				
           
@@ -202,7 +204,7 @@
 				           console.log("entro en el ajax");
 				           console.log(data);
 				           /* $("#expediente-resultado").load(); */
-				           if(data == "" && data == null){
+				           if(data == "" || data == null){
 				        	   $(".div-error").removeClass("hidden");
 				        	   $(".expediente-div").addClass("hidden");  
 				           }else{
@@ -216,6 +218,7 @@
 				           
 				       }).fail(function( jqXHR, textStatus ) {
 				    	   $(".div-error").removeClass("hidden");
+				    	   $(".expediente-div").addClass("hidden");
 				       
 				       });
 				    });

@@ -7,4 +7,5 @@ import py.com.sigj.expediente.domain.MovimientoActuacion;
 
 public interface MovimientoActuacionDao extends Dao<MovimientoActuacion> {
 	public List<MovimientoActuacion> getListActuacionByExpediente(Long id_expediente);
+	
 }
