@@ -460,7 +460,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			@RequestParam(value = "nro_expediente") String nroExpediente) {
 			
 			List<Expediente> expediente = expedienteDao.filtro(nroExpediente,abogado,despacho,estado,anho);
-			String aux = (expediente.get(0).getNroExpediente() == null)?"expediente_abogado":"expediente";
+			String aux = "";
+			if(expediente == null || expediente.isEmpty()){
+				aux = "null";
+			}else{
+				aux = (expediente.get(0).getNroExpediente() == null)?"expediente_abogado":"expediente";
+			}
+			
 			map.addAttribute("expedienteList",expediente);
 			map.addAttribute("aux", aux);
 		return "expediente/buscar_expediente :: expedienteList";
@@ -585,10 +591,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		List<MovimientoActuacion> mr = new ArrayList<>();
 		List<MovimientoActuacion> nRepetidos = new ArrayList<>();
 		Long nroExpediente = null;
+		String base64String = "";
 		if(!fecha_presentacion.equals("") && fecha_vencimiento.equals("")){
 			for(MovimientoActuacion m : ma){
 				String aux = WebUtils.getStringFromDate(m.getFechaPresentacion(), "dd/MM/yyyy");
 				if(aux.equals(fecha_presentacion)){
+					base64String = 	Base64.encodeBytes(m.getDocumento());
+					m.setRenderDocumento(base64String);
 					mr.add(m);
 				}
 			}	
@@ -617,6 +626,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			for(MovimientoActuacion m : ma){
 				String aux = WebUtils.getStringFromDate(m.getFechaVencimiento(), "dd/MM/yyyy");
 				if(aux.equals(fecha_vencimiento)){
+					base64String = 	Base64.encodeBytes(m.getDocumento());
+					m.setRenderDocumento(base64String);
 					mr.add(m);
 				}
 			}	
@@ -645,6 +656,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				String aux1 = WebUtils.getStringFromDate(m.getFechaPresentacion(), "dd/MM/yyyy");
 				String aux2 = WebUtils.getStringFromDate(m.getFechaVencimiento(), "dd/MM/yyyy");
 				if(aux1.equals(fecha_presentacion) && aux2.equals(fecha_vencimiento)){
+					base64String = 	Base64.encodeBytes(m.getDocumento());
+					m.setRenderDocumento(base64String);
 					mr.add(m);
 				}
 			}	
@@ -681,24 +694,5 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("actuacionList", nRepetidos);
 		return "expediente/buscar_actuacion_resultado";
 	}
-	@RequestMapping(value = "buscar-actuacion-ver", method = RequestMethod.GET)
-	public  String buscar_actuacion_ver(HttpServletRequest request,ModelMap map,
-			@RequestParam(value = "actuacion_id", required = true) String actuacion_id) throws Exception{
-		try {
-			MultipartFile doc = null;
-			MovimientoActuacion ac = null;
-			String base64String = "";
-			//List<String> base64StringList = new ArrayList<String>();
-			MovimientoActuacion ma = movimientoActuacionDao.find(Long.parseLong(actuacion_id));
-			base64String = 	Base64.encodeBytes(ma.getDocumento());
-			ma.setRenderDocumento(base64String);
-				map.addAttribute("documento_actuacion",ma);
-				//logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		
-		return "expediente/ver_actuacion_documento";
-	}
+	
 }
