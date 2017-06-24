@@ -344,17 +344,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			String base64String = "";
 			Expediente expediente = null;
 			expediente = expedienteDao.find(Long.parseLong(id_exp));
-				if(expediente != null){
-				
-				
+			if(expediente != null){
 				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
 				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
 				ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
-				for (MovimientoActuacion movimientoActuacion : ma) {
-					base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
-					movimientoActuacion.setRenderDocumento(base64String);
+				if(ma!=null){
+					for (MovimientoActuacion movimientoActuacion : ma) {
+						base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
+						movimientoActuacion.setRenderDocumento(base64String);
+					}
 				}
-
 				map.addAttribute("id_expediente", id_exp);
 				map.addAttribute("abogadoList", abogadoList);
 				map.addAttribute("clienteList", clienteList);
@@ -362,18 +361,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				map.addAttribute("movimiento_actuacion",ma);
 				//logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
-				}else{
-					expediente= new Expediente();
-					ma = new ArrayList<>();
-					map.addAttribute("movimiento_actuacion",ma);
-					map.addAttribute("expediente", expediente);
-				}	
+			}else{
+				expediente= new Expediente();
+				ma = new ArrayList<>();
+				map.addAttribute("movimiento_actuacion",ma);
+				map.addAttribute("expediente", expediente);
+			}	
 		} catch (Exception e) {
 			logger.info("Error {}", e);
 		}
 		return "expediente/actuacion_hojear" ;
-		
-		
 	}
 	
 	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
@@ -385,65 +382,63 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			@RequestParam(value = "movimiento_observacion") String observacion,
 			@RequestParam(value = "hora_presentacion") String hora_presentacion,
 			@RequestParam(value = "documento") MultipartFile documento) throws IOException, ParseException {
+		List<MovimientoActuacion> ma = null;
+		String base64String = "";
+		Expediente expediente = null;
 		try {
 			HttpSession session = request.getSession();
 			session.setAttribute("currentUserName", sesionUsuario.getUsuario().getNombreRazonSocial());
 			session.setAttribute("currentUserLast", sesionUsuario.getUsuario().getApellido());
 			session.setAttribute("userSession", sesionUsuario);
-			MovimientoActuacion ma = new MovimientoActuacion();
+			MovimientoActuacion ma1 = new MovimientoActuacion();
 			MultipartFile multipartFile = documento;
 			byte[] doc = multipartFile.getBytes();
-			ma.setDocumento(doc);
+			ma1.setDocumento(doc);
 			Expediente exp = expedienteDao.find(Long.parseLong(id_exp));
-			
-			
-			fecha_presentacion = fecha_presentacion.replace("/", "");
-			fecha_vencimiento = fecha_vencimiento.replace("/", "");
-			Calendar calendario = Calendar.getInstance();
-			int hora = calendario.get(Calendar.HOUR_OF_DAY);
-			int minuto = calendario.get(Calendar.MINUTE);
-			int segundo = calendario.get(Calendar.SECOND);
-			String tiempo = hora_presentacion+":"+String.valueOf(segundo);
-			fecha_presentacion = fecha_presentacion + tiempo;
-			fecha_vencimiento = fecha_vencimiento + tiempo;
-			Date fe_pre = WebUtils.getDateTime(fecha_presentacion);
-			Date fe_ve = WebUtils.getDateTime(fecha_vencimiento); // PASARLE CON HORA?a
-			ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
-			ma.setFechaPresentacion(fe_pre);
-			ma.setFechaVencimiento(fe_ve);
-			ma.setObservacion(observacion);
-			ma.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
-			movimientoActuacionDao.create(ma);
-			
-			
-			Expediente expediente = new Expediente();
-			expediente = expedienteDao.find(Long.parseLong(id_exp));
-			List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
-			List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-			map.addAttribute("id_expediente", id_exp);
-			map.addAttribute("abogadoList", abogadoList);
-			map.addAttribute("clienteList", clienteList);
-			map.addAttribute("expediente", expediente);
-			map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
-			map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
-			map.addAttribute("msgExito", msg.get("Actuación agregada con éxito"));
+			if(exp != null){
+				fecha_presentacion = fecha_presentacion.replace("/", "");
+				fecha_vencimiento = fecha_vencimiento.replace("/", "");
+				Calendar calendario = Calendar.getInstance();
+				int hora = calendario.get(Calendar.HOUR_OF_DAY);
+				int minuto = calendario.get(Calendar.MINUTE);
+				int segundo = calendario.get(Calendar.SECOND);
+				String tiempo = hora_presentacion+":"+String.valueOf(segundo);
+				fecha_presentacion = fecha_presentacion + tiempo;
+				fecha_vencimiento = fecha_vencimiento + tiempo;
+				Date fe_pre = WebUtils.getDateTime(fecha_presentacion);
+				Date fe_ve = WebUtils.getDateTime(fecha_vencimiento); // PASARLE CON HORA?a
+				ma1.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
+				ma1.setFechaPresentacion(fe_pre);
+				ma1.setFechaVencimiento(fe_ve);
+				ma1.setObservacion(observacion);
+				ma1.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
+				movimientoActuacionDao.create(ma1);
+				
+				ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
+				for (MovimientoActuacion movimientoActuacion : ma) {
+					base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
+					movimientoActuacion.setRenderDocumento(base64String);
+				}	
+				
+				expediente = expedienteDao.find(Long.parseLong(id_exp));
+				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+				map.addAttribute("id_expediente", id_exp);
+				map.addAttribute("abogadoList", abogadoList);
+				map.addAttribute("clienteList", clienteList);
+				map.addAttribute("expediente", expediente);
+				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
+				map.addAttribute("movimiento_actuacion",ma);
+				map.addAttribute("msgExito", msg.get("Actuación agregada con éxito"));
+			}else{
+				expediente= new Expediente();
+				ma = new ArrayList<>();
+				map.addAttribute("movimiento_actuacion",ma);
+				map.addAttribute("expediente", expediente);
+			}	
 		} catch (Exception e) {
 			map.addAttribute("Error al agregar la actuación", "Error al agregar la actuación");
-		}
-		
-
-//		Expediente expediente = new Expediente();
-//		expediente = expedienteDao.find(Long.parseLong(id_exp));
-//		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
-//		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-//		map.addAttribute("id_expediente", id_exp);
-//		map.addAttribute("abogadoList", abogadoList);
-//		map.addAttribute("clienteList", clienteList);
-//		map.addAttribute("expediente", expediente);
-//		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
-//		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
-		
-		
+		}		
 		return "expediente/actuacion_hojear2"; //modificar luego	
 		
 	}

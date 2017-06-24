@@ -1,6 +1,5 @@
 package py.com.sigj.expediente.dao.impl;
 
-import java.util.Formatter;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -41,7 +40,7 @@ public class MovimientoActuacionDaoImpl extends DaoImpl<MovimientoActuacion> imp
 			if(!actu.isEmpty()){
 				return actu;
 			}else{
-				return null;
+				return actu;
 			}
 		} catch (Exception e) {
 			logger.info("No se encontraron actuaciones en el expediente");

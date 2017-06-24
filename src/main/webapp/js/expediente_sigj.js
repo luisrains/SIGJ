@@ -577,11 +577,6 @@ $('#tipo-actuacion').on('change', function(e){
 	  	    }).fail(function(jqXHR, textStatus){
 	  			console.log(textStatus)
 	  		});
-//	  		  $(".fecha-venc2").load(url, function(response, status, xhr) {
-// 				 if(status == "success"){
-// 					 
-// 				 }			
-// 			  });  
  		  }
 	   }
 
@@ -608,13 +603,16 @@ function actuacion_agregar(){ //verificar si llega bien
         processData: false,
         contentType: false,
     }).done(function(data){
-        $("#seccion3").html(data);
+        //$("#seccion3").html(data);
         $("#seccion1").addClass("hidden");
-        $("#seccion3").removeClass("hidden");
+//        $("#seccion3").removeClass("hidden");
         pararSpinner(modalSpinner);	
         window.scrollTo(0, 0);
         $("#alerta2").fadeIn(2000);
 		$("#alerta2").fadeOut(1000);
+	//	$('#seccion3_dataTable').html('');
+	//	$('#seccion3_dataTable').html(data);
+		window.location.href = '/sigj/expediente/ver-documento?expediente='+$('#expediente_id').val();
     }).fail(function(jqXHR, textStatus){
 		pararSpinner(modalSpinner);	
 		window.scrollTo(0, 0);
