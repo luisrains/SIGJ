@@ -25,7 +25,6 @@
 		<h4 id="header-normal" class="page-header hidden-xs"
 			th:text="#{persona.form.titulo}">Registrar Persona</h4>
 
-
 		<span th:text="${error}" style="color: red"> Ocurrió un error </span>
 
 		<span style="color: green"> <!--  <div class="alert alert-success" role="alert" th:text="${msgExito}">
@@ -56,8 +55,8 @@
 					<div class="box-body">
 						<div class="radio">
 							<label><input name="tipo_p" th:field="*{tipoPersona}"
-								type="radio" value="F"> Física </label> <label> <input
-								name="tipo_p" th:field="*{tipoPersona}" type="radio" value="J">Juridica
+								type="radio" value="F">Física</label> <label> <input
+								name="tipo_p" th:field="*{tipoPersona}" type="radio" value="J">Jurídica
 							</label>
 						</div>
 					</div>
@@ -65,12 +64,12 @@
 				</div>
 				<!-- /.box -->
 			</div>
-			
-			<div class="form-group hidden-xs col-sm-12">
-					<label for="cedula_ruc" th:text="#{persona.cedula_ruc.lbl}"
-						class="field-label col-xs-7 col-sm-7">cedula_ruc:</label> <input
-						type="text" th:field="*{cedula_ruc}" maxlength="15"
-						class="form-control col-xs-7 col-sm-6" />
+
+			<div class="form-group hidden-xs col-sm-12" padding-left= "10px">
+				<label for="cedula_ruc" th:text="#{persona.cedula_ruc.lbl}"
+					class="field-label col-xs-7 col-sm-7">Cédula o Ruc:</label> <input
+					type="text" th:field="*{cedula_ruc}" maxlength="15"
+					class="form-control col-xs-7 col-sm-6" />
 			</div>
 			
 			<div class="form-group hidden-xs col-sm-12">
@@ -84,9 +83,6 @@
 			<div id="persona_fisica"
 				class="form-group hidden-xs col-sm-12 hidden" style="padding:0px;">
 				
-
-				
-
 				<div class="form-group hidden-xs col-sm-12">
 					<label for="apellido" th:text="#{persona.apellido.lbl}"
 						class="field-label col-xs-7 col-sm-7">Apellido:</label> <input
@@ -102,14 +98,11 @@
 				</div>
 
 				<div class="form-group col-xs-12 col-sm-12">
-						<label for="fecha" th:text="#{persona.fechaNacimiento.lbl}"
+					<label for="fecha" th:text="#{persona.fechaNacimiento.lbl}"
 						class="field-label col-xs-7 col-sm-7">Fecha de Nacimiento:</label>
-						<div class="input-group date" style="width:100%;">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-							</div>
-							<input type="text" class="form-control pull-right col-sm-6 fecha"
-								th:field="*{fechaNacimiento}" name="fechaNacimiento" id="datepicker">
+					<div class="input-group date" style="width: 100%;">
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
 						</div>
 						<script type="text/javascript">
 							
@@ -124,7 +117,7 @@
 							</script>
 			</div>
 
-			<div class="form-group hidden-xs col-sm-12">
+				<div class="form-group hidden-xs col-sm-12">
 					<div class="box">
 						<div class="box-header with-border">
 							<h3 class="box-title">Estado Civil</h3>
@@ -154,14 +147,14 @@
 									value="DIVORCIADO"> Divorciado
 								</label>
 							</div>
-							
-							
+
+
 						</div>
 						<!-- /.box-body -->
 					</div>
 					<!-- /.box -->
 				</div>
-				
+
 				<div class="form-group hidden-xs col-sm-12">
 					<div class="box">
 						<div class="box-header with-border">
@@ -170,14 +163,13 @@
 						<!-- /.box-header -->
 						<div class="box-body">
 							<div class="radio">
-								<label><input th:field="*{sexo}" type="radio"
-									value="M"> Masculino </label>
+								<label><input th:field="*{sexo}" type="radio" value="M">
+									Masculino </label>
 							</div>
 
 							<div class="radio">
 
-								<label> <input th:field="*{sexo}" type="radio"
-									value="F">Femenino
+								<label> <input th:field="*{sexo}" type="radio" value="F">Femenino
 								</label>
 							</div>
 						</div>
@@ -208,8 +200,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				//fecha
-				 
-				
+
 				$('.radio input[name=tipoPersona]:radio').change(function(e) {
 
 					if ($('input[name=tipoPersona]:checked').val() == 'F') {
@@ -222,7 +213,6 @@
 
 				});
 
-
 				$('.radio input[name=tipoPersona]:radio').click(function(e) {
 
 					if ($('input[name=tipoPersona]:checked').val() == 'F') {
@@ -234,7 +224,7 @@
 					}
 
 				});
-				
+
 			});
 		</script>
 		<!-- Fin panel botones -->
