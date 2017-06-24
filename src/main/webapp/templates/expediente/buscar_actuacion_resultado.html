@@ -1,0 +1,76 @@
+
+<div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
+    <table id="actuacion-table" class="table table-bordered table-hover table-striped display" style="border: 2px solid #ddd;">
+    <thead >
+    	<th class="hidden">Id</th>
+        <th class="th-pc">Fecha Presentación</th>
+        <th class="th-pc">Fecha Vencimiento</th>
+        <th class="th-pc">Observación</th>
+        <th class="th-pc">Nº Expediente</th>
+        <th class="th-pc">Acción</th>
+        </thead>
+        <tbody id="table-body" style="border-collapse:separate;">
+       <!--  <tr><td th:text="${planilla_salario}"></td></tr>--> 
+        
+        <tr th:each="ps : ${actuacionList}" style="background-color:#ddd;">
+        	<td th:text="${ps.id}" class="hidden"></td>
+            <td th:text="${ps.fechaPresentacion}"></td>
+            <!-- <td th:text="#{ps.empleado.persona.cedula_ruc}"></td> -->
+            <td th:text="${ps.fechaVencimiento}"></td>
+            <td th:text="${ps.observacion}"></td>
+            <td th:text="${ps.expediente.nroExpediente}"></td>
+            <td style="padding-left:30px;">
+            	<a target="_blank" th:href="@{/expediente/buscar-actuacion-ver?actuacion_id=}+${ps.id}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
+            		<i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i>
+            	</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+   <input type="hidden" id="error-vacio" th:value="${vacio}">
+   <div id="div-error" class="col-sm-7 hidden alert alert-danger" style="height:50px;margin-top:16px;margin-left:15px;text-align:center;">
+       				<span id="mensaje-error" style="bottom:10px;font-size:15px;"></span>
+    </div>
+    <!-- <script type="text/javascript">
+		 $(document).ready(function() {
+		    crearDataTableEsp("planilla_bodyDT", "[[@{/planilla_bodyDT/json}]]", "[[${columnasStrPersona}]]", "empleado");
+		
+		    
+		    
+		 });
+	</script> -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#lista_actuacionDT').dataTable( {
+	        "bScrollCollapse": true,
+	        "responsive":true,
+	        'language' : {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "No existen Actuaciones",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando _MAX_ registros",
+                "sInfoFiltered": " ",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+	    } );
+	    
+	} );
+	 
+	</script>
+</div>
