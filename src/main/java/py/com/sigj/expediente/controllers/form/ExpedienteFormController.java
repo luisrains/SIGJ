@@ -415,24 +415,24 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			map.addAttribute("abogadoList", abogadoList);
 			map.addAttribute("clienteList", clienteList);
 			map.addAttribute("expediente", expediente);
-			map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
+			map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
 			map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
 			map.addAttribute("msgExito", msg.get("Actuación agregada con éxito"));
 		} catch (Exception e) {
-			map.addAttribute("error", msg.get("Error al agregar la actuación"));
+			map.addAttribute("Error al agregar la actuación", "Error al agregar la actuación");
 		}
 		
 
-		Expediente expediente = new Expediente();
-		expediente = expedienteDao.find(Long.parseLong(id_exp));
-		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
-		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-		map.addAttribute("id_expediente", id_exp);
-		map.addAttribute("abogadoList", abogadoList);
-		map.addAttribute("clienteList", clienteList);
-		map.addAttribute("expediente", expediente);
-		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
-		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
+//		Expediente expediente = new Expediente();
+//		expediente = expedienteDao.find(Long.parseLong(id_exp));
+//		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+//		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+//		map.addAttribute("id_expediente", id_exp);
+//		map.addAttribute("abogadoList", abogadoList);
+//		map.addAttribute("clienteList", clienteList);
+//		map.addAttribute("expediente", expediente);
+//		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+//		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
 		
 		
 		return "expediente/actuacion_hojear2"; //modificar luego	

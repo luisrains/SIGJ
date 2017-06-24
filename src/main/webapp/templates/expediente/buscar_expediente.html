@@ -5,8 +5,8 @@
 
 	<div class="row" th:fragment="contenido">
 
-		<div class="col-xs-12 col-sm-12 no-padding body-style">
-			<div class="box box-solid box-primary box-pc">
+		<div class="col-xs-12 col-sm-12">
+			<div class="box box-solid box-primary">
 				<div class="box-header">
 					<h3>Consulta de Expediente Digital</h3>
 				</div>
@@ -73,8 +73,7 @@
                  	</div>
                 </div>
           		
-	</div>
-</div>
+
 					<div class="col-sm-12 hidden expediente-div">
 					<div id="expediente-resultado" class="col-sm-12" style="margin-top:10px;border-top-color:red;border-top-style:solid;" th:fragment="expedienteList" th:each="exp : ${expedienteList}">
 						<th:block th:if="${aux} == 'expediente_abogado'">
@@ -223,7 +222,8 @@
 				       
       			 </script>
 				
-				
+					</div>
+</div>
 			</div>
 		</div>
 
