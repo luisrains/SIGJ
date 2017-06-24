@@ -1,6 +1,5 @@
 package py.com.sigj.expediente.domain;
 
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -118,8 +117,7 @@ public class ExpedienteDocumento extends GenericEntity {
 	@Override
 	public String toString() {
 		return "ExpedienteDocumento [id=" + id + ", expediente=" + expediente + ", fechaPresentacion="
-				+ fechaPresentacion + ", tipoDocumento=" + tipoDocumento + ", documento=" + Arrays.toString(documento)
-				+ ", titulo=" + titulo + "]";
+				+ fechaPresentacion + ", tipoDocumento=" + tipoDocumento + ", titulo=" + titulo + "]";
 	}
 
 		

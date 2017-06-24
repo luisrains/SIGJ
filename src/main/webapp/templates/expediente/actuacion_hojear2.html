@@ -280,8 +280,8 @@
 										<tr th:each="ma : ${movimiento_actuacion}">
 											<td th:text="${ma.id}" class="hidden"></td>
 											<td th:text="${ma.observacion}"></td>
-											<td th:text="${ma.fechaPresentacion}"></td>
-											<td th:text="${ma.fechaVencimiento}"></td>
+											<td th:text="${#dates.format(ma.fechaPresentacion, 'dd-MMM-yyyy / HH:mm')}"></td>
+											<td th:text="${#dates.format(ma.fechaVencimiento, 'dd-MMM-yyyy / HH:mm')}"></td>
 											<td th:text="${ma.tipoActuacion.descripcion}"></td>
 											<td th:text="${ma.tipoActuacion.plazo}"></td>
 										</tr>

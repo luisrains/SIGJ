@@ -332,25 +332,24 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "ver-documento", method = RequestMethod.GET)
 	public String setArchivo(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp) {
+		List<MovimientoActuacion> ma = null;
 		try {
 			MultipartFile doc = null;
 			MovimientoActuacion ac = null;
-//			ac = tipoActuacionDao.find(Long.parseLong(id_act));
-//			
-//			doc = ac.get
 			String base64String = "";
-			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
-//			logger.info("listado ..{}",listExpDoc);
-				if(listExpDoc != null && !listExpDoc.isEmpty()){
-					base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
-					map.addAttribute("base",base64String);
-				}
+			Expediente expediente = null;
+			expediente = expedienteDao.find(Long.parseLong(id_exp));
+				if(expediente != null){
 				
-				Expediente expediente = new Expediente();
-				expediente = expedienteDao.find(Long.parseLong(id_exp));
+				
 				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
 				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-				List<MovimientoActuacion> ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
+				ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
+				for (MovimientoActuacion movimientoActuacion : ma) {
+					base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
+					movimientoActuacion.setRenderDocumento(base64String);
+				}
+
 				map.addAttribute("id_expediente", id_exp);
 				map.addAttribute("abogadoList", abogadoList);
 				map.addAttribute("clienteList", clienteList);
@@ -358,7 +357,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				map.addAttribute("movimiento_actuacion",ma);
 				//logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
-				
+				}else{
+					expediente= new Expediente();
+					ma = new ArrayList<>();
+					map.addAttribute("movimiento_actuacion",ma);
+					map.addAttribute("expediente", expediente);
+				}	
 		} catch (Exception e) {
 			logger.info("Error {}", e);
 		}

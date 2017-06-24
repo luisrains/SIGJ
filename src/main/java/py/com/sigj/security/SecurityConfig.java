@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		map.put("/despacho/**", "ver-des");
 //		map.put("/documento/**", "ver-doc");
 //		map.put("/estado_externo_interno/**", "ver-estExtInt");
-		//map.put("/inicio/**", "ver-inicio");
+		map.put("/inicio/**", "ver-inicio");
 		//faltan mas url que mapear, ver si no podemos meter en una base de datos la url y que lea de ahi para que no tener muchas lineas de codigo
 		return map;
 	}
