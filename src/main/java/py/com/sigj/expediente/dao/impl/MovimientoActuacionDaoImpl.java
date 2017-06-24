@@ -37,7 +37,6 @@ public class MovimientoActuacionDaoImpl extends DaoImpl<MovimientoActuacion> imp
 		
 		try {
 			actu = query.getResultList();
-			logger.info("Movimientos encontrados: {}", actu);
 			if(!actu.isEmpty()){
 				return actu;
 			}else{

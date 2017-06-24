@@ -154,14 +154,14 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStrClient", clienteList.getColumnasStr(null));
 		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getListAll(null));
-		logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
+		//logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
 		
 		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
 		map.addAttribute("materiaList", materiaDao.getListAll(null));
 		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
 		map.addAttribute("tipoDemandaList", tipoDemandaDao.getListAll(null));
 		map.addAttribute("DespachoList", despachoDao.getListAll(null));
-		logger.info("despchos {} ",despachoDao.getListAll(null) );
+		//logger.info("despchos {} ",despachoDao.getListAll(null) );
 		map.addAttribute("columnasMateria", materiaList.getColumnas());
 		map.addAttribute("columnasStrMateria", materiaList.getColumnasStr(materiaList.getColumnas()));
 		super.agregarValoresAdicionales(map);
@@ -313,7 +313,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				expedienteDocumentoDao.create(expedienteDoc);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 			}			
-			logger.info("Se agregar un nuevo documento al expediente -> {}", expedienteDoc);
+			//logger.info("Se agregar un nuevo documento al expediente -> {}", expedienteDoc);
 		} catch (Exception ex) {
 			expedienteDoc.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
@@ -340,7 +340,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 //			doc = ac.get
 			String base64String = "";
 			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
-			logger.info("listado ..{}",listExpDoc);
+//			logger.info("listado ..{}",listExpDoc);
 				if(listExpDoc != null && !listExpDoc.isEmpty()){
 					base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
 					map.addAttribute("base",base64String);
@@ -357,7 +357,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				map.addAttribute("expediente", expediente);
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				map.addAttribute("movimiento_actuacion",ma);
-				logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
+				//logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
 				
 		} catch (Exception e) {
 			logger.info("Error {}", e);
@@ -504,7 +504,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 					}
 				}
 				map.addAttribute("actuacionList",base64StringList);
-				logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
+				//logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
