@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Error page</title>
-<meta charset="utf-8" />
-    <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title>
 </head>
-
 <body>
-    <h1>Error de Permisos</h1>
-    <a href="index.html" th:href="@{/}">No tiene permisos para ver esta pagina, comuniquese con el Admin</a>
+
+
+
+	<div class="row">
+		<div class="col-lg-4 col-md-6">
+			<img src="../img/access_denied.png"
+				th:src="@{/img/access_denied.png}" style="" />
+
+		</div>
+	</div>
 </body>
 </html>
