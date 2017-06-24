@@ -25,7 +25,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="starter
 	th:href="@{/plugins/colorpicker/bootstrap-colorpicker.css}"
 	href="../plugins/colorpicker/bootstrap-colorpicker.css"/>
 <link rel="stylesheet"
-	th:href="@{/plugins/timepicker/bootstrap-timepicker.min.css}"
+	th:href="@{/css/bootstrap-datetimepicker.min.css}"
 	href="../plugins/timepicker/bootstrap-timepicker.min.css"/>
 
 <!-- Font Awesome -->
@@ -180,7 +180,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="starter
 							<li><a th:href="@{/expediente}"><i class="fa fa-folder"
 									style="color: blue"></i>Registrar Juicio</a></li>
 							<li><a th:href="@{/expediente/buscar}"><i class="fa fa-search"
-									style="color: blue"></i>Buscar Expediente</a></li>		
+									style="color: blue"></i>Buscar Expediente</a></li>
+							<li><a th:href="@{/expediente/buscar-actuacion}"><i class="fa fa-search"
+									style="color: blue"></i>Buscar Actuación</a></li>				
+
 						</ul></li>
 
 					<!-- Menú de Gastos -->
@@ -461,6 +464,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="starter
 		th:src="@{/js/sigj_validator.js}"></script>
 		<script type="text/javascript" src="../js/spin.min.js"
 		th:src="@{/js/spin.min.js}"></script>
+		<script type="text/javascript" src="../js/spin.min.js"
+		th:src="@{/plugins/datetimepicker/bootstrap-datetimepicker.js}"></script>
+		<script type="text/javascript" src="../js/spin.min.js"
+		th:src="@{/plugins/datetimepicker/bootstrap-datetimepicker.es.js}"></script>
 		
 		
 		

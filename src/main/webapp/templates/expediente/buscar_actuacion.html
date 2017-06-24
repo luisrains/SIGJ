@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+
+	<div class="row" th:fragment="contenido">
+
+		<div class="col-xs-12 col-sm-12">
+			<div class="box box-solid box-primary">
+				<div class="box-header">
+					<h3>Busqueda de Actuaciones</h3>
+				</div>
+				<div class="box-body"></div>
+				    <div class="container">
+				    	<div class="row">
+					<div class="form-group" style="margin-left:10px;">
+						<label>Fecha Presentación:</label>
+						<div class="input-group date" style="width:50%;">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control pull-right"
+								name="fecha-presentacion" id="fecha-presentacion">
+						</div>
+						<!-- /.input group -->
+						
+					</div>
+					
+					<div class="form-group col-sm-6" style="margin-left:10px;padding-left:0px;padding-right:0px;">
+						<label>Fecha Vencimiento:</label>
+						<div class="input-group date" style="width:100%;">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control pull-right"
+								name="fecha-vencimiento" id="fecha-vencimiento">
+						</div>
+						<!-- /.input group -->
+						
+               			
+					</div>
+					
+						
+						<script type="text/javascript">
+						        $(function () {
+						        	 $('#fecha-presentacion').datepicker({       
+						                 autoclose: true,
+						                 format: 'dd/mm/yyyy', 
+						                 language: 'es',   
+						              });
+						        	 
+						        	 $('#fecha-vencimiento').datepicker({       
+						                 autoclose: true,
+						                 format: 'dd/mm/yyyy', 
+						                 language: 'es',   
+						              });
+						             
+						        });
+       
+    					</script>
+				
+                    
+               	
+					<!--  <div>
+                                <label>Introducir año de la planilla</label>
+                                <input type="text" name="anho" id="anho">
+                           </div>
+				           <div>
+				                <label>Introducir mes de la planilla</label>
+				                <input type="text" name="mes" id="mes">
+				           </div>-->
+					<div class="form-group col-md-6" style="padding-left:30px;margin-top:12px;width:30%;">
+                     	<button class="btn btn-info btn-lg" id="btn-buscar-actuacion" style="background-color:orange;" type="button">
+                    		 <i class="glyphicon glyphicon-search"><span style="padding-left:10px;">Buscar</span></i>  
+                 		</button> 
+                 	</div>
+					<div id="lista_actuacion" class="col-sm-12" style="margin-top:20px;"></div>
+					<script type="text/javascript">
+       				
+          
+       $("#btn-buscar-actuacion").on('click',function(e){
+           console.log("entro en el onclick");
+            var fecha_pre = $("#fecha-presentacion").val();
+            var fecha_ven = $("#fecha-vencimiento").val();
+            
+       $.ajax({
+           type: "GET",
+           url: "/sigj/expediente/buscar-actuacion-resultado",
+           data: { 
+               fecha_presentacion:fecha_pre,
+               fecha_vencimiento : fecha_ven
+           }
+       }).done(function(data){
+           console.log("entro en el ajax");
+           console.log(data);
+           $("#lista_actuacion").load();
+           $("#lista_actuacion").html(data);
+           if($("#error-vacio").val() == "si"){
+        	  $("#div-error").removeClass("hidden");
+        	  $("#actuacion-table").addClass("hidden");
+        	  $("#mensaje-error").text("No se encontraron Actuaciones")
+           }else{
+        	   $("#div-error").addClass("hidden");
+         	  $("#actuacion-table").removeClass("hidden"); 
+           }
+           
+       });
+       });
+      
+       </script>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		
+
+	</div>
+       
+
+</body>
+</html>

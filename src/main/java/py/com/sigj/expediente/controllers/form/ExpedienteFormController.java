@@ -332,25 +332,24 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "ver-documento", method = RequestMethod.GET)
 	public String setArchivo(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp) {
+		List<MovimientoActuacion> ma = null;
 		try {
 			MultipartFile doc = null;
 			MovimientoActuacion ac = null;
-//			ac = tipoActuacionDao.find(Long.parseLong(id_act));
-//			
-//			doc = ac.get
 			String base64String = "";
-			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
-//			logger.info("listado ..{}",listExpDoc);
-				if(listExpDoc != null && !listExpDoc.isEmpty()){
-					base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
-					map.addAttribute("base",base64String);
-				}
+			Expediente expediente = null;
+			expediente = expedienteDao.find(Long.parseLong(id_exp));
+				if(expediente != null){
 				
-				Expediente expediente = new Expediente();
-				expediente = expedienteDao.find(Long.parseLong(id_exp));
+				
 				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
 				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-				List<MovimientoActuacion> ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
+				ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
+				for (MovimientoActuacion movimientoActuacion : ma) {
+					base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
+					movimientoActuacion.setRenderDocumento(base64String);
+				}
+
 				map.addAttribute("id_expediente", id_exp);
 				map.addAttribute("abogadoList", abogadoList);
 				map.addAttribute("clienteList", clienteList);
@@ -358,7 +357,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				map.addAttribute("movimiento_actuacion",ma);
 				//logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
-				
+				}else{
+					expediente= new Expediente();
+					ma = new ArrayList<>();
+					map.addAttribute("movimiento_actuacion",ma);
+					map.addAttribute("expediente", expediente);
+				}	
 		} catch (Exception e) {
 			logger.info("Error {}", e);
 		}
@@ -415,24 +419,24 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			map.addAttribute("abogadoList", abogadoList);
 			map.addAttribute("clienteList", clienteList);
 			map.addAttribute("expediente", expediente);
-			map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
+			map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
 			map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
 			map.addAttribute("msgExito", msg.get("Actuación agregada con éxito"));
 		} catch (Exception e) {
-			map.addAttribute("error", msg.get("Error al agregar la actuación"));
+			map.addAttribute("Error al agregar la actuación", "Error al agregar la actuación");
 		}
 		
 
-		Expediente expediente = new Expediente();
-		expediente = expedienteDao.find(Long.parseLong(id_exp));
-		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
-		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
-		map.addAttribute("id_expediente", id_exp);
-		map.addAttribute("abogadoList", abogadoList);
-		map.addAttribute("clienteList", clienteList);
-		map.addAttribute("expediente", expediente);
-		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
-		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
+//		Expediente expediente = new Expediente();
+//		expediente = expedienteDao.find(Long.parseLong(id_exp));
+//		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+//		List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+//		map.addAttribute("id_expediente", id_exp);
+//		map.addAttribute("abogadoList", abogadoList);
+//		map.addAttribute("clienteList", clienteList);
+//		map.addAttribute("expediente", expediente);
+//		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+//		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
 		
 		
 		return "expediente/actuacion_hojear2"; //modificar luego	
@@ -566,4 +570,135 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			return "expediente/actuacion_hojear :: .fecha-venc2";
 	}
 	
+	@RequestMapping(value = "/buscar-actuacion", method = RequestMethod.GET)
+	public  String buscar_actuacion(HttpServletRequest request,ModelMap map) throws Exception{
+		
+		return "expediente/buscar_actuacion";
+	}
+	@RequestMapping(value = "buscar-actuacion-resultado", method = RequestMethod.GET)
+	public  String buscar_actuacion_resultado(HttpServletRequest request,ModelMap map,
+			@RequestParam(value = "fecha_presentacion", required = false) String fecha_presentacion,
+			@RequestParam(value = "fecha_vencimiento", required = false) String fecha_vencimiento) throws Exception{
+		
+		//List<MovimientoActuacion> ma = movimientoActuacionDao.busqueda_fechas(fecha_presentacion,fecha_vencimiento);
+		List<MovimientoActuacion> ma = movimientoActuacionDao.getListAll(null);
+		List<MovimientoActuacion> mr = new ArrayList<>();
+		List<MovimientoActuacion> nRepetidos = new ArrayList<>();
+		Long nroExpediente = null;
+		if(!fecha_presentacion.equals("") && fecha_vencimiento.equals("")){
+			for(MovimientoActuacion m : ma){
+				String aux = WebUtils.getStringFromDate(m.getFechaPresentacion(), "dd/MM/yyyy");
+				if(aux.equals(fecha_presentacion)){
+					mr.add(m);
+				}
+			}	
+					if(mr != null && !mr.isEmpty()){ //control de repetidos
+						nRepetidos.add(mr.get(0));
+						for (int i = 1; i < mr.size(); i++) {
+							boolean band = true;
+							nroExpediente = mr.get(i).getExpediente().getId();
+							for (int j = 0; j < nRepetidos.size(); j++) {
+								if(nroExpediente == nRepetidos.get(j).getExpediente().getId()){
+									logger.info("Encontro repetido");
+									band=false;
+									break;
+								}
+							}
+							if(band){ // si no encontro repetidos agrega en la lista
+								nRepetidos.add(mr.get(i));
+								band = true;
+							}
+						}
+					}
+				
+			
+		}
+		else if(fecha_presentacion.equals("") && !fecha_vencimiento.equals("")){
+			for(MovimientoActuacion m : ma){
+				String aux = WebUtils.getStringFromDate(m.getFechaVencimiento(), "dd/MM/yyyy");
+				if(aux.equals(fecha_vencimiento)){
+					mr.add(m);
+				}
+			}	
+					if(mr != null && !mr.isEmpty()){ //control de repetidos
+						nRepetidos.add(mr.get(0));
+						for (int i = 1; i < mr.size(); i++) {
+							boolean band = true;
+							nroExpediente = mr.get(i).getExpediente().getId();
+							for (int j = 0; j < nRepetidos.size(); j++) {
+								if(nroExpediente == nRepetidos.get(j).getExpediente().getId()){
+									logger.info("Encontro repetido");
+									band=false;
+									break;
+								}
+							}
+							if(band){ // si no encontro repetidos agrega en la lista
+								nRepetidos.add(mr.get(i));
+								band = true;
+							}
+						}
+					}
+		}else if(!fecha_presentacion.equals("") && !fecha_vencimiento.equals("")){
+			
+			
+			for(MovimientoActuacion m : ma){
+				String aux1 = WebUtils.getStringFromDate(m.getFechaPresentacion(), "dd/MM/yyyy");
+				String aux2 = WebUtils.getStringFromDate(m.getFechaVencimiento(), "dd/MM/yyyy");
+				if(aux1.equals(fecha_presentacion) && aux2.equals(fecha_vencimiento)){
+					mr.add(m);
+				}
+			}	
+			if(mr != null && !mr.isEmpty()){ //control de repetidos
+				nRepetidos.add(mr.get(0));
+				for (int i = 1; i < mr.size(); i++) {
+					boolean band = true;
+					nroExpediente = mr.get(i).getExpediente().getId();
+					for (int j = 0; j < nRepetidos.size(); j++) {
+						if(nroExpediente == nRepetidos.get(j).getExpediente().getId()){
+							logger.info("Encontro repetido");
+							band=false;
+							break;
+						}
+					}
+					if(band){ // si no encontro repetidos agrega en la lista
+						nRepetidos.add(mr.get(i));
+						band = true;
+					}
+				}
+			}
+						
+						
+					
+					
+			
+		}
+		if(nRepetidos == null || nRepetidos.isEmpty()){
+			map.addAttribute("vacio", "si");
+		}else{
+			map.addAttribute("vacio", "no");
+		}
+		
+		map.addAttribute("actuacionList", nRepetidos);
+		return "expediente/buscar_actuacion_resultado";
+	}
+	@RequestMapping(value = "buscar-actuacion-ver", method = RequestMethod.GET)
+	public  String buscar_actuacion_ver(HttpServletRequest request,ModelMap map,
+			@RequestParam(value = "actuacion_id", required = true) String actuacion_id) throws Exception{
+		try {
+			MultipartFile doc = null;
+			MovimientoActuacion ac = null;
+			String base64String = "";
+			//List<String> base64StringList = new ArrayList<String>();
+			MovimientoActuacion ma = movimientoActuacionDao.find(Long.parseLong(actuacion_id));
+			base64String = 	Base64.encodeBytes(ma.getDocumento());
+			ma.setRenderDocumento(base64String);
+				map.addAttribute("documento_actuacion",ma);
+				//logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		return "expediente/ver_actuacion_documento";
+	}
 }
