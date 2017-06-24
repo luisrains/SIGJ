@@ -31,16 +31,18 @@ public abstract class DaoImpl<T extends GenericEntity> implements Dao<T> {
 	@Override
 	public void create(T obj) {
 
-		logger.info("Insertando registro {}", obj);
+		//logger.info("Insertando registro {}", obj);
 		entityManager.persist(obj);
+		entityManager.flush();
 	}
 
 	@Transactional
 	@Override
 	public void createOrUpdate(T obj) {
 
-		logger.info("Insertando registro {}", obj);
+		//logger.info("Insertando registro {}", obj);
 		entityManager.merge(obj);
+		entityManager.flush();
 	}
 
 	@Transactional

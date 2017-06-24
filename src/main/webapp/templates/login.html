@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="starter">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>SIGJ</title>
+
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
+	href="../bootstrap/css/bootstrap.min.css">
+
+<!-- Moments -->
+<link rel="stylesheet"
+	th:href="@{/plugins/daterangepicker/daterangepicker.css}"
+	href="../plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" th:href="@{/plugins/datepicker/datepicker3.css}"
+	href="../plugins/datepicker/datepicker3.css">
+<link rel="stylesheet"
+	th:href="@{/plugins/colorpicker/bootstrap-colorpicker.css}"
+	href="../plugins/colorpicker/bootstrap-colorpicker.css">
+<link rel="stylesheet"
+	th:href="@{/plugins/timepicker/bootstrap-timepicker.min.css}"
+	href="../plugins/timepicker/bootstrap-timepicker.min.css">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	th:href="@{/bootstrap/fonts/font-awesome.min.css}"
+	href="../bootstrap/fonts/font-awesome.min.css">
+
+<!-- Ionicons -->
+<link rel="stylesheet" th:href="@{/bootstrap/fonts/ionicons.min.css}"
+	href="../bootstrap/fonts/ionicons.min.css">
+
+<!-- jvectormap -->
+<link rel="stylesheet"
+	th:href="@{/plugins/jvectormap/jquery-jvectormap-1.2.2.css}"
+	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+
+<!-- DataTables -->
+<!-- <link rel="stylesheet" th:href="@{/plugins/datatables/dataTables.bootstrap.css}" href="../plugins/datatables/dataTables.bootstrap.css"> -->
+<link rel="stylesheet"
+	th:href="@{/plugins/datatables/jquery.dataTables.min.css}"
+	href="../plugins/datatables/jquery.dataTables.min.css">
+<!-- <link rel="stylesheet" th:href="@{/plugins/datatables/select.dataTables.min.css}" href="../plugins/datatables/select.dataTables.min.css"> -->
+<link rel="stylesheet"
+	th:href="@{/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css}">
+
+<!-- Select2 -->
+<link rel="stylesheet" th:href="@{/plugins/select2/select2.min.css}"
+	href="../plugins/select2/select2.min.css">
+
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"
+	href="../dist/css/AdminLTE.min.css">
+
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"
+	href="../dist/css/skins/_all-skins.min.css">
+
+<!-- Style Sigj -->
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../css/style.css">
+
+<!-- jQuery 2.2.3 -->
+<script th:src="@{/plugins/jQuery/jquery-1.12.4.js}"
+	src="../plugins/jQuery/jquery-1.12.4.js"></script>
+
+<!-- Select2 -->
+<script th:src="@{/plugins/select2/select2.full.min.js}"
+	src="../plugins/select2/select2.full.min.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="hold-transition login-page">
+	<div class="login-box">
+		<div class="login-box-body">
+			<div class="login-logo">
+				<img src="../images/logo.png" alt="logo"
+					th:src="@{/img/sigj/logo.png}" style="max-width: 105px" /> <b
+					style="color: #3d80df;font-size: 49px;">SIGJ </b>
+			</div>
+			<form role="form" name="login" th:action="@{/login}" method="post">
+				<fieldset>
+					<div th:if="${errorMsg}" class="alert alert-error alert-danger"
+						th:text="${errorMsg}">Usuario o contraseña incorrectos</div>
+					<div th:if="${param.logout}" class="alert alert-success"
+						th:text="#{login.sesion_cerrada}">Usted cerró sesión.</div>
+					<div class="form-group has-feedback">
+						<label th:text="#{login.cedula.lbl}"> Cédula</label> <input
+							class="form-control" th:placeholder="#{login.username}"
+							name="username" id="username" autofocus="autofocus" /><span
+							class="glyphicon glyphicon-user form-control-feedback"
+							style="color: #ef5350;"></span>
+					</div>
+					<div class="form-group has-feedback">
+						<label th:text="#{login.password.lbl}"> PIN</label> <input
+							class="form-control" th:placeholder="#{login.password}"
+							name="password" id="password" type="password" value="" /> <span
+							class="glyphicon glyphicon-lock form-control-feedback"
+							style="color: #ef5350;"></span>
+					</div>
+					<input type="hidden" name="next" th:value="${next}" />
+					<button type="submit" class="btn btn-lg btn-primary btnblock col-xs-12"
+						th:text="#{login.login_btn}">Ingresar</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

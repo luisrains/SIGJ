@@ -14,11 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -50,12 +47,12 @@ public class MovimientoActuacion extends GenericEntity {
 	@Size(max = 100, message = "movimiento_actuacion.observacion.size")
 	private String observacion;
 	
-	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_presentacion")
 	private Date fechaPresentacion;
 	
-	@Temporal(TemporalType.DATE)
+	@Column(name="fechaVencimiento")
 	private Date fechaVencimiento;
-
+	
 	@ManyToOne
 	@NotNull(message = "movimiento_actuacion.tipo_actuacion.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_actuacion_tipo_actuacion_fk"))

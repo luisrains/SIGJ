@@ -1,5 +1,8 @@
 package py.com.sigj.expediente.controllers.form;
 
+import javax.validation.Valid;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.controllers.list.PersonaListController;
 import py.com.sigj.expediente.dao.PersonaDao;
 import py.com.sigj.expediente.domain.Persona;
+import py.com.sigj.gastos.domain.Caja;
 
 @Controller
 @Scope("request")
@@ -51,6 +55,65 @@ public class PersonaFormController extends FormController<Persona> {
 	public Dao<Persona> getDao() {
 		return personaDao;
 	}
+	
+	
+	@RequestMapping(value = "accion2", method = RequestMethod.POST)
+	public String accion2(ModelMap map, @Valid Persona obj, 
+			@RequestParam(required = false) String accion,
+			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
+		if (StringUtils.equals(accion, "save")) {
+			return guardar_listado(map, obj);
+		} else if (StringUtils.equals(accion, "edit")) {
+			logger.info("OBJETO CAJA {}", obj);
+			return editar_listado(map, obj);
+		} else if (id_objeto != null) {
+			return eliminarModel(map, id_objeto);
+		}
+		return getTemplatePath();
+
+	}
+
+	
+
+	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
+	public String guardar_listado(ModelMap map, @Valid Persona obj) {
+		try {
+
+			if (obj.getId() == null) {
+				getDao().createOrUpdate(obj);
+				map.addAttribute("msgExito", msg.get("Registro agregado"));
+				logger.info("Se crea una nueva Persona -> {}", obj);
+			}
+		} catch (Exception ex) {
+			obj.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+		}
+		map.addAttribute(getNombreObjeto(), obj);
+		agregarValoresAdicionales(map);
+		return getTemplatePath();
+
+	}
+
+	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
+	public String editar_listado(ModelMap map, @Valid Persona obj) {
+		try {
+			logger.info("ID DE OBJ {}", obj);
+			
+			getDao().createOrUpdate(obj);
+			logger.info("Persona Actualizada {}", obj);
+			map.addAttribute("msgExito", msg.get("Registro Actualizado"));
+
+		} catch (Exception ex) {
+			obj.setId(null);
+			map.addAttribute("error", getErrorFromException(ex));
+			map.addAttribute(getNombreObjeto(), obj);
+		}
+		agregarValoresAdicionales(map);
+		return getTemplatePath();
+	}
+	
+	
+	
 	@RequestMapping(value = "eliminar", method = RequestMethod.POST)
 	public String eliminarModel(ModelMap map, @RequestParam("id_objeto") Long id_objeto) {
 		Persona persona = new Persona();
@@ -73,4 +136,5 @@ public class PersonaFormController extends FormController<Persona> {
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 	}
+	
 }

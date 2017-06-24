@@ -167,7 +167,7 @@ public abstract class FormController<T extends GenericEntity> {
 	public String currentUserName() {
 		if (sesionUsuario.isLogger()) {
 			Usuario u = sesionUsuario.getUsuario();
-			return u.getNombre() + "(" + u.getCodigo() + ")";
+			return u.getNombreRazonSocial() + "(" + u.getCedulaRuc() + ")";
 		}
 		return "Anónimo";
 	}

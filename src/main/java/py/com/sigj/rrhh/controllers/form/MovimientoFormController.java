@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
+import py.com.sigj.expediente.dao.ExpedienteDao;
+import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.Persona;
 import py.com.sigj.rrhh.controllers.list.MovimientoListController;
 import py.com.sigj.rrhh.dao.EmpleadoDao;
 import py.com.sigj.rrhh.dao.MovimientoDao;
+import py.com.sigj.rrhh.dao.MovimientoExpedienteDao;
 import py.com.sigj.rrhh.domain.Empleado;
 import py.com.sigj.rrhh.domain.Movimiento;
+import py.com.sigj.rrhh.domain.MovimientoExpediente;
 
 @Controller
 @Scope("request")
@@ -28,6 +32,12 @@ public class MovimientoFormController extends FormController<Movimiento> {
 
 	@Autowired
 	private MovimientoDao movimientoDao;
+	
+	@Autowired
+	private MovimientoExpedienteDao movimientoExpedienteDao;
+	
+	@Autowired
+	private ExpedienteDao expedienteDao;
 	
 	@Autowired
 	private EmpleadoDao empleadoDao;
@@ -57,6 +67,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 		map.addAttribute("columnasStr", movimientoList.getColumnasStr(null));
 		map.addAttribute("columnasStrPersona", movimientoList.getColumnasStr(movimientoList.getColumnasPersona()));
 		map.addAttribute("empleadoList", empleadoDao.getList(0, 100, null));
+		map.addAttribute("expedienteList", expedienteDao.getListAll(null));
 		super.agregarValoresAdicionales(map);
 	}
 
@@ -72,12 +83,15 @@ public class MovimientoFormController extends FormController<Movimiento> {
 			@RequestParam(required = false) String accion,
 			@RequestParam(value="egreso_format",required = false) String egreso,
 			@RequestParam(value="ingreso_format",required = false) String ingreso,
+			@RequestParam(value="movimiento-expediente",required = false) String expediente_id,
+			@RequestParam(value="egreso",required = false) String egreso_edit,
+			@RequestParam(value="ingreso",required = false) String ingreso_edit,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult,ingreso,egreso);
+			return guardar_listado(map, obj, bindingResult,ingreso,egreso,expediente_id);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO MOVIMIENTO {}", obj);
-			return editar_listado(map, obj, bindingResult,ingreso,egreso);
+			return editar_listado(map, obj, bindingResult,ingreso_edit,egreso_edit,expediente_id);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -89,7 +103,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map,
 			@Valid Movimiento obj,
-			BindingResult bindingResult,String ingreso,String egreso) {
+			BindingResult bindingResult,String ingreso,String egreso,String expediente_id) {
 		try {
 			if (obj.getId() == null) {
 				if(ingreso.equals("") || ingreso == ""){
@@ -104,8 +118,15 @@ public class MovimientoFormController extends FormController<Movimiento> {
 					egreso = egreso.replaceAll("\\.", "");
 					obj.setEgreso(Integer.valueOf(egreso));
 				}
-				
+				Long id_expediente = Long.parseLong(expediente_id);
 				getDao().create(obj);
+				if(id_expediente != 0){
+					Expediente ex = expedienteDao.find(id_expediente);
+					MovimientoExpediente me = new MovimientoExpediente();
+					me.setExpediente(ex);
+					me.setMovimiento(obj);
+					movimientoExpedienteDao.create(me);
+				}
 			}
 
 			map.addAttribute("msgExito", msg.get("Registro agregado"));
@@ -125,7 +146,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
 	public String editar_listado(ModelMap map,
 			@Valid Movimiento obj, 
-			BindingResult bindingResult,String ingreso,String egreso) {
+			BindingResult bindingResult,String ingreso,String egreso,String expediente_id) {
 		try {
 			
 			Empleado empleado = null;

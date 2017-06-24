@@ -2,12 +2,16 @@ package py.com.sigj.expediente.controllers.form;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +55,8 @@ import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.ExpedienteDocumento;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
+import py.com.sigj.expediente.domain.TipoActuacion;
+import py.com.sigj.main.SesionUsuario;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
 
@@ -119,6 +125,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@Autowired
 	private ExpedienteDocumentoDao expedienteDocumentoDao;
 	
+	@Autowired
+	private SesionUsuario sesionUsuario;
 
 	@Override
 	public String getTemplatePath() {
@@ -146,14 +154,14 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStrClient", clienteList.getColumnasStr(null));
 		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getListAll(null));
-		logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
+		//logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
 		
 		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
 		map.addAttribute("materiaList", materiaDao.getListAll(null));
 		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
 		map.addAttribute("tipoDemandaList", tipoDemandaDao.getListAll(null));
 		map.addAttribute("DespachoList", despachoDao.getListAll(null));
-		logger.info("despchos {} ",despachoDao.getListAll(null) );
+		//logger.info("despchos {} ",despachoDao.getListAll(null) );
 		map.addAttribute("columnasMateria", materiaList.getColumnas());
 		map.addAttribute("columnasStrMateria", materiaList.getColumnasStr(materiaList.getColumnas()));
 		super.agregarValoresAdicionales(map);
@@ -216,10 +224,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
 				String fecha = (String) rdExpediente.get("fecha");
 				obj.setFechaSelloCargo(WebUtils.getDate(fecha.replace("/", "")));
-				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidación"));
+				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidacion"));
 				// validar el despacho
-				Long id_desp = (Long) Long.parseLong((String) rdExpediente.get("despacho"));
-				Long id_estado = (Long) Long.parseLong((String) rdExpediente.get("estado"));
+				Long id_desp = Long.parseLong((String) rdExpediente.get("despacho"));
+				Long id_estado = Long.parseLong((String) rdExpediente.get("estado"));
 				obj.setEstado(estadoDao.find(id_estado));
 				obj.setDespachoActual(despachoDao.find(id_desp));
 
@@ -277,6 +285,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp,
 			@RequestParam(value = "titulo") String titulo,
+			@RequestParam(value = "tipo_documento") String tipo_documento,
 			@RequestParam("documento") MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
@@ -293,6 +302,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				byte[] doc = multipartFile.getBytes();
 				Documento docu = new Documento();
 				docu.setDocumento(doc);
+//				TipoDocumento tipoDoc = tipoDocumentoDao.find(tipoDocumento);
+//				docu.setTipoDocumento(tipoDoc);
 				documentoDao.create(docu);
 				docu.setDocumento(doc);
 				expedienteDoc.setDocumento(doc);
@@ -302,7 +313,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				expedienteDocumentoDao.create(expedienteDoc);
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
 			}			
-			logger.info("Se agregar un nuevo documento al expediente -> {}", expedienteDoc);
+			//logger.info("Se agregar un nuevo documento al expediente -> {}", expedienteDoc);
 		} catch (Exception ex) {
 			expedienteDoc.setId(null);
 			map.addAttribute("error", getErrorFromException(ex));
@@ -329,7 +340,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 //			doc = ac.get
 			String base64String = "";
 			List<ExpedienteDocumento> listExpDoc = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
-			logger.info("listado ..{}",listExpDoc);
+//			logger.info("listado ..{}",listExpDoc);
 				if(listExpDoc != null && !listExpDoc.isEmpty()){
 					base64String = 	Base64.encodeBytes(listExpDoc.get(0).getDocumento());
 					map.addAttribute("base",base64String);
@@ -346,9 +357,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				map.addAttribute("expediente", expediente);
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				map.addAttribute("movimiento_actuacion",ma);
-				logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
+				//logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
+				
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.info("Error {}", e);
 		}
 		return "expediente/actuacion_hojear" ;
 		
@@ -356,29 +368,61 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
-	public String MovimientoAgregar(HttpServletRequest request, ModelMap map,
+	public String MovimientoAgregar(ModelMap map,HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "expediente") String id_exp,	
-			@RequestParam(value = "tipo-actuacion") String tipo_actuacion,
-			@RequestParam(value = "fecha-presentacion") String fecha_presentacion,
-			@RequestParam(value = "fecha-vencimiento") String fecha_vencimiento,
-			@RequestParam(value = "movimiento-observacion") String observacion,
-			@RequestParam("documento") MultipartFile documento) throws IOException, ParseException {
-		MovimientoActuacion ma = new MovimientoActuacion();
-		MultipartFile multipartFile = documento;
-		byte[] doc = multipartFile.getBytes();
-		ma.setDocumento(doc);
-		ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
-		//fecha_presentacion = fecha_presentacion.replace("/", "");
-		//fecha_vencimiento = fecha_vencimiento.replace("/", "");
-		Date fe_pre = WebUtils.getDateFromString(fecha_presentacion, "dd/MM/yyyy");
-		Date fe_ve = WebUtils.getDateFromString(fecha_vencimiento, "dd/MM/yyyy");
-		ma.setFechaPresentacion(fe_pre);
-		ma.setFechaVencimiento(fe_ve);
-		ma.setObservacion(observacion);
-		ma.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
-		movimientoActuacionDao.create(ma);
+			@RequestParam(value = "tipo_actuacion") String tipo_actuacion,
+			@RequestParam(value = "fecha_presentacion") String fecha_presentacion,
+			@RequestParam(value = "fecha_vencimiento") String fecha_vencimiento,
+			@RequestParam(value = "movimiento_observacion") String observacion,
+			@RequestParam(value = "hora_presentacion") String hora_presentacion,
+			@RequestParam(value = "documento") MultipartFile documento) throws IOException, ParseException {
+		try {
+			HttpSession session = request.getSession();
+			session.setAttribute("currentUserName", sesionUsuario.getUsuario().getNombreRazonSocial());
+			session.setAttribute("currentUserLast", sesionUsuario.getUsuario().getApellido());
+			session.setAttribute("userSession", sesionUsuario);
+			MovimientoActuacion ma = new MovimientoActuacion();
+			MultipartFile multipartFile = documento;
+			byte[] doc = multipartFile.getBytes();
+			ma.setDocumento(doc);
+			Expediente exp = expedienteDao.find(Long.parseLong(id_exp));
+			
+			
+			fecha_presentacion = fecha_presentacion.replace("/", "");
+			fecha_vencimiento = fecha_vencimiento.replace("/", "");
+			Calendar calendario = Calendar.getInstance();
+			int hora = calendario.get(Calendar.HOUR_OF_DAY);
+			int minuto = calendario.get(Calendar.MINUTE);
+			int segundo = calendario.get(Calendar.SECOND);
+			String tiempo = hora_presentacion+":"+String.valueOf(segundo);
+			fecha_presentacion = fecha_presentacion + tiempo;
+			fecha_vencimiento = fecha_vencimiento + tiempo;
+			Date fe_pre = WebUtils.getDateTime(fecha_presentacion);
+			Date fe_ve = WebUtils.getDateTime(fecha_vencimiento); // PASARLE CON HORA?a
+			ma.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
+			ma.setFechaPresentacion(fe_pre);
+			ma.setFechaVencimiento(fe_ve);
+			ma.setObservacion(observacion);
+			ma.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
+			movimientoActuacionDao.create(ma);
+			
+			
+			Expediente expediente = new Expediente();
+			expediente = expedienteDao.find(Long.parseLong(id_exp));
+			List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
+			List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
+			map.addAttribute("id_expediente", id_exp);
+			map.addAttribute("abogadoList", abogadoList);
+			map.addAttribute("clienteList", clienteList);
+			map.addAttribute("expediente", expediente);
+			map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
+			map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+			map.addAttribute("msgExito", msg.get("Actuación agregada con éxito"));
+		} catch (Exception e) {
+			map.addAttribute("error", msg.get("Error al agregar la actuación"));
+		}
 		
-		
+
 		Expediente expediente = new Expediente();
 		expediente = expedienteDao.find(Long.parseLong(id_exp));
 		List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
@@ -388,6 +432,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("clienteList", clienteList);
 		map.addAttribute("expediente", expediente);
 		map.addAttribute("movimiento_actuacion",movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp)));
+		map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 200, null));
+		
+		
 		return "expediente/actuacion_hojear2"; //modificar luego	
 		
 	}
@@ -457,13 +504,66 @@ public class ExpedienteFormController extends FormController<Expediente> {
 					}
 				}
 				map.addAttribute("actuacionList",base64StringList);
-				logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
+				//logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return "expediente/expediente_digital" ;
 		
 		
+	}
+	@RequestMapping(value = "/fecha-vencimiento", method = RequestMethod.GET)
+	public  String fecha(HttpServletRequest request,
+			@RequestParam(value = "actuacion", required = true) String actuacion_id,
+			@RequestParam(value = "fecha", required = true) Date fecha,ModelMap map) throws Exception{
+			Long id_actuacion = Long.parseLong(actuacion_id);
+			Calendar calendar = Calendar.getInstance();
+			Date fecha_aux = new Date();
+			String fecha_prue="";
+			if(fecha == null || id_actuacion == 0){
+				return "";
+			}else{
+				List<String> feriados = new ArrayList<>();
+				feriados.add("01/01");
+				feriados.add("01/03");
+				feriados.add("01/05");
+				feriados.add("14/05");
+				feriados.add("15/05");
+				feriados.add("12/06");
+				feriados.add("15/08");
+				feriados.add("29/09");
+				feriados.add("08/12");
+				feriados.add("25/12");
+				TipoActuacion ta = tipoActuacionDao.find(Long.parseLong(actuacion_id));
+				calendar.setTime(fecha);
+				String aux1 = "";
+				 calendar.add(Calendar.DAY_OF_YEAR, ta.getPlazo());
+				 fecha_aux = calendar.getTime();
+				 SimpleDateFormat f = new SimpleDateFormat("EEEE", new Locale("ES"));
+				 String nombre_dia = f.format(calendar.getTime());
+				 if(nombre_dia.equalsIgnoreCase("domingo")){
+					 calendar.setTime(fecha_aux);
+					 calendar.add(Calendar.DAY_OF_YEAR,1 );
+				 }else if(nombre_dia.equalsIgnoreCase("sábado")){
+					 calendar.setTime(fecha_aux);
+					 calendar.add(Calendar.DAY_OF_YEAR,2 );
+				 }else{
+					 fecha_prue = WebUtils.getStringFromDate(calendar.getTime(), "dd/MM/yyyy");
+					 fecha_aux = calendar.getTime();
+					 calendar.setTime(fecha_aux);
+					 aux1 = fecha_prue.substring(0, 5);
+					 for(String i : feriados){
+						 if(i.equals(aux1)){
+							 calendar.add(Calendar.DAY_OF_YEAR,1);
+							 break;
+							 
+						 }
+					 }
+				 }
+				 fecha_prue = WebUtils.getStringFromDate(calendar.getTime(), "dd/MM/yyyy");
+				map.addAttribute("fecha_ven", fecha_prue);
+			}
+			return "expediente/actuacion_hojear :: .fecha-venc2";
 	}
 	
 }

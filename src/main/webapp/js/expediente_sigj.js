@@ -1,8 +1,8 @@
 /*
  * Archivo para el manejo de todos los datos relacionados al expediente
  */
- function createFileInput(){
-	 $('#file-es').fileinput({
+ function createFileInput(idFile){
+	 $('#'+idFile).fileinput({
  
 		        language: 'es',
 		        uploadUrl: '#',
@@ -200,7 +200,7 @@ var banDe=0;
 var banApo=0;
 var banCon=0;
 
-function agregar_cliente(id, nombre){
+function agregar_cliente(id, nombre, ci){
 	var seleccion = $('input[name=tipo_cliente]:checked').val();
 	if(notInTable(id,"C")){//si no esta en la tabla de partes
 		if(seleccion == undefined || seleccion=="" || seleccion==null){
@@ -214,19 +214,23 @@ function agregar_cliente(id, nombre){
 			$("#error-cliente").addClass("hidden");
 			if(seleccion == 'D'){
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
-				 $('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>DEMANDANTE</td><td>"+nombre+"</td></tr>");
+				 $('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"C\""+")'><i class='fa fa-trash-o' ></i></button>"+
+						"</td> <td>"+id+"</td><td>DEMANDANTE</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"C"});
 				 if(banDem == 0){
-					 $('#o-demandante').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					 $('#o-demandante').val(nombre);
 					 banDem++;
 				 }
 				 $("#div-result_cliente").addClass("hidden");
 			}else{
 				clientes.push({"id_cliente":id, "tipo_cliente": seleccion });
-				$('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>DEMANDADO</td><td>"+nombre+"</td></tr>");
+				$('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"C\""+")'><i class='fa fa-trash-o'></i></button>"+
+						"</td> <td>"+id+"</td><td>DEMANDADO</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"C"});
 				if(banDe == 0){
-					$('#o-demandado').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					$('#o-demandado').val(nombre);
 					banDe++;
 				}
 				$("#div-result_cliente").addClass("hidden");
@@ -245,7 +249,7 @@ function agregar_cliente(id, nombre){
 	$("#buscar_parte_cliente").val("");
 	
 }
-function agregar_abogado(id, nombre){
+function agregar_abogado(id, nombre, ci){
 	var seleccion = $('input[name=tipo_abogado]:checked').val();
 	if(notInTable(id,"A")){//si no esta en la tabla de partes
 		if(seleccion == undefined || seleccion=="" || seleccion==null){
@@ -259,19 +263,23 @@ function agregar_abogado(id, nombre){
 			$("#error-abogado").addClass("hidden");
 			if(seleccion == 'AP'){
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
-				 $('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>APODERADO</td><td>"+nombre+"</td></tr>");
+				 $('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"A\""+")'><i class='fa fa-trash-o'></i></button>"+
+						"</td> <td>"+id+"</td><td>APODERADO</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				 idPartes.push({"id":id,"tipo":"A"});
 				 if(banApo == 0){
-					 $('#o-apoderado').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					 $('#o-apoderado').val(nombre);
 					 banApo++;
 				 }
 				 $("#div-result_abogado").addClass("hidden");
 			}else{
 				abogado.push({"id_abogado":id, "tipo_abogado": seleccion });
-				$('#tbody_partes').append("<tr><td></td> <td>"+id+"</td><td>CONTRAPARTE</td><td>"+nombre+"</td></tr>");
+				$('#tbody_partes').append("<tr>"+
+						"<td style='width: 12px;'><button type='button' class='eliminar btn btn-danger btn-xs' id='boton_"+id+"' onclick='eliminar_parte("+id+",\"A\""+")'><i class='fa fa-trash-o'></i></button>"+
+						"</td><td>"+id+"</td><td>CONTRAPARTE</td><td>"+nombre+"</td><td>"+ci+"</td></tr>");
 				idPartes.push({"id":id,"tipo":"A"});
 				if(banCon == 0){
-					$('#o-contraparte').val(nombre.substring(0,nombre.indexOf(" - C.I")));
+					$('#o-contraparte').val(nombre);
 					banCon++;
 				}
 				$("#div-result_abogado").addClass("hidden");
@@ -288,6 +296,17 @@ function agregar_abogado(id, nombre){
 	$("#tipo_abogado_contraparte").prop('checked', false);
 	$("#buscar_parte_abogado").val("");
 	
+}
+
+function eliminar_parte(id,tipo){
+	$.each(idPartes, function( index, value ) {
+		if(value["id"] == id && tipo == value["tipo"] ){
+			idPartes.splice(index,1);
+			return false;
+		}
+	});
+	
+	var boton = $('#boton_'+id).closest('tr').remove();
 }
 
 function datos_caratula(){
@@ -491,4 +510,66 @@ function notInTable(id,tipo){
 		return ban;
 	}
 	
+}
+
+function fechaVenc(){
+//	$(".fecha-pre").on('focusout', function(e){
+  	  var seleccion = $("#fecha-presentacion").val();
+  	  var actuacion = $("#tipo-actuacion").val();
+  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
+  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
+  	  	  $(".fecha-venc2").load(url, function(response, status, xhr) {
+  				 if(status == "success"){
+  					 var aux = $("input.fecha-venc2")[1];
+  					 if($("input.fecha-venc2")[0] != undefined){
+  						 $("input.fecha-venc2")[0].remove();
+  						$("#fecha-vencimiento").attr('value',aux.value);
+  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+  					 }
+  					
+//  					 var v = [];
+//  					 if(aux != null && aux != undefined && aux != ""){
+//  						aux = aux.value.split(" ");
+//  						 var v = aux[5] + '-'+aux[1] + '-'+ aux[2];
+//  					 }
+//  					 
+//  					
+//  					 var date = Date.parse(v);
+//  					 var fecha = new Date(date);
+  					
+  					return true;
+  				 }
+  				
+  			  });  
+  	  }
+  	
+    //}); 
+	
+}
+function actuacion_agregar(){ //verificar si llega bien
+	var f = new FormData();
+	f.append("documento",$("#file-es")[0].files[0]);
+	f.append("fecha_presentacion",$("#fecha-presentacion").val());
+	f.append("fecha_vencimiento", $("#fecha-vencimiento").val());
+	f.append("tipo_actuacion",$("#tipo-actuacion").val());
+	f.append("expediente",$("#expediente_id").val());
+	f.append("movimiento_observacion",$("#movimiento-observacion").val());
+	f.append("hora_presentacion",$("#hora-presentacion").val());
+	var csrf =$('form#' + 'form-movimiento' + ' input[name=_csrf]').val();
+	f.append("_csrf",csrf);
+	var modalSpinner = iniciarSpinner("modal_spinner"); 
+	$.ajax({
+        type: "POST",
+        url: "/sigj/expediente/actuacion-agregar",
+        data: f,
+        cache:false,
+        processData: false,
+        contentType: false,
+    }).done(function(data){
+        console.log(data);
+        $("#seccion3").html(data);
+        $("#seccion1").addClass("hidden");
+        $("#seccion3").removeClass("hidden");
+        pararSpinner(modalSpinner);	
+    });
 }

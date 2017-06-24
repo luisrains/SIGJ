@@ -51,12 +51,8 @@
 				<input type="hidden" class="object_id" th:field="*{empleado.id}" />
 				<!-- Inicio panel botones -->
 				<div class="col-sm-12">
-				<div class="col-sm-9" style="padding-right:0px;">
-					<div th:replace="botones::footerModal"></div>
-				</div>
-				<div class="col-sm-3 form-group modal-footer" style="padding-left:0px;">
-					<button type="button" class="btn btn-warning" name="limpiar" id="limpiar"
-						value="limpiar" onclick="limpiarForm()">Limpiar</button>
+				<div class="col-sm-12 col-lg-12" style="padding-right:0px;">
+					<div th:replace="botones::footerModalPersonas"></div>
 				</div>
 			</div>
 			</form>

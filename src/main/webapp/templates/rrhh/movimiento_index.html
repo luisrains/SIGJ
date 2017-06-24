@@ -104,13 +104,13 @@
 									<label for="egreso" th:text="#{movimiento.egreso.lbl}"
 										class="field-label col-xs-7 col-sm-7"> Egreso:</label> <input
 										type="text" th:field="*{egreso}" maxlength="100"
-										class="form-control col-xs-6 col-sm-6 egreso" autofocus="autofocus" />
+										class="form-control col-xs-6 col-sm-6 egreso numbers-only importe" autofocus="autofocus" />
 								</div>
 								<div class="form-group col-xs-12 col-sm-12">
 									<label for="ingreso" th:text="#{movimiento.ingreso.lbl}"
 										class="field-label col-xs-7 col-sm-7">Ingreso:</label> <input
 										type="text" th:field="*{ingreso}" maxlength="100"
-										class="form-control col-xs-6 col-sm-6 ingreso" />
+										class="form-control col-xs-6 col-sm-6 ingreso numbers-only importe" />
 
 								</div>
 								<div class="form-group col-xs-12 col-sm-12">
@@ -158,7 +158,7 @@
 								
 								 $('#datepicker').datepicker({       
 					                 autoclose: true,
-					                 format: 'dd/mm/yyyy',
+					                
 					                 language: 'es', 
 							    });
 								 $('.fecha').datepicker({       
@@ -166,6 +166,16 @@
 					                 format: 'dd/mm/yyyy',
 					                 language: 'es', 
 							    });
+								 $(".movimiento-expediente").select2({
+										placeholder : "Seleccione el Expediente...",
+										language : {
+											noResults : function(params) {
+												return "No existen registros.";
+											}
+										}
+									});
+								 
+								 
 							});		
 							</script>
 						</div>
@@ -244,7 +254,8 @@
 						$('#egreso').val(number_format(obj["egreso"],0));
 						$('#ingreso').val(number_format(obj["ingreso"],0));
 						$('.descripcion').val(obj["descripcion"]);
-						$('.fecha').val(obj["fecha"]);
+						$('.fecha').val(convertDateFormat(obj["fecha"]));
+						
 						
 						var selec = $('.empleado');
 						var empleado = obj["empleado"];
@@ -273,7 +284,7 @@
 					$('.id').val(obj["id"]);
 					$('#egreso').val(number_format(obj["egreso"],0));
 					$('#ingreso').val(number_format(obj["ingreso"],0));
-					$('.fecha').val(obj["fecha"]);
+					$('.fecha').val(convertDateFormat(obj["fecha"]));
 					$('.descripcion').val(obj["descripcion"]);
 					var selec = $('.empleado');
 					var empleado = obj["empleado"];

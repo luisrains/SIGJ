@@ -32,7 +32,7 @@ public class Permiso extends GenericEntity {
 	@NotNull(message = "permiso.descripcion.notNull")
 	@NotBlank(message = "permiso.descripcion.notBlank")
 	@Size(max = 100, message = "permiso.descripcion.size")
-	private String desccripcion;
+	private String descripcion;
 
 	public Permiso() {
 	}
@@ -55,17 +55,19 @@ public class Permiso extends GenericEntity {
 		this.codigo = codigo;
 	}
 
-	public String getDesccripcion() {
-		return desccripcion;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDesccripcion(String desccripcion) {
-		this.desccripcion = desccripcion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	@Override
 	public String toString() {
-		return "Permiso [id=" + id + ", codigo=" + codigo + ", desccripcion=" + desccripcion + "]";
+		return "Permiso [id=" + id + ", codigo=" + codigo + ", descripcion=" + descripcion + "]";
 	}
+
+	
 
 }

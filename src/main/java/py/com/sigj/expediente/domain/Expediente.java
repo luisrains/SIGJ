@@ -2,6 +2,7 @@ package py.com.sigj.expediente.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -49,12 +50,13 @@ public class Expediente extends GenericEntity {
 	@NotBlank(message = "expediente.anho.notBlank")
 	@Size(max = 20, message = "expediente.anho.size")
 	private String anho;
-
 	
 	private int monto;
 
-	
 	private String moneda;
+	
+	@Column(name="fecha_actuacion")
+	private Date fechaActuacion;
 
 	@NotNull(message = "expediente.folio.notNull")
 	@NotBlank(message = "expediente.folio.notBlank")
@@ -172,6 +174,16 @@ public class Expediente extends GenericEntity {
 
 	public void setEstado(EstadoExternoInterno estado) {
 		this.estado = estado;
+	}
+
+	
+	
+	public Date getFechaActuacion() {
+		return fechaActuacion;
+	}
+
+	public void setFechaActuacion(Date fechaActuacion) {
+		this.fechaActuacion = fechaActuacion;
 	}
 
 	@Override

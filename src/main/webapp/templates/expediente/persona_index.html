@@ -18,7 +18,7 @@
 					<br>
 					<br>
 					<table
-						class="table table-bordered table-striped col-xs-12 no-padding table-esp"
+						class="table table-bordered table-striped col-xs-12 no-padding"
 						id="personaDT">
 						<thead>
 							<tr>
@@ -160,8 +160,8 @@
 						$('#estadoCivil').val(obj["estadoCivil"]);
 						$('#correoElectronico').val(obj["correoElectronico"]);
 						$('#telefono').val(obj["telefono"]);
-						$('.fecha').val(obj["fechaNacimiento"]);
-
+						$('.fecha').val(convertDateFormat(obj["fechaNacimiento"]));
+						$('#id').val(obj["id"]);
 						if((obj["estadoCivil"]).toUpperCase() == "SOLTERO"){
 							$('#estadoCivil1').click();
 						}else if((obj["estadoCivil"]).toUpperCase() == "CASADO"){
@@ -233,7 +233,7 @@
 					$('#estadoCivil').val(obj["estadoCivil"]);
 					$('#correoElectronico').val(obj["correoElectronico"]);
 					$('#telefono').val(obj["telefono"]);
-					$('.fecha').val(obj["fechaNacimiento"]);
+					$('.fecha').val(convertDateFormat(obj["fechaNacimiento"]));
 
 					if((obj["estadoCivil"]).toUpperCase() == "SOLTERO"){
 						$('#estadoCivil1').click();
