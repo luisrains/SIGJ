@@ -534,13 +534,19 @@ function calcularFecha(){
     	  	  var actuacion = $("#tipo-actuacion").val();
     	  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
     	  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
-    	  	  	  $(".fecha-venc2").load(url, function(response, status, xhr) {
+    	  	  	  $("#contenedor-ven").load(url, function(response, status, xhr) {
 	  				 if(status == "success"){
-	  					 var aux = $("input.fecha-venc2")[1];
-	  					 if($("input.fecha-venc2")[0] != undefined){
-	  						 $("input.fecha-venc2")[0].remove();
-    	  						$("#fecha-vencimiento").attr('value',aux.value);
-	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+	  					 var aux = $("input.fecha-venc2").val();
+	  					 if($("input.fecha-venc2").val() != undefined){
+    	  					if($("#fecha-vencimiento").val() != undefined && $("#fecha-vencimiento").val() != ""){
+    	  						$("#fecha-vencimiento").val("");
+    	  						$("#fecha-vencimiento").val(aux);
+    	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+    	  					}else{
+    	  						$("#fecha-vencimiento").attr('value',aux);
+    	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+    	  					}
+	  						
 	  					 }
 	  				return true;
 	  				 }			
