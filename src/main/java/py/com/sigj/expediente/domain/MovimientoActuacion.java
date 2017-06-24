@@ -66,6 +66,8 @@ public class MovimientoActuacion extends GenericEntity {
 	@Lob
 	@Basic(fetch = FetchType.LAZY, optional = true)
 	private byte[] documento;// documento
+	
+	transient String renderDocumento;
 
 	
 	public MovimientoActuacion() {
@@ -130,11 +132,21 @@ public class MovimientoActuacion extends GenericEntity {
 		this.documento = documento;
 	}
 
+	
+	
+	public String getRenderDocumento() {
+		return renderDocumento;
+	}
+
+	public void setRenderDocumento(String renderDocumento) {
+		this.renderDocumento = renderDocumento;
+	}
+
 	@Override
 	public String toString() {
 		return "MovimientoActuacion [id=" + id + ", observacion=" + observacion + ", fechaPresentacion="
 				+ fechaPresentacion + ", fechaVencimiento=" + fechaVencimiento + ", tipoActuacion=" + tipoActuacion
-				+ ", expediente=" + expediente + ", documento=" + Arrays.toString(documento) + "]";
+				+ ", expediente=" + expediente +"]";
 	}
 
 }

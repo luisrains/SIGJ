@@ -1,16 +1,18 @@
-	<div id="seccion2" class="box box-solid box-primary">
-				<div class="alert alert-success alert-dismissable alinear col-sm-5"
-						role="alert" id="alerta" style="display: none;">
-						<button type="button" class="close" data-dismiss="alert">x</button>
-						<strong th:text="${msgExito} ? ${msgExito} : ${error}">Well
-							done!</strong>
-					</div>
+	
+				
 				<div class="box-header">
 					<h3>Actuaciones</h3>
 				</div>
 				<div class="box-body" style="width: 99%; padding-left: 15px;">
 					<div class="col-md-12">
 					<div class="box box-primary">
+							<div class="alert alert-success alert-dismissable alinear col-sm-5"
+						role="alert" id="alerta2" style="display: none;">
+						<button type="button" class="close" data-dismiss="alert">x</button>
+						<strong id="mensaje" th:text="${msgExito} ? ${msgExito} : ${error}">Well
+							done!</strong>
+					</div>
+							
 							<div class="col-sm-12">
 								<div></div>
 								<h3>CARATULA DEL EXPEDIENTE</h3>
@@ -162,23 +164,14 @@
 											<i class="fa fa-calendar"></i>
 										</div>
 										<input type="text" class="form-control pull-right fecha-pre"
-											name="fecha-presentacion" id="fecha-presentacion" onchange="fechaVenc()">
+											name="fecha-presentacion" id="fecha-presentacion">
 									</div>
 
 								
 									<script type="text/javascript"> 
 								        $(function() { 
 								          $(".selecciones").select2(); 
-								 
-								          $('#fecha-presentacion').datepicker( 
-								              { 
-								                autoclose : true, 
-								                format: 'dd/mm/yyyy',
-								                daysOfWeekDisabled: [0,6],
-								                language : 'es', 
-								                 
-								             }); 
-								         
+								          calcularFecha();
 								 
 								        }); 
 								  </script>
@@ -187,29 +180,27 @@
 								</div>
 								
 								<div class="form-group" style="padding-left: 15px;">
-									<label>Hora de Presentación:</label>
-									<div class="input-group date" style="width: 50%;">
-										<div class="input-group-addon">
-											<i class="glyphicon glyphicon-time"></i>
-										</div>
-										<input  type="text" placeholder="HH:mm" class="form-control pull-right"
-											name="hora-presentacion" id="hora-presentacion">
-										
-									</div>
-
+									<label for="dtp_input3">Hora de Presentación:</label>
+						                <div class="input-group date hora-presentacion col-md-2" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+						                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+											<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+						                    <input class="form-control" id="hora-presentacion" size="16" type="text" value="" readonly>
+						                    
+						                </div>
+										<input type="hidden" id="dtp_input3" value="" /><br/>
 									<script type="text/javascript"> 
-								        $(function() { 
-								        	/* $(".selecciones").select2(); 
-								 
-								          $('#hora-presentacion').datetimepicker( 
-								              { 
-								                minView : 'hour',
-								                locale: 'es',
-								                format: 'HH:mm',
-								                 
-								              }); 
-								              
-								        	*/  
+								        $(function() {  
+								        	 $('.hora-presentacion').datetimepicker({
+								                language:  'es',
+								                weekStart: 1,
+								                todayBtn:  1,
+								        		autoclose: 1,
+								        		todayHighlight: 1,
+								        		startView: 1,
+								        		minView: 0,
+								        		maxView: 1,
+								        		forceParse: 0
+								            });
 								 
 								        });  
 								   </script>
@@ -231,26 +222,18 @@
 									<script type="text/javascript"> 
 								        $(function() { 
 								          $(".selecciones").select2(); 
-								 
-								         /*  $('#fecha-vencimiento').datepicker( 
-								              { 
-								                autoclose : true, 
-								                startDate: "today",
-								                daysOfWeekDisabled: [0,6],
-								                language : 'es',
-								                format: 'dd/mm/yyyy',
-								                 
-								              });  */
-								              
-								           
-								 
+								          TipoActuacionChange();
 								        }); 
 								   </script>
 
 									<!-- /.input group -->
 								</div>
 								
-								
+								<div id="error-actuacion" class="hidden alert alert-danger" role="alert">
+												<span class="glyphicon glyphicon-exclamation-sign"
+													aria-hidden="true"></span> <span style="font-weight: bold;">Error:</span>
+												<span class="type-error"></span> 
+								</div>
 								
 								<div class="form-group" style="width: 60%; padding-left: 15px;">
 									<label>Observación:</label>
@@ -297,8 +280,8 @@
 										<tr th:each="ma : ${movimiento_actuacion}">
 											<td th:text="${ma.id}" class="hidden"></td>
 											<td th:text="${ma.observacion}"></td>
-											<td th:text="${ma.fechaPresentacion}"></td>
-											<td th:text="${ma.fechaVencimiento}"></td>
+											<td th:text="${#dates.format(ma.fechaPresentacion, 'dd-MMM-yyyy / HH:mm')}"></td>
+											<td th:text="${#dates.format(ma.fechaVencimiento, 'dd-MMM-yyyy / HH:mm')}"></td>
 											<td th:text="${ma.tipoActuacion.descripcion}"></td>
 											<td th:text="${ma.tipoActuacion.plazo}"></td>
 										</tr>
@@ -350,4 +333,3 @@
 			</div>
 			<!-- /.box -->
 		</div>
-	</div>

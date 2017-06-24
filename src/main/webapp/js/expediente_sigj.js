@@ -512,40 +512,82 @@ function notInTable(id,tipo){
 	
 }
 
-function fechaVenc(){
-//	$(".fecha-pre").on('focusout', function(e){
-  	  var seleccion = $("#fecha-presentacion").val();
-  	  var actuacion = $("#tipo-actuacion").val();
-  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
-  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
-  	  	  $(".fecha-venc2").load(url, function(response, status, xhr) {
-  				 if(status == "success"){
-  					 var aux = $("input.fecha-venc2")[1];
-  					 if($("input.fecha-venc2")[0] != undefined){
-  						 $("input.fecha-venc2")[0].remove();
-  						$("#fecha-vencimiento").attr('value',aux.value);
-  	  					$("#fecha-vencimiento").prop("disabled","disabled");
-  					 }
-  					
-//  					 var v = [];
-//  					 if(aux != null && aux != undefined && aux != ""){
-//  						aux = aux.value.split(" ");
-//  						 var v = aux[5] + '-'+aux[1] + '-'+ aux[2];
-//  					 }
-//  					 
-//  					
-//  					 var date = Date.parse(v);
-//  					 var fecha = new Date(date);
-  					
-  					return true;
-  				 }
-  				
-  			  });  
-  	  }
-  	
-    //}); 
+function calcularFecha(){
+	$('#fecha-presentacion').datepicker({ 
+        autoclose : true, 
+        format: 'dd/mm/yyyy',
+        daysOfWeekDisabled: [0,6],
+        language : 'es', 
+             
+     }).on("changeDate", function (e) {
+    	 $("#error-actuacion").addClass("hidden");
+    	 $(".type-error").html('');
+    	 if($("#tipo-actuacion").val() == 0){
+    	 	$(this).datepicker('update', '');
+    	 	$(".type-error").html('');
+			$("#error-actuacion").removeClass("hidden");
+			var msg= "Debe seleccionar una actuación."
+			$(".type-error").html(msg);
+    		 return false;							            			
+    	  }else{
+    	  	  var seleccion = $("#fecha-presentacion").val(); 
+    	  	  var actuacion = $("#tipo-actuacion").val();
+    	  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
+    	  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
+    	  	  	  $(".fecha-venc2").load(url, function(response, status, xhr) {
+	  				 if(status == "success"){
+	  					 var aux = $("input.fecha-venc2")[1];
+	  					 if($("input.fecha-venc2")[0] != undefined){
+	  						 $("input.fecha-venc2")[0].remove();
+    	  						$("#fecha-vencimiento").attr('value',aux.value);
+	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+	  					 }
+	  				return true;
+	  				 }			
+	  			  });  
+	  		  }
+    	   }	   
+	 });
 	
 }
+function TipoActuacionChange(){
+$('#tipo-actuacion').on('change', function(e){
+	$("#error-actuacion").addClass("hidden");
+	 $(".type-error").html('');
+	 if($("#tipo-actuacion").val() == 0){
+	 	$(".type-error").html('');
+		$("#error-actuacion").removeClass("hidden");
+		var msg= "Debe seleccionar una actuación."
+		$(".type-error").html(msg);
+		 return false;							            			
+	  }else{
+	  	  var seleccion = $("#fecha-presentacion").val(); 
+	  	  var actuacion = $("#tipo-actuacion").val();
+	  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
+	  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
+	  		$.ajax({
+	  	        type: "GET",
+	  	        url: url,
+	  	    }).done(function(data){
+	  	    	if(data != null && data.trim() !=""){
+	  	    		$('#fecha-vencimiento').val('');
+	  	    		$('#fecha-vencimiento').val(data.substring(data.indexOf('/')-2,data.indexOf('>')-1));
+	  	    	}
+				 return true;
+	  	    }).fail(function(jqXHR, textStatus){
+	  			console.log(textStatus)
+	  		});
+//	  		  $(".fecha-venc2").load(url, function(response, status, xhr) {
+// 				 if(status == "success"){
+// 					 
+// 				 }			
+// 			  });  
+ 		  }
+	   }
+
+});
+}
+
 function actuacion_agregar(){ //verificar si llega bien
 	var f = new FormData();
 	f.append("documento",$("#file-es")[0].files[0]);
@@ -566,10 +608,23 @@ function actuacion_agregar(){ //verificar si llega bien
         processData: false,
         contentType: false,
     }).done(function(data){
-        console.log(data);
         $("#seccion3").html(data);
         $("#seccion1").addClass("hidden");
         $("#seccion3").removeClass("hidden");
         pararSpinner(modalSpinner);	
-    });
+        window.scrollTo(0, 0);
+        $("#alerta2").fadeIn(2000);
+		$("#alerta2").fadeOut(1000);
+    }).fail(function(jqXHR, textStatus){
+		pararSpinner(modalSpinner);	
+		window.scrollTo(0, 0);
+		$("#mensaje").html("Error al cargar la actuación");
+		$("#alerta2").removeClass("alert-success");
+		$("#alerta2").addClass("alert-danger");
+		$("#alerta2").fadeIn(5000);
+		$("#alerta2").fadeOut(1000);
+		$(".errorEach").fadeIn(5000);
+		$(".errorEach").fadeOut(1000);
+		
+	});
 }
