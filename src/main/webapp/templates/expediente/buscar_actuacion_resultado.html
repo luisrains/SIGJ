@@ -14,13 +14,13 @@
         
         <tr th:each="ps : ${actuacionList}" style="background-color:#ddd;">
         	<td th:text="${ps.id}" class="hidden"></td>
-            <td th:text="${ps.fechaPresentacion}"></td>
+            <td th:text="${#dates.format(ps.fechaPresentacion, 'dd-MMM-yyyy / HH:mm')}"></td>
             <!-- <td th:text="#{ps.empleado.persona.cedula_ruc}"></td> -->
-            <td th:text="${ps.fechaVencimiento}"></td>
+            <td th:text="${#dates.format(ps.fechaVencimiento, 'dd-MMM-yyyy / HH:mm')}"></td>
             <td th:text="${ps.observacion}"></td>
             <td th:text="${ps.expediente.nroExpediente}"></td>
             <td style="padding-left:30px;">
-            	<a target="_blank" th:href="@{/expediente/buscar-actuacion-ver?actuacion_id=}+${ps.id}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
+            	<a target="_blank" th:href="'data:image/jpeg;base64,'+ ${ps.renderDocumento}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
             		<i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i>
             	</a>
             </td>
