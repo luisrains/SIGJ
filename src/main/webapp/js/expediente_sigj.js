@@ -324,7 +324,7 @@ function datos_caratula(){
 		var expediente = demandante +" C/ "+ demandando+" S/ "+ tipoDemnda;
 		$.each(listDespachos, function( index, value ) {
 			if( $("#despacho").find(":selected").val() == value.id){
-				$("#juez_caract").val(value.juez);
+				$("#juez_caract").text(value.juez);
 			}
 		});
 		$("#anho_caract").text($("#anho").val());
@@ -357,7 +357,7 @@ function registrar_expediente(){
 	expediente.caratula = "2017";
 	expediente.folio = 	$("#folio_caract").text();
 	expediente.juzgado = $("#juzgado_caract").text();
-	expediente.juez = $("#juez_caract").val();
+	expediente.juez = $("#juez_caract").text();
 	expediente.secretaria = $("#secretaria_caract").val();
 	expediente.cargo = $("#cargo_caract").val();
 	expediente.caratula = $("#expediente_caract").text();

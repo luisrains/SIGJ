@@ -138,15 +138,15 @@
 			</div>
 			<div class="form-group col-xs-6 col-sm-6">
 					<label for="proceso" th:text="#{expediente.tipoDocumento.lbl}"
-						class="field-label col-xs-6 col-sm-7">Tipo Documento:</label> <select
-						class="form-control tipoDocumento" multiple="multiple" id="tipoDocumento"
-						name="tipo_documento" style="width: 50%;">
-						<!-- <option th:each=" td : ${tipoDocumentoList}" th:value="${td.id}"
-							th:text="${td.descripcion}">Ejecutivo</option> -->
-							<option value="1">Comprobante de Pago</option>
-							<option value="2">Varios</option>
-							<option value="3">Actuacion</option>
+						class="field-label col-xs-6 col-sm-7">Tipo Documento:</label>
+						
+						<select class="form-control tipoDocumento"
+									id="tipo_documento" name="tipo_documento" >
+							<option value="0" selected>Seleccione el tipo de Documento</option>	
+							 <option th:each=" td : ${tipoDocumentoList}" th:value="${td.id}"
+							th:text="${td.descripcion}">Ejecutivo</option>
 					</select>
+						
 				</div>
 		</div>
 		<input type="hidden" name="expediente" id="expediente"
@@ -173,6 +173,17 @@
 		$(function () {
 			createFileInput('file-es');
 			$(".selecciones").select2();
+			
+			$(".tipoDocumento").select2({
+				placeholder : "Seleccione el Tipo de Documento...",
+				language : {
+					noResults : function(params) {
+						return "No existen registros.";
+					}
+				}
+			});
+			
+			
 			$("#actuacion-table").DataTable();
 			});
 			$('.fecha').datepicker({
