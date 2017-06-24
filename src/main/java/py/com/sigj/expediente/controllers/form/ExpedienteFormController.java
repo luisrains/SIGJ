@@ -47,6 +47,7 @@ import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
 import py.com.sigj.expediente.dao.TipoActuacionDao;
 import py.com.sigj.expediente.dao.TipoDemandaDao;
+import py.com.sigj.expediente.dao.TipoDocumentoDao;
 import py.com.sigj.expediente.domain.Abogado;
 import py.com.sigj.expediente.domain.Cliente;
 import py.com.sigj.expediente.domain.Documento;
@@ -56,6 +57,7 @@ import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.ExpedienteDocumento;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.expediente.domain.TipoActuacion;
+import py.com.sigj.expediente.domain.TipoDocumento;
 import py.com.sigj.main.SesionUsuario;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
@@ -112,6 +114,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private TipoDemandaDao tipoDemandaDao;
+	
+	@Autowired
+	private TipoDocumentoDao tipoDocumentoDao;
 
 	@Autowired
 	private DespachoDao despachoDao;
@@ -155,7 +160,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getListAll(null));
 		//logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
-		
+		map.addAttribute("tipoDocumentoList", tipoDocumentoDao.getListAll(null));
 		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
 		map.addAttribute("materiaList", materiaDao.getListAll(null));
 		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
@@ -302,8 +307,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				byte[] doc = multipartFile.getBytes();
 				Documento docu = new Documento();
 				docu.setDocumento(doc);
-//				TipoDocumento tipoDoc = tipoDocumentoDao.find(tipoDocumento);
-//				docu.setTipoDocumento(tipoDoc);
+				TipoDocumento tipoDoc = tipoDocumentoDao.find(Long.parseLong(tipo_documento));
+				docu.setTipoDocumento(tipoDoc);
 				documentoDao.create(docu);
 				docu.setDocumento(doc);
 				expedienteDoc.setDocumento(doc);
