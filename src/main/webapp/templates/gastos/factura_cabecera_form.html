@@ -233,23 +233,7 @@
 					 $("#expediente-div").removeClass("hidden");
 				 }
 			  }); 
-			
-			 /* $.ajax({
-		           type: "GET",
-		           url: "factura_cabecera/cliente-exp",
-		           data: { 
-		               cliente: seleccion
-		           }
-		       }).done(function(data){
-		           
-		           console.log(data);
-		           $("#expediente-factura").html(data);
-		           $("#expediente-div").removeClass("hidden");
-		           
-		          
-		           
-		       }); */
-			
+						
 		});
 		$("#expediente-factura").on('change',function(e){
 			expediente_select = $("select[name=expediente-factura]").find("option:selected").val();

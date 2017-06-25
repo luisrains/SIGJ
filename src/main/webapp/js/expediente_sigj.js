@@ -590,45 +590,98 @@ $('#tipo-actuacion').on('change', function(e){
 }
 
 function actuacion_agregar(){ //verificar si llega bien
-	var f = new FormData();
-	f.append("documento",$("#file-es")[0].files[0]);
-	f.append("fecha_presentacion",$("#fecha-presentacion").val());
-	f.append("fecha_vencimiento", $("#fecha-vencimiento").val());
-	f.append("tipo_actuacion",$("#tipo-actuacion").val());
-	f.append("expediente",$("#expediente_id").val());
-	f.append("movimiento_observacion",$("#movimiento-observacion").val());
-	f.append("hora_presentacion",$("#hora-presentacion").val());
-	var csrf =$('form#' + 'form-movimiento' + ' input[name=_csrf]').val();
-	f.append("_csrf",csrf);
-	var modalSpinner = iniciarSpinner("modal_spinner"); 
-	$.ajax({
-        type: "POST",
-        url: "/sigj/expediente/actuacion-agregar",
-        data: f,
-        cache:false,
-        processData: false,
-        contentType: false,
-    }).done(function(data){
-        //$("#seccion3").html(data);
-        $("#seccion1").addClass("hidden");
-//        $("#seccion3").removeClass("hidden");
-        pararSpinner(modalSpinner);	
-        window.scrollTo(0, 0);
-        $("#alerta2").fadeIn(2000);
-		$("#alerta2").fadeOut(1000);
-	//	$('#seccion3_dataTable').html('');
-	//	$('#seccion3_dataTable').html(data);
-		window.location.href = '/sigj/expediente/ver-documento?expediente='+$('#expediente_id').val();
-    }).fail(function(jqXHR, textStatus){
-		pararSpinner(modalSpinner);	
-		window.scrollTo(0, 0);
-		$("#mensaje").html("Error al cargar la actuación");
-		$("#alerta2").removeClass("alert-success");
-		$("#alerta2").addClass("alert-danger");
-		$("#alerta2").fadeIn(5000);
-		$("#alerta2").fadeOut(1000);
-		$(".errorEach").fadeIn(5000);
-		$(".errorEach").fadeOut(1000);
+	
+	if(($('#hora-presentacion').val() !=null && $('#hora-presentacion').val()!="" && $('#hora-presentacion').val()!= undefined) &&
+			($('#fecha-presentacion').val() !=null && $('#fecha-presentacion').val()!="" && $('#fecha-presentacion').val()!= undefined)&&
+			($('#fecha-vencimiento').val() !=null && $('#fecha-vencimiento').val()!="" && $('#fecha-vencimiento').val()!= undefined) &&
+			($('#movimiento-observacion').val() !=null && $('#movimiento-observacion').val()!="" && $('#movimiento-observacion').val()!= undefined)){
+		var f = new FormData();
+		f.append("documento",$("#file-es")[0].files[0]);
+		f.append("fecha_presentacion",$("#fecha-presentacion").val());
+		f.append("fecha_vencimiento", $("#fecha-vencimiento").val());
+		f.append("tipo_actuacion",$("#tipo-actuacion").val());
+		f.append("expediente",$("#expediente_id").val());
+		f.append("movimiento_observacion",$("#movimiento-observacion").val());
+		f.append("hora_presentacion",$("#hora-presentacion").val());
+		var csrf =$('form#' + 'form-movimiento' + ' input[name=_csrf]').val();
+		f.append("_csrf",csrf);
+		var modalSpinner = iniciarSpinner("modal_spinner"); 
+		$.ajax({
+	        type: "POST",
+	        url: "/sigj/expediente/actuacion-agregar",
+	        data: f,
+	        cache:false,
+	        processData: false,
+	        contentType: false,
+	    }).done(function(data){
+	        pararSpinner(modalSpinner);	
+	        window.scrollTo(0, 0);
+	        $('#mensaje').html('');
+	        $('#mensaje').html("Actuación agregada con éxito");
+	        $("#alerta2").fadeIn(2000);
+			$("#alerta2").fadeOut(1000);
+			$('#movimiento-observacion').val('');
+			$('#fecha-vencimiento').val('');
+			$('#fecha-presentacion').val('');
+			$('#hora-presentacion').val('');
+			$('#file-es').fileinput('refresh');
+			$('#seccion3_dataTable').html('');
+			$('#seccion3_dataTable').html(data);
+			$(".type-error").html('');
+			$("#error-actuacion").removeClass("hidden");
+	    }).fail(function(jqXHR, textStatus){
+			pararSpinner(modalSpinner);	
+			window.scrollTo(0, 0);
+			$("#mensaje").html("Error al cargar la actuación");
+			$("#alerta2").removeClass("alert-success");
+			$("#alerta2").addClass("alert-danger");
+			$("#alerta2").fadeIn(5000);
+			$("#alerta2").fadeOut(1000);
+			$(".errorEach").fadeIn(5000);
+			$(".errorEach").fadeOut(1000);
+			
+		});
+	}else{
+		$(".type-error").html('');
+		$("#error-actuacion").removeClass("hidden");
+		var msg= "La fecha de presentación, hora y observación no pueden estar vacios."
+		$(".type-error").html(msg);
+		 return false;
 		
-	});
+	}
+}
+
+
+function createDataTableActuacion(){
+	$('#movimientoActuacionDT').dataTable(
+			{
+				"bScrollCollapse" : true,
+				"responsive" : true,
+				'language' : {
+					"sProcessing" : "Procesando...",
+					"sLengthMenu" : "Mostrar _MENU_ registros",
+					"sZeroRecords" : "No se encontraron resultados",
+					"sEmptyTable" : "No posee Actuaciones",
+					"sInfo" : "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+					"sInfoEmpty" : "Mostrando _MAX_ registros",
+					"sInfoFiltered" : " ",
+					"sInfoPostFix" : "",
+					"sSearch" : "Buscar:",
+					"sUrl" : "",
+					"sInfoThousands" : ",",
+					"sLoadingRecords" : "Cargando...",
+					"oPaginate" : {
+						"sFirst" : "Primero",
+						"sLast" : "Último",
+						"sNext" : "Siguiente",
+						"sPrevious" : "Anterior"
+					},
+					"oAria" : {
+						"sSortAscending" : ": Activar para ordenar la columna de manera ascendente",
+						"sSortDescending" : ": Activar para ordenar la columna de manera descendente"
+					}
+				}
+			});
+	
+	
 }
