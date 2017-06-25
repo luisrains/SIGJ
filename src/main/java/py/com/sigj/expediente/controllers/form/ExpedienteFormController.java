@@ -469,16 +469,37 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			@RequestParam(value = "despacho_buscar") String despacho,
 			@RequestParam(value = "abogado") String abogado,
 			@RequestParam(value = "nro_expediente") String nroExpediente) {
-			
+			List<Expediente> nRepetidos = new ArrayList<>();
 			List<Expediente> expediente = expedienteDao.filtro(nroExpediente,abogado,despacho,estado,anho);
-			String aux = "";
-			if(expediente == null || expediente.isEmpty()){
-				aux = "null";
-			}else{
-				aux = (expediente.get(0).getNroExpediente() == null)?"expediente_abogado":"expediente";
+			Long id_expediente = null;
+			if(expediente != null && !expediente.isEmpty()){ //control de repetidos
+				nRepetidos.add(expediente.get(0));
+				for (int i = 1; i < expediente.size(); i++) {
+					boolean band = true;
+					id_expediente = expediente.get(i).getId();
+					for (int j = 0; j < nRepetidos.size(); j++) {
+						if(id_expediente == nRepetidos.get(j).getId()){
+							logger.info("Encontro repetido");
+							band=false;
+							break;
+						}
+					}
+					if(band){ // si no encontro repetidos agrega en la lista
+						nRepetidos.add(expediente.get(i));
+						band = true;
+					}
+				}
 			}
 			
-			map.addAttribute("expedienteList",expediente);
+			
+			String aux = "";
+			if(nRepetidos == null || nRepetidos.isEmpty()){
+				aux = "null";
+			}else{
+				aux = (nRepetidos.get(0).getNroExpediente() == null)?"expediente_abogado":"expediente";
+			}
+			
+			map.addAttribute("expedienteList",nRepetidos);
 			map.addAttribute("aux", aux);
 		return "expediente/buscar_expediente :: expedienteList";
 	}

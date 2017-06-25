@@ -97,7 +97,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 		}
 		if(abogado != null && !abogado.equalsIgnoreCase("") && !abogado.equalsIgnoreCase("0")){
 			if(!band_exp){
-				sql = sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)";
+				 sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)";
 				band_abg = true;
 			}else{
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
@@ -133,24 +133,56 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 				band_abg = true;
 			}
 		}
+		
+		/*****Si viene año solo o con algo mas de arriba********/
 		if(anho != null && ! anho.equalsIgnoreCase("")){
-			if(!band_exp && !band_abg && !band_est){
+			if(!band_exp && !band_abg && !band_est){//solo año
 				sql =  "SELECT object(Expediente) FROM Expediente AS Expediente WHERE anho = ?5";
 				band_anho = true;
 			}
-			else if(!band_exp && !band_abg && band_est){
+			else if(!band_exp && !band_abg && band_est){//año y estado
 				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estado_id = ?4 AND anho = ?5";
 				band_anho = true;
 				band_est = true;
 			}
-			else if(!band_exp && band_abg && band_est){
+			
+			else if(band_exp && !band_abg && band_est){//año,estado y nro expediente
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estado_id = ?4 AND nroexpediente = ?1 AND anho = ?5";
+				band_anho = true;
+				band_est = true;
+				band_exp = true;
+			}
+			
+			else if(!band_exp && band_abg && band_est){//año,abogado y estado
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
 						+ " AND expediente_id=(SELECT id FROM Expediente WHERE anho = ?5 AND estado_id= ?4)";
 				band_abg = true;
 				band_anho = true;
 				band_est = true;
 			}
-			else if(band_exp && band_abg && band_est){
+			
+			else if(band_exp && band_abg && !band_est){ //año,nro expediente y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE anho = ?5 AND nroexpediente = ?1)";
+				band_abg = true;
+				band_anho = true;
+				band_exp = true;
+			}
+			
+			else if(!band_exp && band_abg && !band_est){//año y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE anho = ?5)";
+				band_abg = true;
+				band_anho = true;
+			}
+			
+			if(band_exp && !band_abg && !band_est){//año y nro expediente
+				sql =  "SELECT object(Expediente) FROM Expediente AS Expediente WHERE anho = ?5 AND nroexpediente = ?1";
+				band_anho = true;
+				band_exp = true;
+			}
+			
+			else if(band_exp && band_abg && band_est){ //vengan todos
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
 						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estado_id= ?4)";
 				band_abg = true;
@@ -159,30 +191,117 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 				band_exp = true;
 			}
 		}
+		
+		/*****si viene solo despacho o con los demas******/
 		if(despacho != null && !despacho.equalsIgnoreCase("") && !despacho.equalsIgnoreCase("0")){
-			if(!band_exp && !band_abg && !band_est && !band_anho){
+			if(!band_exp && !band_abg && !band_est && !band_anho){ //solo despacho
 				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3";
 				band_desp = true;
 			}
-			else if(!band_exp && !band_abg && !band_est && band_anho){
+			
+			else if(band_exp && !band_abg && !band_est && !band_anho){ // despacho y nro expediente
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND nroexpediente = ?1";
+				band_desp = true;
+				band_exp = true;
+			}
+			
+			else if(!band_exp && !band_abg && band_est && !band_anho){ // despacho y estado
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4";
+				band_desp = true;
+				band_est = true;
+			}
+			
+			else if(!band_exp && band_abg && !band_est && !band_anho){ // despacho y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3)";
+				band_desp = true;
+				band_abg = true;
+			}
+			
+			else if(band_exp && band_abg && !band_est && !band_anho){ // despacho nro expediente y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND nroexpediente = ?1)";
+				band_desp = true;
+				band_abg = true;
+				band_exp = true;
+			}
+			
+			else if(band_exp && !band_abg && band_est && !band_anho){ // despacho nro expediente y estado
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND nroexpediente = ?1 AND estado_id= ?4";
+				band_desp = true;
+				band_exp = true;
+				band_est = true;
+			}
+			else if(band_exp && !band_abg && !band_est && band_anho){ //despacho nro expediente y año
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND anho = ?5 AND nroexpediente = ?1";
+				band_desp = true;
+				band_anho = true;
+				band_exp = true;
+			}
+			
+			else if(!band_exp && band_abg && band_est && !band_anho){ // despacho estado y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4)";
+				band_desp = true;
+				band_abg = true;
+				band_est = true;
+			}
+			
+			else if(!band_exp && band_abg && !band_est && band_anho){ // despacho estado y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND anho = ?5)";
+				band_desp = true;
+				band_abg = true;
+				band_anho = true;
+			}
+			
+			else if(band_exp && band_abg && !band_est && band_anho){ // despacho nro expediente año y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND anho = ?5 AND nroexpediente= ?1)";
+				band_desp = true;
+				band_abg = true;
+				band_anho = true;
+				band_exp = true;
+			}
+			
+			else if(band_exp && band_abg && band_est && !band_anho){ // despacho nro expediente estado y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4 AND nroexpediente= ?1)";
+				band_desp = true;
+				band_abg = true;
+				band_est = true;
+				band_exp = true;
+			}
+			
+			else if(!band_exp && band_abg && band_est && band_anho){ // despacho año estado y abogado
+				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4 AND anho = ?5)";
+				band_desp = true;
+				band_abg = true;
+				band_est = true;
+				band_anho = true;
+			}
+			
+			
+			else if(!band_exp && !band_abg && !band_est && band_anho){//despacho y año
 				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND anho = ?5";
 				band_desp = true;
 				band_anho = true;
 			}
-			else if(!band_exp && !band_abg && band_est && band_anho){
+			else if(!band_exp && !band_abg && band_est && band_anho){//despacho estado y año
 				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND anho = ?5 AND estado_id= ?4";
 				band_est = true;
 				band_anho = true;
 				band_desp = true;
 			}
-			else if(band_exp && !band_abg && band_est && band_anho){
+			else if(band_exp && !band_abg && band_est && band_anho){ // despacho expediente estado y año
 				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente= ?1 AND despachoactual_id = ?3 AND anho = ?5 AND estado_id= ?4";
 				band_est = true;
 				band_exp = true;
 				band_desp = true;
 				band_anho = true;
 			}
-			else if(band_exp && band_abg && band_est && band_anho){
+			else if(band_exp && band_abg && band_est && band_anho){ //vienen todos
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
 						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estado_id= ?4 AND despachoactual_id = ?3)";
 				band_est = true;
