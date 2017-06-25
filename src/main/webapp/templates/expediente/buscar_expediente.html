@@ -103,8 +103,14 @@
 						</div>
 						
 						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
-						<label>Monto:</label>
-							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.monto} + ' '+ ${exp.expediente.moneda}" disabled />
+							<label>Despacho:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.despachoActual.descripcion}" disabled />
+						</div>
+						
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;" th:switch="${exp.expediente.moneda}">
+							<label>Monto:</label>
+							<input th:case="'GS'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.expediente.monto,3,'POINT')} + ' '+ ${exp.moneda}" disabled />
+							<input th:case="'USD'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.expediente.monto,3,'POINT',2,'COMMA')} + ' '+ ${exp.moneda}" disabled />
 						<!-- /.input group -->
 						
 						</div>
@@ -143,7 +149,7 @@
 						
 						</div>
 						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
-						<label>Fecha Sello:</label>
+							<label>Fecha Sello:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.fechaSelloCargo}" disabled />
 							
 						<!-- /.input group -->
@@ -151,8 +157,15 @@
 						</div>
 						
 						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
-						<label>Monto:</label>
-							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.monto} + ' '+ ${exp.moneda}" disabled />
+							<label>Despacho:</label>
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.despachoActual.descripcion}" disabled />
+						</div>
+						
+						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;" th:switch="${exp.moneda}">
+							<label>Monto:</label>
+							
+							<input th:case="'GS'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.monto,3,'POINT')} + ' '+ ${exp.moneda}" disabled />
+							<input th:case="'USD'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.monto,3,'POINT',2,'COMMA')} + ' '+ ${exp.moneda}" disabled />
 						<!-- /.input group -->
 						
 						</div>
