@@ -1,63 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="formulario">
 
-
 <body class="hold-transition skin-blue-light sidebar-mini ">
-
-
-
-	<div th:fragment="form">
-
-		<script type="text/javascript">
-function limpiarForm() {
-	$("#id").val("");
-	$("#descripcion").val("");
-	$("#modeloHoja").val("");
-
-}
-function nuevoRegistro() {
-	limpiarForm();
-	$("#botonNuevo").hide();
-	$("#descripcion").focus();
-}
-</script>
-		<h4 id="registrar-movil" class="page-header" th:text="#{tipoActuaciones.form.titulo2}"> Registrar Tipo de Actuaciones</h4>
-
-		<form th:action="@{/tipo_actuacion/accion}" th:object="${tipoActuacion}"
+	<div class="row form-class-modal"
+		style="margin-right: -404; padding-top: 15px; margin-right: 0px; margin-left: 0px;"
+		th:fragment="form">
+		<form th:action="@{/tipo_actuacion/accion2}" th:object="${tipoActuacion}"
 			method="post" role="form">
-
-			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{id}"/>
 			<div class="modal-movil hidden-xs col-sm-12">
-			<div class="form-group col-xs-12 col-sm-12">
-				<label for="descripcion" th:text="#{tipoActuacion.descripcion.lbl}"
-					class="field-label col-xs-7 col-sm-7">Descripcion:</label> <input type="text"
-					th:field="*{descripcion}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="abreviatura" th:text="#{tipo_actuacion.abreviatura.lbl}"
+						class="field-label col-xs-7 col-sm-7"></label> <input
+						type="text" th:field="*{abreviatura}" maxlength="60"
+						class="form-control col-xs-6 col-sm-6" autofocus="autofocus" />
+				</div>
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="descripcion" th:text="#{tipo_actuacion.descripcion.lbl}"
+						class="field-label col-xs-6 col-sm-7">Descripcion:</label> <input
+						type="text" th:field="*{descripcion}" maxlength="100"
+						class="form-control col-xs-6 col-sm-6" />
+				</div>
+				
+				<div class="form-group col-xs-12 col-sm-12">
+					<label for="plazo" th:text="#{tipo_actuacion.plazo.lbl}"
+						class="field-label col-xs-6 col-sm-7">Plazo:</label> <input
+						type="text" id="plazo" name="plazo" maxlength="100"
+						class="form-control col-xs-6 col-sm-6" />
+				</div>
+				
+				
 			</div>
-
-			<div class="form-group col-xs-12 col-sm-12">
-				<label for="descripcion" th:text="#{tipoActuacion.modeloHoja.lbl}"
-					class="field-label col-xs-7 col-sm-7">Modelo de la hoja de actuacion:</label> <input type="text"
-					th:field="*{modeloHoja}" maxlength="100" class="form-control col-xs-6 col-sm-6" />
-			</div>
-			<!--  HACER UN FOR EACH PARA MOSTRAR LOS MODELOS DE HOJA-->
-			<div class="form-group">
-                <label>
-                  <input type="checkbox" class="flat-red" checked>
-                </label>
-                <label>
-                  Flat green skin checkbox
-                </label>
-              </div>
-              </div>
-			
 			<!-- Inicio panel botones -->
-			<div th:replace="botones::footerModal">aqui van los botones</div>
+			<div th:replace="botones::footerModal"></div>
 		</form>
+		
 		<!-- Fin panel botones -->
-		<script type="text/javascript">
-
-		</script>
-
 	</div>
 </body>
 </html>

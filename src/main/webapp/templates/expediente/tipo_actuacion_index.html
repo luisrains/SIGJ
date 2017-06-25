@@ -2,93 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
 
 <body>
-
 	<div class="row" th:fragment="contenido">
-
 		<div class="col-xs-12">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
-					<h3>Listado de Tipo de Actuaciones</h3>
+					<h3>Listado de Tipos de Actuación</h3>
 				</div>
-				<div class="box-body">
-
-					<div class="col-md-12">
-						<div class="box box-solid">
-							<div class="box-header with-border">
-								<h3 class="box-title">Actuaciones</h3>
-							</div>
-							<!-- /.box-header -->
-							<div class="box-body">
-								<div class="box-group" id="accordion">
-									<!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-									<div class="panel box box-primary">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseOne" aria-expanded="false" class="collapsed">
-													Registre una nueva actuación </a>
-											</h4>
-										</div>
-										<div id="collapseOne" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<div class="box-body no-padding">
-												<br>
-												<button class="btn btn-success" id="botonAgregar"
-													onclick="agregar()">
-													<i class="glyphicon glyphicon-plus"></i> Nuevo Tipo de
-													Actuacion
-												</button>
-												<br>
-												<br>
-												<table class="table table-bordered table-striped col-xs-12 no-padding"
-													id="tipoActuacionDT">
-													<thead>
-														<tr>
-															<th th:each="col : ${columnas}"
-																th:text="#{'tipoActuacion.' + ${col} + '.header'}">Descripcion</th>
-															<th>Acción</th>
-
-														</tr>
-													</thead>
-												</table>
-												<script type="text/javascript">
-													$(document).ready(function() {
-														crearDataTable("tipoActuacionDT", "[[@{/tipo_actuacion/json}]]","[[${columnasStr}]]","[[@{/tipo_actuacion/edit/}]]");
-													});
-												</script>
-											</div>
-										</div>
-									</div>
-									<div class="panel box box-danger">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseTwo" class="collapsed" aria-expanded="false">
-													Registre un nuevo modelo de Hoja </a>
-											</h4>
-										</div>
-										<div id="collapseTwo" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<div class="box-body">
-												<div th:replace="expediente/modeloHoja_form::form">aqui
-														va un fragmento de codigo del form</div>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /.box-body -->
-						</div>
-						<!-- /.box -->
-					</div>
+				<div class="box-body" style="width: 99%; padding-left: 15px;">
+					<button class="btn btn-success" id="botonAgregar"
+						onclick="agregar('','r')">
+						<i class="glyphicon glyphicon-plus"></i> Nuevo Tipo de Actuación
+					</button>
+					<br>
+					<br>
+					<table
+						class="table table-bordered table-striped col-xs-12 no-padding"
+						id="tipoActuacionDT">
+						<thead>
+							<tr>
+								<th th:each="col : ${columnas}"
+									th:text="#{'tipo_actuacion.' + ${col} + '.header'}"></th>
+								<th>Accion</th>
+							</tr>
+						</thead>
+					</table>
+					<script type="text/javascript">
+					$(document).ready(
+							function() {
+								crearDataTable("tipoActuacionDT",
+										"[[@{/tipo_actuacion/json}]]",
+										"[[${columnasStr}]]",
+										"[[@{/tipo_actuacion/edit/}]]");
+							});
+					</script>
 				</div>
 				<!-- /.box-body -->
 			</div>
 			<!-- /.box -->
 		</div>
 
+		<div class="modal fade" id="borradoPopup" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form th:object="${tipoActuacion}" th:action="@{/tipo_actuacion/eliminar_listado}"
+				method="post" role="form" id="idTipoActuacion">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Borrado de
+								Registro</h4>
+						</div>
+						<div class="modal-body">
+							Está seguro que desea borrar registro de forma permanente? <input
+								type="hidden" for="id_objeto" id="id_objeto" name="id_objeto" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary" name="accion"
+								value="delete">Confirmar</button>
+						</div>
+
+					</div>
+					<!-- /.modal-content -->
+				</div>
+			</form>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- FIN Modal borrar -->
 		<!-- Modal borrar -->
+
 		<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -96,31 +80,88 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Nuevo
-							Registro</h4>
+						<h4 class="modal-title" id="myModalLabel">Nuevo Registro</h4>
 					</div>
 					<div class="modal-body">
-						<div th:replace="expediente/tipo_actuacion_form::form">aqui
-							va un fragmento de codigo del form</div>
+						<div th:replace="expediente/tipo_actuacion_form::form"></div>
 					</div>
-
 				</div>
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
 			<script type="text/javascript">
-				function agregar() {
-					$("#formModal").modal("show");
-					$(".modal-movil").removeClass("hidden-xs").addClass("col-xs-12");
+				function agregar(obj, accion) {
+
+					if (obj != '') {
+						var id = obj["id"];
+					}
+
+					if (accion === 'd') {
+						if (id !== null || id !== undefined || id !== "") {
+							$('#delete').removeClass('hidden');
+							$('#save').addClass('hidden');
+							$('#edit').addClass('hidden');
+							$('#id_objeto').val(obj["id"]);
+							$('#abreviatura').attr('disabled', false);
+							$('#plazo').attr('disabled', false);
+							$('#descripcion').attr('disabled', false);
+							$('#id').val('');
+							$('#descripcion').val('');
+							$('#abreviatura').val('');
+							$('#plazo').val('');
+							
+
+							$("#borradoPopup").modal("show");
+						}
+					} else if (accion === 'e') {
+						if (id !== null || id !== undefined || id !== "") {
+							$('#edit').removeClass('hidden');
+							$('#save').addClass('hidden');
+							$('#delete').addClass('hidden');
+							//habilitar todo
+							$('#abreviatura').attr('disabled', false);
+							$('#descripcion').attr('disabled', false);
+							$('#plazo').attr('disabled', false);
+							
+
+							$('#id').val(id);
+							$('#abreviatura').val(obj["abreviatura"]);
+							$('#descripcion').val(obj["descripcion"]);
+							$('#plazo').val(obj["plazo"]);
+							
+							$("#formModal").modal("show");
+						}
+					} else if (accion === 'r') {
+						$('#delete').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#save').removeClass('hidden');
+						$('#abreviatura').attr('disabled', false);
+						$('#descripcion').attr('disabled', false);
+						$('#plazo').attr('disabled', false);
+						$('#id').val('');
+						$('#descripcion').val('');
+						$('#abreviatura').val('');
+						$('#plazo').val('');
+						$("#formModal").modal("show");
+					} else if (accion === 'v') {
+						$('#delete').addClass('hidden');
+						$('#edit').addClass('hidden');
+						$('#save').addClass('hidden');
+						$('#id').val(id);
+						$('#abreviatura').val(obj["abreviatura"]);
+						$('#plazo').val(obj["plazo"]);
+						$('#descripcion').val(obj["descripcion"]);
+
+						$('#abreviatura').attr('disabled', true);
+						$('#plazo').attr('disabled', true);
+						$('#descripcion').attr('disabled', true);
+						$("#formModal").modal("show");
+					}
 				}
 			</script>
-
 		</div>
 		<!-- Modal borrar -->
-
-
 	</div>
-
-
 </body>
+
 </html>
