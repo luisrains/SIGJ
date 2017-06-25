@@ -529,7 +529,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "expediente/expediente_digital" ;
+		return "expediente/expediente_digital";
 		
 		
 	}
