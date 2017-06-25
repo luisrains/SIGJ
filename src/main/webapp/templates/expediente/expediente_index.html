@@ -73,7 +73,7 @@
 										<div class="input-group">
 									      <input type="text" id="buscar_parte_cliente" class="form-control">
 									      <span class="input-group-btn">
-									        <button class="btn btn-info" id="btn_buscar_parte" type="button" onclick="buscar_parte('C')">Buscar</button>
+									        <button class="btn btn-info" id="btn_buscar_parteC" type="button" onclick="buscar_parte('C')">Buscar</button>
 									      </span>
 									    </div>
 											
@@ -123,7 +123,7 @@
 											<div class="input-group">
 										      <input type="text" id="buscar_parte_abogado" class="form-control">
 										      <span class="input-group-btn">
-										        <button class="btn btn-info" id="btn_buscar_parte" type="button" onclick="buscar_parte('A')">Buscar</button>
+										        <button class="btn btn-info" id="btn_buscar_parteA" type="button" onclick="buscar_parte('A')">Buscar</button>
 										      </span>
 										    </div>
 											
@@ -263,7 +263,12 @@
 				    });
 				    var abogados = [];
 				    var clientes = [];
-				   
+				    $("#buscar_parte_cliente").enterKey(function () {
+				    	$('#btn_buscar_parteC').click();
+				    });
+				    $("#buscar_parte_abogado").enterKey(function () {
+				    	$('#btn_buscar_parteA').click();
+				    });
 				});
 			</script>
 

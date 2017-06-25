@@ -316,12 +316,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				docu.setTipoDocumento(tipoDoc);
 				documentoDao.create(docu);
 				docu.setDocumento(doc);
-				expedienteDoc.setDocumento(doc);
+				expedienteDoc.setDocumento(docu);
 				expedienteDoc.setTitulo(titulo);
 				expedienteDoc.setFechaPresentacion(fechaNow);
-				
 				expedienteDocumentoDao.create(expedienteDoc);
+				
 				map.addAttribute("msgExito", msg.get("Registro agregado"));
+				
 			}			
 			//logger.info("Se agregar un nuevo documento al expediente -> {}", expedienteDoc);
 		} catch (Exception ex) {
@@ -554,7 +555,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "expediente/expediente_digital" ;
+		return "expediente/expediente_digital";
 		
 		
 	}
