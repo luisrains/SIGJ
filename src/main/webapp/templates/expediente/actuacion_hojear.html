@@ -19,6 +19,12 @@
 				<div class="box-header">
 					<h3>Actuaciones</h3>
 				</div>
+				<div class="alert alert-success alert-dismissable alinear col-sm-5"
+						role="alert" id="alerta2" style="display: none;">
+						<button type="button" class="close" data-dismiss="alert">x</button>
+						<strong id="mensaje">Well
+							done!</strong>
+					</div>
 				<div class="box-body" style="width: 99%; padding-left: 15px;">
 					<div class="col-md-12">
 						<div class="box box-primary">
@@ -147,7 +153,6 @@
 										<script type="text/javascript"> 
 									        $(function() { 
 									          $(".selecciones").select2(); 
-									 			calcularFecha();
 									        }); 
 									  </script>
 	
@@ -274,7 +279,7 @@
 												<td th:text="${#dates.format(ma.fechaVencimiento, 'dd-MMM-yyyy / HH:mm')}"></td>
 												<td th:text="${ma.tipoActuacion.descripcion}"></td>
 												<td th:text="${ma.tipoActuacion.plazo + 'dias'}"></td>
-												<td> <a th:href="'data:image/jpeg;base64,'+ ${ma.renderDocumento}" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver"><i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i></a></td>
+												<td> <a  th:if="${ma.documento != null}" th:href="'data:image/jpeg;base64,'+ ${ma.renderDocumento}" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver"><i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i></a></td>
 											</tr>
 										</tbody>
 	
@@ -283,6 +288,7 @@
 										$(document)
 												.ready(
 														function() {
+												 			calcularFecha();
 															$(".nav-tabs a").click(function(){
 														        $(this).tab('show');
 														    });

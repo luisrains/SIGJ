@@ -20,7 +20,7 @@
             <td th:text="${ps.observacion}"></td>
             <td th:text="${ps.expediente.nroExpediente}"></td>
             <td style="padding-left:30px;">
-            	<a target="_blank" th:href="'data:image/jpeg;base64,'+ ${ps.renderDocumento}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
+            	<a th:if="${ps.documento != null}" target="_blank" th:href="'data:image/jpeg;base64,'+ ${ps.renderDocumento}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
             		<i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i>
             	</a>
             </td>

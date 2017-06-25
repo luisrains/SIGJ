@@ -91,8 +91,6 @@
                fecha_vencimiento : fecha_ven
            }
        }).done(function(data){
-           console.log("entro en el ajax");
-           console.log(data);
            $("#lista_actuacion").load();
            $("#lista_actuacion").html(data);
            if($("#error-vacio").val() == "si"){

@@ -76,7 +76,6 @@
            }
        }).done(function(data){
            console.log("entro en el ajax");
-           console.log(data);
            $("#planilla_body").load();
            $("#planilla_body").html(data);
            if($("#error-vacio").val() == "no"){
