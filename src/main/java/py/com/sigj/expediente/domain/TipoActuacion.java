@@ -36,7 +36,7 @@ public class TipoActuacion extends GenericEntity {
 
 	@NotNull(message = "tipo_actuacion.abreviatura.notNull")
 	@NotBlank(message = "tipo_actuacion.abreviatura.notBlank")
-	@Size(max = 10, message = "tipo_actuacion.abreviatura.size")
+	@Size(max = 5, message = "tipo_actuacion.abreviatura.size")
 	private String abreviatura;
 
 	//	@NotNull(message = "tipoActuacion.modeloHoja.notNull")

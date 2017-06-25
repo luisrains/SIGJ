@@ -2,16 +2,13 @@ package py.com.sigj.expediente.domain;
 
 import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -46,14 +43,18 @@ public class ExpedienteDocumento extends GenericEntity {
 	@Column(name="fecha_presentacion")
 	private Date fechaPresentacion;
 	
+//	@ManyToOne
+//	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipodocumento_fk"))
+//	private TipoDocumento tipoDocumento;
+	
 	@ManyToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_tipodocumento_fk"))
-	private TipoDocumento tipoDocumento;
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_documento_fk"))
+	private Documento documento;
 	
 
-	@Lob
-	@Basic(fetch = FetchType.LAZY, optional = true)
-	private byte[] documento;// documento
+//	@Lob
+//	@Basic(fetch = FetchType.LAZY, optional = true)
+//	private byte[] documento;// documento
 	
 	@NotNull(message = "expediente_documento.titulo.notNull")
 	@NotBlank(message = "expediente_documento.titulo.notBlank")
@@ -98,27 +99,43 @@ public class ExpedienteDocumento extends GenericEntity {
 		this.titulo = titulo;
 	}
 
-	public byte[] getDocumento() {
+	public Documento getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(byte[] documento) {
+	public void setDocumento(Documento documento) {
 		this.documento = documento;
-	}
-
-	public TipoDocumento getTipoDocumento() {
-		return tipoDocumento;
-	}
-
-	public void setTipoDocumento(TipoDocumento tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
 	}
 
 	@Override
 	public String toString() {
 		return "ExpedienteDocumento [id=" + id + ", expediente=" + expediente + ", fechaPresentacion="
-				+ fechaPresentacion + ", tipoDocumento=" + tipoDocumento + ", titulo=" + titulo + "]";
+				+ fechaPresentacion + ", documento=" + documento + ", titulo=" + titulo + "]";
 	}
+	
+	
+
+//	public byte[] getDocumento() {
+//		return documento;
+//	}
+//
+//	public void setDocumento(byte[] documento) {
+//		this.documento = documento;
+//	}
+//
+//	public TipoDocumento getTipoDocumento() {
+//		return tipoDocumento;
+//	}
+//
+//	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+//		this.tipoDocumento = tipoDocumento;
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "ExpedienteDocumento [id=" + id + ", expediente=" + expediente + ", fechaPresentacion="
+//				+ fechaPresentacion + ", tipoDocumento=" + tipoDocumento + ", titulo=" + titulo + "]";
+//	}
 
 		
 	

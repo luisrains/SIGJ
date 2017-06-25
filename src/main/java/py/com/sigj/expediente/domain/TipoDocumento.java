@@ -22,23 +22,23 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
-@Table(name = "tipo_documento",uniqueConstraints = { @UniqueConstraint(name = "documento_codigo_uk", columnNames = { "codigo" }) })
+@Table(name = "tipo_documento",uniqueConstraints = { @UniqueConstraint(name = "tipo_documento_codigo_uk", columnNames = { "codigo" }) })
 public class TipoDocumento extends GenericEntity {
-	private static final String SECUENCIA = "documento_id_seq";
+	private static final String SECUENCIA = "tipo_documento_id_seq";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)
 	@SequenceGenerator(name = SECUENCIA, sequenceName = SECUENCIA)
 	private Long id;
 
-	@NotNull(message = "documento.codigo.notNull")
-	@NotBlank(message = "documento.codigo.notBlank")
-	@Size(max = 5, message = "documento.codigo.size")
+	@NotNull(message = "tipo_documento.codigo.notNull")
+	@NotBlank(message = "tipo_documento.codigo.notBlank")
+	@Size(max = 5, message = "tipo_documento.codigo.size")
 	private String codigo;
 
-	@NotNull(message = "documento.descripcion.notNull")
-	@NotBlank(message = "documento.descripcion.notBlank")
-	@Size(max = 20, message = "documento.descripcion.size")
+	@NotNull(message = "tipo_documento.descripcion.notNull")
+	@NotBlank(message = "tipo_documento.descripcion.notBlank")
+	@Size(max = 20, message = "tipo_documento.descripcion.size")
 	private String descripcion;
 
 

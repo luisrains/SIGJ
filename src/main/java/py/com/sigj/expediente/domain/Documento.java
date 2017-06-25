@@ -1,7 +1,5 @@
 package py.com.sigj.expediente.domain;
 
-import java.util.Arrays;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -77,8 +75,7 @@ public class Documento extends GenericEntity {
 
 	@Override
 	public String toString() {
-		return "Documento [id=" + id + ", tipoDocumento=" + tipoDocumento + ", documento=" + Arrays.toString(documento)
-				+ "]";
+		return "Documento [id=" + id + ", tipoDocumento=" + tipoDocumento + "]";
 	}
 
 	
