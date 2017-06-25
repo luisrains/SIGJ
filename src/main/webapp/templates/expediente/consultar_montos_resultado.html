@@ -1,0 +1,69 @@
+
+<div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
+    <table id="expediente-table" class="table table-bordered table-hover table-striped display" style="border: 2px solid #ddd;">
+    <thead >
+    	<th class="hidden">Id</th>
+        <th class="th-pc">Empleado</th>
+        <th class="th-pc">Nº Expediente</th>
+        <th class="th-pc">Ingreso</th>
+        <th class="th-pc">Egreso</th>
+        <th class="th-pc">Observación</th>
+         <th class="th-pc">Fecha</th>
+        </thead>
+        <tbody id="table-body" style="border-collapse:separate;">
+       <!--  <tr><td th:text="${planilla_salario}"></td></tr>--> 
+        
+        <tr th:each="ps : ${expedienteList}" style="background-color:#ddd;">
+        	<td th:text="${ps.id}" class="hidden"></td>
+        	<td th:text="${ps.movimiento.empleado.persona.nombre_razonSocial + ' ' + ps.movimiento.empleado.persona.apellido}"></td>
+        	<td th:text="${ps.expediente.nroExpediente}"></td>
+        	<td th:switch="${ps.expediente.moneda}">
+        		<div th:case="'GS'" th:text="${#numbers.formatInteger(ps.movimiento.ingreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'USD'" th:text="${#numbers.formatInteger(ps.movimiento.ingreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
+        	</td>
+        	
+        	<td th:switch="${ps.expediente.moneda}">
+        		<div th:case="'GS'" th:text="${#numbers.formatInteger(ps.movimiento.egreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'USD'" th:text="${#numbers.formatInteger(ps.movimiento.egreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
+        	</td>
+        	<td th:text="${ps.movimiento.observacion}"></td>
+        	<td th:text="${#dates.format(ps.movimiento.fecha, 'dd-MM-yyyy')}"></td>
+        </tr>
+        </tbody>
+    </table>
+  
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#expediente-table').dataTable( {
+	        "bScrollCollapse": true,
+	        "responsive":true,
+	        'language' : {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "No existen Movimientos de ese Expediente",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando _MAX_ registros",
+                "sInfoFiltered": " ",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+	    } );
+	    
+	} );
+	 
+	</script>
+</div>

@@ -90,6 +90,13 @@
 			</div>
 			<!-- /.modal-dialog -->
 			<script type="text/javascript">
+				$("#form-tipo-actuacion").on("submit",function(){
+					if($("#plazo").val() === ""){
+						$("#plazo").val(0);
+						return;
+					}
+				});
+			
 				function agregar(obj, accion) {
 
 					if (obj != '') {

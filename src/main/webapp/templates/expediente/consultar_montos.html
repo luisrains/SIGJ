@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="starter">
+
+<body>
+
+	<div class="row" th:fragment="contenido">
+
+		<div class="col-xs-12 col-sm-12">
+			<div class="box box-solid box-primary">
+				<div class="box-header">
+					<h3>Consulta de Montos de Expedientes</h3>
+				</div>
+				<div class="box-body"></div>
+				    <div class="container">
+				    	<div class="row">
+					<div class="form-group col-md-6">
+						<label for="despacho"
+							class="field-label control-label">Nº de Expediente:</label> <select
+										name="expediente_buscar" id="expediente_buscar" for="expediente"
+										class="form-control expediente_buscar selecciones">
+										<option selected="selected" value="0">-Elegir una
+											opcion-</option>
+										<option th:each=" tip : ${expedienteList}" th:value="${tip.id}"
+											th:text="${tip.nroExpediente}">Civil</option>
+									</select>
+					</div>
+					
+					
+						
+						<script type="text/javascript">
+						        $(function () {
+						        	$(".selecciones").select2({
+										placeholder: "Seleccione un expediente...",
+										language: {
+											noResults:  function (params) {
+											      return "No existen registros.";
+										    }
+										}
+								});
+						             
+						        });
+       
+    					</script>
+				
+                    
+               
+					<!-- <div class="form-group col-md-6" style="padding-left:30px;margin-top:12px;width:30%;">
+                     	<button class="btn btn-info btn-lg" id="btn-buscar-actuacion" style="background-color:orange;" type="button">
+                    		 <i class="glyphicon glyphicon-search"><span style="padding-left:10px;">Buscar</span></i>  
+                 		</button> 
+                 	</div> -->
+					<div id="lista_expedientes" class="col-sm-12" style="margin-top:20px;"></div>
+					<script type="text/javascript">
+       				
+          
+       $("#expediente_buscar").on('change',function(e){
+           console.log("entro en el onclick");
+            var id_expediente = $("#expediente_buscar").val();
+            
+       $.ajax({
+           type: "GET",
+           url: "/sigj/expediente/consultar-montos-resultado",
+           data: { 
+              id_expediente:id_expediente
+           }
+       }).done(function(data){
+           $("#lista_expedientes").load();
+           $("#lista_expedientes").html(data);
+           
+       });
+       });
+      
+       </script>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		
+
+	</div>
+       
+
+</body>
+</html>

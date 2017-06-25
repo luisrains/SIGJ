@@ -59,6 +59,8 @@ import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.expediente.domain.TipoActuacion;
 import py.com.sigj.expediente.domain.TipoDocumento;
 import py.com.sigj.main.SesionUsuario;
+import py.com.sigj.rrhh.dao.MovimientoExpedienteDao;
+import py.com.sigj.rrhh.domain.MovimientoExpediente;
 import py.com.sigj.util.RenderingInfo;
 import py.com.sigj.util.WebUtils;
 
@@ -129,6 +131,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	@Autowired
 	private ExpedienteDocumentoDao expedienteDocumentoDao;
+	
+	@Autowired
+	private MovimientoExpedienteDao movimientoExpedienteDao;
 	
 	@Autowired
 	private SesionUsuario sesionUsuario;
@@ -730,6 +735,20 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		
 		map.addAttribute("actuacionList", nRepetidos);
 		return "expediente/buscar_actuacion_resultado";
+	}
+	
+	@RequestMapping(value = "consultar-montos", method = RequestMethod.GET)
+	public  String consultarMontos(HttpServletRequest request,ModelMap map){
+		map.addAttribute("expedienteList", expedienteDao.getListAll(null));
+		return "expediente/consultar_montos";
+	}
+	
+	@RequestMapping(value = "consultar-montos-resultado", method = RequestMethod.GET)
+	public  String consultarMontosResultado(HttpServletRequest request,ModelMap map,
+			@RequestParam(value = "id_expediente", required = true) String id_expediente) throws Exception{
+		List<MovimientoExpediente> me = movimientoExpedienteDao.findExpediente(Long.parseLong(id_expediente));
+		map.addAttribute("expedienteList", me);
+		return "expediente/consultar_montos_resultado";
 	}
 	
 }
