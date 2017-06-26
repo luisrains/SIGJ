@@ -332,13 +332,14 @@ function datos_caratula(){
 		$("#folio_caract").text($("#folio").val());
 		$("#expediente_caract").text(expediente);
 		$("#juzgado_caract").text(juzgado);
-		
+		return true;
 	}else{
 		$("#div-error-general").html('');
 		$(".error-general").html('');
 		$("#error-general").removeClass("hidden");
 		var msg= "Debe agregar todas las partes."
 			$(".error-general").html(msg);
+		return false;
 		
 	}
 	
@@ -346,43 +347,45 @@ function datos_caratula(){
 }
 
 function registrar_expediente(){
-	var rInfo = {};
-	rInfo.mapa = {};
-	rInfo.mapa.abogados = abogado;
-	rInfo.mapa.clientes = clientes;
-	var expediente = {};
-	//expediente.anho = $("#anho_caract").text();
-	expediente.anho = $("#anho").val();
-	expediente.juzgado= "2017";
-	expediente.caratula = "2017";
-	expediente.folio = 	$("#folio_caract").text();
-	expediente.juzgado = $("#juzgado_caract").text();
-	expediente.juez = $("#juez_caract").text();
-	expediente.secretaria = $("#secretaria_caract").val();
-	expediente.cargo = $("#cargo_caract").val();
-	expediente.caratula = $("#expediente_caract").text();
-	expediente.moneda = $("#moneda").val();
-	expediente.monto = $("#monto").val();
-	expediente.nroExpediente = $("#nro_caract").text();
-	expediente.fecha = $('input[name=fecha]').val();
-	expediente.estado = $('#estadoExterno').val();
-	expediente.nroLiquidacion = $("#nroLiquidacion").val();
-	expediente.despacho = $("#despacho").val();
-	rInfo.mapa.expediente =  expediente;
-	console.log(rInfo);
-	var mapaStr = JSON.stringify(rInfo);
-	$.ajax({
-		type:"GET",
-		url: "/sigj/expediente/save_listado2",
-		data: {
-			rd_expediente : mapaStr
-		}
-	}).done(function(json_data){
-		$("#expediente_section_2").html(json_data);
-		$("#section_1").addClass("hidden");
-		$("#expediente_section_2").removeClass("hidden");
-		$(".btn-atras").removeClass("hidden");
-	});
+	if(datos_caratula() == true){
+		var rInfo = {};
+		rInfo.mapa = {};
+		rInfo.mapa.abogados = abogado;
+		rInfo.mapa.clientes = clientes;
+		var expediente = {};
+		//expediente.anho = $("#anho_caract").text();
+		expediente.anho = $("#anho").val();
+		expediente.juzgado= "2017";
+		expediente.caratula = "2017";
+		expediente.folio = 	$("#folio_caract").text();
+		expediente.juzgado = $("#juzgado_caract").text();
+		expediente.juez = $("#juez_caract").text();
+		expediente.secretaria = $("#secretaria_caract").val();
+		expediente.cargo = $("#cargo_caract").val();
+		expediente.caratula = $("#expediente_caract").text();
+		expediente.moneda = $("#moneda").val();
+		expediente.monto = $("#monto").val();
+		expediente.nroExpediente = $("#nro_caract").text();
+		expediente.fecha = $('input[name=fecha]').val();
+		expediente.estado = $('#estadoExterno').val();
+		expediente.nroLiquidacion = $("#nroLiquidacion").val();
+		expediente.despacho = $("#despacho").val();
+		rInfo.mapa.expediente =  expediente;
+		console.log(rInfo);
+		var mapaStr = JSON.stringify(rInfo);
+		$.ajax({
+			type:"GET",
+			url: "/sigj/expediente/save_listado2",
+			data: {
+				rd_expediente : mapaStr
+			}
+		}).done(function(json_data){
+			$("#expediente_section_2").html(json_data);
+			$("#section_1").addClass("hidden");
+			$("#expediente_section_2").removeClass("hidden");
+			$(".btn-atras").removeClass("hidden");
+		});
+	}
 }
 function atras_expediente(){
 	$("#section_1").removeClass("hidden");
@@ -636,7 +639,7 @@ function actuacion_agregar(){ //verificar si llega bien
 			$('#seccion3_dataTable').html('');
 			$('#seccion3_dataTable').html(data);
 			$(".type-error").html('');
-			$("#error-actuacion").removeClass("hidden");
+			$("#error-actuacion").addClass("hidden");
 	    }).fail(function(jqXHR, textStatus){
 			pararSpinner(modalSpinner);	
 			window.scrollTo(0, 0);

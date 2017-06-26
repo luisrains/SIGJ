@@ -16,18 +16,18 @@
         <tr th:each="ps : ${expedienteList}" style="background-color:#ddd;">
         	<td th:text="${ps.id}" class="hidden"></td>
         	<td th:text="${ps.movimiento.empleado.persona.nombre_razonSocial + ' ' + ps.movimiento.empleado.persona.apellido}"></td>
-        	<td th:text="${ps.expediente.nroExpediente}"></td>
+        	<td th:text="${ps.expediente.caratula}"></td>
         	<td th:switch="${ps.expediente.moneda}">
         		<div th:case="'GS'" th:text="${#numbers.formatInteger(ps.movimiento.ingreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
-        		<div th:case="'USD'" th:text="${#numbers.formatInteger(ps.movimiento.ingreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'USD'" th:text="${#numbers.formatDecimal(ps.movimiento.ingreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
         	</td>
         	
         	<td th:switch="${ps.expediente.moneda}">
         		<div th:case="'GS'" th:text="${#numbers.formatInteger(ps.movimiento.egreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
-        		<div th:case="'USD'" th:text="${#numbers.formatInteger(ps.movimiento.egreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'USD'" th:text="${#numbers.formatDecimal(ps.movimiento.egreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
         	</td>
-        	<td th:text="${ps.movimiento.observacion}"></td>
-        	<td th:text="${#dates.format(ps.movimiento.fecha, 'dd-MM-yyyy')}"></td>
+        	<td th:text="${ps.movimiento.descripcion}"></td>
+        	<td th:text="${#dates.format(ps.movimiento.fecha, 'dd-MMM-yyyy')}"></td>
         </tr>
         </tbody>
     </table>
