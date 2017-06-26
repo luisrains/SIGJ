@@ -38,7 +38,7 @@ public class Expediente extends GenericEntity {
 
 	@NotNull(message = "expediente.caratula.notNull")
 	@NotBlank(message = "expediente.caratula.notBlank")
-	@Size(max = 100, message = "expediente.caratula.size")
+	@Size(max = 800, message = "expediente.caratula.size")
 	private String caratula;
 
 	@NotNull(message = "expediente.nroExpediente.notNull")

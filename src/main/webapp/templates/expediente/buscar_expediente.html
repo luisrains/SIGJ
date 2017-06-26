@@ -133,9 +133,15 @@
 						</th:block>
 						
 						<th:block th:if="${aux} == 'expediente'">
-						<div class="col-lg-12" style="margin-top: 5px;">
+						<div class="col-lg-6" style="margin-top: 5px;">
 							<button class="btn btn-success" th:onclick="'agregar_actuacion(\'' + ${exp.id} + '\');'"><i class="glyphicon glyphicon-plus"></i>Agregar Actuación</button>
 						</div>
+						<div class="col-lg-6" style="margin-top: 5px;">
+							<a th:href="@{/expediente/hojar-expediente/{id}(id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" ><!--th:onclick="'ver_expediente(\'' + ${ex.expediente.id} + '\');'"  -->
+								<i class="glyphicon glyphicon-plus"></i>Ver Expediente Digital
+							</button></a>
+						</div>
+						
 						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>N° Expediente:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.nroExpediente}" disabled />

@@ -37,12 +37,12 @@ public class Abogado extends GenericEntity {
 
 	@NotNull(message = "cliente.domicilioLaboral.notNull")
 	@NotBlank(message = "cliente.domicilioLaboral.notBlank")
-	@Size(max = 100, message = "cliente.domicilioLaboral.size")
+	@Size(max = 1000, message = "cliente.domicilioLaboral.size")
 	private String domicilioLaboral;
 
 	@NotNull(message = "cliente.domicilioActual.notNull")
 	@NotBlank(message = "cliente.domicilioActual.notBlank")
-	@Size(max = 100, message = "cliente.domicilioActual.size")
+	@Size(max = 1000, message = "cliente.domicilioActual.size")
 	private String domicilioActual;
 
 	@ManyToOne
