@@ -203,6 +203,15 @@
 			createFileInput('file-es');
 			$(".selecciones").select2();
 			$("#actuacion-table").DataTable();
+			$(".tipoDocumento").select2({
+				placeholder : "Seleccione el Tipo de Documento...",
+				language : {
+					noResults : function(params) {
+						return "No existen registros.";
+					}
+				}
+			});
+			
 			});
 			$('.fecha').datepicker({
 				autoclose : true,
