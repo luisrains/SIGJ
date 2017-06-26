@@ -100,22 +100,26 @@
 				<div class="form-group col-xs-12 col-sm-12">
 					<label for="fecha" th:text="#{persona.fechaNacimiento.lbl}"
 						class="field-label col-xs-7 col-sm-7">Fecha de Nacimiento:</label>
-					<div class="input-group date" style="width: 100%;">
+						
+						
+					<div class="input-group date" style="width: 50%;margin-bottom:10px;">
 						<div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						</div>
+						<input type="text" class="form-control pull-right"
+												name="fechaNacimiento" id="fechaNacimiento" >
 						<script type="text/javascript">
 							
 							$(function () {
 							    //Initialize Select2 Elements
-								 $('.fecha').datepicker({       
+								 $('#fechaNacimiento').datepicker({       
 					                 autoclose: true,
 					                 format: 'dd/mm/yyyy',
 					                 language: 'es', 
 							    });
 							});		
 							</script>
-			</div>
+				</div>
 
 				<div class="form-group hidden-xs col-sm-12">
 					<div class="box">
