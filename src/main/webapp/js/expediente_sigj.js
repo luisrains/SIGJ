@@ -541,28 +541,45 @@ function calcularFecha(){
 			$(".type-error").html(msg);
     		 return false;							            			
     	  }else{
-    	  	  var seleccion = $("#fecha-presentacion").val(); 
+    		  var seleccion = $("#fecha-presentacion").val(); 
     	  	  var actuacion = $("#tipo-actuacion").val();
     	  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
     	  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
-    	  	  	  $("#contenedor-ven").load(url, function(response, status, xhr) {
-	  				 if(status == "success"){
-	  					 var aux = $("input.fecha-venc2").val();
-	  					 if($("input.fecha-venc2").val() != undefined){
-    	  					if($("#fecha-vencimiento").val() != undefined && $("#fecha-vencimiento").val() != ""){
-    	  						$("#fecha-vencimiento").val("");
-    	  						$("#fecha-vencimiento").val(aux);
-    	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
-    	  					}else{
-    	  						$("#fecha-vencimiento").attr('value',aux);
-    	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
-    	  					}
-	  						
-	  					 }
-	  				return true;
-	  				 }			
-	  			  });  
-	  		  }
+    	  		$.ajax({
+    	  	        type: "GET",
+    	  	        url: url,
+    	  	    }).done(function(data){
+    	  	    	if(data != null && data.trim() !=""){
+    	  	    		$('#fecha-vencimiento').val('');
+    	  	    		$('#fecha-vencimiento').val(data.substring(data.indexOf('/')-2,data.indexOf('>')-1));
+    	  	    	}
+    				 return true;
+    	  	    }).fail(function(jqXHR, textStatus){
+    	  			console.log(textStatus)
+    	  		});
+     		  }
+//    	  	  var seleccion = $("#fecha-presentacion").val(); 
+//    	  	  var actuacion = $("#tipo-actuacion").val();
+//    	  	  if(seleccion != null && seleccion != undefined && seleccion != ""){
+//    	  		  var url = '/sigj/expediente/fecha-vencimiento?fecha='+seleccion+'&actuacion='+actuacion;
+//    	  	  	  $("#contenedor-ven").load(url, function(response, status, xhr) {
+//	  				 if(status == "success"){
+//	  					 var aux = $("input.fecha-venc2").val();
+//	  					 if($("input.fecha-venc2").val() != undefined){
+//    	  					if($("#fecha-vencimiento").val() != undefined && $("#fecha-vencimiento").val() != ""){
+//    	  						$("#fecha-vencimiento").val("");
+//    	  						$("#fecha-vencimiento").val(aux);
+//    	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+//    	  					}else{
+//    	  						$("#fecha-vencimiento").attr('value',aux);
+//    	  	  					$("#fecha-vencimiento").prop("disabled","disabled");
+//    	  					}
+//	  						
+//	  					 }
+//	  				return true;
+//	  				 }			
+//	  			  });  
+//	  		  }
     	   }	   
 	 });
 	

@@ -246,6 +246,9 @@
 							</table>
 							<script type="text/javascript">
 							 $(document).ready(function() {
+								 $(".nav-tabs a").click(function(){
+								        $(this).tab('show');
+								    });
 								 crearDataTable("expedienteDT", "[[@{/expediente/json}]]", "[[${columnasStr}]]", "[[@{/expediente/edit/}]]");
 								 $("button.eliminar_parte").on("click",function (event) {
 									    event.preventDefault();
