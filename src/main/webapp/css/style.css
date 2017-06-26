@@ -1,7 +1,14 @@
 /*!
  * Estilos propios del proyecto SIGJ
  */
- 
+ .btn-estilo{
+ 	background-color: white;
+ 	color:blue;
+ }
+ .btn-estilo:hover{
+ 	background-color:blue;
+ 	color:white;
+ }
  .select2-container .select2-search__field {
     width: 100%;
 }
