@@ -245,14 +245,19 @@
 						$('#formModal #save').addClass('hidden');
 						$('#formModal #delete').addClass('hidden');
 						$('#empleado_edit_div').addClass('hidden');
-						$('.egreso').attr('disabled', false);
-						$('.ingreso').attr('disabled', false);
+						$('#egreso').attr('disabled', false);
+						$('#ingreso').attr('disabled', false);
 						$('.descripcion').attr('disabled', false);
 						$('.fecha').attr('disabled', false);
 						$('.empleado').attr('disabled', true);
 						$('.id').val(obj["id"]);
-						$('#egreso').val(number_format(obj["egreso"],0));
-						$('#ingreso').val(number_format(obj["ingreso"],0));
+						if(obj["egreso"] != 0){
+							$('#egreso').prop("checked","checked");
+							$('#monto').val(number_format(obj["egreso"],0));
+						}else{
+							$('#ingreso').prop("checked","checked");
+							$('#monto').val(number_format(obj["ingreso"],0));
+						}
 						$('.descripcion').val(obj["descripcion"]);
 						$('.fecha').val(convertDateFormat(obj["fecha"]));
 						
@@ -268,8 +273,9 @@
 					$('#delete').addClass('hidden');
 					$('#edit').addClass('hidden');
 					$('#save').removeClass('hidden');
-					$('.egreso').attr('disabled', false);
-					$('.ingreso').attr('disabled', false);
+					$('#egreso').attr('disabled', false);
+					$('#ingreso').attr('disabled', false);
+					$('#monto').attr('disabled', false);
 					$('.descripcion').attr('disabled', false);
 					$('.fecha').attr('disabled', false);
 					

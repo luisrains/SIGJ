@@ -82,17 +82,15 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	public String accion2(ModelMap map, @Valid Movimiento obj,
 			BindingResult bindingResult,
 			@RequestParam(required = false) String accion,
-			@RequestParam(value="egreso_format",required = false) String egreso,
-			@RequestParam(value="ingreso_format",required = false) String ingreso,
 			@RequestParam(value="movimiento-expediente",required = false) String expediente_id,
-			@RequestParam(value="egreso",required = false) String egreso_edit,
-			@RequestParam(value="ingreso",required = false) String ingreso_edit,
+			@RequestParam(value="tipo",required = false) String tipo,
+			@RequestParam(value="monto",required = false) String monto,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult,ingreso,egreso,expediente_id);
+			return guardar_listado(map, obj, bindingResult,monto,tipo,expediente_id);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO MOVIMIENTO {}", obj);
-			return editar_listado(map, obj, bindingResult,ingreso_edit,egreso_edit,expediente_id);
+			return editar_listado(map, obj, bindingResult,monto,tipo,expediente_id);
 		} else if (id_objeto != null) {
 			return eliminar_listado(map, id_objeto);
 
@@ -148,7 +146,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@RequestMapping(value = "editar_listado", method = RequestMethod.POST)
 	public String editar_listado(ModelMap map,
 			@Valid Movimiento obj, 
-			BindingResult bindingResult,String ingreso,String egreso,String expediente_id) {
+			BindingResult bindingResult,String ingresoEgreso,String monto,String expediente_id) {
 		try {
 			
 			Empleado empleado = null;
@@ -159,15 +157,15 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				}
 
 			}
-			if(ingreso.equals("") || ingreso == ""){
-				ingreso = ingreso.replaceAll("\\.", "");
-				obj.setIngreso(Integer.valueOf(ingreso));
+			if(ingresoEgreso.equals("I")){
+				monto = monto.replaceAll("\\.", "");
+				obj.setIngreso(Integer.valueOf(monto));
 			}else{
 				obj.setIngreso(0);
 			}
-			if(egreso == "" || egreso.equals("")){
-				egreso = egreso.replaceAll("\\.", "");
-				obj.setEgreso(Integer.valueOf(egreso));
+			if(ingresoEgreso.equals("E")){
+				monto = monto.replaceAll("\\.", "");
+				obj.setEgreso(Integer.valueOf(monto));
 			}else{
 				obj.setEgreso(0);
 			}
