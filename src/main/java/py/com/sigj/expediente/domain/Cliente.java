@@ -1,16 +1,11 @@
 package py.com.sigj.expediente.domain;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -20,7 +15,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import py.com.sigj.gastos.domain.FacturaCabecera;
 import py.com.sigj.main.GenericEntity;
 
 /**
@@ -43,17 +37,17 @@ public class Cliente extends GenericEntity {
 
 	@NotNull(message = "cliente.domicilioLaboral.notNull")
 	@NotBlank(message = "cliente.domicilioLaboral.notBlank")
-	@Size(max = 100, message = "cliente.domicilioLaboral.size")
+	@Size(max = 1000, message = "cliente.domicilioLaboral.size")
 	private String domicilioLaboral;
 
 	@NotNull(message = "cliente.domicilioProcesal.notNull")
 	@NotBlank(message = "cliente.domicilioProcesal.notBlank")
-	@Size(max = 100, message = "cliente.domicilioProcesal.size")
+	@Size(max = 1000, message = "cliente.domicilioProcesal.size")
 	private String domicilioProcesal;
 
 	@NotNull(message = "cliente.domicilioActual.notNull")
 	@NotBlank(message = "cliente.domicilioActual.notBlank")
-	@Size(max = 100, message = "cliente.domicilioActual.size")
+	@Size(max = 1000, message = "cliente.domicilioActual.size")
 	private String domicilioActual;
 
 	// tabla dependencia , tabla que depende y fk

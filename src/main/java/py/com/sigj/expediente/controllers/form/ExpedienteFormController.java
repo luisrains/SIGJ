@@ -368,7 +368,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				map.addAttribute("expediente", expediente);
 				map.addAttribute("tipoActuacionList", tipoActuacionDao.getList(0, 100, null));
 				map.addAttribute("movimiento_actuacion",ma);
-				//logger.info(String.valueOf(tipoActuacionDao.getList(0, 100, null)));
+				agregarValoresAdicionales(map);
+
 			}else{
 				expediente= new Expediente();
 				ma = new ArrayList<>();
