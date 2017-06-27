@@ -552,6 +552,7 @@ function calcularFecha(){
     	  	    	if(data != null && data.trim() !=""){
     	  	    		$('#fecha-vencimiento').val('');
     	  	    		$('#fecha-vencimiento').val(data.substring(data.indexOf('/')-2,data.indexOf('>')-1));
+    	  	    		$('#fecha-vencimiento').prop("disabled", "disabled");
     	  	    	}
     				 return true;
     	  	    }).fail(function(jqXHR, textStatus){

@@ -1,5 +1,6 @@
 package py.com.sigj.rrhh.controllers.form;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -103,21 +104,22 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@RequestMapping(value = "save_listado", method = RequestMethod.POST)
 	public String guardar_listado(ModelMap map,
 			@Valid Movimiento obj,
-			BindingResult bindingResult,String ingreso,String egreso,String expediente_id) {
+			BindingResult bindingResult,@RequestParam(value="tipo",required = true) String ingresoEgreso,
+			@RequestParam(value="expediente_id",required = true) String expediente_id,
+			@RequestParam(value="monto",required = true) String monto) {
 		try {
+			String ingreso ="";
+			String egreso = "";
 			if (obj.getId() == null) {
-				if(ingreso.equals("") || ingreso == ""){
-					obj.setIngreso(0);
-				}else{
-					ingreso = ingreso.replaceAll("\\.", "");
+				if("I".equals(ingresoEgreso.toUpperCase())){
+					ingreso = monto.replaceAll("\\.", "");
 					obj.setIngreso(Integer.valueOf(ingreso));
-				}
-				if(egreso == "" || egreso.equals("")){
-					obj.setEgreso(0);
 				}else{
-					egreso = egreso.replaceAll("\\.", "");
+					egreso = monto.replaceAll("\\.", "");
 					obj.setEgreso(Integer.valueOf(egreso));
+					
 				}
+				
 				Long id_expediente = Long.parseLong(expediente_id);
 				getDao().create(obj);
 				if(id_expediente != 0){
@@ -208,6 +210,30 @@ public class MovimientoFormController extends FormController<Movimiento> {
 		agregarValoresAdicionales(map);
 		return getTemplatePath();
 
+	}
+	
+	
+	
+	@RequestMapping(value = "/buscar-movimiento", method = RequestMethod.POST)
+	public String buscar(HttpServletRequest request, ModelMap map, @RequestParam("id_expediente") Long id_expediente) {
+		
+		Persona persona = null;
+		try {
+			
+			
+		} catch (Exception ex) {
+
+			
+		}
+
+		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
+		agregarValoresAdicionales(map);
+		
+		
+		
+		
+		
+		return "expediente/buscar_expediente";
 	}
 
 }

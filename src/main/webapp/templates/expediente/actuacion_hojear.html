@@ -8,7 +8,7 @@
 			<ul class="nav nav-tabs">
 				<!-- Standard button -->
 				<li class="active"><a href="#menu1">Atuación</a></li>
-				<li ><a href="#menu3">Listado de Expedientes</a></li>
+				<li ><a href="#menu3">Listado de Actuaciones</a></li>
 			</ul>
 
 	<div  class="tab-content">
@@ -139,7 +139,27 @@
 									</div>
 									
 	
-									<div class="form-group col-sm-8 col-lg-7" style="padding-left: 15px;">
+									
+									<div class="form-group col-xs-6 col-sm-8 col-lg-7" style="width: 40%;">
+										<label for="proceso" th:text="#{expediente.tipoDocumento.lbl}"
+											class="field-label col-xs-6 col-sm-7">Tipo Documento:</label>
+											
+											<select class="form-control tipoDocumento"
+														id="tipo_documento" name="tipo_documento" >
+												<option value="0" selected>Seleccione el tipo de Documento</option>	
+												 <option th:each=" td : ${tipoDocumentoList}" th:value="${td.id}"
+												th:text="${td.descripcion}">Ejecutivo</option>
+										</select>
+											
+									</div>
+									<div class="form-group col-sm-6 col-lg-12" style="width: 62%; padding-left: 15px;">
+										<label>Observación:</label>
+										<textarea rows="7" cols="50" id="movimiento-observacion"
+											name="movimiento-observacion" required="false"
+											class="form-control"></textarea>
+									</div>
+									
+									<div class="form-group col-sm-8 col-lg-5" style="padding-left: 15px;">
 										<label>Fecha de Presentacion:</label>
 										<div class="input-group date" style="width: 30%;">
 											<div class="input-group-addon">
@@ -157,24 +177,6 @@
 									  </script>
 	
 										<!-- /.input group -->
-									</div>
-									<div class="form-group col-xs-6 col-sm-8 col-lg-7" style="width: 40%;">
-										<label for="proceso" th:text="#{expediente.tipoDocumento.lbl}"
-											class="field-label col-xs-6 col-sm-7">Tipo Documento:</label>
-											
-											<select class="form-control tipoDocumento"
-														id="tipo_documento" name="tipo_documento" >
-												<option value="0" selected>Seleccione el tipo de Documento</option>	
-												 <option th:each=" td : ${tipoDocumentoList}" th:value="${td.id}"
-												th:text="${td.descripcion}">Ejecutivo</option>
-										</select>
-											
-									</div>
-									<div class="form-group col-sm-6 col-lg-6" style="width: 40%; padding-left: 15px;">
-										<label>Observación:</label>
-										<textarea rows="7" cols="50" id="movimiento-observacion"
-											name="movimiento-observacion" required="false"
-											class="form-control"></textarea>
 									</div>
 									
 									<div class="form-group col-sm-8 col-lg-7" style="padding-left: 15px;">
@@ -206,7 +208,7 @@
 										<!-- /.input group -->
 									</div>
 									
-									<div class="form-group col-sm-8 col-lg-7" style="padding-left: 15px;">
+									<div class="form-group col-sm-8 col-lg-5" style="padding-left: 15px;">
 										<label>Fecha de Vencimiento:</label>
 										<div class="input-group date" style="width: 30%;">
 											<div class="input-group-addon">

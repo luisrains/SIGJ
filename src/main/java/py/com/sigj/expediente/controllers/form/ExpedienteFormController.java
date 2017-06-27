@@ -542,8 +542,11 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			MovimientoActuacion ac = null;
 			String id_exp = String.valueOf(id);
 			String base64String = "";
+			String base64String1 = "";
 			List<String> base64StringList = new ArrayList<String>();
+			List<String> base64StringList1 = new ArrayList<String>();
 			List<MovimientoActuacion> listExpDoc = expedienteDocumentoDao.getListByExpedienteActuacion(id_exp);
+			List<ExpedienteDocumento> listExpDoc1 = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
 			logger.info("listado ..{}",listExpDoc);
 				if(listExpDoc != null && !listExpDoc.isEmpty()){
 					for (MovimientoActuacion movimientoActuacion : listExpDoc) {
@@ -551,7 +554,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 						base64StringList.add(base64String);
 					}
 				}
+				
+				if(listExpDoc1 != null && !listExpDoc1.isEmpty()){
+					for (ExpedienteDocumento movimientoActuacion : listExpDoc1) {
+						base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento().getDocumento());
+						base64StringList.add(base64String);
+					}
+				}
+				
 				map.addAttribute("actuacionList",base64StringList);
+				map.addAttribute("documentoList",base64StringList1);
 				//logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
 		} catch (Exception e) {
 			// TODO: handle exception

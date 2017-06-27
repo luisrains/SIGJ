@@ -39,7 +39,6 @@ public class Movimiento extends GenericEntity {
 	private String descripcion;
 
 	@ManyToOne
-	@NotNull(message = "movimiento.empleado.notNull")
 	@JoinColumn(foreignKey = @ForeignKey(name = "movimiento_empleado_fk"))
 	private Empleado empleado;
 
