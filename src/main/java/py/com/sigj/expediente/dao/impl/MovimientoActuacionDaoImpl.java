@@ -25,7 +25,7 @@ public class MovimientoActuacionDaoImpl extends DaoImpl<MovimientoActuacion> imp
 	@Override
 	@Transactional
 	public List<MovimientoActuacion> getListActuacionByExpediente(Long id_expediente) {
-		logger.info("Obteniendo actuacion del expediente: {}", id_expediente);
+
 		List<MovimientoActuacion> actu = null;
 		String sql = "SELECT object(MovimientoActuacion) FROM MovimientoActuacion AS MovimientoActuacion WHERE expediente_id = ?1 ORDER BY fecha_presentacion DESC";
 		Query query = null;

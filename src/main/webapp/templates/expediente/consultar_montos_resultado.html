@@ -3,21 +3,28 @@
     <div class="col-sm-12">
 							<div class="col-sm-12">
 								<label>Total Ingreso:</label>
-								<input id="total_ingreso" name="total_ingreso" disabled th:value="${#numbers.formatInteger(total_ingreso,3,'POINT')} + ' '+ 'GS'" style="margin-left:42px;"/>
-								<a  th:if="${total_ingreso != null and total_ingreso != 0}" th:href="/sigj/consultar-montos/" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle">Ver Detalle</a>
+								<input th:if="${total_ingreso <= 0}" id="total_ingreso" name="total_ingreso" disabled   th:value="${total_ingreso} + ' GS.'" 
+								style="margin-left:42px;"/>
+								<input th:if="${total_ingreso > 0}" th:value="${#numbers.formatInteger(total_ingreso,3,'POINT')} + ' '+ 'GS.'" id="total_ingreso" name="total_ingreso" disabled
+								style="margin-left:42px;"/>
+								
+								<a  th:if="${total_ingreso != null and total_ingreso != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/I'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
+								style="padding-left: 10px;">Ver Detalle</a>
 								
 							</div>
 							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total Egreso:</label>
 								<input id="total_egreso" name="total_egreso" disabled th:value="${#numbers.formatInteger(total_egreso,3,'POINT')} + ' '+ 'GS'" style="margin-left:47px;"/>
-								<a  th:if="${total_egreso != null and total_egreso != 0}" th:href="/sigj/consultar-montos/" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle">Ver Detalle</a>
+								<a  th:if="${total_egreso != null and total_egreso != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/E'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
+								style="padding-left: 10px;">Ver Detalle</a>
 								
 							</div>
 							
 							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total de Facturación:</label>
 								<input id="total_factura" name="total_factura" disabled th:if="${total_factura !=null and total_factura != 0}" th:value="${#numbers.formatInteger(total_factura,3,'POINT')} + ' '+ 'GS'"/>
-								<a  th:if="${total_factura != null and total_factura != 0}" th:href="/sigj/consultar-montos/" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle">Ver Detalle</a>
+								<a  th:if="${total_factura != null and total_factura != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
+								style="padding-left: 10px;">Ver Detalle</a>
 							</div>
 	</div>
     
@@ -39,13 +46,16 @@
         	<td th:text="${ps.movimiento.empleado.persona.nombre_razonSocial + ' ' + ps.movimiento.empleado.persona.apellido}"></td>
         	<td th:text="${ps.expediente.caratula}"></td>
         	<td th:switch="${ps.expediente.moneda}">
-        		<div th:case="'GS'" th:text="${#numbers.formatInteger(ps.movimiento.ingreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'GS'"  th:if="${ps.movimiento.ingreso != 0}" th:text="${#numbers.formatInteger(ps.movimiento.ingreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'GS'"  th:if="${ps.movimiento.ingreso <= 0}" th:text="${ps.movimiento.ingreso} + ' '+ ${ps.expediente.moneda}"></div>
         		<div th:case="'USD'" th:text="${#numbers.formatDecimal(ps.movimiento.ingreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
         	</td>
         	
         	<td th:switch="${ps.expediente.moneda}">
-        		<div th:case="'GS'" th:text="${#numbers.formatInteger(ps.movimiento.egreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
-        		<div th:case="'USD'" th:text="${#numbers.formatDecimal(ps.movimiento.egreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'GS'" th:if="${ps.movimiento.egreso != 0}" th:text="${#numbers.formatInteger(ps.movimiento.egreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'GS'" th:if="${ps.movimiento.egreso == 0}" th:text="${ps.movimiento.egreso} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'USD'" th:if="${ps.movimiento.egreso != 0}"  th:text="${#numbers.formatDecimal(ps.movimiento.egreso,3,'POINT',2,'COMMA')} + ' '+ ${ps.expediente.moneda}"></div>
+        		<div th:case="'USD'" th:if="${ps.movimiento.egreso == 0}"  th:text="${ps.movimiento.egreso} + ' '+ ${ps.expediente.moneda}"></div>
         	</td>
         	<td th:text="${ps.movimiento.descripcion}"></td>
         	<td th:text="${#dates.format(ps.movimiento.fecha, 'dd-MMM-yyyy')}"></td>

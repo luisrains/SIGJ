@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -219,9 +220,9 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	
 	
 	
-	@RequestMapping(value = "/buscar-movimiento", method = RequestMethod.POST)
-	public String buscar(HttpServletRequest request, ModelMap map, @RequestParam("id_expediente") Long id_expediente, 
-			@RequestParam("tipo") String tipo) {
+	@RequestMapping(value = "buscar-movimiento/{id_expediente}/{tipo}", method = RequestMethod.GET)
+	public String buscar(HttpServletRequest request, ModelMap map, @PathVariable("id_expediente") Long id_expediente, 
+			@PathVariable("tipo") String tipo) {
 		List<Movimiento> mov = new ArrayList<>();
 		List<MovimientoExpediente> me = null;
 		try {
@@ -239,11 +240,9 @@ public class MovimientoFormController extends FormController<Movimiento> {
 
 			
 		}
-
-		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
 		
-		return "expediente/buscar_expediente";
+		return "rrhh/listado_ingreso_egreso_factura_index";
 	}
 
 }

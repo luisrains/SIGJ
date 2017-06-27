@@ -782,6 +782,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("total_egreso", egreso);
 		map.addAttribute("total_factura", factura);
 		map.addAttribute("expedienteList", me);
+		map.addAttribute("expediente_id", id_expediente);
 		return "expediente/consultar_montos_resultado";
 	}
 	
