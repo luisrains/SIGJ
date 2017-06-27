@@ -3,18 +3,18 @@
     <div class="col-sm-12">
 							<div class="col-sm-12">
 								<label>Total Ingreso:</label>
-								<input id="total_ingreso" name="total_ingreso" th:value="${total_ingreso}"/>
+								<input id="total_ingreso" name="total_ingreso" disabled th:value="${#numbers.formatInteger(total_ingreso,3,'POINT')} + ' '+ 'GS'" style="margin-left:42px;"/>
 								
 							</div>
-							<div class="col-sm-12">
+							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total Egreso:</label>
-								<input id="total_egreso" name="total_egreso" th:value="${total_egreso}"/>
+								<input id="total_egreso" name="total_egreso" disabled th:value="${#numbers.formatInteger(total_egreso,3,'POINT')} + ' '+ 'GS'" style="margin-left:47px;"/>
 								
 							</div>
 							
-							<div class="col-sm-12">
+							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total de Facturación:</label>
-								<input id="total_factura" name="total_factura" th:value="${total_factura}"/>
+								<input id="total_factura" name="total_factura" disabled th:value="${#numbers.formatInteger(total_factura,3,'POINT')} + ' '+ 'GS'"/>
 								
 							</div>
 	</div>
