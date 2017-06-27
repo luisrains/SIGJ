@@ -771,8 +771,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		int egreso = 0;
 		int factura = 0;
 		for (MovimientoExpediente movimientoExpediente : me) {
-			ingreso =+ movimientoExpediente.getMovimiento().getIngreso();
-			egreso =+ movimientoExpediente.getMovimiento().getEgreso();
+			ingreso += movimientoExpediente.getMovimiento().getIngreso();
+			egreso += movimientoExpediente.getMovimiento().getEgreso();
 		}
 		
 		for (ExpedienteFactura expedienteFactura : ef) {
