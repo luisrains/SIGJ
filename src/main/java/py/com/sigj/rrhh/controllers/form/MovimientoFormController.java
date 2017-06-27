@@ -1,5 +1,8 @@
 package py.com.sigj.rrhh.controllers.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -215,11 +218,20 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	
 	
 	@RequestMapping(value = "/buscar-movimiento", method = RequestMethod.POST)
-	public String buscar(HttpServletRequest request, ModelMap map, @RequestParam("id_expediente") Long id_expediente) {
-		
-		Persona persona = null;
+	public String buscar(HttpServletRequest request, ModelMap map, @RequestParam("id_expediente") Long id_expediente, 
+			@RequestParam("tipo") String tipo) {
+		List<Movimiento> mov = new ArrayList<>();
+		List<MovimientoExpediente> me = null;
 		try {
-			
+			me = movimientoDao.getLitMovimientoExpediente(id_expediente);
+			map.addAttribute("movimiento_expediente", me);
+			if("I".equals(tipo.toUpperCase())){
+				map.addAttribute("isIngreso",true);
+				map.addAttribute("isEgreso",false);
+			}else{
+				map.addAttribute("isIngreso",false);
+				map.addAttribute("isEgreso",true);
+			}
 			
 		} catch (Exception ex) {
 
