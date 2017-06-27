@@ -42,6 +42,7 @@ import py.com.sigj.expediente.dao.ExpedienteAbogadoDao;
 import py.com.sigj.expediente.dao.ExpedienteClienteDao;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.ExpedienteDocumentoDao;
+import py.com.sigj.expediente.dao.ExpedienteFacturaDao;
 import py.com.sigj.expediente.dao.MateriaDao;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.dao.ProcesoDao;
@@ -55,6 +56,7 @@ import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
 import py.com.sigj.expediente.domain.ExpedienteCliente;
 import py.com.sigj.expediente.domain.ExpedienteDocumento;
+import py.com.sigj.expediente.domain.ExpedienteFactura;
 import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.expediente.domain.TipoActuacion;
 import py.com.sigj.expediente.domain.TipoDocumento;
@@ -71,6 +73,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 	@Autowired
 	private ExpedienteDao expedienteDao;
+	
+	@Autowired
+	private ExpedienteFacturaDao expedienteFacturaDao;
 
 	@Autowired
 	private ExpedienteAbogadoDao expedienteAbogadoDao;
@@ -761,6 +766,21 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public  String consultarMontosResultado(HttpServletRequest request,ModelMap map,
 			@RequestParam(value = "id_expediente", required = true) String id_expediente) throws Exception{
 		List<MovimientoExpediente> me = movimientoExpedienteDao.findExpediente(Long.parseLong(id_expediente));
+		List<ExpedienteFactura> ef = expedienteFacturaDao.findFactura(Long.parseLong(id_expediente));
+		int ingreso = 0;
+		int egreso = 0;
+		int factura = 0;
+		for (MovimientoExpediente movimientoExpediente : me) {
+			ingreso =+ movimientoExpediente.getMovimiento().getIngreso();
+			egreso =+ movimientoExpediente.getMovimiento().getEgreso();
+		}
+		
+		for (ExpedienteFactura expedienteFactura : ef) {
+			factura =+ expedienteFactura.getFactura().getMontoTotal();
+		}
+		map.addAttribute("total_ingreso", ingreso);
+		map.addAttribute("total_egreso", egreso);
+		map.addAttribute("total_factura", factura);
 		map.addAttribute("expedienteList", me);
 		return "expediente/consultar_montos_resultado";
 	}

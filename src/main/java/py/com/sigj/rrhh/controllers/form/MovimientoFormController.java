@@ -90,7 +90,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 			@RequestParam(value="monto",required = false) String monto,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult,monto,tipo,expediente_id);
+			return guardar_listado(map, obj, bindingResult,tipo,expediente_id,monto);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO MOVIMIENTO {}", obj);
 			return editar_listado(map, obj, bindingResult,monto,tipo,expediente_id);
@@ -122,6 +122,10 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				}
 				
 				Long id_expediente = Long.parseLong(expediente_id);
+				if(obj.getEmpleado().getId()==null){ // para el empleado generico 
+					Empleado e = empleadoDao.find((long)10);
+					obj.setEmpleado(e);
+				}
 				getDao().create(obj);
 				if(id_expediente != 0){
 					Expediente ex = expedienteDao.find(id_expediente);
@@ -238,10 +242,6 @@ public class MovimientoFormController extends FormController<Movimiento> {
 
 		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
-		
-		
-		
-		
 		
 		return "expediente/buscar_expediente";
 	}
