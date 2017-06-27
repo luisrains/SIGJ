@@ -8,7 +8,7 @@
         <th class="th-pc">Apellido</th>
         <th class="th-pc">Salario Base</th>
         <th class="th-pc">Ingreso Total</th>
-        <th class="th-pc">Egreso Total</th>
+        <th class="th-pc hidden">Egreso Total</th>
         <th class="th-pc">Observación</th>
         <th class="th-pc">Salario Neto</th>
         </thead>
@@ -23,7 +23,7 @@
             <td th:text="${ps.empleado.persona.apellido}" class="td-body-movil"></td>
             <td th:text="${ps.empleado.salario}" class="td-body-movil"></td>
             <td th:text="${ps.ingresoTotal}" class="td-body-movil"></td>
-            <td th:text="${ps.egresoTotal}" class="td-body-movil"></td>
+            <td th:text="${ps.egresoTotal}" class="td-body-movil hidden"></td>
             <td th:text="${ps.observacion}" class="td-body-movil"></td>
             <td th:text="${ps.montoCobro}" class="td-body-movil"></td>
         </tr>

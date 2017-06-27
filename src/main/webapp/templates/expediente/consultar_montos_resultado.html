@@ -1,5 +1,24 @@
 
 <div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
+    <div class="col-sm-12">
+							<div class="col-sm-12">
+								<label>Total Ingreso:</label>
+								<input id="total_ingreso" name="total_ingreso" th:value="${total_ingreso}"/>
+								
+							</div>
+							<div class="col-sm-12">
+								<label>Total Egreso:</label>
+								<input id="total_egreso" name="total_egreso" th:value="${total_egreso}"/>
+								
+							</div>
+							
+							<div class="col-sm-12">
+								<label>Total de Facturación:</label>
+								<input id="total_factura" name="total_factura" th:value="${total_factura}"/>
+								
+							</div>
+	</div>
+    
     <table id="expediente-table" class="table table-bordered table-hover table-striped display" style="border: 2px solid #ddd;">
     <thead >
     	<th class="hidden">Id</th>
