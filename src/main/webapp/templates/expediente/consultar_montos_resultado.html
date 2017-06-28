@@ -25,9 +25,10 @@
 							
 							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total de Facturación:</label>
+
 								<input id="total_factura" name="total_factura" class="estilo-input" disabled th:if="${total_factura !=null and total_factura != 0}" th:value="${#numbers.formatInteger(total_factura,3,'POINT')} + ' '+ 'GS.'"/>
-								<a  th:if="${total_factura != null and total_factura != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
-								style="padding-left: 10px;">Ver Detalle</a>
+								<a  th:if="${total_factura != null and total_factura != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/F'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
+								 style="padding-left: 10px;">Ver Detalle</a>
 							</div>
 	</div>
     
