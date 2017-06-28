@@ -3,7 +3,7 @@
 
 <body>
 	<div class="row" th:fragment="contenido">
-		<div class="col-xs-12" th:if="${not #lists.isEmpty(expediente)}">
+		<div class="col-xs-12" th:if="${not #lists.isEmpty(ultimosDiezExpediente) and not #lists.isEmpty(expedienteSinVencer)}">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
 					<h3>Expedientes con últimos movimientos</h3>

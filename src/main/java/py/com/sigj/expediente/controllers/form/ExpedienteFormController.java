@@ -237,7 +237,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				// validar el despacho
 				Long id_desp = Long.parseLong((String) rdExpediente.get("despacho"));
 				Long id_estado_interno = Long.parseLong((String) rdExpediente.get("estadoInterno"));
-				Long id_estado_externo = Long.parseLong((String) rdExpediente.get("estadoexterno"));
+				Long id_estado_externo = Long.parseLong((String) rdExpediente.get("estadoExterno"));
 				obj.setEstadoInterno(estadoDao.find(id_estado_interno));
 				obj.setEstadoExterno(estadoDao.find(id_estado_externo));
 				obj.setDespachoActual(despachoDao.find(id_desp));
@@ -297,7 +297,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			@RequestParam(value = "expediente") String id_exp,
 			@RequestParam(value = "titulo") String titulo,
 			@RequestParam(value = "tipo_documento") String tipo_documento,
-			@RequestParam("documento") MultipartFile documento) {
+			@RequestParam(value="documento",required=false) MultipartFile documento) {
 		HttpSession sesion = request.getSession();
 		
 		Expediente exp = null;
@@ -339,7 +339,25 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		return "expediente/expediente_section3";
 
 	}
-
+	
+	
+	@RequestMapping(value = "agregar-varios", method = RequestMethod.GET)
+	public String setDocumento(HttpServletRequest request, ModelMap map,
+			@RequestParam(value = "expediente") String id_exp) {
+		HttpSession sesion = request.getSession();
+		
+		Expediente obj = expedienteDao.find(Long.parseLong(id_exp));
+		
+		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
+		List<ExpedienteCliente> clienteList = new ArrayList<>();
+		
+		sesion.setAttribute("expediente", obj);
+		sesion.setAttribute("clienteList",clienteList);
+		sesion.setAttribute("abogadoList",abogadoList );
+		agregarValoresAdicionales(map);
+		return "expediente/expediente_section3";
+	}
+	
 	
 	
 	@RequestMapping(value = "ver-documento", method = RequestMethod.GET)
@@ -555,26 +573,28 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			MultipartFile doc = null;
 			MovimientoActuacion ac = null;
 			String id_exp = String.valueOf(id);
-			String base64String = "";
-			String base64String1 = "";
+			String base64StringActuaciones = "";
+			String base64StringDocumento = "";
 			List<String> base64StringList = new ArrayList<String>();
 			List<String> base64StringList1 = new ArrayList<String>();
-			List<MovimientoActuacion> listExpDoc = expedienteDocumentoDao.getListByExpedienteActuacion(id_exp);
-			List<ExpedienteDocumento> listExpDoc1 = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
-			logger.info("listado ..{}",listExpDoc);
-				if(listExpDoc != null && !listExpDoc.isEmpty()){
-					for (MovimientoActuacion movimientoActuacion : listExpDoc) {
-						base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
-						base64StringList.add(base64String);
+			List<MovimientoActuacion> listExpDocActuaciones = expedienteDocumentoDao.getListByExpedienteActuacion(id_exp);
+			List<ExpedienteDocumento> listExpDocumento = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
+			
+			if(listExpDocumento != null && !listExpDocumento.isEmpty()){
+				for (ExpedienteDocumento movimientoActuacion : listExpDocumento) {
+					base64StringDocumento = 	Base64.encodeBytes(movimientoActuacion.getDocumento().getDocumento());
+					base64StringList.add(base64StringDocumento);
+				}
+			}
+			
+				if(listExpDocActuaciones != null && !listExpDocActuaciones.isEmpty()){
+					for (MovimientoActuacion movimientoActuacion : listExpDocActuaciones) {
+						base64StringActuaciones = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
+						base64StringList.add(base64StringActuaciones);
 					}
 				}
 				
-				if(listExpDoc1 != null && !listExpDoc1.isEmpty()){
-					for (ExpedienteDocumento movimientoActuacion : listExpDoc1) {
-						base64String = 	Base64.encodeBytes(movimientoActuacion.getDocumento().getDocumento());
-						base64StringList.add(base64String);
-					}
-				}
+				
 				
 				map.addAttribute("actuacionList",base64StringList);
 				map.addAttribute("documentoList",base64StringList1);
