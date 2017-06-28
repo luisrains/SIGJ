@@ -119,7 +119,11 @@
 						</div>
 						<!-- ./Box-primary -->
 							<div class="box box-success form-group col-sm-12">
-						
+							<div class="col-xs-12 col-sm-12" style="float:right;">
+									<a th:href="@{/expediente/agregar-varios(expediente=${expediente.id})}" target='_blank'><button class="btn btn-success">
+											<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+									</button></a>
+							</div>
 							<form method="post"  th:action="@{/expediente/actuacion-agregar}"
 									enctype="multipart/form-data"
 									role="form" id="form-movimiento">
@@ -138,20 +142,6 @@
 										</select>
 									</div>
 									
-	
-									
-									<div class="form-group col-xs-6 col-sm-8 col-lg-7" style="width: 40%;">
-										<label for="proceso" th:text="#{expediente.tipoDocumento.lbl}"
-											class="field-label col-xs-6 col-sm-7">Tipo Documento:</label>
-											
-											<select class="form-control tipoDocumento"
-														id="tipo_documento" name="tipo_documento" >
-												<option value="0" selected>Seleccione el tipo de Documento</option>	
-												 <option th:each=" td : ${tipoDocumentoList}" th:value="${td.id}"
-												th:text="${td.descripcion}">Ejecutivo</option>
-										</select>
-											
-									</div>
 									<div class="form-group col-sm-6 col-lg-12" style="width: 62%; padding-left: 15px;">
 										<label>Observación:</label>
 										<textarea rows="7" cols="50" id="movimiento-observacion"
@@ -252,6 +242,7 @@
 										</button>
 									</div>
 								</form>
+								
 							</div>
 								<!-- /.box-header -->
 					</div>

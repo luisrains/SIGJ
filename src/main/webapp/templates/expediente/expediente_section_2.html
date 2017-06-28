@@ -122,6 +122,11 @@
 	<!-- Inicio panel botones -->
 
 </div>
+<div class="col-xs-12 col-sm-12" style="float:right;">
+				<a th:href="@{/expediente/ver-documento(expediente=${expediente.id})}" target='_blank'><button class="btn btn-success">
+						<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+				</button></a>
+			</div>
 <form method="post"  th:action="@{/expediente/documento}"
 	enctype="multipart/form-data"
 	role="form" id="form-documento">
@@ -148,6 +153,7 @@
 					</select>
 						
 				</div>
+			
 		</div>
 		<input type="hidden" name="expediente" id="expediente"
 			for="expediente" th:value="${expediente.id}" />
@@ -170,6 +176,7 @@
 
 </form>
 
+
 <!-- Fin panel botones -->
 <script type="text/javascript">
 		$(function () {
@@ -188,12 +195,7 @@
 			
 			$("#actuacion-table").DataTable();
 			});
-			$('.fecha').datepicker({
-				autoclose : true,
-				language : 'es',
-			});	
-	
-		
+			
 		/*  $('#file-es').fileinput({
 	        language: 'es',
 	        uploadUrl: '#',

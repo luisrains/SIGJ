@@ -116,7 +116,7 @@
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.despachoActual.descripcion}" disabled />
 						</div>
 						
-						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;" th:switch="${exp.expediente.moneda}">
+						<div th:if="${exp.expediente.moneda != 0}" class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;" th:switch="${exp.expediente.moneda}">
 							<label>Monto:</label>
 							<input th:case="'GS'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.expediente.monto,3,'POINT')} + ' '+ ${exp.expediente.moneda}" disabled />
 							<input th:case="'USD'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatDecimal(exp.expediente.monto,3,'POINT',2,'COMMA')} + ' '+ ${exp.expediente.moneda}" disabled />
@@ -179,7 +179,7 @@
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.despachoActual.descripcion}" disabled />
 						</div>
 						
-						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;" th:switch="${exp.moneda}">
+						<div th:if="${exp.moneda != 0}" class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;" th:switch="${exp.moneda}">
 							<label>Monto:</label>
 							
 							<input th:case="'GS'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.monto,3,'POINT')} + ' '+ ${exp.moneda}" disabled />
@@ -196,7 +196,7 @@
 						
 						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;margin-bottom:10px;">
 						<label>Estado:</label>
-							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.estadoInterno.descripcion}" disabled />
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.estadoExterno.descripcion}" disabled />
 						<!-- /.input group -->
 						
 						</div>

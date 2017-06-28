@@ -24,11 +24,9 @@
 						<div class="box-header">
 							<h3>Registro de Expediente</h3>
 						</div>
-						<div class="box-body" style="width: 99%; padding-left: 15px;">
+				<div class="box-body" style="width: 99%; padding-left: 15px;">
 	
-						
 
-<!-- <input type="hidden" th:field="*{id}" /> -->
 <div class="col-lg-12" style="border-style: solid; margin-top: 10px;border-radius: 15px;">
 
 	<h3>CARATULA DEL EXPEDIENTE</h3>
@@ -84,18 +82,8 @@
 
 		</th:block>
 
-		<!-- <label 
-					class="field-label section-02">Carlos Duarte</label>  -->
 	</div>
-	<!-- <div class="form-group col-lg-6" th:each=" cli: ${expediente.mapa.expediente.clientes}" th:value="${cli.id_cliente}"
-			th:text="">
-				<label th:text="#{expediente.cliente_demandante.lbl}"
-					class="field-label section-02">Cliente Demandante:</label> 
-				<label th:text="${cliente_demandante}"
-					class="field-label section-02"></label> 
-					
-					
-			</div> -->
+
 
 	<div class="form-group col-lg-6">
 		<label th:text="#{expediente.clientes_demandados.lbl}"
@@ -108,10 +96,6 @@
 				th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
 
 		</th:block>
-
-		<!-- Todos los labels que hacen ya referencia al map que recibiremos se comenta hasta saber como obtener esos datos del controlador -->
-		<!-- <label th:text="${cliente_demandado}"
-					class="field-label section-02"></label>  -->
 
 
 	</div>
@@ -149,6 +133,11 @@
 	<!-- Inicio panel botones -->
 
 </div>
+<div class="col-xs-12 col-sm-12" style="float:right;">
+				<a th:href="@{/expediente/ver-documento(expediente=${session.expediente.id})}"  target='_blank'><button class="btn btn-success">
+						<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+				</button></a>
+			</div>
 <form method="post"  th:action="@{/expediente/documento}"
 	enctype="multipart/form-data"
 	role="form" id="form-documento">
@@ -175,16 +164,11 @@
 					</select>
 						
 			</div>
-			<div class="col-xs-12 col-sm-12" style="float:right;">
-				<button class="btn btn-success" target='_blank'
-					th:onclick="'agregar_actuacion(\'' + ${session.expediente.id} + '\');'">
-						<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
-				</button>
-			</div>
+			
 		
 		</div>
 		<input type="hidden" name="expediente" id="expediente"
-			for="expediente" th:value="${expediente.id}" />
+			for="expediente" th:value="${session.expediente.id}" />
 		<div class="col-sm-4" style="padding: 0px;">
 			<label style="margin-left: 40%;">Sección de Archivos</label> <input
 				id="file-es" name="documento" type="file">
@@ -220,10 +204,6 @@
 			});
 			
 			});
-			$('.fecha').datepicker({
-				autoclose : true,
-				language : 'es',
-			});	
 	
 		
 		
