@@ -321,8 +321,8 @@ function datos_caratula(){
 	var juzgado = $("select[name=despacho]").find(":selected").text();
 	var tamanho = juzgado.length;
 	var secretaria = juzgado.substring(tamanho-2,tamanho);
-	if(demandante != null && demandante != undefined && demandando != null 
-			&& demandando != undefined && tipoDemnda != null && tipoDemnda != undefined){
+	if(demandante != "" && demandante != null && demandante != undefined && demandando != null 
+			&& demandando != undefined && demandando != "" && tipoDemnda != "" && tipoDemnda != null && tipoDemnda != undefined){
 		var expediente = demandante +" C/ "+ demandando+" S/ "+ tipoDemnda;
 		$.each(listDespachos, function( index, value ) {
 			if( $("#despacho").find(":selected").val() == value.id){

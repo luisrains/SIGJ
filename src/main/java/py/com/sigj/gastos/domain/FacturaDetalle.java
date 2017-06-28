@@ -43,7 +43,9 @@ public class FacturaDetalle extends GenericEntity {
 	
 	
 	private String ivaCinco;
+	
 	private String ivaDiez;
+
 	@NotNull(message = "facturaDetalle.monto.notNull")
 	private int monto;
 	
