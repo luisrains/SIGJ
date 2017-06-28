@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobante_pago_salarios" pageWidth="595" pageHeight="842" columnWidth="523" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="115e6336-3a20-43f8-8444-d7a5c7034ddd">
 	<property name="ireport.zoom" value="1.4641000000000017"/>
-	<property name="ireport.x" value="186"/>
+	<property name="ireport.x" value="16"/>
 	<property name="ireport.y" value="432"/>
 	<subDataset name="dataset1" uuid="e34f5769-3d1c-4eba-8268-3816ca076b4d">
 		<field name="montoCobro" class="java.lang.Integer"/>
@@ -99,7 +99,7 @@
 			<staticText>
 				<reportElement x="129" y="192" width="266" height="20" forecolor="#666666" uuid="80028cf1-9509-452a-b067-88ecd057da49"/>
 				<textElement textAlignment="Center">
-					<font fontName="Verdana" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DETALLE DE LA OPERACIÓN]]></text>
 			</staticText>
@@ -110,7 +110,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="10" width="319" height="20" uuid="1c0850cb-e24e-4d89-b2e7-dae154c9012c"/>
 				<textElement textAlignment="Center">
-					<font fontName="Verdana" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
 			</textField>
@@ -165,7 +165,7 @@
 	<detail>
 		<band height="174" splitType="Stretch">
 			<staticText>
-				<reportElement x="4" y="19" width="100" height="14" uuid="9ba7f832-ad92-4c8c-8d0c-96ec764f8391"/>
+				<reportElement x="4" y="18" width="100" height="14" uuid="9ba7f832-ad92-4c8c-8d0c-96ec764f8391"/>
 				<textElement>
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
@@ -177,7 +177,7 @@
 			<staticText>
 				<reportElement x="128" y="78" width="266" height="19" forecolor="#000000" uuid="6999f5b1-cfed-44c2-94bb-9c117ab229aa"/>
 				<textElement textAlignment="Center">
-					<font fontName="Verdana" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DETALLES DE EMPLEADOS]]></text>
 			</staticText>
@@ -221,35 +221,35 @@
 			<staticText>
 				<reportElement x="2" y="101" width="121" height="20" uuid="9f02a701-9ebe-46c5-b7a7-80e9264c8461"/>
 				<textElement textAlignment="Left" rotation="None">
-					<font fontName="Verdana" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Empleado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="123" y="101" width="77" height="20" uuid="2f844fbc-cdb8-4d65-91be-f215df210a86"/>
 				<textElement textAlignment="Center" rotation="None">
-					<font fontName="Verdana" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ingreso Total]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="200" y="101" width="82" height="20" uuid="ae6883b0-bbdd-4ebe-a144-d35549c2295d"/>
 				<textElement textAlignment="Center" rotation="None">
-					<font fontName="Verdana" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Egreso Total]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="282" y="101" width="148" height="20" uuid="392703fd-fe01-4046-a343-d83400e32f4a"/>
 				<textElement textAlignment="Center" rotation="None">
-					<font fontName="Verdana" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descripción]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="462" y="101" width="61" height="20" uuid="f99bbf14-e46e-47d5-90e4-468485ddf73f"/>
 				<textElement textAlignment="Right" rotation="None">
-					<font fontName="Verdana" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Monto]]></text>
 			</staticText>
