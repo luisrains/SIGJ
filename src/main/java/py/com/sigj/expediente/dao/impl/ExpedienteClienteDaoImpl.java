@@ -1,5 +1,10 @@
 package py.com.sigj.expediente.dao.impl;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +20,27 @@ public class ExpedienteClienteDaoImpl extends DaoImpl<ExpedienteCliente> impleme
 	@Override
 	public String getCamposFiltrables() {
 		return "";
+	}
+	
+	
+	@Override
+	public List<ExpedienteCliente> findByCliente(String search) {
+		logger.info("Obteniendo lista de ExpedienteCliente, sSearch: {}", search);
+		Query query = null;
+		
+			String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
+			sql = sql.replace("#ENTITY#", "ExpedienteCliente");
+			
+			if (StringUtils.isBlank(search)) {
+				query = entityManager.createQuery(sql);
+			} else {
+				sql = sql + " WHERE expediente_id = ?1";
+				query = entityManager.createQuery(sql);
+				query.setParameter(1, Long.parseLong(search));
+			}
+			List<ExpedienteCliente> list = query.getResultList();
+		logger.info("Cantidad de registros encontrados: {}", list);
+		return list;
+	
 	}
 }

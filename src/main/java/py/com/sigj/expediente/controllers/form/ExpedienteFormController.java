@@ -1,7 +1,6 @@
 package py.com.sigj.expediente.controllers.form;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -346,11 +345,14 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public String setDocumento(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp) {
 		HttpSession sesion = request.getSession();
+		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
+		List<ExpedienteCliente> clienteList = new ArrayList<>();
 		
 		Expediente obj = expedienteDao.find(Long.parseLong(id_exp));
 		
-		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
-		List<ExpedienteCliente> clienteList = new ArrayList<>();
+		abogadoList = expedienteAbogadoDao.findByExpediente(id_exp);
+		clienteList = expedienteClienteDao.findByCliente(id_exp);
+		
 		
 		sesion.setAttribute("expediente", obj);
 		sesion.setAttribute("clienteList",clienteList);
