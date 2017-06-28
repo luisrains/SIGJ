@@ -112,22 +112,22 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 		
 		if(estado != null && !estado.equalsIgnoreCase("") && !estado.equalsIgnoreCase("0")){
 			if(!band_exp && !band_abg){
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estado_id = ?4";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estadoexterno_id = ?4";
 				band_est = true;
 			}
 			else if(!band_exp && band_abg){
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE estado_id=?4)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE estadoexterno_id=?4)";
 				band_abg = true;
 				band_est = true;
 			}
 			else if(band_exp && !band_abg){
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente = ?1 AND estado_id = ?4";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente = ?1 AND estadoexterno_id = ?4";
 				band_exp = true;
 				band_est = true;
 			}else{
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND estado_id= ?4)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND estadoexterno_id= ?4)";
 				band_exp = true;
 				band_est = true;
 				band_abg = true;
@@ -141,13 +141,13 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 				band_anho = true;
 			}
 			else if(!band_exp && !band_abg && band_est){//año y estado
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estado_id = ?4 AND anho = ?5";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estadoexterno_id = ?4 AND anho = ?5";
 				band_anho = true;
 				band_est = true;
 			}
 			
 			else if(band_exp && !band_abg && band_est){//año,estado y nro expediente
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estado_id = ?4 AND nroexpediente = ?1 AND anho = ?5";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE estadoexterno_id = ?4 AND nroexpediente = ?1 AND anho = ?5";
 				band_anho = true;
 				band_est = true;
 				band_exp = true;
@@ -155,7 +155,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			
 			else if(!band_exp && band_abg && band_est){//año,abogado y estado
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE anho = ?5 AND estado_id= ?4)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE anho = ?5 AND estadoexterno_id= ?4)";
 				band_abg = true;
 				band_anho = true;
 				band_est = true;
@@ -184,7 +184,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			
 			else if(band_exp && band_abg && band_est){ //vengan todos
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estado_id= ?4)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estadoexterno_id= ?4)";
 				band_abg = true;
 				band_anho = true;
 				band_est = true;
@@ -206,7 +206,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			}
 			
 			else if(!band_exp && !band_abg && band_est && !band_anho){ // despacho y estado
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND estadoexterno_id= ?4";
 				band_desp = true;
 				band_est = true;
 			}
@@ -227,7 +227,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			}
 			
 			else if(band_exp && !band_abg && band_est && !band_anho){ // despacho nro expediente y estado
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND nroexpediente = ?1 AND estado_id= ?4";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND nroexpediente = ?1 AND estadoexterno_id= ?4";
 				band_desp = true;
 				band_exp = true;
 				band_est = true;
@@ -241,7 +241,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			
 			else if(!band_exp && band_abg && band_est && !band_anho){ // despacho estado y abogado
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estadoexterno_id= ?4)";
 				band_desp = true;
 				band_abg = true;
 				band_est = true;
@@ -266,7 +266,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			
 			else if(band_exp && band_abg && band_est && !band_anho){ // despacho nro expediente estado y abogado
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4 AND nroexpediente= ?1)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estadoexterno_id= ?4 AND nroexpediente= ?1)";
 				band_desp = true;
 				band_abg = true;
 				band_est = true;
@@ -275,7 +275,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			
 			else if(!band_exp && band_abg && band_est && band_anho){ // despacho año estado y abogado
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estado_id= ?4 AND anho = ?5)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE despachoactual_id = ?3 AND estadoexterno_id= ?4 AND anho = ?5)";
 				band_desp = true;
 				band_abg = true;
 				band_est = true;
@@ -289,13 +289,13 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 				band_anho = true;
 			}
 			else if(!band_exp && !band_abg && band_est && band_anho){//despacho estado y año
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND anho = ?5 AND estado_id= ?4";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE despachoactual_id = ?3 AND anho = ?5 AND estadoexterno_id= ?4";
 				band_est = true;
 				band_anho = true;
 				band_desp = true;
 			}
 			else if(band_exp && !band_abg && band_est && band_anho){ // despacho expediente estado y año
-				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente= ?1 AND despachoactual_id = ?3 AND anho = ?5 AND estado_id= ?4";
+				sql = "SELECT object(Expediente) FROM Expediente AS Expediente WHERE nroexpediente= ?1 AND despachoactual_id = ?3 AND anho = ?5 AND estadoexterno_id= ?4";
 				band_est = true;
 				band_exp = true;
 				band_desp = true;
@@ -303,7 +303,7 @@ public class ExpedienteDaoImpl extends DaoImpl<Expediente> implements Expediente
 			}
 			else if(band_exp && band_abg && band_est && band_anho){ //vienen todos
 				sql = "SELECT object(ExpedienteAbogado) FROM ExpedienteAbogado AS ExpedienteAbogado WHERE abogado_id= (SELECT id FROM Abogado WHERE id =?2)"
-						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estado_id= ?4 AND despachoactual_id = ?3)";
+						+ " AND expediente_id=(SELECT id FROM Expediente WHERE nroexpediente = ?1 AND anho = ?5 AND estadoexterno_id= ?4 AND despachoactual_id = ?3)";
 				band_est = true;
 				band_exp = true;
 				band_desp = true;
