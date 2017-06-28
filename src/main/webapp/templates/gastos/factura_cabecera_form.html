@@ -132,19 +132,18 @@
 						</tr>
 					</thead >
 					<tbody class="col-xs-12 col-sm-12" style="margin-bottom:10px; padding-left:5px; padding-right:5px;">
-						<tr class="col-xs-12 col-sm-12 clonar tr-first" style="padding-right:0px; padding-left:5px">
+						 <tr class="col-xs-12 col-sm-12 clonar tr-first" style="padding-right:0px; padding-left:5px">
 							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
 							
 							<td class="col-xs-4 col-sm-4 f-head">
-								<select class="col-xs-12 col-sm-12 descripcion"
-									id="descripcion" >
+								<select class="col-xs-12 col-sm-12 descripcion">
 									
 							 <option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
 									th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="radio" name="iva_radio" id="ingreso" value="I" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:80px;"><input type="radio" name="iva_radio" id="egreso" value="E" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" pattern="[0-9]" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
@@ -153,15 +152,14 @@
 						</tr>
 						<tr class="col-xs-12 col-sm-12 fila_1" style="padding-right:0px; padding-left:5px;">
 							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
-							<td class="col-xs-4 col-sm-4 f-head"><select class="col-xs-12 col-sm-12 descripcion"
-									id="descripcion" >
+							<td class="col-xs-4 col-sm-4 f-head"><select class="col-xs-12 col-sm-12 descripcion">
 									
 								<option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
 									th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="ingreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="egreso" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12 numbers-only" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="radio" name="iva_radio" value="I" id="ingreso" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:80px;"><input type="radio" name="iva_radio" value="E" id="egreso" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" pattern="[0-9]" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
@@ -169,9 +167,9 @@
 							</td>
 						</tr>
 						<tr class="col-xs-12 col-sm-12 last-tr" style="margin-top:5px;">
-							<td class="col-xs-4 col-sm-4"><span style="font-weight:bold;">Iva 5%:   <label id="iva_5">0</label></span></td>
-							<td class="col-xs-4 col-sm-4"><span style="font-weight:bold;">Iva 10%:   <label id="iva_10">0</label></span></td>
-							<td class="col-xs-4 col-sm-4 f-head"><span style="font-weight:bold;">Monto Total:   <label id="monto_total">0</label></span></td>
+							<td class="col-xs-4 col-sm-4" style="padding-left:415px;position:relative;top:23px;"><span style="font-weight:bold;">Iva 5%:   <label id="iva_5">0</label></span></td>
+							<td class="col-xs-4 col-sm-4" style="position:relative;top:23px;"><span style="font-weight:bold;">Iva 10%:   <label id="iva_10">0</label></span></td>
+							<td class="col-xs-4 col-sm-4 f-head" style="float:right;"><span style="font-weight:bold;">Monto Total:   <label id="monto_total">0</label></span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -203,6 +201,7 @@
 			}
 		});
 		
+
 		
 		$(".factura-expediente").select2({
 			placeholder : "Seleccione el Expediente...",
@@ -212,14 +211,14 @@
 				}
 			}
 		});
-		$(".descripcion").select2({
+		/* $(".descripcion").select2({
 			placeholder : "Seleccione el Servicio...",
 			language : {
 				noResults : function(params) {
 					return "No existen registros.";
 				}
 			}
-		});
+		}); */
 		var seleccion="";
 		var expediente_select = "";
 		$("#cliente").on('change',function(e){
@@ -256,40 +255,39 @@
           console.log(JSON.stringify(map));
           var map_detalle = new Array();
           for(var i=1;i<$("#f_detalle tbody tr").length-1;i++){
-        	  for(var j=0;j<$("#f_detalle thead th").length-1;j++){
-        	        if(j==0){
-        	        	/*var item='{'+'"'+($("#f_detalle thead th").eq(j).text()+"_"+i) +'"' + ':' + $("#f_detalle tbody tr").eq(i).find('td').eq(j).text() + '}';
-        	        	item = eval('(' + item + ')');*/
-        	        	/*var item={
-        	        			($("#f_detalle thead th").eq(j).text()+"_"+i) : $("#f_detalle tbody tr").eq(i).find('td').eq(j).text()
-        	        	};*/
-        	        	//map_detalle.push(item);
-        	        	map_detalle.push($("#f_detalle thead th").eq(j).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(j).text())
-        	        }else if(j==1){
-        	        	/*var item={
-        	        		$("#f_detalle thead th").eq(j).text()+"_"+i : 	$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":selected").val()
-        	        	};*/
-        	        	
-        	        	/*var item='{'+'"'+($("#f_detalle thead th").eq(j).text()+"_"+i) +'"' + ':' + $("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":selected").text() + '}';
-        	        	item = eval('(' + item + ')');
-        	        	map_detalle.push(item);*/
-        	        	map_detalle.push($("#f_detalle thead th").eq(j).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":selected").val());
-        	        }else{
-        	        	/*var item = {
-        	        		$("#f_detalle thead th").eq(j).text()+"_"+i : 	$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":input").val();
-        	        	}*/
-        	        	/*var item='{'+'"'+($("#f_detalle thead th").eq(j).text()+"_"+i) +'"' + ':' + $("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":input").val() + '}';
-        	        	item = eval('(' + item + ')');
-        	        	
-        	        	map_detalle.push(item);*/
-        	        	map_detalle.push($("#f_detalle thead th").eq(j).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(j).find(":input").val());
-        	        }
+        	 var bandIngreso = false;
+        	 var bandEgreso = false;
+        	 var posicion_valor = $("#f_detalle tbody tr").eq(i).find('td').eq(0).text();
+        	  map_detalle.push($("#f_detalle thead th").eq(0).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(0).text());
+        	  map_detalle.push($("#f_detalle thead th").eq(1).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(1).find(":selected").val());
+        	  var seleccion1 = $("#f_detalle tbody tr").eq(i).find('td').eq(2).find(":input[name=iva_radio]:checked").val();//para I
+        	  var seleccion2 = $("#f_detalle tbody tr").eq(i).find('td').eq(3).find(":input[name=iva_radio]:checked").val();//para E
+        	  for(var j=0;j<arrayIngreso.length;j++){
+        		  if(arrayIngreso[j] == posicion_valor){
+        			  bandIngreso = true;
+        		  }
         	  }
+        	  if(bandIngreso == true){
+        		  map_detalle.push($("#f_detalle thead th").eq(2).text()+"_"+i,"I"); 
+        		  map_detalle.push($("#f_detalle thead th").eq(3).text()+"_"+i,"");
+        	  }else{
+        		  map_detalle.push($("#f_detalle thead th").eq(2).text()+"_"+i,""); 
+        		  map_detalle.push($("#f_detalle thead th").eq(3).text()+"_"+i,"E"); 
+        	  }
+        	 /*  if(seleccion1 == undefined){
+        		  map_detalle.push($("#f_detalle thead th").eq(2).text()+"_"+i,"");
+        		  map_detalle.push($("#f_detalle thead th").eq(3).text()+"_"+i,seleccion2);
+        	  }else if(seleccion2 == undefined){
+        		  
+        	  } */
+        	
+        	  map_detalle.push($("#f_detalle thead th").eq(4).text()+"_"+i,$("#f_detalle tbody tr").eq(i).find('td').eq(4).find(":input").val().replace(/\./g,''));
+        	 
            }
           var tr_last = $(".last-tr");
-          map_detalle.push("total_iva_5",parseInt(tr_last.find("#iva_5").text()));
-          map_detalle.push("total_iva_10",parseInt(tr_last.find("#iva_10").text()));
-          map_detalle.push("monto_total",parseInt(tr_last.find("#monto_total").text()));
+          map_detalle.push("total_iva_5",parseInt(tr_last.find("#iva_5").text().replace(/\./g,'')));
+          map_detalle.push("total_iva_10",parseInt(tr_last.find("#iva_10").text().replace(/\./g,'')));
+          map_detalle.push("monto_total",parseInt(tr_last.find("#monto_total").text().replace(/\./g,'')));
           /*var check = tr_last.find(':checked').val();
           if(check == tr_last.find('td').eq(0).find('input').val()){
         	  map_detalle.push(tr_last.find('td').eq(0).text(),check);

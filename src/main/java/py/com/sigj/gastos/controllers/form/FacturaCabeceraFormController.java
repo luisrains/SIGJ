@@ -173,15 +173,23 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 			facturaCabeceraDao.create(fc);
 			String id =  session.getAttribute("cliente").toString();
 			String id_exp =  session.getAttribute("expediente").toString();
-			Long id_expediente = Long.parseLong(id_exp);
-			Long id_cliente = Long.parseLong(id);
-			if(id_cliente != 0){
+			Long id_cliente = null;
+			Long id_expediente = null;
+			if(id != null && !id.equals("")){
+				id_cliente = Long.parseLong(id);
+			}
+			if(id_exp != null && !id_exp.equals("")){
+				id_expediente = Long.parseLong(id_exp);
+			}
+			
+			
+			if(id_cliente != null && id_cliente != 0){
 				ClienteFactura cf = new ClienteFactura();
 				Cliente cliente = clienteDao.find(id_cliente);
 				cf.setCliente(cliente);
 				cf.setFactura(fc);
 				clienteFacturaDao.create(cf);
-				if(id_expediente != 0){
+				if(id_expediente != null && id_expediente != 0){
 					ExpedienteFactura ef = new ExpedienteFactura();
 					Expediente expediente = expedienteDao.find(id_expediente);
 					ef.setFactura(fc);
@@ -212,7 +220,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 						if(var1.equalsIgnoreCase("Iva 10%_"+j)){
 							
 							if(!(ordenado.get(var1).toString().equals(""))){
-								int iva_10 = Integer.parseInt(ordenado.get(var1).toString());
+								String iva_10 = ordenado.get(var1).toString();
 								fdd.setIvaDiez(iva_10);
 								k++;
 								
@@ -221,7 +229,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 						}
 						if(var1.equalsIgnoreCase("Iva 5%_"+j)){
 							if(!(ordenado.get(var1).toString().equals(""))){
-								int iva_5 = Integer.parseInt(ordenado.get(var1).toString());
+								String iva_5 = ordenado.get(var1).toString();
 								fdd.setIvaCinco(iva_5);
 								k++;
 								
@@ -396,7 +404,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 							if(var1.equalsIgnoreCase("Iva 10%_"+j)){
 								
 								if(!(ordenado.get(var1).toString().equals(""))){
-									int iva_10 = Integer.parseInt(ordenado.get(var1).toString());
+									String iva_10 = ordenado.get(var1).toString();
 									fdd.setIvaDiez(iva_10);
 									k++;
 									
@@ -405,7 +413,7 @@ public class FacturaCabeceraFormController extends FormController<FacturaCabecer
 							}
 							if(var1.equalsIgnoreCase("Iva 5%_"+j)){
 								if(!(ordenado.get(var1).toString().equals(""))){
-									int iva_5 = Integer.parseInt(ordenado.get(var1).toString());
+									String iva_5 = ordenado.get(var1).toString();
 									fdd.setIvaCinco(iva_5);
 									k++;
 									
