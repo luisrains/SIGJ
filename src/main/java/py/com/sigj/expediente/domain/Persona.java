@@ -28,7 +28,7 @@ import py.com.sigj.main.GenericEntity;
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "persona_cedula_ruc_uk", columnNames = { "cedula_ruc" }) })
 public class Persona extends GenericEntity {
-	private static final String SECUENCIA = "personaFisica_id_seq";
+	private static final String SECUENCIA = "persona_id_seq";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SECUENCIA)

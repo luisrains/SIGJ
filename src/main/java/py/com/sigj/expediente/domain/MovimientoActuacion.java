@@ -1,6 +1,5 @@
 package py.com.sigj.expediente.domain;
 
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -49,6 +48,9 @@ public class MovimientoActuacion extends GenericEntity {
 	
 	@Column(name="fecha_presentacion")
 	private Date fechaPresentacion;
+	
+	@Column(name="fecha_carga")
+	private Date fechaCarga;
 	
 	@Column(name="fechaVencimiento")
 	private Date fechaVencimiento;
@@ -132,8 +134,6 @@ public class MovimientoActuacion extends GenericEntity {
 		this.documento = documento;
 	}
 
-	
-	
 	public String getRenderDocumento() {
 		return renderDocumento;
 	}
@@ -141,11 +141,19 @@ public class MovimientoActuacion extends GenericEntity {
 	public void setRenderDocumento(String renderDocumento) {
 		this.renderDocumento = renderDocumento;
 	}
+	
+	public Date getFechaCarga() {
+		return fechaCarga;
+	}
+
+	public void setFechaCarga(Date fechaCarga) {
+		this.fechaCarga = fechaCarga;
+	}
 
 	@Override
 	public String toString() {
 		return "MovimientoActuacion [id=" + id + ", observacion=" + observacion + ", fechaPresentacion="
-				+ fechaPresentacion + ", fechaVencimiento=" + fechaVencimiento + ", tipoActuacion=" + tipoActuacion
+				+ fechaPresentacion + ", fechaVencimiento=" + fechaVencimiento+ ", fechaCarg=" + fechaCarga + ", tipoActuacion=" + tipoActuacion
 				+ ", expediente=" + expediente +"]";
 	}
 

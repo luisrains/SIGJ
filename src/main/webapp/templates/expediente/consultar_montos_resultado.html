@@ -1,15 +1,15 @@
 
 <div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
-    <div class="col-sm-12">
-							<div class="col-sm-12">
-								<label>Total Ingreso:</label>
+    <div class="col-sm-12" style="border-style: ridge;    border-width: 1px;    padding: 21px;    background-color: rgb(221, 221, 221);">
+							<div class="col-sm-12" >
+							
+							<label>Total Ingreso:</label>
 								<input th:if="${total_ingreso <= 0}" id="total_ingreso" name="total_ingreso" disabled   th:value="${total_ingreso} + ' GS.'" 
 								style="margin-left:42px;"/>
 								<input th:if="${total_ingreso > 0}" th:value="${#numbers.formatInteger(total_ingreso,3,'POINT')} + ' '+ 'GS.'" id="total_ingreso" name="total_ingreso" disabled
 								style="margin-left:42px;"/>
 								
-								<a  th:if="${total_ingreso != null and total_ingreso != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/I'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
-								style="padding-left: 10px;">Ver Detalle</a>
+								
 								
 							</div>
 							<div class="col-sm-12" style="margin-top:10px;">

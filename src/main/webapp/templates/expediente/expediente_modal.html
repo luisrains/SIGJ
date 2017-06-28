@@ -192,14 +192,22 @@
 										<input type="text" id="nroLiquidacion" name="nroLiquidacion" for="nroLiquidacion" maxlength="100" required="false" class="form-control"/>
 								</div>
 								<div class="form-group">
-									<label for="estadoExterno" class="field-label">Estado
-										Actual(*):</label> <select name="estadoExterno" id="estadoExterno"
+									<label for="estadoExterno" class="field-label">Estado en el Palacio(*):</label> <select name="estadoExterno" id="estadoExterno"
 										for="estadoExterno" required="required"
 										class="form-control estadoExterno selecciones">
 										<option th:each=" tip : ${estadoExternoList}"
 											th:value="${tip.id}" th:text="${tip.descripcion}">Inicio</option>
 									</select>
 								</div>
+								<div class="form-group">
+									<label for="estadoInterno" class="field-label">Estado en la Oficina(*):</label> <select name="estadoInterno" id="estadoInterno"
+										for="estadoInterno" required="required"
+										class="form-control estadoInterno selecciones">
+										<option th:each=" tip : ${estadoInternoList}"
+											th:value="${tip.id}" th:text="${tip.descripcion}">Inicio</option>
+									</select>
+								</div>
+								
 								<div class="form-group">
 									<label>Fecha del Sello del Cargo(*) :</label>
 									<div class="input-group date" style="width: 50%;">

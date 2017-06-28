@@ -6,11 +6,13 @@
 		<div class="col-xs-12" th:if="${not #lists.isEmpty(expediente)}">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
-					<h3>Expedientes en Movimiento</h3>
+					<h3>Expedientes con últimos movimientos</h3>
 				</div>
 				<div class="box-body" style="width: 99%; padding-left: 15px;">
+					
+					
 					<div class="col-sm-12" style="background-color:white; border-top-color:#3c8dbc;border-bottom-color:#3c8dbc;border-bottom-style:solid;border-top-style:solid;"
-					 th:each="ex : ${expediente}">
+					th:if="${not #lists.isEmpty(ultimosDiezExpediente)}" th:each="ex : ${ultimosDiezExpediente}">
 					
 						<div class="col-sm-9">
 						<div class="box-header with-border">
@@ -33,24 +35,18 @@
 							<div class="col-sm-6">
 								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estado.descripcion}"></h4>
 							</div>
-							<th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
-								<th:block th:if="${exb.expediente.id} == ${ex.expediente.id}">
-									<div class="col-sm-6">
-										<h4 th:text="#{expediente.tipoActuacion.fechaPresentacion.lbl}+' '+ ${exb.actuacion.fechaPresentacion}"></h4>
-									</div>
-									<div class="col-sm-6">
-										<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${exb.actuacion.fechaVencimiento}"></h4>
-									</div>
-								</th:block>
-							</th:block>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.fechaActuacion, 'dd-MMM-yyyy / HH:mm')}"></h4>
+							</div>
+							
 							<div class="col-sm-6" style="float:right;">
-							<button class="btn btn-success" 
-							th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">
-								<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
-							</button>
+								<button class="btn btn-success" 
+								th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">
+									<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+								</button>
 							</div>
 							<div class="col-sm-6" style="float:right;">
-							<a th:href="@{/expediente/hojar-expediente/{id}(id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" ><!--th:onclick="'ver_expediente(\'' + ${ex.expediente.id} + '\');'"  -->
+							<a th:href="@{/expediente/hojar-expediente/{id}(id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" >
 								<i class="glyphicon glyphicon-plus"></i>Ver Expediente Digital
 							</button></a>
 							
@@ -60,16 +56,76 @@
 					</div>
 					<!-- /.box -->
 					<div class="col-sm-3">
-						<th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
-							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">				
+						<!-- <th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
+							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">		 -->		
 								<div class="alert alert-warning">
 									  <strong><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
-									  <span> La actuación del expediente esta por vencer, vencera en los  <span th:text="#{3}"></span> proximos días</span>
+									  <span> La actuación del expediente vencerá dentro de  <span th:text="${ex.diaVencimiento}"></span> días</span>
 								</div>
-							</th:block>
-						</th:block>
+							<!-- </th:block>
+						</th:block> -->
 					</div>
 				</div>
+				
+				<!-- Seccion de expedientes que no vencen en los proximos 3 dias -->
+				<div class="col-sm-12" style="background-color:white; border-top-color:#3c8dbc;border-bottom-color:#3c8dbc;border-bottom-style:solid;border-top-style:solid;"
+					th:if="${not #lists.isEmpty(expedienteSinVencer)}" th:each="ex : ${expedienteSinVencer}">
+					
+						<div class="col-sm-9">
+						<div class="box-header with-border">
+							<h3 class="box-title" th:text=" #{expediente.inicio.nroExpediente.lbl}+' '+${ex.expediente.nroExpediente}"></h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" > <!-- th:value="${session.expediente.id}" es lo que se va a usar -->
+							<div class="col-sm-6">
+								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
+								<h4 th:text="#{expediente.folio.lbl}+' '+ ${ex.expediente.folio}"></h4>
+								 
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.anho.lbl}+' '+ ${ex.expediente.anho}"></h4>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.juez.lbl}+' '+ ${ex.expediente.despachoActual.juez}"></h4>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estado.descripcion}"></h4>
+							</div>
+							<div class="col-sm-12">
+								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.fechaActuacion, 'dd-MMM-yyyy / HH:mm')}"></h4>
+							</div>
+							<!-- <th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
+								<th:block th:if="${exb.expediente.id} == ${ex.expediente.id}">
+									<div class="col-sm-6">
+										<h4 th:text="#{expediente.tipoActuacion.fechaPresentacion.lbl}+' '+ ${exb.actuacion.fechaPresentacion}"></h4>
+									</div>
+									<div class="col-sm-6">
+										<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${exb.actuacion.fechaVencimiento}"></h4>
+									</div>
+								</th:block>
+							</th:block> -->
+							<div class="col-sm-6" style="float:right;">
+							<button class="btn btn-success" 
+							th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">
+								<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+							</button>
+							</div>
+							<div class="col-sm-6" style="float:right;">
+							<a th:href="@{/expediente/hojar-expediente/{id}(id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" >
+								<i class="glyphicon glyphicon-plus"></i>Ver Expediente Digital
+							</button></a>
+							
+							</div>
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+
+				</div>
+				
+				
+				
 				</div>
 				<!-- /.box-body -->
 			</div>

@@ -27,7 +27,7 @@ public class MovimientoActuacionDaoImpl extends DaoImpl<MovimientoActuacion> imp
 	public List<MovimientoActuacion> getListActuacionByExpediente(Long id_expediente) {
 
 		List<MovimientoActuacion> actu = null;
-		String sql = "SELECT object(MovimientoActuacion) FROM MovimientoActuacion AS MovimientoActuacion WHERE expediente_id = ?1 ORDER BY fecha_presentacion DESC";
+		String sql = "SELECT object(MovimientoActuacion) FROM MovimientoActuacion AS MovimientoActuacion WHERE expediente_id = ?1 ORDER BY fecha_carga DESC";
 		Query query = null;
 		// Usuario no envió ningún filtro
 

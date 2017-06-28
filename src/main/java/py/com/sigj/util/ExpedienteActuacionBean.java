@@ -1,12 +1,10 @@
 package py.com.sigj.util;
 
 import py.com.sigj.expediente.domain.Expediente;
-import py.com.sigj.expediente.domain.MovimientoActuacion;
 
 public class ExpedienteActuacionBean {
 
 	private Expediente expediente;
-	private MovimientoActuacion actuacion;
 	private int diaVencimiento;
 	
 	
@@ -22,12 +20,6 @@ public class ExpedienteActuacionBean {
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
 	}
-	public MovimientoActuacion getActuacion() {
-		return actuacion;
-	}
-	public void setActuacion(MovimientoActuacion actuacion) {
-		this.actuacion = actuacion;
-	}
 	
 	public int getDiaVencimiento() {
 		return diaVencimiento;
@@ -37,7 +29,7 @@ public class ExpedienteActuacionBean {
 	}
 	@Override
 	public String toString() {
-		return "ExpedienteActuacionBean [expediente=" + expediente + ", actuacion=" + actuacion + ", diaVencimiento="
+		return "ExpedienteActuacionBean [expediente=" + expediente + ", diaVencimiento="
 				+ diaVencimiento + "]";
 	}
 	

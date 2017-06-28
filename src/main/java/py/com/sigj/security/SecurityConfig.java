@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private Map<String, String> permisosUrl() {
 		Map<String, String> map = new HashMap<>();
-		map.put("/cliente/**", "ver-cli");
+		//map.put("/cliente/**", "ver-cli");
 //		map.put("/materia/**", "ver-mat");
 //		map.put("/usuario/**", "ver-usu");
 //		map.put("/proceso/**", "ver-pro");

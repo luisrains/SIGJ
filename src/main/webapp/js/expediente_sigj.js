@@ -367,7 +367,8 @@ function registrar_expediente(){
 		expediente.monto = $("#monto").val();
 		expediente.nroExpediente = $("#nro_caract").text();
 		expediente.fecha = $('input[name=fecha]').val();
-		expediente.estado = $('#estadoExterno').val();
+		expediente.estadoExterno = $('#estadoExterno').val();
+		expediente.estadoInterno = $('#estadoInterno').val();
 		expediente.nroLiquidacion = $("#nroLiquidacion").val();
 		expediente.despacho = $("#despacho").val();
 		rInfo.mapa.expediente =  expediente;

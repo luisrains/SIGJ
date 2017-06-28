@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,6 +29,7 @@ import py.com.sigj.main.GenericEntity;
  *
  */
 @Entity
+@Table(name="expediente", uniqueConstraints = { @UniqueConstraint(name = "expediente_nroExpediente_uk", columnNames = { "nroExpediente" }) })
 public class Expediente extends GenericEntity {
 
 	private static final String SECUENCIA = "expediente_id_seq";
@@ -78,8 +81,13 @@ public class Expediente extends GenericEntity {
 	
 	@ManyToOne
 	@NotNull(message = "expediente.estado.notNull")
-	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estado_fk"))
-	private EstadoExternoInterno estado;
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estadoInterno_fk"))
+	private EstadoExternoInterno estadoInterno;
+	
+	@ManyToOne
+	@NotNull(message = "expediente.estado.notNull")
+	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_estadoExterno_fk"))
+	private EstadoExternoInterno estadoExterno;
 
 	public Expediente() {
 	}
@@ -165,18 +173,6 @@ public class Expediente extends GenericEntity {
 	public void setDespachoActual(Despacho despachoActual) {
 		this.despachoActual = despachoActual;
 	}
-
-	
-	
-	public EstadoExternoInterno getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EstadoExternoInterno estado) {
-		this.estado = estado;
-	}
-
-	
 	
 	public Date getFechaActuacion() {
 		return fechaActuacion;
@@ -186,12 +182,28 @@ public class Expediente extends GenericEntity {
 		this.fechaActuacion = fechaActuacion;
 	}
 
+	public EstadoExternoInterno getEstadoInterno() {
+		return estadoInterno;
+	}
+
+	public void setEstadoInterno(EstadoExternoInterno estadoInterno) {
+		this.estadoInterno = estadoInterno;
+	}
+
+	public EstadoExternoInterno getEstadoExterno() {
+		return estadoExterno;
+	}
+
+	public void setEstadoExterno(EstadoExternoInterno estadoExterno) {
+		this.estadoExterno = estadoExterno;
+	}
+
 	@Override
 	public String toString() {
 		return "Expediente [id=" + id + ", caratula=" + caratula + ", nroExpediente=" + nroExpediente + ", anho=" + anho
-				+ ", monto=" + monto + ", moneda=" + moneda + ", folio=" + folio + ", nroLiquidacion=" + nroLiquidacion
-				+ ", fechaSelloCargo=" + fechaSelloCargo + ", despachoActual=" + despachoActual + ", estado=" + estado
-				+ "]";
+				+ ", monto=" + monto + ", moneda=" + moneda + ", fechaActuacion=" + fechaActuacion + ", folio=" + folio
+				+ ", nroLiquidacion=" + nroLiquidacion + ", fechaSelloCargo=" + fechaSelloCargo + ", despachoActual="
+				+ despachoActual + ", estadoInterno=" + estadoInterno + ", estadoExterno=" + estadoExterno + "]";
 	}
 	
 }

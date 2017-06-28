@@ -174,7 +174,14 @@
 							th:text="${td.descripcion}">Ejecutivo</option>
 					</select>
 						
-				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12" style="float:right;">
+				<button class="btn btn-success" target='_blank'
+					th:onclick="'agregar_actuacion(\'' + ${session.expediente.id} + '\');'">
+						<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
+				</button>
+			</div>
+		
 		</div>
 		<input type="hidden" name="expediente" id="expediente"
 			for="expediente" th:value="${expediente.id}" />

@@ -27,16 +27,22 @@
 												<th>Observación</th>
 											</tr>
 										</thead>
-										<tbody id="table-body">
-	
-											<tr th:each="mov : ${movimiento_expediente}">
-												<td class="hidden"></td>
-												<td th:text="${mov.movimiento.fecha}"></td>
-												<td th:if="${isIngreso}" th:text="${#numbers.formatInteger(mov.movimiento.ingreso,3,'POINT')} + 'GS '"></td>
-												<td th:if="${isEgreso}" th:text="${#numbers.formatInteger(mov.movimiento.egreso,3,'POINT')} + 'GS'"></td>
-												<td th:text="${mov.movimiento.descripcion}"></td>
-											</tr>
+										<tbody th:if="${isIngreso}" id="table-body">
+											<tr th:each="mov : ${ingresoList}">
+												<td th:text="${mov.fecha}"></td>
+												<td th:text="${#numbers.formatInteger(mov.ingreso,3,'POINT')} + ' GS.'"></td>
+												<td th:text="${mov.descripcion}"></td>
+										</tr>
 										</tbody>
+										<tbody th:if="${isEgreso}" id="table-body">
+											<tr th:each="move : ${egresoList}">
+												<td th:text="${move.fecha}"></td>
+												<td th:text="${#numbers.formatInteger(move.egreso,3,'POINT')} + ' GS.'"></td>
+												<td th:text="${move.descripcion}"></td>
+										</tr>
+										
+										</tbody>
+										 
 	
 									</table>
 	               			

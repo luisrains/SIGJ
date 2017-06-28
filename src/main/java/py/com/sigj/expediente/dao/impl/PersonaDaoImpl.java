@@ -1,10 +1,7 @@
 package py.com.sigj.expediente.dao.impl;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +20,7 @@ public class PersonaDaoImpl extends DaoImpl<Persona> implements PersonaDao {
 
 	@Override
 	public String getCamposFiltrables() {
-		return "cedula_ruc||nombre_razonSocial";
+		return "cedula_ruc||nombre_razonSocial||apellido";
 	}
 
 	
@@ -40,11 +37,11 @@ public class PersonaDaoImpl extends DaoImpl<Persona> implements PersonaDao {
 		// Usuario no envió ningún filtro
 
 		if (StringUtils.isBlank(sSearch)) {
-			sql = sql + " WHERE lower(disponible)= lower(?1)";
+			sql = sql + " WHERE lower(disponible)= lower(?1) AND id != 1";
 			query = entityManager.createQuery(sql);
 			query.setParameter(1,"SI");
 		} else {
-			sql = sql + " WHERE lower(" + getCamposFiltrables() + ") LIKE lower(?1)";
+			sql = sql + " WHERE lower(" + getCamposFiltrables() + ") LIKE lower(?1) AND id != 1";
 			query = entityManager.createQuery(sql);
 			query.setParameter(1, "%" + sSearch.replace(" ", "%") + "%");
 		}

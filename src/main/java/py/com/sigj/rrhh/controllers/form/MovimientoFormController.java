@@ -22,6 +22,7 @@ import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.Persona;
+import py.com.sigj.gastos.domain.IngresoEgreso;
 import py.com.sigj.rrhh.controllers.list.MovimientoListController;
 import py.com.sigj.rrhh.dao.EmpleadoDao;
 import py.com.sigj.rrhh.dao.MovimientoDao;
@@ -124,7 +125,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				
 				Long id_expediente = Long.parseLong(expediente_id);
 				if(obj.getEmpleado().getId()==null){ // para el empleado generico 
-					Empleado e = empleadoDao.find((long)10);
+					Empleado e = empleadoDao.find((long)1);
 					obj.setEmpleado(e);
 				}
 				getDao().create(obj);
@@ -223,15 +224,30 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	@RequestMapping(value = "buscar-movimiento/{id_expediente}/{tipo}", method = RequestMethod.GET)
 	public String buscar(HttpServletRequest request, ModelMap map, @PathVariable("id_expediente") Long id_expediente, 
 			@PathVariable("tipo") String tipo) {
-		List<Movimiento> mov = new ArrayList<>();
+		List<Movimiento> movIngreso = new ArrayList<>();
+		List<Movimiento> movEgreso = new ArrayList<>();
+		List<IngresoEgreso> ingresoList = new ArrayList<>();
+		List<IngresoEgreso> egresoList = new ArrayList<>();
 		List<MovimientoExpediente> me = null;
 		try {
 			me = movimientoDao.getLitMovimientoExpediente(id_expediente);
 			map.addAttribute("movimiento_expediente", me);
 			if("I".equals(tipo.toUpperCase())){
+				for (MovimientoExpediente movimientoExpediente : me) {
+					if(movimientoExpediente.getMovimiento().getIngreso()>0){
+						movIngreso.add(movimientoExpediente.getMovimiento());
+					}
+				}
+				map.addAttribute("ingresoList",movIngreso);
 				map.addAttribute("isIngreso",true);
 				map.addAttribute("isEgreso",false);
 			}else{
+				for (MovimientoExpediente movimientoExpediente : me) {
+					if(movimientoExpediente.getMovimiento().getEgreso()>0){
+						movEgreso.add(movimientoExpediente.getMovimiento());
+					}
+				}
+				map.addAttribute("egresoList",movEgreso);
 				map.addAttribute("isIngreso",false);
 				map.addAttribute("isEgreso",true);
 			}

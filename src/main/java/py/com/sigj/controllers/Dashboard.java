@@ -17,7 +17,6 @@ import org.springframework.web.context.WebApplicationContext;
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
-import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.main.SesionUsuario;
 import py.com.sigj.util.ExpedienteActuacionBean;
 import py.com.sigj.util.WebUtils;
@@ -43,46 +42,61 @@ public class Dashboard {
 
 	@RequestMapping("inicio")
 	public String start(ModelMap map,HttpServletRequest request) {
-		ExpedienteActuacionBean exAc = null;
-		List<ExpedienteActuacionBean> listExAc = new ArrayList<>();
-		List<ExpedienteAbogado> exp = null;
-		
+
+		List<ExpedienteAbogado> expList = null;
+		List<ExpedienteActuacionBean> ultimosDiezExpediente = new ArrayList<>();
+		List<ExpedienteActuacionBean> expedienteSinVencer = new ArrayList<>();
+		HttpSession session = request.getSession();
 		if(sesionUsuario!= null && sesionUsuario.getUsuario().getCedulaRuc() != null){
 			String cedula = sesionUsuario.getUsuario().getCedulaRuc();
-			exp = expedienteDao.getListByCedulaRuc(cedula);
-			
+			expList = expedienteDao.getListByCedulaRuc(cedula);
+			int cantDias=0;
+			int cont=0;
 			Date fechaActual = new Date();
-			for (ExpedienteAbogado expe : exp) {
-				List<MovimientoActuacion> actuacion = movimientoActuacionDao.getListActuacionByExpediente(expe.getExpediente().getId());
-				if(actuacion != null && !actuacion.isEmpty()){
-					for(MovimientoActuacion ma : actuacion){
-						exAc = new ExpedienteActuacionBean();
-						exAc.setActuacion(ma);
-						exAc.setExpediente(expe.getExpediente());
-						exAc.setDiaVencimiento(WebUtils.getDaysBetweenDates(fechaActual,ma.getFechaVencimiento()));
+			for (ExpedienteAbogado expe : expList) {
+				if(expe.getExpediente().getFechaActuacion()!=null){
+					cantDias =WebUtils.getDaysBetweenDates(fechaActual,expe.getExpediente().getFechaActuacion());
+					if(cantDias <=3 && cantDias >=0){
+						//cargamos los ultimos diez si alcanza diez, si sobre pasa salimos con el break
+						ExpedienteActuacionBean eac = new ExpedienteActuacionBean();
+						eac.setDiaVencimiento(cantDias);
+						eac.setExpediente(expe.getExpediente());
+						ultimosDiezExpediente.add(eac);
+						cont++;		
+					}else{
+						ExpedienteActuacionBean eAcSin = new ExpedienteActuacionBean();
+						eAcSin.setDiaVencimiento(cantDias);
+						eAcSin.setExpediente(expe.getExpediente());
+						expedienteSinVencer.add(eAcSin);
 					}
-					listExAc.add(exAc);
 					
+					if(cont==10){
+						break;
+					}	
 				}
-				
 			}
-			
-		}
 		
 		
+		map.addAttribute("expediente", expList);
+		map.addAttribute("ultimosDiezExpediente", ultimosDiezExpediente);
+		map.addAttribute("expedienteSinVencer", expedienteSinVencer);
 		
-		HttpSession session = request.getSession();
-		map.addAttribute("expediente", exp);
-		map.addAttribute("expedienteActuacionBean", listExAc);
 		session.setAttribute("currentUserName", sesionUsuario.getUsuario().getNombreRazonSocial());
 		session.setAttribute("currentUserLast", sesionUsuario.getUsuario().getApellido());
 		session.setAttribute("userSession", sesionUsuario);
 		
 		map.addAttribute("userSession", sesionUsuario);
-//		map.addAttribute("currentUserName", sesionUsuario.getUsuario().getNombreRazonSocial());
-//		map.addAttribute("currentUserLast", sesionUsuario.getUsuario().getApellido());
 		return "inicio";
 	}
+		map.addAttribute("expediente", expList);
+		map.addAttribute("ultimosDiezExpediente", ultimosDiezExpediente);
+		map.addAttribute("expedienteSinVencer", expedienteSinVencer);
+		session.setAttribute("currentUserName", sesionUsuario.getUsuario().getNombreRazonSocial());
+		session.setAttribute("currentUserLast", sesionUsuario.getUsuario().getApellido());
+		session.setAttribute("userSession", sesionUsuario);
+		
+		map.addAttribute("userSession", sesionUsuario);
+		return "inicio";
 	
-
+	}
 }

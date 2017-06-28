@@ -169,14 +169,13 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		map.addAttribute("columnasStrClient", clienteList.getColumnasStr(null));
 		map.addAttribute("columnasStrAbogado", abogadoList.getColumnasStr(abogadoList.getColumnasForExpediente()));
 		map.addAttribute("tipoActuacionList", tipoActuacionDao.getListAll(null));
-		//logger.info("tipo actuacion {} ",tipoActuacionDao.getListAll(null));
 		map.addAttribute("tipoDocumentoList", tipoDocumentoDao.getListAll(null));
-		map.addAttribute("estadoExternoList", estadoDao.getListAll(null));
+		map.addAttribute("estadoInternoList", estadoDao.getListAllExternoInterno("I"));
+		map.addAttribute("estadoExternoList", estadoDao.getListAllExternoInterno("E"));
 		map.addAttribute("materiaList", materiaDao.getListAll(null));
 		map.addAttribute("tipoProcesoList", procesoDao.getListAll(null));
 		map.addAttribute("tipoDemandaList", tipoDemandaDao.getListAll(null));
 		map.addAttribute("DespachoList", despachoDao.getListAll(null));
-		//logger.info("despchos {} ",despachoDao.getListAll(null) );
 		map.addAttribute("columnasMateria", materiaList.getColumnas());
 		map.addAttribute("columnasStrMateria", materiaList.getColumnasStr(materiaList.getColumnas()));
 		super.agregarValoresAdicionales(map);
@@ -202,16 +201,11 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "save_listado2", method = RequestMethod.GET)
 	public String guardar_listado2(HttpServletRequest request, ModelMap map, @RequestParam(value = "rd_expediente", required=false) String rdInfoAbogadoCliente) {
 		HttpSession sesion = request.getSession();
-		
-		
-		
 		Expediente obj = new Expediente();
 		List<RenderingInfo> listaAbogados = null;
 		List<RenderingInfo> listaCliente = null;
 		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
 		List<ExpedienteCliente> clienteList = new ArrayList<>();
-		
-		
 		
 		try {
 			RenderingInfo rdInfo = null;
@@ -242,8 +236,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				obj.setNroLiquidacion((String) rdExpediente.get("nroLiquidacion"));
 				// validar el despacho
 				Long id_desp = Long.parseLong((String) rdExpediente.get("despacho"));
-				Long id_estado = Long.parseLong((String) rdExpediente.get("estado"));
-				obj.setEstado(estadoDao.find(id_estado));
+				Long id_estado_interno = Long.parseLong((String) rdExpediente.get("estadoInterno"));
+				Long id_estado_externo = Long.parseLong((String) rdExpediente.get("estadoexterno"));
+				obj.setEstadoInterno(estadoDao.find(id_estado_interno));
+				obj.setEstadoExterno(estadoDao.find(id_estado_externo));
 				obj.setDespachoActual(despachoDao.find(id_desp));
 
 				if (obj.getId() == null && listaAbogados != null) {
@@ -297,7 +293,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "documento", method = RequestMethod.POST)
-	public String setMovimientoActuaccion(HttpServletRequest request, ModelMap map,
+	public String setDocumento(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp,
 			@RequestParam(value = "titulo") String titulo,
 			@RequestParam(value = "tipo_documento") String tipo_documento,
@@ -320,6 +316,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				TipoDocumento tipoDoc = tipoDocumentoDao.find(Long.parseLong(tipo_documento));
 				docu.setTipoDocumento(tipoDoc);
 				documentoDao.create(docu);
+				
 				docu.setDocumento(doc);
 				expedienteDoc.setDocumento(docu);
 				expedienteDoc.setTitulo(titulo);
@@ -346,7 +343,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	
 	@RequestMapping(value = "ver-documento", method = RequestMethod.GET)
-	public String setArchivo(HttpServletRequest request, ModelMap map,
+	public String verDocumento(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp) {
 		List<MovimientoActuacion> ma = null;
 		try {
@@ -388,18 +385,21 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "actuacion-agregar", method = RequestMethod.POST)
-	public  String MovimientoAgregar(ModelMap map,HttpServletRequest request, HttpServletResponse response,
+	public  String actuacionAgregar(ModelMap map,HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "expediente") String id_exp,	
 			@RequestParam(value = "tipo_actuacion") String tipo_actuacion,
 			@RequestParam(value = "fecha_presentacion") String fecha_presentacion,
 			@RequestParam(value = "fecha_vencimiento") String fecha_vencimiento,
 			@RequestParam(value = "movimiento_observacion") String observacion,
 			@RequestParam(value = "hora_presentacion") String hora_presentacion,
+			@RequestParam(value = "estado_interno", required=false) String estado_interno,
+			@RequestParam(value = "estado_externo", required=false) String estado_externo,
 			@RequestParam(value = "documento", required=false) MultipartFile documento) throws IOException, ParseException {
 		List<MovimientoActuacion> ma = null;
 		String base64String = "";
 		Expediente expediente = null;
 		RenderingInfo rdInfo = new RenderingInfo();
+		Date fechaNow = new Date();
 		try {
 			HttpSession session = request.getSession();
 			session.setAttribute("currentUserName", sesionUsuario.getUsuario().getNombreRazonSocial());
@@ -411,8 +411,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				byte[] doc = multipartFile.getBytes();
 				ma1.setDocumento(doc);
 			}
-			Expediente exp = expedienteDao.find(Long.parseLong(id_exp));
-			if(exp != null){
+			expediente = expedienteDao.find(Long.parseLong(id_exp));
+			if(expediente != null){
 				fecha_presentacion = fecha_presentacion.replace("/", "");
 				fecha_vencimiento = fecha_vencimiento.replace("/", "");
 				Calendar calendario = Calendar.getInstance();
@@ -424,11 +424,21 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				fecha_vencimiento = fecha_vencimiento + tiempo;
 				Date fe_pre = WebUtils.getDateTime(fecha_presentacion);
 				Date fe_ve = WebUtils.getDateTime(fecha_vencimiento); // PASARLE CON HORA?a
-				ma1.setExpediente(expedienteDao.find(Long.parseLong(id_exp)));
+				
+				if(estado_interno!= null){
+					expediente.setEstadoInterno(estadoDao.find(Long.parseLong(estado_interno)));
+				}
+				if(estado_externo!= null){
+					expediente.setEstadoExterno(estadoDao.find(Long.parseLong(estado_externo)));
+				}
+				
+				
+				ma1.setExpediente(expediente);
 				ma1.setFechaPresentacion(fe_pre);
 				ma1.setFechaVencimiento(fe_ve);
 				ma1.setObservacion(observacion);
 				ma1.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
+				ma1.setFechaCarga(fechaNow);
 				movimientoActuacionDao.create(ma1);
 				
 				ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
@@ -439,7 +449,6 @@ public class ExpedienteFormController extends FormController<Expediente> {
 					}
 				}	
 				
-				expediente = expedienteDao.find(Long.parseLong(id_exp));
 				List<ExpedienteAbogado> abogadoList = expedienteDao.getListByExpedienteIdAb(id_exp);
 				List<ExpedienteCliente> clienteList = expedienteDao.getListByExpedienteId(id_exp);
 				map.addAttribute("id_expediente", id_exp);
@@ -474,7 +483,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	
 	
 	@RequestMapping(value = "buscar-resultado", method = RequestMethod.GET)
-	public String buscar_seccion2(HttpServletRequest request, ModelMap map,
+	public String buscarResultado(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "anho") String anho,
 			@RequestParam(value = "estado") String estado,
 			@RequestParam(value = "despacho_buscar") String despacho,
@@ -518,7 +527,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 
 
 	@RequestMapping(value = "/buscar-parte", method = RequestMethod.GET)
-	public String buscar_parte(HttpServletRequest request, ModelMap map,
+	public String buscarParte(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "search") String search,
 			@RequestParam(value = "tipo_parte") String tipoParte) {
 		if("C".equals(tipoParte.toUpperCase())){
@@ -578,7 +587,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		
 	}
 	@RequestMapping(value = "/fecha-vencimiento", method = RequestMethod.GET)
-	public  String fecha(HttpServletRequest request,
+	public  String fechaVencimiento(HttpServletRequest request,
 			@RequestParam(value = "actuacion", required = true) String actuacion_id,
 			@RequestParam(value = "fecha", required = true) Date fecha,ModelMap map) throws Exception{
 			Long id_actuacion = Long.parseLong(actuacion_id);
@@ -632,12 +641,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 	
 	@RequestMapping(value = "/buscar-actuacion", method = RequestMethod.GET)
-	public  String buscar_actuacion(HttpServletRequest request,ModelMap map) throws Exception{
+	public  String buscarActuacion(HttpServletRequest request,ModelMap map) throws Exception{
 		
 		return "expediente/buscar_actuacion";
 	}
 	@RequestMapping(value = "buscar-actuacion-resultado", method = RequestMethod.GET)
-	public  String buscar_actuacion_resultado(HttpServletRequest request,ModelMap map,
+	public  String buscarActuacionResultado(HttpServletRequest request,ModelMap map,
 			@RequestParam(value = "fecha_presentacion", required = false) String fecha_presentacion,
 			@RequestParam(value = "fecha_vencimiento", required = false) String fecha_vencimiento) throws Exception{
 		
@@ -740,11 +749,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 					}
 				}
 			}
-						
-						
-					
-					
-			
+
 		}
 		if(nRepetidos == null || nRepetidos.isEmpty()){
 			map.addAttribute("vacio", "si");

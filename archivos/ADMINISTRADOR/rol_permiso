@@ -3,7 +3,10 @@ insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),5,1);
 insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),6,1);
 insert into rolpermiso values(NEXTVAL('rolpermiso_id_seq'),3051,4);
 
-
+##Usuario, agregar el id del rol administrador
+INSERT INTO usuario(
+            id, apellido, cedularuc, nombrerazonsocial, password, rol_id)
+    VALUES (1, 'Méndez', 1150391, 'Carlos', md5('cmendez'), 151);
 
 ###Nuevo - solo 10 de los 27
 select id from permiso where descripcion like '%ver-%'
