@@ -35,8 +35,8 @@
 					
 		<label th:text="#{expediente.nroExpediente.lbl}"
 			class="field-label section-02">Nro Expediente:</label>
-		<label th:text="${session.expediente.nroExpediente}"
-			class="field-label section-02"></label>
+		<input th:value="${expediente.nroExpediente}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 
 	</div>
 
@@ -44,7 +44,8 @@
 		<label th:text="#{expediente.anho.lbl}" class="field-label section-02">Año:</label>
 		<!-- <label
 					class="field-label section-02"> 2015</label>  -->
-		<label th:text="${session.expediente.anho}" class="field-label section-02"></label>
+	<input th:value="${expediente.anho}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 
 
 
@@ -54,8 +55,8 @@
 		<!-- <label
 					class="field-label section-02"> Pedro Ayala</label>  -->
 
-		<label th:text="${session.expediente.despachoActual.juez}"
-			class="field-label section-02"></label>
+		<input th:value="${expediente.despachoActual.juez}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 
 
 	</div>
@@ -65,7 +66,8 @@
 
 		<!-- <label 
 					class="field-label section-02">100</label> 	 -->
-		<label th:text="${session.expediente.folio}" class="field-label section-02"></label>
+		<input th:value="${expediente.folio}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 
 
 	</div>
@@ -76,9 +78,9 @@
 			class="field-label section-02">Cliente Demandante:</label><br>
 		<th:block th:each=" tip : ${session.clienteList}">
 
-			<label class="field-label section-02"
-				th:if="${tip.tipoCliente == 'D'}"
-				th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+			<input class="field-label section-02 estilo-input col-sm-7" style="padding-top:5px;margin-top:5px;"
+											th:if="${tip.tipoCliente == 'D'}"
+											th:value="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}" disabled>
 
 		</th:block>
 
@@ -91,9 +93,9 @@
 
 		<th:block th:each=" tip : ${session.clienteList}">
 
-			<label class="field-label section-02"
-				th:if="${tip.tipoCliente == 'C'}"
-				th:text="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}"></label>
+			<input class="field-label section-02 estilo-input col-sm-7" style="padding-top:5px;margin-top:5px;"
+											th:if="${tip.tipoCliente == 'C'}"
+											th:value="${tip.cliente.persona.nombre_razonSocial + ' ' + tip.cliente.persona.apellido}" disabled>
 
 		</th:block>
 
@@ -105,9 +107,9 @@
 
 		<th:block th:each=" tip : ${session.abogadoList}">
 
-			<label class="field-label section-02"
-				th:if="${tip.tipoAbogado == 'AP'}"
-				th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label>
+			<input class="field-label section-02 estilo-input col-sm-7" style="padding-top:5px;margin-top:5px;"
+											th:if="${tip.tipoAbogado == 'AP'}"
+											th:value="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}" disabled>
 
 		</th:block>
 
@@ -119,9 +121,9 @@
 
 		<th:block th:each=" tip : ${session.abogadoList}">
 
-			<label class="field-label section-02"
-				th:if="${tip.tipoAbogado == 'CO'}"
-				th:text="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}"></label>
+			<input class="field-label section-02 estilo-input col-sm-7" style="padding-top:5px;margin-top:5px;"
+											th:if="${tip.tipoAbogado == 'CO'}"
+											th:value="${tip.abogado.empleado.persona.nombre_razonSocial + ' ' + tip.abogado.empleado.persona.apellido}" disabled>
 
 		</th:block>
 
