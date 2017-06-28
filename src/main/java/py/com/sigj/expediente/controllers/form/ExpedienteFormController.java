@@ -1,6 +1,7 @@
 package py.com.sigj.expediente.controllers.form;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -495,7 +496,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	public String buscar(HttpServletRequest request, ModelMap map) {
 		map.addAttribute("despachoList", despachoDao.getListAll(null));
 		map.addAttribute("abogadoList", abogadoDao.getListAll(null));
-		map.addAttribute("estadoList", estadoDao.getListAll(null));
+		map.addAttribute("estadoList", estadoDao.getListAllExternoInterno("E"));
+		
 		return "expediente/buscar_expediente";
 	}
 	
@@ -510,34 +512,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			List<Expediente> nRepetidos = new ArrayList<>();
 			List<Expediente> expediente = expedienteDao.filtro(nroExpediente,abogado,despacho,estado,anho);
 			Long id_expediente = null;
-			if(expediente != null && !expediente.isEmpty()){ //control de repetidos
-				nRepetidos.add(expediente.get(0));
-				for (int i = 1; i < expediente.size(); i++) {
-					boolean band = true;
-					id_expediente = expediente.get(i).getId();
-					for (int j = 0; j < nRepetidos.size(); j++) {
-						if(id_expediente == nRepetidos.get(j).getId()){
-							logger.info("Encontro repetido");
-							band=false;
-							break;
-						}
-					}
-					if(band){ // si no encontro repetidos agrega en la lista
-						nRepetidos.add(expediente.get(i));
-						band = true;
-					}
-				}
-			}
-			
-			
 			String aux = "";
-			if(nRepetidos == null || nRepetidos.isEmpty()){
+			if(expediente == null || expediente.isEmpty()){
 				aux = "null";
+			}else if(abogado != null && !abogado.equalsIgnoreCase("") && !abogado.equalsIgnoreCase("0")){
+				aux = "expediente_abogado";
 			}else{
-				aux = (nRepetidos.get(0).getNroExpediente() == null)?"expediente_abogado":"expediente";
+				aux = "expediente";
 			}
 			
-			map.addAttribute("expedienteList",nRepetidos);
+			map.addAttribute("expedienteList",expediente);
 			map.addAttribute("aux", aux);
 		return "expediente/buscar_expediente :: expedienteList";
 	}

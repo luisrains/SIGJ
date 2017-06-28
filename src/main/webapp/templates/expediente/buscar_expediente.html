@@ -77,9 +77,15 @@
 					<div class="col-sm-12 hidden expediente-div">
 					<div id="expediente-resultado" class="col-sm-12" style="margin-top:10px;border-top-color:red;border-top-style:solid;" th:fragment="expedienteList" th:each="exp : ${expedienteList}">
 						<th:block th:if="${aux} == 'expediente_abogado'">
-						<div class="col-lg-12" style="margin-top: 5px;">
-							<button class="btn btn-success" th:onclick="'agregar_actuacion(\'' + ${exp.id} + '\');'"><i class="glyphicon glyphicon-plus"></i>Agregar Actuación</button>
+						<div class="col-lg-6" style="margin-top: 5px;">
+							<button class="btn btn-success" th:onclick="'agregar_actuacion(\'' + ${exp.expediente.id} + '\');'"><i class="glyphicon glyphicon-plus"></i>Agregar Actuación</button>
 						</div>
+						<div class="col-lg-6" style="margin-top: 5px;">
+							<a th:href="@{/expediente/hojar-expediente/{id}(id=${exp.expediente.id})}"  target='_blank'><button class="btn btn-success" >
+								<i class="glyphicon glyphicon-plus"></i>Ver Expediente Digital
+							</button></a>
+						</div>
+						
 						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;">
 						<label>N° Expediente:</label>
 							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.nroExpediente}" disabled />
@@ -112,8 +118,8 @@
 						
 						<div th:if="${exp.expediente.moneda != 0}" class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;" th:switch="${exp.expediente.moneda}">
 							<label>Monto:</label>
-							<input th:case="'GS'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.expediente.monto,3,'POINT')} + ' '+ ${exp.moneda}" disabled />
-							<input th:case="'USD'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatDecimal(exp.expediente.monto,3,'POINT',2,'COMMA')} + ' '+ ${exp.moneda}" disabled />
+							<input th:case="'GS'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatInteger(exp.expediente.monto,3,'POINT')} + ' '+ ${exp.expediente.moneda}" disabled />
+							<input th:case="'USD'" type="text" class="form-control input-md texto-resultado" th:value="${#numbers.formatDecimal(exp.expediente.monto,3,'POINT',2,'COMMA')} + ' '+ ${exp.expediente.moneda}" disabled />
 						<!-- /.input group -->
 						
 						</div>
@@ -126,7 +132,7 @@
 						
 						<div class="col-sm-6" style="margin-left:0px;padding-left:0px; margin-top:15px;margin-bottom:10px;">
 						<label>Estado:</label>
-							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.estado.descripcion}" disabled />
+							<input type="text" class="form-control input-md texto-resultado" th:value="${exp.expediente.estadoInterno.descripcion}" disabled />
 						<!-- /.input group -->
 						
 						</div>

@@ -319,6 +319,8 @@ function datos_caratula(){
 	var demandando = $("#o-demandado").val();
 	var tipoDemnda = $("select[name=tipoDemanda]").find(":selected").text();
 	var juzgado = $("select[name=despacho]").find(":selected").text();
+	var tamanho = juzgado.length;
+	var secretaria = juzgado.substring(tamanho-2,tamanho);
 	if(demandante != null && demandante != undefined && demandando != null 
 			&& demandando != undefined && tipoDemnda != null && tipoDemnda != undefined){
 		var expediente = demandante +" C/ "+ demandando+" S/ "+ tipoDemnda;
@@ -332,6 +334,7 @@ function datos_caratula(){
 		$("#folio_caract").text($("#folio").val());
 		$("#expediente_caract").text(expediente);
 		$("#juzgado_caract").text(juzgado);
+		$("#secretaria_caract").text(secretaria);
 		return true;
 	}else{
 		$("#div-error-general").html('');
@@ -360,7 +363,7 @@ function registrar_expediente(){
 		expediente.folio = 	$("#folio_caract").text();
 		expediente.juzgado = $("#juzgado_caract").text();
 		expediente.juez = $("#juez_caract").text();
-		expediente.secretaria = $("#secretaria_caract").val();
+		expediente.secretaria = $("#secretaria_caract").text();
 		expediente.cargo = $("#cargo_caract").val();
 		expediente.caratula = $("#expediente_caract").text();
 		expediente.moneda = $("#moneda").val();
