@@ -16,7 +16,7 @@
 							<!-- <label>Seleccione la Fecha de la planilla:</label> -->
 							
 							<!-- /.input group -->
-							<<table
+							<table
 										class="table table-bordered table-hover table-striped display"
 										id="ingresoEgresoFacturaDT">
 										<thead>
@@ -31,10 +31,10 @@
 	
 											<tr th:each="mov : ${movimiento_expediente}">
 												<td class="hidden"></td>
-												<td th:text="${mov.fecha}"></td>
-												<td th:if="${isIngreso}" th:text="${#numbers.formatInteger(mov.ingreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></td>
-												<td th:if="${isegreso}" th:text="${#numbers.formatInteger(mov.ingreso,3,'POINT')} + ' '+ ${ps.expediente.moneda}"></td>
-												<td th:text="${mov.descripcion}"></td>
+												<td th:text="${mov.movimiento.fecha}"></td>
+												<td th:if="${isIngreso}" th:text="${#numbers.formatInteger(mov.movimiento.ingreso,3,'POINT')} + 'GS '"></td>
+												<td th:if="${isEgreso}" th:text="${#numbers.formatInteger(mov.movimiento.egreso,3,'POINT')} + 'GS'"></td>
+												<td th:text="${mov.movimiento.descripcion}"></td>
 											</tr>
 										</tbody>
 	

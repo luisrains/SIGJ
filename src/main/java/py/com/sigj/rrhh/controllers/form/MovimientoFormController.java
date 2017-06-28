@@ -1,5 +1,8 @@
 package py.com.sigj.rrhh.controllers.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -9,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,7 +91,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 			@RequestParam(value="monto",required = false) String monto,
 			@RequestParam(value = "id_objeto", required = false) Long id_objeto) {
 		if (StringUtils.equals(accion, "save")) {
-			return guardar_listado(map, obj, bindingResult,monto,tipo,expediente_id);
+			return guardar_listado(map, obj, bindingResult,tipo,expediente_id,monto);
 		} else if (StringUtils.equals(accion, "edit")) {
 			logger.info("OBJETO MOVIMIENTO {}", obj);
 			return editar_listado(map, obj, bindingResult,monto,tipo,expediente_id);
@@ -119,6 +123,10 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				}
 				
 				Long id_expediente = Long.parseLong(expediente_id);
+				if(obj.getEmpleado().getId()==null){ // para el empleado generico 
+					Empleado e = empleadoDao.find((long)10);
+					obj.setEmpleado(e);
+				}
 				getDao().create(obj);
 				if(id_expediente != 0){
 					Expediente ex = expedienteDao.find(id_expediente);
@@ -212,26 +220,29 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	
 	
 	
-	@RequestMapping(value = "/buscar-movimiento", method = RequestMethod.POST)
-	public String buscar(HttpServletRequest request, ModelMap map, @RequestParam("id_expediente") Long id_expediente) {
-		
-		Persona persona = null;
+	@RequestMapping(value = "buscar-movimiento/{id_expediente}/{tipo}", method = RequestMethod.GET)
+	public String buscar(HttpServletRequest request, ModelMap map, @PathVariable("id_expediente") Long id_expediente, 
+			@PathVariable("tipo") String tipo) {
+		List<Movimiento> mov = new ArrayList<>();
+		List<MovimientoExpediente> me = null;
 		try {
-			
+			me = movimientoDao.getLitMovimientoExpediente(id_expediente);
+			map.addAttribute("movimiento_expediente", me);
+			if("I".equals(tipo.toUpperCase())){
+				map.addAttribute("isIngreso",true);
+				map.addAttribute("isEgreso",false);
+			}else{
+				map.addAttribute("isIngreso",false);
+				map.addAttribute("isEgreso",true);
+			}
 			
 		} catch (Exception ex) {
 
 			
 		}
-
-		map.addAttribute(getNombreObjeto(), getNuevaInstancia());
 		agregarValoresAdicionales(map);
 		
-		
-		
-		
-		
-		return "expediente/buscar_expediente";
+		return "rrhh/listado_ingreso_egreso_factura_index";
 	}
 
 }
