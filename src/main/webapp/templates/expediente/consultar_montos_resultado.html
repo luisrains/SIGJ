@@ -8,13 +8,16 @@
 								style="margin-left:42px;"/>
 								<input th:if="${total_ingreso > 0}" th:value="${#numbers.formatInteger(total_ingreso,3,'POINT')} + ' '+ 'GS.'" id="total_ingreso" name="total_ingreso" disabled
 								style="margin-left:42px;"/>
+								<a  th:if="${total_ingreso != null and total_ingreso != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/I'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
+								style="padding-left: 10px;">Ver Detalle</a>
 								
 								
 								
 							</div>
 							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total Egreso:</label>
-								<input id="total_egreso" name="total_egreso" disabled th:value="${#numbers.formatInteger(total_egreso,3,'POINT')} + ' '+ 'GS'" style="margin-left:47px;"/>
+								<input th:if="${total_egreso > 0}" id="total_egreso" name="total_egreso" disabled th:value="${#numbers.formatInteger(total_egreso,3,'POINT')} + ' '+ 'GS.'" style="margin-left:47px;"/>
+								<input th:if="${total_egreso <= 0}" id="total_egreso" name="total_egreso" disabled th:value="${total_egreso} + ' '+ 'GS.'" style="margin-left:47px;"/>
 								<a  th:if="${total_egreso != null and total_egreso != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/E'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
 								style="padding-left: 10px;">Ver Detalle</a>
 								
@@ -22,7 +25,7 @@
 							
 							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total de Facturación:</label>
-								<input id="total_factura" name="total_factura" disabled th:if="${total_factura !=null and total_factura != 0}" th:value="${#numbers.formatInteger(total_factura,3,'POINT')} + ' '+ 'GS'"/>
+								<input id="total_factura" name="total_factura" disabled th:if="${total_factura !=null and total_factura != 0}" th:value="${#numbers.formatInteger(total_factura,3,'POINT')} + ' '+ 'GS.'"/>
 								<a  th:if="${total_factura != null and total_factura != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
 								style="padding-left: 10px;">Ver Detalle</a>
 							</div>
