@@ -42,8 +42,8 @@ public class FacturaDetalle extends GenericEntity {
 	private Servicio servicio;
 	
 	
-	private int ivaCinco;
-	private int ivaDiez;
+	private String ivaCinco;
+	private String ivaDiez;
 	@NotNull(message = "facturaDetalle.monto.notNull")
 	private int monto;
 	
@@ -81,19 +81,22 @@ public class FacturaDetalle extends GenericEntity {
 		this.servicio = servicio;
 	}
 
-	public int getIvaCinco() {
+	
+	
+
+	public String getIvaCinco() {
 		return ivaCinco;
 	}
 
-	public void setIvaCinco(int ivaCinco) {
+	public void setIvaCinco(String ivaCinco) {
 		this.ivaCinco = ivaCinco;
 	}
 
-	public int getIvaDiez() {
+	public String getIvaDiez() {
 		return ivaDiez;
 	}
 
-	public void setIvaDiez(int ivaDiez) {
+	public void setIvaDiez(String ivaDiez) {
 		this.ivaDiez = ivaDiez;
 	}
 
@@ -121,6 +124,8 @@ public class FacturaDetalle extends GenericEntity {
 		return "FacturaDetalle [id=" + id + ", facturaCabecera=" + facturaCabecera + ", servicio=" + servicio
 				+ ", ivaCinco=" + ivaCinco + ", ivaDiez=" + ivaDiez + ", monto=" + monto + ", nro=" + nro + "]";
 	}
+
+	
 
 	
 

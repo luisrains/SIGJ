@@ -33,8 +33,6 @@
 				<th class="hidden">Id</th>
 				<th>Nro</th>
 				<th>Descripción</th>
-				<th>Iva 5%</th>
-				<th>Iva 10%</th>
 				<th>Precio Unitario</th>
 			</thead>
 			<tbody>
@@ -42,8 +40,6 @@
 					<td th:text="${ld.id}" class="hidden"></td>
 					<td th:text="${ld.nro}"></td>
 					<td th:text="${ld.servicio.tipoServicio}"></td>
-					<td th:text="${ld.ivaCinco}"></td>
-					<td th:text="${ld.ivaDiez}"></td>
 					<td th:text="${ld.monto}"></td>
 				</tr>
 				<tr rowspan="1">

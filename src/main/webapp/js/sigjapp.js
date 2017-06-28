@@ -2,56 +2,46 @@
 				EJ: recibe "id;codigo;razonSocial;tipoCliente.nombre"
 				y retorna [{'data' : 'id'}, {'data':'codigo'}, {'data':'razonSocial'}, {'data':'tipoCliente.nombre'}]
 			*/
+
 		var iva_5 = 0;
 		var iva_10 = 0;
 		var monto_total = 0;
+		var arrayIngreso = new Array();
+		var arrayEgreso = new Array();
 		function confirmarFila(){
 			var trs = $("#f_detalle tbody tr").length -1;
-			if($(".fila_"+(trs-1)).find("#ingreso").val() != ""){
-				iva_5 += parseInt($(".fila_"+(trs-1)).find("#ingreso").val());
-				iva_5 = Math.round(iva_5 / 21);
+			var iva_seleccion = $(".fila_"+(trs-1)).find("input[name=iva_radio]:checked").val();
+			if(iva_seleccion != "" && iva_seleccion == "I"){
+				iva_5 += Math.round(parseInt($(".fila_"+(trs-1)).find("#monto").val().replace(/\./g,'')) / 21);
+				arrayIngreso.push($(".fila_"+(trs-1)).find("#nro").text());
 			}
-			else if($(".fila_"+(trs-1)).find("#egreso").val() != ""){
-				iva_10 += parseInt($(".fila_"+(trs-1)).find("#egreso").val());
-				iva_10 =  Math.round(iva_10 / 11);
+			else if(iva_seleccion != "" && iva_seleccion == "E"){
+				
+				iva_10 +=  Math.round(parseInt($(".fila_"+(trs-1)).find("#monto").val().replace(/\./g,'')) / 11);
 			}
 			if($(".fila_"+(trs-1)).find("#monto").val() != ""){
-				monto_total += parseInt($(".fila_"+(trs-1)).find("#monto").val());
+				monto_total += parseInt($(".fila_"+(trs-1)).find("#monto").val().replace(/\./g,''));
+				arrayEgreso.push($(".fila_"+(trs-1)).find("#nro").text());
 			}
 			
 			
 			
-			$("#iva_5").text(iva_5); 
-			$("#iva_10").text(iva_10); 
-			$("#monto_total").text(monto_total); 
+			$("#iva_5").text(number_format(iva_5,0)); 
+			$("#iva_10").text(number_format(iva_10,0)); 
+			$("#monto_total").text(number_format(monto_total,0)); 
 		}
+		var primer_tr = "";
 		function agregarFila(){
-			console.log("entra en el evento");
-			var aux = $("#f_detalle tbody tr:last").clone()
+			var aux = $("#f_detalle tbody tr:last").clone();
 			var trs = $("#f_detalle tbody tr").length -1;
 			
-			$("#f_detalle tbody tr:last").remove()
-			$("#f_detalle tbody tr td:first").text(trs);
+			$("#f_detalle tbody tr:last").remove();
+			$("#f_detalle tbody tr td:first").text(trs); 
 			$("#f_detalle tbody tr:first").clone().removeClass('clonar').appendTo("#f_detalle tbody");
 			$("#f_detalle tbody tr:last").addClass("fila_"+trs);
-			aux.appendTo("#f_detalle tbody");
-			/*if($(".fila_"+(trs-1)).find("#ingreso").val() != ""){
-				iva_5 += parseInt($(".fila_"+(trs-1)).find("#ingreso").val());
-				iva_5 = Math.round(iva_5 / 21);
-			}
-			else if($(".fila_"+(trs-1)).find("#egreso").val() != ""){
-				iva_10 += parseInt($(".fila_"+(trs-1)).find("#egreso").val());
-				iva_10 =  Math.round(iva_10 / 11);
-			}
-			if($(".fila_"+(trs-1)).find("#monto").val() != ""){
-				monto_total += parseInt($(".fila_"+(trs-1)).find("#monto").val());
-			}
 			
+			aux.appendTo("#f_detalle tbody"); 
 			
-			
-			$("#iva_5").text(iva_5); 
-			$("#iva_10").text(iva_10); 
-			$("#monto_total").text(monto_total); */
 			
 			
 		}
