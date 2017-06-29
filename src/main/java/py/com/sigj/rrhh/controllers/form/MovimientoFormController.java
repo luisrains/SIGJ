@@ -24,6 +24,7 @@ import py.com.sigj.expediente.dao.ExpedienteFacturaDao;
 import py.com.sigj.expediente.domain.Expediente;
 import py.com.sigj.expediente.domain.ExpedienteFactura;
 import py.com.sigj.expediente.domain.Persona;
+import py.com.sigj.gastos.domain.FacturaCabecera;
 import py.com.sigj.gastos.domain.IngresoEgreso;
 import py.com.sigj.rrhh.controllers.list.MovimientoListController;
 import py.com.sigj.rrhh.dao.EmpleadoDao;
@@ -231,6 +232,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 			@PathVariable("tipo") String tipo) {
 		List<Movimiento> movIngreso = new ArrayList<>();
 		List<Movimiento> movEgreso = new ArrayList<>();
+		List<FacturaCabecera> facturas = new ArrayList<>();
 		List<IngresoEgreso> ingresoList = new ArrayList<>();
 		List<IngresoEgreso> egresoList = new ArrayList<>();
 		List<MovimientoExpediente> me = null;
@@ -246,6 +248,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				}
 				map.addAttribute("ingresoList",movIngreso);
 				map.addAttribute("isIngreso",true);
+				map.addAttribute("titulo","Detalle de Ingresos");
 				map.addAttribute("isEgreso",false);
 				map.addAttribute("isFactura",false);
 			}else if("F".equals(tipo.toUpperCase())){
@@ -254,6 +257,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				map.addAttribute("isIngreso",false);
 				map.addAttribute("isEgreso",false);
 				map.addAttribute("isFactura",true);
+				map.addAttribute("titulo","Detalle de Facturas");
 			}else{
 				for (MovimientoExpediente movimientoExpediente : me) {
 					if(movimientoExpediente.getMovimiento().getEgreso()>0){
@@ -263,6 +267,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				map.addAttribute("egresoList",movEgreso);
 				map.addAttribute("isIngreso",false);
 				map.addAttribute("isEgreso",true);
+				map.addAttribute("titulo","Detalle de Egresos");
 				map.addAttribute("isFactura",false);
 			}
 			

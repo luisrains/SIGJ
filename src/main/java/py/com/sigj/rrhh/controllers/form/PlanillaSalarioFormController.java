@@ -144,10 +144,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 		}
 		for (Movimiento ml : mb) {
 			String fechaCad1 = sdf1.format(ml.getFecha());
-			logger.info("Lee el fechaCad que pusimos para mes:{}", fechaCad1.substring(3, 5));
-			logger.info("Lee el fechaCad que pusimos para año:{}", fechaCad1.substring(6, 10));
 			if (fechaCad1.substring(3, 5).equals(aux1) && fechaCad1.substring(6, 10).equals(aux2)) {
-				logger.info("Esto compara:{}", fechaCad1.substring(3, 5), fechaCad1.substring(6, 10));
 				val = 1;
 				break;
 

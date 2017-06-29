@@ -40,7 +40,7 @@
 					<td th:text="${ld.id}" class="hidden"></td>
 					<td th:text="${ld.nro}"></td>
 					<td th:text="${ld.servicio.tipoServicio}"></td>
-					<td th:text="${ld.monto}"></td>
+					<td th:text="${ld.monto > 0}  ? ${#numbers.formatInteger(ld.monto,3,'POINT')} +'GS.': ${ld.monto}"></td>
 				</tr>
 				<tr rowspan="1">
 					<td  class="hidden">Oculto</td>
@@ -48,45 +48,26 @@
 					
 					<td>
 						<label>Total Iva 5%: </label>
-						<label th:text="${total_iva_5}"></label>
+						<!-- <label th:text="${total_iva_5 > 0} ? ${#numbers.formatInteger(total_iva_5,3,'POINT')} : ${total_iva_5}"></label> -->
+						<label th:text="${total_iva_5} +'GS.'"></label>
 					</td>
-					<td></td>
-					<td></td>
+<!-- 					<td></td>
+					<td></td> -->
 					<td>
 						<label>Total Iva 10%: </label>
-						<label th:text="${total_iva_10}"></label>
+						<!-- <label th:text="${total_iva_10 > 0} ? ${#numbers.formatInteger(total_iva_10,3,'POINT')} : ${total_iva_10}"></label> -->
+						<label th:text="${total_iva_10}+'GS.'"></label>
 					</td>
 					
 					<td>
 						<label>Monto Total: </label>
-						<label th:text="${monto_total}"></label>
+						<label th:text="${monto_total}+ 'GS.'"></label>
 					</td>
 				</tr>
 			</tbody>
     </table>
 </div> 
 			
-<!-- <div class="form-group col-sm-6" th:each="item: ${mapaDetalle}">
-	<th:block th:switch="${item.key}">
-		<div th:case="'monto_total'" class="col-sm-12">
-			<label class="field-label">Monto Total:</label>
-			<label class="field-label" th:text="${item.value}"></label>
-		</div>	
-		<div th:case="'total_iva_5'" class="col-sm-12">
-			<label class="field-label">Total Iva 5%:</label>
-			<label class="field-label" th:text="${item.value}"></label>
-		</div>
-		<div th:case="'total_iva_10'" class="col-sm-12">
-			<label class="field-label">Total Iva 10%: </label>
-			<label class="field-label" th:text="${item.value}"></label>
-		</div>
-		<div th:if="${item.key} != 'monto_total' and ${item.key} != 'total_iva_10' and ${item.key} != 'total_iva_5' " class="col-sm-12">
-			<label class="field-label" th:text="${item.key.substring(0,item.key.length()-2)}"></label>
-			<label class="field-label" th:text="${item.value}"></label>
-		</div>
-	</th:block>
-	
-</div> -->
 <div class="col-xs-12 col-sm-12 col-sm-offset-3">
 						<a id="btn-confirmar" type="button" class="btn btn-primary col-xs-5 col-sm-3"
 						style="padding:5px; margin:10px;">Confirmar</a>

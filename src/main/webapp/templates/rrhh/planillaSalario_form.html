@@ -21,11 +21,11 @@
             <!-- <td th:text="#{ps.empleado.persona.cedula_ruc}"></td> -->
             <td th:text="${ps.empleado.persona.nombre_razonSocial}" class="td-body-movil"></td>
             <td th:text="${ps.empleado.persona.apellido}" class="td-body-movil"></td>
-            <td th:text="${ps.empleado.salario}" class="td-body-movil"></td>
-            <td th:text="${ps.ingresoTotal}" class="td-body-movil"></td>
-            <td th:text="${ps.egresoTotal}" class="td-body-movil hidden"></td>
+            <td th:text="${ps.empleado.salario>0} ? ${#numbers.formatInteger(ps.empleado.salario,3,'POINT')}+ ' GS.' : ps.empleado.salario" class="td-body-movil"></td>
+            <td th:text="${ps.ingresoTotal >0} ? ${#numbers.formatInteger(ps.ingresoTotal,3,'POINT')} + ' GS.' : ${ps.ingresoTotal}" class="td-body-movil"></td>
+            <td th:text="${ps.egresoTotal> 0} ? ${#numbers.formatInteger(ps.egresoTotal,3,'POINT')} + ' GS.' : ${ps.egresoTotal}" class="td-body-movil hidden"></td>
             <td th:text="${ps.observacion}" class="td-body-movil"></td>
-            <td th:text="${ps.montoCobro}" class="td-body-movil"></td>
+            <td th:text="${ps.montoCobro > 0} ? ${#numbers.formatInteger(ps.montoCobro,3,'POINT')} + ' GS.' : ${ps.montoCobro}" class="td-body-movil"></td>
         </tr>
         </tbody>
     </table>
