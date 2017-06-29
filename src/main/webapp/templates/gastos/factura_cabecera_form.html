@@ -136,14 +136,14 @@
 							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
 							
 							<td class="col-xs-4 col-sm-4 f-head">
-								<select class="col-xs-12 col-sm-12 descripcion">
-									
-							 <option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
-									th:text="${servicio.tipoServicio}">Prueba</option>
+								<select class="col-xs-12 col-sm-12 descripcion" onchange="servicio_monto()" >
+									<option value="0" selected>Seleccione un Servicio</option>
+							 		<option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
+										th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="radio" name="iva_radio" id="ingreso" value="I" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:80px;"><input type="radio" name="iva_radio" id="egreso" value="E" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" pattern="[0-9]" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" disabled pattern="[0-9]" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
@@ -153,13 +153,13 @@
 						<tr class="col-xs-12 col-sm-12 fila_1" style="padding-right:0px; padding-left:5px;">
 							<td id="nro" class="col-xs-1 col-sm-1 f-head">1</td>
 							<td class="col-xs-4 col-sm-4 f-head"><select class="col-xs-12 col-sm-12 descripcion">
-									
+								<option value="0" selected>Seleccione un Servicio</option>	
 								<option th:each=" servicio : ${listaServicios}" th:value="${servicio.id}"
 									th:text="${servicio.tipoServicio}">Prueba</option>
 							</select></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="radio" name="iva_radio" value="I" id="ingreso" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:80px;"><input type="radio" name="iva_radio" value="E" id="egreso" class="col-xs-12 col-sm-6 numbers-only" style="height:20px;"/></td>
-							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" pattern="[0-9]" style="height:30px;"/></td>
+							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:5px;"><input type="text" id="monto" class="col-xs-12 col-sm-12" disabled pattern="[0-9]" style="height:30px;"/></td>
 							<td class="col-xs-2 col-sm-2 f-head" style="padding-right:0px;">
 								<button type="button" id="confirmar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-primary" onclick="confirmarFila()" style="margin-top:10px; margin-left:2px;margin-right:1px;"><i class='glyphicon glyphicon-ok'></i></button>
 								<button type="button" id="agregar_fila" class="no-padding col-xs-3 col-sm-3 btn btn-success" onclick="agregarFila()"><i class='glyphicon glyphicon-plus'></i></button>
@@ -182,7 +182,46 @@
 		</form>
 		</div>
 		<div id="cab_confirmar" class="hidden box-body"></div>
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			var servicioList = [[${listaServicios}]];
+			$(".descripcion").on("change",function(){
+				var trs = $("#f_detalle tbody tr").length -2;
+				
+				var servicio_id = $("select.descripcion")[trs].value;
+				if(servicio_id != 0){
+					$.each(servicioList,function(key,value){
+						if(value.id == servicio_id){
+							console.log(value.id);
+							$("#f_detalle tbody tr.fila_"+trs+" td:eq(4)").find("input").val( number_format(value.costo,0));
+							$("#f_detalle tbody tr.fila_"+trs+" td:eq(4)").find("input").prop("disabled","disabled");
+						}
+					});
+				}
+				
+			});
+		
+
+		/*]]>*/
+		
+		function servicio_monto(){
+			var trs = $("#f_detalle tbody tr").length -2;
+			
+			var servicio_id = $("select.descripcion")[trs].value;
+			if(servicio_id != 0){
+				$.each(servicioList,function(key,value){
+					if(value.id == servicio_id){
+						console.log(value.id);
+						$("#f_detalle tbody tr.fila_"+trs+" td:eq(4)").find("input").val( number_format(value.costo,0));
+						$("#f_detalle tbody tr.fila_"+trs+" td:eq(4)").find("input").prop("disabled","disabled");
+					}
+				});
+			}
+		}
+		</script>
 		<script type="text/javascript">
+		
+		
 		$(".factura-cliente").select2({
 			placeholder : "Seleccione el Cliente...",
 			language : {

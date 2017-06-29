@@ -24,7 +24,7 @@
 				arrayEgreso.push($(".fila_"+(trs-1)).find("#nro").text());
 			}
 			
-			
+			$("#f_detalle tbody tr.fila_"+(trs-1)+" td:eq(5)").find("#confirmar_fila").prop("disabled","disabled");
 			
 			$("#iva_5").text(number_format(iva_5,0)); 
 			$("#iva_10").text(number_format(iva_10,0)); 
