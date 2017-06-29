@@ -787,7 +787,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		}
 		
 		for (ExpedienteFactura expedienteFactura : ef) {
-			factura =+ expedienteFactura.getFactura().getMontoTotal();
+			factura += expedienteFactura.getFactura().getMontoTotal();
 		}
 		map.addAttribute("total_ingreso", ingreso);
 		map.addAttribute("total_egreso", egreso);

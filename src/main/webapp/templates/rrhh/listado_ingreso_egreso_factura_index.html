@@ -22,11 +22,22 @@
 										<thead>
 											<tr>
 												<th>Fecha</th>
-												<th th:if="${isIngreso}">Ingreso</th>
+												<th th:if="${isIngreso} or ${isFactura}">Ingreso</th>
 												<th th:if="${isEgreso}">Egreso</th>
-												<th>Observación</th>
+												<th th:if="${isIngreso} or ${isEgreso}">Descripción</th>
+												<th th:if="${isFactura}">Total Iva 5%</th>
+												<th th:if="${isFactura}">Total Iva 10%</th>
 											</tr>
 										</thead>
+										<tbody th:if="${isFactura}" id="table-body">
+											<tr th:each="mov : ${facturaList}">
+												<td th:text="${mov.factura.fechaemision}"></td>
+												<td th:text="${#numbers.formatInteger(mov.factura.montototal,3,'POINT')} + ' GS.'"></td>
+												<td th:text="${#numbers.formatInteger(mov.factura.totalivacinco,3,'POINT')} + ' GS.'"></td>
+												<td th:text="${#numbers.formatInteger(mov.factura.totalivadiez,3,'POINT')} + ' GS.'"></td>
+										</tr>
+										</tbody>
+										
 										<tbody th:if="${isIngreso}" id="table-body">
 											<tr th:each="mov : ${ingresoList}">
 												<td th:text="${mov.fecha}"></td>
@@ -34,6 +45,7 @@
 												<td th:text="${mov.descripcion}"></td>
 										</tr>
 										</tbody>
+										
 										<tbody th:if="${isEgreso}" id="table-body">
 											<tr th:each="move : ${egresoList}">
 												<td th:text="${move.fecha}"></td>

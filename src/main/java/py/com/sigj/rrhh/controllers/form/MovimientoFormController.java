@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import py.com.sigj.controllers.form.FormController;
 import py.com.sigj.dao.Dao;
 import py.com.sigj.expediente.dao.ExpedienteDao;
+import py.com.sigj.expediente.dao.ExpedienteFacturaDao;
 import py.com.sigj.expediente.domain.Expediente;
+import py.com.sigj.expediente.domain.ExpedienteFactura;
 import py.com.sigj.expediente.domain.Persona;
 import py.com.sigj.gastos.domain.IngresoEgreso;
 import py.com.sigj.rrhh.controllers.list.MovimientoListController;
@@ -47,6 +49,9 @@ public class MovimientoFormController extends FormController<Movimiento> {
 	
 	@Autowired
 	private EmpleadoDao empleadoDao;
+	
+	@Autowired
+	private ExpedienteFacturaDao expedienteFacturaDao;
 
 	@Autowired
 	private MovimientoListController movimientoList;
@@ -229,6 +234,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 		List<IngresoEgreso> ingresoList = new ArrayList<>();
 		List<IngresoEgreso> egresoList = new ArrayList<>();
 		List<MovimientoExpediente> me = null;
+		List<ExpedienteFactura> expedienteFacturaList = new ArrayList<>();
 		try {
 			me = movimientoDao.getLitMovimientoExpediente(id_expediente);
 			map.addAttribute("movimiento_expediente", me);
@@ -241,6 +247,13 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				map.addAttribute("ingresoList",movIngreso);
 				map.addAttribute("isIngreso",true);
 				map.addAttribute("isEgreso",false);
+				map.addAttribute("isFactura",false);
+			}else if("F".equals(tipo.toUpperCase())){
+				expedienteFacturaList = expedienteFacturaDao.findFactura(id_expediente);
+				map.addAttribute("facturaList", expedienteFacturaList);
+				map.addAttribute("isIngreso",false);
+				map.addAttribute("isEgreso",false);
+				map.addAttribute("isFactura",true);
 			}else{
 				for (MovimientoExpediente movimientoExpediente : me) {
 					if(movimientoExpediente.getMovimiento().getEgreso()>0){
@@ -250,6 +263,7 @@ public class MovimientoFormController extends FormController<Movimiento> {
 				map.addAttribute("egresoList",movEgreso);
 				map.addAttribute("isIngreso",false);
 				map.addAttribute("isEgreso",true);
+				map.addAttribute("isFactura",false);
 			}
 			
 		} catch (Exception ex) {
