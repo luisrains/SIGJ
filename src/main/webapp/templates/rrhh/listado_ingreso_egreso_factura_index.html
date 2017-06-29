@@ -8,7 +8,7 @@
 		<div class="col-xs-12 col-sm-12">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
-					<h3>Total de Ingresos</h3>
+					<h3 th:text="${titulo}">Total de Ingresos</h3>
 				</div>
 				<div class="box-body">
 				
@@ -31,10 +31,12 @@
 										</thead>
 										<tbody th:if="${isFactura}" id="table-body">
 											<tr th:each="mov : ${facturaList}">
-												<td th:text="${mov.factura.fechaemision}"></td>
-												<td th:text="${#numbers.formatInteger(mov.factura.montototal,3,'POINT')} + ' GS.'"></td>
-												<td th:text="${#numbers.formatInteger(mov.factura.totalivacinco,3,'POINT')} + ' GS.'"></td>
-												<td th:text="${#numbers.formatInteger(mov.factura.totalivadiez,3,'POINT')} + ' GS.'"></td>
+												<td th:text="${mov.factura.fechaEmision}"></td>
+												<td th:text="${#numbers.formatInteger(mov.factura.montoTotal,3,'POINT')} + ' GS.'"></td>
+												<td th:if="${mov.factura.totalIvaCinco <=0}" th:text="${mov.factura.totalIvaCinco}+ ' GS.'"></td>
+												<td th:text="${#numbers.formatInteger(mov.factura.totalIvaCinco,3,'POINT')} + ' GS.'"></td>
+												<td th:if="${mov.factura.totalIvaDiez <= 0}" th:text="${mov.factura.totalIvaDiez} + ' GS.'"></td>
+												<td th:if="${mov.factura.totalIvaDiez > 0}" th:text="${#numbers.formatInteger(mov.factura.totalIvaDiez,3,'POINT')} + ' GS.'"></td>
 										</tr>
 										</tbody>
 										
