@@ -344,7 +344,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "agregar-varios", method = RequestMethod.GET)
 	public String setDocumento(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp) {
-		HttpSession sesion = request.getSession();
+		HttpSession session = request.getSession();
 		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
 		List<ExpedienteCliente> clienteList = new ArrayList<>();
 		
@@ -353,10 +353,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		abogadoList = expedienteAbogadoDao.findByExpediente(id_exp);
 		clienteList = expedienteClienteDao.findByCliente(id_exp);
 		
-		
-		sesion.setAttribute("expediente", obj);
-		sesion.setAttribute("clienteList",clienteList);
-		sesion.setAttribute("abogadoList",abogadoList );
+		session.setAttribute("expediente", obj);
+		session.setAttribute("clienteList",clienteList);
+		session.setAttribute("abogadoList",abogadoList );
+		map.addAttribute("expediente", obj);
+		map.addAttribute("clienteList",clienteList);
+		map.addAttribute("abogadoList",abogadoList );
 		agregarValoresAdicionales(map);
 		return "expediente/expediente_section3";
 	}
