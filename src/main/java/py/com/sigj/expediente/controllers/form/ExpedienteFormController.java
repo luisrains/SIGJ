@@ -357,6 +357,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		sesion.setAttribute("expediente", obj);
 		sesion.setAttribute("clienteList",clienteList);
 		sesion.setAttribute("abogadoList",abogadoList );
+		
+		map.addAttribute("expediente", obj);
+		map.addAttribute("clienteList",clienteList);
+		map.addAttribute("abogadoList",abogadoList );
 		agregarValoresAdicionales(map);
 		return "expediente/expediente_section3";
 	}
