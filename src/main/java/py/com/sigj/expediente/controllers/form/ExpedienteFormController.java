@@ -344,7 +344,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	@RequestMapping(value = "agregar-varios", method = RequestMethod.GET)
 	public String setDocumento(HttpServletRequest request, ModelMap map,
 			@RequestParam(value = "expediente") String id_exp) {
-		HttpSession sesion = request.getSession();
+		HttpSession session = request.getSession();
 		List<ExpedienteAbogado> abogadoList = new ArrayList<>();
 		List<ExpedienteCliente> clienteList = new ArrayList<>();
 		
