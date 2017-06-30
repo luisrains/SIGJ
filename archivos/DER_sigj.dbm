@@ -1,0 +1,1697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.1" last-position="0,0" last-zoom="0.3"
+	 default-schema="public" default-owner="postgres">
+<role name="lrains"
+      superuser="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="redmine"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="ventas"
+      superuser="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="sigj_produccion" encoding="UTF8" lc-collate="es_PY" lc-ctype="es_PY">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" protected="true" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="abogado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="178.333" y="38"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="domicilioactual" not-null="true">
+		<type name="character varying" length="1000"/>
+	</column>
+	<column name="domiciliolaboral" not-null="true">
+		<type name="character varying" length="1000"/>
+	</column>
+	<column name="empleado_id">
+		<type name="bigint"/>
+	</column>
+	<constraint name="abogado_pkey" type="pk-constr" table="public.abogado">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="abogado_empleado_uk" type="uq-constr" table="public.abogado">
+		<columns names="empleado_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="caja">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1878.33" y="1533"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="fecha">
+		<type name="date"/>
+	</column>
+	<column name="monto" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="caja_pkey" type="pk-constr" table="public.caja">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cliente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1133.33" y="41.3333"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="domicilioactual" not-null="true">
+		<type name="character varying" length="1000"/>
+	</column>
+	<column name="domiciliolaboral" not-null="true">
+		<type name="character varying" length="1000"/>
+	</column>
+	<column name="domicilioprocesal" not-null="true">
+		<type name="character varying" length="1000"/>
+	</column>
+	<column name="persona_id">
+		<type name="bigint"/>
+	</column>
+	<constraint name="cliente_pkey" type="pk-constr" table="public.cliente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="cliente_persona_uk" type="uq-constr" table="public.cliente">
+		<columns names="persona_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="despacho">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1745" y="59.6667"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="juez" not-null="true">
+		<type name="character varying" length="60"/>
+	</column>
+	<constraint name="despacho_pkey" type="pk-constr" table="public.despacho">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="documento">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2253.33" y="39.6667"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="documento">
+		<type name="oid"/>
+	</column>
+	<column name="tipodocumento_id">
+		<type name="bigint"/>
+	</column>
+	<constraint name="documento_pkey" type="pk-constr" table="public.documento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estado_expediente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="421.667" y="698"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="fechaestado">
+		<type name="date"/>
+	</column>
+	<column name="estado_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="expediente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="estado_expediente_pkey" type="pk-constr" table="public.estado_expediente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estado_externo_interno">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="170" y="188"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="5"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="tipoestado" not-null="true">
+		<type name="character varying" length="30"/>
+	</column>
+	<constraint name="estado_externo_interno_pkey" type="pk-constr" table="public.estado_externo_interno">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="estadoexternointernointerno_codigo_uk" type="uq-constr" table="public.estado_externo_interno">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="expediente_abogado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="676.667" y="33"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="abogado_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="tipoabogado" not-null="true">
+		<type name="character varying" length="3"/>
+	</column>
+	<column name="expediente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="expediente_abogado_pkey" type="pk-constr" table="public.expediente_abogado">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="expediente_abogado_uk" type="uq-constr" table="public.expediente_abogado">
+		<columns names="expediente_id,abogado_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="expediente_cliente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1155" y="226.333"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="tipocliente" not-null="true">
+		<type name="character varying" length="3"/>
+	</column>
+	<column name="cliente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="expediente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="expediente_cliente_pkey" type="pk-constr" table="public.expediente_cliente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="expediente_cliente_uk" type="uq-constr" table="public.expediente_cliente">
+		<columns names="expediente_id,cliente_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="expediente_documento">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1895" y="246.333"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="fecha_presentacion">
+		<type name="timestamp"/>
+	</column>
+	<column name="titulo" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="documento_id">
+		<type name="bigint"/>
+	</column>
+	<column name="expediente_id">
+		<type name="bigint"/>
+	</column>
+	<constraint name="expediente_documento_pkey" type="pk-constr" table="public.expediente_documento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="materia">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1576.67" y="281.333"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="5"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<constraint name="materia_pkey" type="pk-constr" table="public.materia">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="materia_codigo_uk" type="uq-constr" table="public.materia">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="materia_despacho">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="716.667" y="313"/>
+	<column name="materia_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="despacho_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="materia_despacho_pkey" type="pk-constr" table="public.materia_despacho">
+		<columns names="materia_id,despacho_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="materia_proceso">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1035" y="578"/>
+	<column name="materia_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="proceso_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="materia_proceso_pkey" type="pk-constr" table="public.materia_proceso">
+		<columns names="materia_id,proceso_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="movimiento">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="28.3333" y="434.667"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="egreso" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="fecha" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="ingreso" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="empleado_id">
+		<type name="bigint"/>
+	</column>
+	<constraint name="movimiento_pkey" type="pk-constr" table="public.movimiento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="movimiento_actuacion">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="451.667" y="980.083"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="documento">
+		<type name="oid"/>
+	</column>
+	<column name="fecha_carga">
+		<type name="timestamp"/>
+	</column>
+	<column name="fecha_presentacion">
+		<type name="timestamp"/>
+	</column>
+	<column name="fechavencimiento">
+		<type name="timestamp"/>
+	</column>
+	<column name="observacion" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="expediente_id">
+		<type name="bigint"/>
+	</column>
+	<column name="tipoactuacion_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="movimiento_actuacion_pkey" type="pk-constr" table="public.movimiento_actuacion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="movimiento_expediente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="470" y="368"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="expediente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="movimiento_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="movimiento_expediente_pkey" type="pk-constr" table="public.movimiento_expediente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="permiso">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1636.67" y="456.333"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<constraint name="permiso_pkey" type="pk-constr" table="public.permiso">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="permiso_codigo_uk" type="uq-constr" table="public.permiso">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="planilla_salario">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2405.83" y="712.167"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="egresototal" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="ingresototal" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="montocobro" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="observacion">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="empleado_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="planillasueldo_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="planilla_salario_pkey" type="pk-constr" table="public.planilla_salario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="planilla_sueldo">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1873.33" y="663"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="anho" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="mes" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="planilla_sueldo_pkey" type="pk-constr" table="public.planilla_sueldo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="proceso">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="0" y="659.667"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="5"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<constraint name="proceso_pkey" type="pk-constr" table="public.proceso">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="proceso_codigo_uk" type="uq-constr" table="public.proceso">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="proceso_tipo_demanda">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="326.667" y="896.333"/>
+	<column name="proceso_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="tipodemanda_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+</table>
+
+<table name="rol">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1890" y="1019.67"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<constraint name="rol_pkey" type="pk-constr" table="public.rol">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="rol_codigo_uk" type="uq-constr" table="public.rol">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="rolpermiso">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1721.67" y="778"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="permiso_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="rol_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="rolpermiso_pkey" type="pk-constr" table="public.rolpermiso">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="rol_permiso_uk" type="uq-constr" table="public.rolpermiso">
+		<columns names="rol_id,permiso_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="servicio">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="50" y="1523"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="5"/>
+	</column>
+	<column name="costo" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="tiposervicio" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<constraint name="servicio_pkey" type="pk-constr" table="public.servicio">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="servicio_codigo_uk" type="uq-constr" table="public.servicio">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_actuacion">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="28.3333" y="1076.33"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="abreviatura" not-null="true">
+		<type name="character varying" length="5"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="plazo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="tipo_actuacion_pkey" type="pk-constr" table="public.tipo_actuacion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_demanda">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1040" y="916.333"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<constraint name="tipo_demanda_pkey" type="pk-constr" table="public.tipo_demanda">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_documento">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2293.33" y="863.833"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="5"/>
+	</column>
+	<column name="descripcion" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<constraint name="tipo_documento_pkey" type="pk-constr" table="public.tipo_documento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="tipo_documento_codigo_uk" type="uq-constr" table="public.tipo_documento">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tomo">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1006.67" y="1303"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="expedientepadre_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="tomo_pkey" type="pk-constr" table="public.tomo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="tomo_expdientepadre_uk" type="uq-constr" table="public.tomo">
+		<columns names="expedientepadre_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tomo_expediente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="461.667" y="1286.33"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="expediente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="tomo_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="tomo_expediente_pkey" type="pk-constr" table="public.tomo_expediente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="tomo_expediente_uk" type="uq-constr" table="public.tomo_expediente">
+		<columns names="tomo_id,expediente_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="usuario">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2400" y="1063"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="rol_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="apellido">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="cedularuc" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="nombrerazonsocial" not-null="true">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="password">
+		<type name="character varying" length="256"/>
+	</column>
+	<constraint name="usuario_pkey" type="pk-constr" table="public.usuario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="usuario_cedula_ruc_uk" type="uq-constr" table="public.usuario">
+		<columns names="cedularuc" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="abogado_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="caja_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="cliente_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="clientefactura_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="despacho_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="documento_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="empleado_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="estadoexpediente_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="estadoexternointernointerno_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="expediente_documento_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="expediente_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="expedienteabogado_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="expedientecliente_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="expedientefactura_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="facturacabecera_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="facturadetalle_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="ingresoegreso_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="materia_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="modelohoja_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="movimiento_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="movimiento_movimiento_actuacion_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="movimientoexpediente_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="permiso_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="planillasalario_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="planillasueldo_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="proceso_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="rol_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="rolpermiso_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="servicio_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="tipo_documento_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="tipoactuacion_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="tipocliente_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="tipodemanda_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="tipoingresoegreso_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="tomo_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="tomoexpediente_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="usuario_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="empleado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1576.67" y="893"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="fechaingreso" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="salario" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="persona_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="empleado_pkey" type="pk-constr" table="public.empleado">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="empleado_persona_uk" type="uq-constr" table="public.empleado">
+		<columns names="persona_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="persona">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="63.3333" y="1229.67"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="apellido">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="cedula_ruc" not-null="true">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="correoelectronico">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="disponible" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="edad" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="estadocivil">
+		<type name="character varying" length="15"/>
+	</column>
+	<column name="fechanacimiento">
+		<type name="date"/>
+	</column>
+	<column name="nombre_razonsocial" not-null="true">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="sexo">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="telefono">
+		<type name="character varying" length="15"/>
+	</column>
+	<column name="tipopersona" not-null="true">
+		<type name="character"/>
+	</column>
+	<constraint name="persona_pkey" type="pk-constr" table="public.persona">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="persona_cedula_ruc_uk" type="uq-constr" table="public.persona">
+		<columns names="cedula_ruc" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="persona_id_seq"
+	 start="1" increment="50"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="expediente">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1001.67" y="686.333"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="anho" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="caratula" not-null="true">
+		<type name="character varying" length="800"/>
+	</column>
+	<column name="fecha_actuacion">
+		<type name="timestamp"/>
+	</column>
+	<column name="fechasellocargo">
+		<type name="date"/>
+	</column>
+	<column name="folio" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="moneda">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="monto" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="nroexpediente" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="nroliquidacion">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="despachoactual_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="estadoexterno_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="estadointerno_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="expediente_pkey" type="pk-constr" table="public.expediente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="expediente_nroexpediente_uk" type="uq-constr" table="public.expediente">
+		<columns names="nroexpediente" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cliente_factura">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1684.17" y="1156.33"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="cliente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="factura_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="cliente_factura_pkey" type="pk-constr" table="public.cliente_factura">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="expediente_factura">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1360" y="1101.33"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="expediente_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="factura_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<constraint name="expediente_factura_pkey" type="pk-constr" table="public.expediente_factura">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="factura_cabecera">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1333.33" y="1539.67"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="direccion" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="fechaemision" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="montototal" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="razonsocial" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="ruc" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="telefono" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tipopago" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="totalivacinco" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="totalivadiez" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="factura_cabecera_pkey" type="pk-constr" table="public.factura_cabecera">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="factura_detalle">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="719.167" y="1508.83"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="servicio_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="facturacabecera_id" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="ivacinco">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="ivadiez">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="monto" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="nro" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="factura_detalle_pkey" type="pk-constr" table="public.factura_detalle">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="factura_detalle_uk" type="uq-constr" table="public.factura_detalle">
+		<columns names="facturacabecera_id,servicio_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="abogado_empleado_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.empleado" table="public.abogado">
+	<columns names="empleado_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="cliente_persona_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.persona" table="public.cliente">
+	<columns names="persona_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="documento_tipodocumento_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_documento" table="public.documento">
+	<columns names="tipodocumento_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="estadoexpediente_estado_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estado_externo_interno" table="public.estado_expediente">
+	<columns names="estado_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="estadoexpediente_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.estado_expediente">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expedienteabogado_abogado_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.abogado" table="public.expediente_abogado">
+	<columns names="abogado_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expedienteabogado_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.expediente_abogado">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expedientecliente_cliente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cliente" table="public.expediente_cliente">
+	<columns names="cliente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expedientecliente_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.expediente_cliente">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expediente_documento_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.documento" table="public.expediente_documento">
+	<columns names="documento_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expediente_documento_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.expediente_documento">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkbboqt1x81cpdvoqlkj2h56a4a" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.despacho" table="public.materia_despacho">
+	<columns names="despacho_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkc9rnmnw7an1v9n4jlxtgtehgr" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.materia" table="public.materia_despacho">
+	<columns names="materia_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk9h59g3ltxgw2t7n077200j8vv" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.proceso" table="public.materia_proceso">
+	<columns names="proceso_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkp2q2bnch59qk63lshsp27ybap" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.materia" table="public.materia_proceso">
+	<columns names="materia_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimiento_empleado_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.empleado" table="public.movimiento">
+	<columns names="empleado_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimiento_actuacion_tipo_actuacion_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_actuacion" table="public.movimiento_actuacion">
+	<columns names="tipoactuacion_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimiento_actuacion_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.movimiento_actuacion">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimientoexpediente_movimiento_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.movimiento" table="public.movimiento_expediente">
+	<columns names="movimiento_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimientoexpediente_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.movimiento_expediente">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="planillasalario_planillasueldo_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.planilla_sueldo" table="public.planilla_salario">
+	<columns names="planillasueldo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="planillasalario_empleado_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.empleado" table="public.planilla_salario">
+	<columns names="empleado_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fki1w5r1ww277i4pvkqspmehsd" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_demanda" table="public.proceso_tipo_demanda">
+	<columns names="tipodemanda_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk8fxftipvovkippf4cbnf5dw2i" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.proceso" table="public.proceso_tipo_demanda">
+	<columns names="proceso_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rolpermiso_permiso_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.permiso" table="public.rolpermiso">
+	<columns names="permiso_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rolpermiso_rol_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.rol" table="public.rolpermiso">
+	<columns names="rol_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="tomo_expedientepadre_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.tomo">
+	<columns names="expedientepadre_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="tomoexpediente_tomo_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tomo" table="public.tomo_expediente">
+	<columns names="tomo_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="tomoexpediente_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.tomo_expediente">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="usuario_rol_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.rol" table="public.usuario">
+	<columns names="rol_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="empleado_persona_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.persona" table="public.empleado">
+	<columns names="persona_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expediente_despacho_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.despacho" table="public.expediente">
+	<columns names="despachoactual_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expediente_estado_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estado_externo_interno" table="public.expediente">
+	<columns names="estadoexterno_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expediente_estadoexterno_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estado_externo_interno" table="public.expediente">
+	<columns names="estadoexterno_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expediente_estadointerno_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estado_externo_interno" table="public.expediente">
+	<columns names="estadointerno_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="clientefactura_cliente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.cliente" table="public.cliente_factura">
+	<columns names="cliente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="clientefactura_factura_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.factura_cabecera" table="public.cliente_factura">
+	<columns names="factura_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expedientefactura_expediente_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.expediente" table="public.expediente_factura">
+	<columns names="expediente_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="expedientefactura_factura_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.factura_cabecera" table="public.expediente_factura">
+	<columns names="factura_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="facturadetalle_facturacabecera_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.factura_cabecera" table="public.factura_detalle">
+	<columns names="facturacabecera_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="facturadetalle_servicio_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.servicio" table="public.factura_detalle">
+	<columns names="servicio_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_abogado_empleado" type="relfk"
+	 custom-color="#12f9fe"
+	 src-table="public.abogado"
+	 dst-table="public.empleado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_cliente_persona" type="relfk"
+	 custom-color="#c7e947"
+	 src-table="public.cliente"
+	 dst-table="public.persona"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_documento_tipo_documento" type="relfk"
+	 custom-color="#3472fd"
+	 src-table="public.documento"
+	 dst-table="public.tipo_documento"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estado_expediente_estado_externo_interno" type="relfk"
+	 custom-color="#5e026a"
+	 src-table="public.estado_expediente"
+	 dst-table="public.estado_externo_interno"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estado_expediente_expediente" type="relfk"
+	 custom-color="#f0e676"
+	 src-table="public.estado_expediente"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_abogado_abogado" type="relfk"
+	 custom-color="#360673"
+	 src-table="public.expediente_abogado"
+	 dst-table="public.abogado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_abogado_expediente" type="relfk"
+	 custom-color="#b7600b"
+	 src-table="public.expediente_abogado"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_cliente_cliente" type="relfk"
+	 custom-color="#69b28e"
+	 src-table="public.expediente_cliente"
+	 dst-table="public.cliente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_cliente_expediente" type="relfk"
+	 custom-color="#41ed85"
+	 src-table="public.expediente_cliente"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_documento_documento" type="relfk"
+	 custom-color="#c9a266"
+	 src-table="public.expediente_documento"
+	 dst-table="public.documento"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_documento_expediente" type="relfk"
+	 custom-color="#4460a2"
+	 src-table="public.expediente_documento"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_materia_despacho_despacho" type="relfk"
+	 custom-color="#786d90"
+	 src-table="public.materia_despacho"
+	 dst-table="public.despacho"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_materia_despacho_materia" type="relfk"
+	 custom-color="#178b25"
+	 src-table="public.materia_despacho"
+	 dst-table="public.materia"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_materia_proceso_proceso" type="relfk"
+	 custom-color="#cfeb98"
+	 src-table="public.materia_proceso"
+	 dst-table="public.proceso"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_materia_proceso_materia" type="relfk"
+	 custom-color="#1cec48"
+	 src-table="public.materia_proceso"
+	 dst-table="public.materia"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimiento_empleado" type="relfk"
+	 custom-color="#e857dc"
+	 src-table="public.movimiento"
+	 dst-table="public.empleado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimiento_actuacion_tipo_actuacion" type="relfk"
+	 custom-color="#4890f8"
+	 src-table="public.movimiento_actuacion"
+	 dst-table="public.tipo_actuacion"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimiento_actuacion_expediente" type="relfk"
+	 custom-color="#b5b6af"
+	 src-table="public.movimiento_actuacion"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimiento_expediente_movimiento" type="relfk"
+	 custom-color="#a55662"
+	 src-table="public.movimiento_expediente"
+	 dst-table="public.movimiento"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimiento_expediente_expediente" type="relfk"
+	 custom-color="#639661"
+	 src-table="public.movimiento_expediente"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_planilla_salario_planilla_sueldo" type="relfk"
+	 custom-color="#8ece16"
+	 src-table="public.planilla_salario"
+	 dst-table="public.planilla_sueldo"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_planilla_salario_empleado" type="relfk"
+	 custom-color="#680626"
+	 src-table="public.planilla_salario"
+	 dst-table="public.empleado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_proceso_tipo_demanda_tipo_demanda" type="relfk"
+	 custom-color="#1860b6"
+	 src-table="public.proceso_tipo_demanda"
+	 dst-table="public.tipo_demanda"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_proceso_tipo_demanda_proceso" type="relfk"
+	 custom-color="#fdbac3"
+	 src-table="public.proceso_tipo_demanda"
+	 dst-table="public.proceso"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_rolpermiso_permiso" type="relfk"
+	 custom-color="#2b461a"
+	 src-table="public.rolpermiso"
+	 dst-table="public.permiso"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_rolpermiso_rol" type="relfk"
+	 custom-color="#08a978"
+	 src-table="public.rolpermiso"
+	 dst-table="public.rol"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_tomo_expediente" type="relfk"
+	 custom-color="#dcfa49"
+	 src-table="public.tomo"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_tomo_expediente_tomo" type="relfk"
+	 custom-color="#0856e3"
+	 src-table="public.tomo_expediente"
+	 dst-table="public.tomo"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_tomo_expediente_expediente" type="relfk"
+	 custom-color="#e99375"
+	 src-table="public.tomo_expediente"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_usuario_rol" type="relfk"
+	 custom-color="#444d59"
+	 src-table="public.usuario"
+	 dst-table="public.rol"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_empleado_persona" type="relfk"
+	 custom-color="#df32ac"
+	 src-table="public.empleado"
+	 dst-table="public.persona"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_despacho" type="relfk"
+	 custom-color="#cc980c"
+	 src-table="public.expediente"
+	 dst-table="public.despacho"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_estado_externo_interno" type="relfk"
+	 custom-color="#a03758"
+	 src-table="public.expediente"
+	 dst-table="public.estado_externo_interno"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_cliente_factura_cliente" type="relfk"
+	 custom-color="#3862e1"
+	 src-table="public.cliente_factura"
+	 dst-table="public.cliente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_cliente_factura_factura_cabecera" type="relfk"
+	 custom-color="#2943dd"
+	 src-table="public.cliente_factura"
+	 dst-table="public.factura_cabecera"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_factura_expediente" type="relfk"
+	 custom-color="#e8e684"
+	 src-table="public.expediente_factura"
+	 dst-table="public.expediente"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_expediente_factura_factura_cabecera" type="relfk"
+	 custom-color="#5a545a"
+	 src-table="public.expediente_factura"
+	 dst-table="public.factura_cabecera"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_factura_detalle_factura_cabecera" type="relfk"
+	 custom-color="#9b9331"
+	 src-table="public.factura_detalle"
+	 dst-table="public.factura_cabecera"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_factura_detalle_servicio" type="relfk"
+	 custom-color="#3212d1"
+	 src-table="public.factura_detalle"
+	 dst-table="public.servicio"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
