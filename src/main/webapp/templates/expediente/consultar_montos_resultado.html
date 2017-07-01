@@ -30,6 +30,12 @@
 								<a  th:if="${total_factura != null and total_factura != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/F'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
 								 style="padding-left: 10px;">Ver Detalle</a>
 							</div>
+							<div class="col-sm-12" style="margin-top:10px;">
+								<label style="font-weight:700;font-size:25px;">Total Ganancia:</label>
+
+								<input th:if="${total_ganancia > 0}" id="total_ganancia" name="total_ganancia" class="estilo-input" disabled  th:value="${#numbers.formatInteger(total_ganancia,3,'POINT')} + ' '+ 'GS.'"/>
+								<input th:if="${total_ganancia <= 0}" id="total_ganancia" name="total_ganancia" class="estilo-input" disabled  th:value="${total_ganancia} + ' '+ 'GS.'"/>
+							</div>
 	</div>
     
     <table id="expediente-table" class="table table-bordered table-hover table-striped display" style="border: 2px solid #ddd;">

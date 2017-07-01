@@ -788,6 +788,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		int ingreso = 0;
 		int egreso = 0;
 		int factura = 0;
+		int total_ganancia = 0;
 		for (MovimientoExpediente movimientoExpediente : me) {
 			ingreso += movimientoExpediente.getMovimiento().getIngreso();
 			egreso += movimientoExpediente.getMovimiento().getEgreso();
@@ -796,9 +797,11 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		for (ExpedienteFactura expedienteFactura : ef) {
 			factura += expedienteFactura.getFactura().getMontoTotal();
 		}
+		total_ganancia = (ingreso + factura) - egreso;
 		map.addAttribute("total_ingreso", ingreso);
 		map.addAttribute("total_egreso", egreso);
 		map.addAttribute("total_factura", factura);
+		map.addAttribute("total_ganancia", total_ganancia);
 		map.addAttribute("expedienteList", me);
 		map.addAttribute("expediente_id", id_expediente);
 		return "expediente/consultar_montos_resultado";
