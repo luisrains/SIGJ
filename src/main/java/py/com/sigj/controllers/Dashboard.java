@@ -54,8 +54,8 @@ public class Dashboard {
 			int cont=0;
 			Date fechaActual = new Date();
 			for (ExpedienteAbogado expe : expList) {
-				if(expe.getExpediente().getFechaActuacion()!=null){
-					cantDias =WebUtils.getDaysBetweenDates(fechaActual,expe.getExpediente().getFechaActuacion());
+				if(expe.getExpediente().getUltimoMovimientoActuacion().getFechaVencimiento()!=null){
+					cantDias =WebUtils.getDaysBetweenDates(fechaActual,expe.getExpediente().getUltimoMovimientoActuacion().getFechaVencimiento());
 					if(cantDias <=3 && cantDias >=0){
 						//cargamos los ultimos diez si alcanza diez, si sobre pasa salimos con el break
 						ExpedienteActuacionBean eac = new ExpedienteActuacionBean();

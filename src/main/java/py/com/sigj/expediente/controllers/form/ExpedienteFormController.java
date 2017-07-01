@@ -457,15 +457,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 					expediente.setEstadoExterno(estadoDao.find(Long.parseLong(estado_externo)));
 				}
 				
-				
 				ma1.setExpediente(expediente);
 				ma1.setFechaPresentacion(fe_pre);
 				ma1.setFechaVencimiento(fe_ve);
 				ma1.setObservacion(observacion);
-				ma1.setTipoActuacion(tipoActuacionDao.find(Long.parseLong(tipo_actuacion)));
+				TipoActuacion ta = tipoActuacionDao.find(Long.parseLong(tipo_actuacion));
+				ma1.setTipoActuacion(ta);
 				ma1.setFechaCarga(fechaNow);
 				movimientoActuacionDao.create(ma1);
-				
+				expediente.setUltimoMovimientoActuacion(ma1);
+				expedienteDao.edit(expediente);
 				ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
 				for (MovimientoActuacion movimientoActuacion : ma) {
 					if(movimientoActuacion.getDocumento()!= null){
@@ -557,7 +558,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 
 	
-	@RequestMapping(value = "hojar-expediente/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "hojear-expediente/{id}", method = RequestMethod.GET)
 	public String getExpedienteDigital(HttpServletRequest request, ModelMap map,@PathVariable Long id){
 		try {
 			MultipartFile doc = null;
@@ -596,6 +597,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		
 		
 	}
+	
 	@RequestMapping(value = "/fecha-vencimiento", method = RequestMethod.GET)
 	public  String fechaVencimiento(HttpServletRequest request,
 			@RequestParam(value = "actuacion", required = true) String actuacion_id,
@@ -655,6 +657,7 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		
 		return "expediente/buscar_actuacion";
 	}
+	
 	@RequestMapping(value = "buscar-actuacion-resultado", method = RequestMethod.GET)
 	public  String buscarActuacionResultado(HttpServletRequest request,ModelMap map,
 			@RequestParam(value = "fecha_presentacion", required = false) String fecha_presentacion,
