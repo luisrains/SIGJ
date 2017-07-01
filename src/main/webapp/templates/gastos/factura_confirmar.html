@@ -2,30 +2,51 @@
 
 <div class="form-group col-sm-6">
 				<label id="ruc_text" class="field-label">Ruc:</label> 
-				<label id="ruc_value" class="field-label" th:text="${mapaCabecera.ruc}"></label>
+				
+				<input id ="ruc_value" th:value="${mapaCabecera.ruc}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+				
+				<!-- <label id="ruc_value" class="field-label" th:text="${mapaCabecera.ruc}"></label> -->
 			</div>
 
 <div class="form-group col-sm-6">
 				<label id="fecha_emision_text" class="field-label">Fecha Emisión:</label> 
-				<label id="fecha_emision_value" class="field-label" th:text="${mapaCabecera.fecha_emision}"></label>
+				<input id ="fecha_emision_value" th:value="${mapaCabecera.fecha_emision}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+				<!-- <label id="fecha_emision_value" class="field-label" th:text="${mapaCabecera.fecha_emision}"></label> -->
 			</div>
 			
 <div class="form-group col-sm-6">
 				<label id="tipo_pago_text" class="field-label">Tipo Pago:</label> 
-				<label id="tipo_pago_value" class="field-label" th:text="${mapaCabecera.tipo_pago}"></label>
+				
+				<input id ="tipo_pago_value" th:value="${mapaCabecera.tipo_pago}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+				
+				<!-- <label id="tipo_pago_value" class="field-label" th:text="${mapaCabecera.tipo_pago}"></label> -->
 			</div>
 <div class="form-group col-sm-6">
 				<label id="razon_social_text" class="field-label">Razon Social:</label> 
-				<label id="razon_social_value" class="field-label" th:text="${mapaCabecera.razon_social}"></label>
+				
+				<input id ="razon_social_value" th:value="${mapaCabecera.razon_social}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+				
+				<!-- <label id="razon_social_value" class="field-label" th:text="${mapaCabecera.razon_social}"></label> -->
 			</div>
 <div class="form-group col-sm-6">
 				<label id="direccion_text" class="field-label">Dirección:</label> 
-				<label id="direccion_value" class="field-label" th:text="${mapaCabecera.direccion}"></label>
+				
+				<input id ="direccion_value" th:value="${mapaCabecera.direccion}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+				
+				<!-- <label id="direccion_value" class="field-label" th:text="${mapaCabecera.direccion}"></label> -->
 			</div>
 			
 <div class="form-group col-sm-6">
 				<label id="telefono_text" class="field-label">Telefono:</label> 
-				<label id="telefono_value" class="field-label" th:text="${mapaCabecera.telefono}"></label>
+				<input id ="telefono_value" th:value="${mapaCabecera.telefono}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+				
+				<!-- <label id="telefono_value" class="field-label" th:text="${mapaCabecera.telefono}"></label> -->
 			</div>
 <div class="col-xs-12 col-sm-12 no-padding" style="margin-top:10px;">
     <table id="lista_detalleDT" class="no-padding" style="margin-left: 5px; margin-right: 5px; width:99%;">
@@ -49,14 +70,16 @@
 					<td>
 						<label>Total Iva 5%: </label>
 						<!-- <label th:text="${total_iva_5 > 0} ? ${#numbers.formatInteger(total_iva_5,3,'POINT')} : ${total_iva_5}"></label> -->
-						<label th:text="${#numbers.formatInteger(total_iva_5,3,'POINT')} +' GS.'"></label>
+						<label th:if="${total_iva_5} > 0" th:text="${#numbers.formatInteger(total_iva_5,3,'POINT')} +' GS.'"></label>
+						<label th:if="${total_iva_5} <= 0" th:text="${total_iva_5} +' GS.'"></label>
 					</td>
 <!-- 					<td></td>
 					<td></td> -->
 					<td>
 						<label>Total Iva 10%: </label>
 						<!-- <label th:text="${total_iva_10 > 0} ? ${#numbers.formatInteger(total_iva_10,3,'POINT')} : ${total_iva_10}"></label> -->
-						<label th:text="${#numbers.formatInteger(total_iva_10,3,'POINT')} +' GS.'"></label>
+						<label th:if="${total_iva_10} > 0" th:text="${#numbers.formatInteger(total_iva_10,3,'POINT')} +' GS.'"></label>
+						<label th:if="${total_iva_10} <= 0" th:text="${total_iva_10} +' GS.'"></label>
 					</td>
 					
 					<td>

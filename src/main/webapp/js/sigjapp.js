@@ -25,6 +25,7 @@
 			}
 			
 			$("#f_detalle tbody tr.fila_"+(trs-1)+" td:eq(5)").find("#confirmar_fila").prop("disabled","disabled");
+			$("#f_detalle tbody tr.fila_"+(trs-1)+" td:eq(5)").find("#agregar_fila").prop("disabled",false);
 			
 			$("#iva_5").text(number_format(iva_5,0)); 
 			$("#iva_10").text(number_format(iva_10,0)); 
