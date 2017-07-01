@@ -49,19 +49,19 @@
 					<td>
 						<label>Total Iva 5%: </label>
 						<!-- <label th:text="${total_iva_5 > 0} ? ${#numbers.formatInteger(total_iva_5,3,'POINT')} : ${total_iva_5}"></label> -->
-						<label th:text="${total_iva_5} +'GS.'"></label>
+						<label th:text="${#numbers.formatInteger(total_iva_5,3,'POINT')} +' GS.'"></label>
 					</td>
 <!-- 					<td></td>
 					<td></td> -->
 					<td>
 						<label>Total Iva 10%: </label>
 						<!-- <label th:text="${total_iva_10 > 0} ? ${#numbers.formatInteger(total_iva_10,3,'POINT')} : ${total_iva_10}"></label> -->
-						<label th:text="${total_iva_10}+'GS.'"></label>
+						<label th:text="${#numbers.formatInteger(total_iva_10,3,'POINT')} +' GS.'"></label>
 					</td>
 					
 					<td>
 						<label>Monto Total: </label>
-						<label th:text="${monto_total}+ 'GS.'"></label>
+						<label th:text="${#numbers.formatInteger(monto_total,3,'POINT')}+ ' GS.'"></label>
 					</td>
 				</tr>
 			</tbody>
@@ -86,13 +86,11 @@
 							aria-hidden="true">&times;</button>
 						<h4 class="modal-title" id="myModalLabel">Factura Confirmación</h4>
 					</div>
-					<div class="modal-body">La Factura fue Confirmada con Exito
+					<div class="modal-body">La Factura fue Confirmada con éxito
 						
 					</div>
 					<div class="modal-footer">
 						 <button id="btn-aceptar" type="button" class="btn btn-primary">Aceptar</button>
-							
-						<!-- onclick= "submitBorrado()" -->
 					</div>
 				</div>
 			

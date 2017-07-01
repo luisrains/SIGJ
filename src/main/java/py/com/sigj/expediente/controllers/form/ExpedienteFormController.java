@@ -354,9 +354,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 		clienteList = expedienteClienteDao.findByCliente(id_exp);
 		
 		
-		sesion.setAttribute("expediente", obj);
-		sesion.setAttribute("clienteList",clienteList);
-		sesion.setAttribute("abogadoList",abogadoList );
+		session.setAttribute("expediente", obj);
+		session.setAttribute("clienteList",clienteList);
+		session.setAttribute("abogadoList",abogadoList );
 		
 		map.addAttribute("expediente", obj);
 		map.addAttribute("clienteList",clienteList);
