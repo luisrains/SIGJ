@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobante_pago_salarios" pageWidth="595" pageHeight="842" columnWidth="523" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="115e6336-3a20-43f8-8444-d7a5c7034ddd">
 	<property name="ireport.zoom" value="1.4641000000000017"/>
-	<property name="ireport.x" value="16"/>
-	<property name="ireport.y" value="432"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="e34f5769-3d1c-4eba-8268-3816ca076b4d">
 		<field name="montoCobro" class="java.lang.Integer"/>
 		<field name="ingresoTotal" class="java.lang.Integer"/>
@@ -103,6 +103,10 @@
 				</textElement>
 				<text><![CDATA[DETALLE DE LA OPERACIÓN]]></text>
 			</staticText>
+			<image>
+				<reportElement x="4" y="10" width="146" height="50" uuid="fca9f502-4c65-4055-bfad-ae9caca4612d"/>
+				<imageExpression><![CDATA["C:\\Users\\baltios\\Downloads\\sigj_logo.JPG"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -254,14 +258,14 @@
 				<text><![CDATA[Monto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="4" y="46" width="123" height="14" uuid="5b8eebf8-ebb0-427b-a937-adc2028f24cf"/>
+				<reportElement x="4" y="46" width="146" height="14" uuid="5b8eebf8-ebb0-427b-a937-adc2028f24cf"/>
 				<textElement>
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad de Empleados:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="128" y="46" width="97" height="14" uuid="dede9cbd-65f8-485e-819d-0d42cb625522"/>
+				<reportElement x="155" y="46" width="97" height="14" uuid="dede9cbd-65f8-485e-819d-0d42cb625522"/>
 				<textFieldExpression><![CDATA[$P{CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField>
