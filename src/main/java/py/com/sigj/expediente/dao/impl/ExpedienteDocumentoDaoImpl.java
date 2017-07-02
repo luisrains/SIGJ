@@ -75,4 +75,57 @@ public class ExpedienteDocumentoDaoImpl extends DaoImpl<ExpedienteDocumento> imp
 		logger.info("Actuaciones encontradas: {}", list);
 		return list;
 	}
+	
+
+	/**
+	 * retornamos las actuaciones de forma descendente
+	 */
+	@Override
+	@Transactional
+	public List<MovimientoActuacion> getListByExpedienteActuacionDesc(String sSearch) {
+		logger.info("Obteniendo lista de actuaciones..");
+
+		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
+		sql = sql.replace("#ENTITY#", "MovimientoActuacion");
+		Query query = null;
+		// Usuario no envió ningún filtro
+
+		if (StringUtils.isBlank(sSearch)) {
+			query = entityManager.createQuery(sql);
+		} else {
+			sql = sql + " WHERE expediente_id = ?1 order by fecha_carga desc" ;
+			query = entityManager.createQuery(sql);
+			query.setParameter(1,Long.parseLong(sSearch));
+		}
+		Documento d = documentoDao.find((long)52);
+		List<MovimientoActuacion> list = query.getResultList();
+		logger.info("Actuaciones encontradas: {}", list);
+		return list;
+	}
+	
+	/**
+	 * retornamos los documentos de forma descendente
+	 */
+	@Override
+	@Transactional
+	public List<ExpedienteDocumento> getListByExpedienteDocumentoDesc(String sSearch) {
+		logger.info("Obteniendo lista de documentos..");
+
+		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
+		sql = sql.replace("#ENTITY#", getEntityName());
+		Query query = null;
+		// Usuario no envió ningún filtro
+
+		if (StringUtils.isBlank(sSearch)) {
+			query = entityManager.createQuery(sql);
+		} else {
+			sql = sql + " WHERE expediente_id = ?1 order by fecha_presentacion desc" ;
+			query = entityManager.createQuery(sql);
+			query.setParameter(1,Long.parseLong(sSearch));
+		}
+		Documento d = documentoDao.find((long)52);
+		List<ExpedienteDocumento> list = query.getResultList();
+		logger.info("Documentos encontrados: {}", list);
+		return list;
+	}
 }

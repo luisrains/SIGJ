@@ -84,8 +84,7 @@
 					</div>
 					<!-- /.box -->
 					<div class="col-sm-3">
-						<!-- <th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
-							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">		 -->		
+							
 								<div class="alert alert-warning">
 									  <strong style="font-size: 50px; color: white;"><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
 									  <br><span  th:if="${ex.diaVencimiento >= 1}" style="font-size: 24px;color: black;"> La última actuación presentada vencerá dentro de  
@@ -93,8 +92,6 @@
 									</span>
 									<span  th:if="${ex.diaVencimiento < 1}" style="font-size: 24px;color: black;"> La última actuación presentada vencerá Hoy</span>
 								</div>
-							<!-- </th:block>
-						</th:block> -->
 					</div>
 				</div>
 				

@@ -562,8 +562,9 @@ public class ExpedienteFormController extends FormController<Expediente> {
 	}
 
 	
-	@RequestMapping(value = "hojear-expediente/{id}", method = RequestMethod.GET)
-	public String getExpedienteDigital(HttpServletRequest request, ModelMap map,@PathVariable Long id){
+	@RequestMapping(value = "hojear-expediente/{forma}/{id}", method = RequestMethod.GET)
+	public String getExpedienteDigital(HttpServletRequest request, ModelMap map,@PathVariable String forma,
+			@PathVariable Long id){
 		try {
 			MultipartFile doc = null;
 			MovimientoActuacion ac = null;
@@ -572,8 +573,16 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			String base64StringDocumento = "";
 			List<String> base64StringList = new ArrayList<String>();
 			List<String> base64StringList1 = new ArrayList<String>();
-			List<MovimientoActuacion> listExpDocActuaciones = expedienteDocumentoDao.getListByExpedienteActuacion(id_exp);
-			List<ExpedienteDocumento> listExpDocumento = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
+			List<MovimientoActuacion> listExpDocActuaciones = null;
+			List<ExpedienteDocumento> listExpDocumento = null;
+			
+			if("A".equalsIgnoreCase(forma)){
+				listExpDocActuaciones = expedienteDocumentoDao.getListByExpedienteActuacionDesc(id_exp);
+				listExpDocumento = expedienteDocumentoDao.getListByExpedienteDocumentoDesc(id_exp);
+			}else{
+				listExpDocActuaciones = expedienteDocumentoDao.getListByExpedienteActuacion(id_exp);
+				listExpDocumento = expedienteDocumentoDao.getListByExpedienteDocumento(id_exp);
+			}
 			
 			if(listExpDocumento != null && !listExpDocumento.isEmpty()){
 				for (ExpedienteDocumento movimientoActuacion : listExpDocumento) {
@@ -592,14 +601,12 @@ public class ExpedienteFormController extends FormController<Expediente> {
 						}
 					}
 				}
-				
-				
-				
 				map.addAttribute("actuacionList",base64StringList);
 				map.addAttribute("documentoList",base64StringList1);
+				map.addAttribute("total_pagina",base64StringList.size());
 				//logger.info("Listado de actuaciones listExpDoc->{}", listExpDoc);
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.debug(e.getMessage());
 		}
 		return "expediente/expediente_digital";
 		

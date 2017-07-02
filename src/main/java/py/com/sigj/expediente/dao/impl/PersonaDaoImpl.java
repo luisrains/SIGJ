@@ -31,7 +31,7 @@ public class PersonaDaoImpl extends DaoImpl<Persona> implements PersonaDao {
 	public List<Persona> listaPersonas(Integer filaInicio, Integer filaFin, String sSearch) {
 		logger.info("Obteniendo lista de {}, sSearch: {}",getEntityName(), sSearch);
 
-		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# ARS #ENTITY# ";
+		String sql = "SELECT object(#ENTITY#) FROM #ENTITY# AS #ENTITY# ";
 		sql = sql.replace("#ENTITY#", getEntityName());
 		Query query = null;
 		// Usuario no envió ningún filtro

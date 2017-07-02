@@ -11,4 +11,6 @@ public interface ExpedienteDocumentoDao extends Dao<ExpedienteDocumento> {
 
 	public List<ExpedienteDocumento> getListByExpedienteDocumento(String sSearch);
 	public List<MovimientoActuacion> getListByExpedienteActuacion(String sSearch);
+	public List<ExpedienteDocumento> getListByExpedienteDocumentoDesc(String sSearch);
+	public List<MovimientoActuacion> getListByExpedienteActuacionDesc(String sSearch);
 }
