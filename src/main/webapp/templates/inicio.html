@@ -26,21 +26,31 @@
 								 
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.anho.lbl}+' '+ ${ex.expediente.anho}"></h4>
+								<label th:text="#{expediente.anho.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.anho}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.juez.lbl}+' '+ ${ex.expediente.despachoActual.juez}"></h4>
+								<label th:text="#{expediente.juez.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.despachoActual.juez}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+								
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estadoExterno.descripcion}"></h4>
+								<label th:text="#{expediente.estadoExterno.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.estadoExterno.descripcion}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.fechaUltimaActuacion, 'dd-MMM-yyyy / HH:mm')}"></h4>
+								<label th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${#dates.format(ex.expediente.fechaUltimaActuacion, 'dd-MMM-yyyy / HH:mm')}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 							</div>
 							
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.tipoActuacion.descripcion.lbl}+' '+ ${ex.expediente.tipoUltimaActuacion}"> 	
-            					</h4>
+								<label th:text="#{expediente.tipoActuacion.descripcion.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.tipoUltimaActuacion}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 								<a th:if="${ex.renderDocumento != null}" target="_blank" th:href="'data:image/jpeg;base64,'+ ${ex.renderDocumento}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
 	            						<i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i>
 	            					</a>
@@ -89,26 +99,41 @@
 						<div class="box-body">
 							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" >
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.folio.lbl}+' '+ ${ex.expediente.folio}"></h4>
+								<label th:text="#{expediente.folio.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.folio}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 								 
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.anho.lbl}+' '+ ${ex.expediente.anho}"></h4>
+								<label th:text="#{expediente.anho.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.anho}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+								
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.juez.lbl}+' '+ ${ex.expediente.despachoActual.juez}"></h4>
+								<label th:text="#{expediente.juez.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.despachoActual.juez}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+								
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estadoExterno.descripcion}"></h4>
+								<label th:text="#{expediente.estadoExterno.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.estadoExterno.descripcion}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.fechaUltimaActuacion, 'dd-MMM-yyyy / HH:mm')}"></h4>
+								<label th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${#dates.format(ex.expediente.fechaUltimaActuacion, 'dd-MMM-yyyy / HH:mm')}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+								
 							</div>
 							
 							
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.tipoActuacion.descripcion.lbl}+' '+ ${ex.expediente.tipoUltimaActuacion}">
-            					</h4>
+								<label th:text="#{expediente.tipoActuacion.descripcion.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.tipoUltimaActuacion}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+								
             					<a th:if="${ex.renderDocumento != null}" target="_blank" th:href="'data:image/jpeg;base64,'+ ${ex.renderDocumento}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
 	            						<i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i>
 	            					</a>
