@@ -465,7 +465,8 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				ma1.setTipoActuacion(ta);
 				ma1.setFechaCarga(fechaNow);
 				movimientoActuacionDao.create(ma1);
-				expediente.setUltimoMovimientoActuacion(ma1);
+				expediente.setFechaUltimaActuacion(ma1.getFechaVencimiento());
+				expediente.setTipoUltimaActuacion(ta.getDescripcion());
 				expedienteDao.edit(expediente);
 				ma = movimientoActuacionDao.getListActuacionByExpediente(Long.parseLong(id_exp));
 				for (MovimientoActuacion movimientoActuacion : ma) {

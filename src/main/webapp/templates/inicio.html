@@ -20,9 +20,8 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" > <!-- th:value="${session.expediente.id}" es lo que se va a usar -->
+							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" > 
 							<div class="col-sm-6">
-								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
 								<h4 th:text="#{expediente.folio.lbl}+' '+ ${ex.expediente.folio}"></h4>
 								 
 							</div>
@@ -36,7 +35,15 @@
 								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estadoExterno.descripcion}"></h4>
 							</div>
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.ultimoMovimientoActuacion.fechaVencimiento, 'dd-MMM-yyyy / HH:mm')}"></h4>
+								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.fechaUltimaActuacion, 'dd-MMM-yyyy / HH:mm')}"></h4>
+							</div>
+							
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.tipoActuacion.descripcion.lbl}+' '+ ${ex.expediente.tipoUltimaActuacion}"> 	
+            					</h4>
+								<a th:if="${ex.renderDocumento != null}" target="_blank" th:href="'data:image/jpeg;base64,'+ ${ex.renderDocumento}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
+	            						<i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i>
+	            					</a>
 							</div>
 							
 							<div class="col-sm-6" style="float:right;">
@@ -59,8 +66,8 @@
 						<!-- <th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
 							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">		 -->		
 								<div class="alert alert-warning">
-									  <strong><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
-									  <span> La actuación del expediente vencerá dentro de  <span th:text="${ex.diaVencimiento}"></span> días</span>
+									  <strong style="font-size: 50px; color: red;"><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
+									  <br><span style="font-size: 24px;color: black;"> La actuación del expediente vencerá dentro de  <span th:text="${ex.diaVencimiento}"></span> días</span>
 								</div>
 							<!-- </th:block>
 						</th:block> -->
@@ -79,7 +86,6 @@
 						<div class="box-body">
 							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" >
 							<div class="col-sm-6">
-								<!-- Apartir de aca vamos a poner $ para los datos que vamos a recibir mientras tanto usamos # para datos en duro -->
 								<h4 th:text="#{expediente.folio.lbl}+' '+ ${ex.expediente.folio}"></h4>
 								 
 							</div>
@@ -92,19 +98,19 @@
 							<div class="col-sm-6">
 								<h4 th:text="#{expediente.estadoExterno.lbl}+' '+ ${ex.expediente.estadoExterno.descripcion}"></h4>
 							</div>
-							<div class="col-sm-12">
-								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.ultimoMovimientoActuacion.fechaVencimiento, 'dd-MMM-yyyy / HH:mm')}"></h4>
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${#dates.format(ex.expediente.fechaUltimaActuacion, 'dd-MMM-yyyy / HH:mm')}"></h4>
 							</div>
-							<!-- <th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
-								<th:block th:if="${exb.expediente.id} == ${ex.expediente.id}">
-									<div class="col-sm-6">
-										<h4 th:text="#{expediente.tipoActuacion.fechaPresentacion.lbl}+' '+ ${exb.actuacion.fechaPresentacion}"></h4>
-									</div>
-									<div class="col-sm-6">
-										<h4 th:text="#{expediente.tipoActuacion.fechaVencimiento.lbl}+' '+ ${exb.actuacion.fechaVencimiento}"></h4>
-									</div>
-								</th:block>
-							</th:block> -->
+							
+							
+							<div class="col-sm-6">
+								<h4 th:text="#{expediente.tipoActuacion.descripcion.lbl}+' '+ ${ex.expediente.tipoUltimaActuacion}">
+            					</h4>
+            					<a th:if="${ex.renderDocumento != null}" target="_blank" th:href="'data:image/jpeg;base64,'+ ${ex.renderDocumento}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver">
+	            						<i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i>
+	            					</a>
+								 
+							</div>
 							<div class="col-sm-6" style="float:right;">
 							<button class="btn btn-success" 
 							th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">

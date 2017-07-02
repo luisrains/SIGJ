@@ -6,7 +6,7 @@ public class ExpedienteActuacionBean {
 
 	private Expediente expediente;
 	private int diaVencimiento;
-	
+	transient String renderDocumento;
 	
 	
 	
@@ -26,6 +26,13 @@ public class ExpedienteActuacionBean {
 	}
 	public void setDiaVencimiento(int diaVencimiento) {
 		this.diaVencimiento = diaVencimiento;
+	}
+		
+	public String getRenderDocumento() {
+		return renderDocumento;
+	}
+	public void setRenderDocumento(String renderDocumento) {
+		this.renderDocumento = renderDocumento;
 	}
 	@Override
 	public String toString() {

@@ -14,9 +14,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.lowagie.text.pdf.codec.Base64;
+
 import py.com.sigj.expediente.dao.ExpedienteDao;
 import py.com.sigj.expediente.dao.MovimientoActuacionDao;
 import py.com.sigj.expediente.domain.ExpedienteAbogado;
+import py.com.sigj.expediente.domain.MovimientoActuacion;
 import py.com.sigj.main.SesionUsuario;
 import py.com.sigj.util.ExpedienteActuacionBean;
 import py.com.sigj.util.WebUtils;
@@ -42,7 +45,8 @@ public class Dashboard {
 
 	@RequestMapping("inicio")
 	public String start(ModelMap map,HttpServletRequest request) {
-
+		String base64String = "";
+		MovimientoActuacion ma = null;
 		List<ExpedienteAbogado> expList = null;
 		List<ExpedienteActuacionBean> ultimosDiezExpediente = new ArrayList<>();
 		List<ExpedienteActuacionBean> expedienteSinVencer = new ArrayList<>();
@@ -50,23 +54,37 @@ public class Dashboard {
 		if(sesionUsuario!= null && sesionUsuario.getUsuario().getCedulaRuc() != null){
 			String cedula = sesionUsuario.getUsuario().getCedulaRuc();
 			expList = expedienteDao.getListByCedulaRuc(cedula);
+			
 			int cantDias=0;
 			int cont=0;
 			Date fechaActual = new Date();
 			for (ExpedienteAbogado expe : expList) {
-				if(expe.getExpediente().getUltimoMovimientoActuacion().getFechaVencimiento()!=null){
-					cantDias =WebUtils.getDaysBetweenDates(fechaActual,expe.getExpediente().getUltimoMovimientoActuacion().getFechaVencimiento());
+				if(expe.getExpediente().getFechaUltimaActuacion()!=null){
+					cantDias =WebUtils.getDaysBetweenDates(fechaActual,expe.getExpediente().getFechaUltimaActuacion());
+					
 					if(cantDias <=3 && cantDias >=0){
 						//cargamos los ultimos diez si alcanza diez, si sobre pasa salimos con el break
 						ExpedienteActuacionBean eac = new ExpedienteActuacionBean();
 						eac.setDiaVencimiento(cantDias);
 						eac.setExpediente(expe.getExpediente());
+						ma = movimientoActuacionDao.getActuacionByExpediente(expe.getExpediente().getId());
+						//documento actuacion
+						if(ma.getDocumento() != null){
+							base64String = 	Base64.encodeBytes(ma.getDocumento());
+							eac.setRenderDocumento(base64String);
+						}
 						ultimosDiezExpediente.add(eac);
 						cont++;		
 					}else{
 						ExpedienteActuacionBean eAcSin = new ExpedienteActuacionBean();
 						eAcSin.setDiaVencimiento(cantDias);
 						eAcSin.setExpediente(expe.getExpediente());
+						//documento actuacion
+						ma = movimientoActuacionDao.getActuacionByExpediente(expe.getExpediente().getId());
+						if(ma.getDocumento() != null){
+							base64String = 	Base64.encodeBytes(ma.getDocumento());
+							eAcSin.setRenderDocumento(base64String);
+						}
 						expedienteSinVencer.add(eAcSin);
 					}
 					

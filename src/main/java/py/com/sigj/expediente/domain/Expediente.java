@@ -2,6 +2,7 @@ package py.com.sigj.expediente.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -59,12 +59,15 @@ public class Expediente extends GenericEntity {
 	private String moneda;
 
 	//datos de las actuaciones
-	@OneToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "expediente_movimientoActuacion_fk"))
-	private MovimientoActuacion ultimoMovimientoActuacion;
+	@Column(name="fecha_actuacion") 
+	 private Date fechaUltimaActuacion;
+	
+
+	@Size(max = 150, message = "expediente.ultimaActuacion.size")
+	private String tipoUltimaActuacion;
 	
 	//fin de las actuaciones
-	
+	 
 	
 	@NotNull(message = "expediente.folio.notNull")
 	@NotBlank(message = "expediente.folio.notBlank")
@@ -195,22 +198,31 @@ public class Expediente extends GenericEntity {
 		this.estadoExterno = estadoExterno;
 	}
 
-	public MovimientoActuacion getUltimoMovimientoActuacion() {
-		return ultimoMovimientoActuacion;
+	public Date getFechaUltimaActuacion() {
+		return fechaUltimaActuacion;
 	}
 
-	public void setUltimoMovimientoActuacion(MovimientoActuacion movimientoActuacion) {
-		this.ultimoMovimientoActuacion = movimientoActuacion;
+	public void setFechaUltimaActuacion(Date fechaUltimaActuacion) {
+		this.fechaUltimaActuacion = fechaUltimaActuacion;
+	}
+
+	public String getTipoUltimaActuacion() {
+		return tipoUltimaActuacion;
+	}
+
+	public void setTipoUltimaActuacion(String tipoUltimaActuacion) {
+		this.tipoUltimaActuacion = tipoUltimaActuacion;
 	}
 
 	@Override
 	public String toString() {
 		return "Expediente [id=" + id + ", caratula=" + caratula + ", nroExpediente=" + nroExpediente + ", anho=" + anho
-				+ ", monto=" + monto + ", moneda=" + moneda + ", ultimoMovimientoActuacion=" + ultimoMovimientoActuacion
-				+ ", folio=" + folio + ", nroLiquidacion=" + nroLiquidacion + ", fechaSelloCargo=" + fechaSelloCargo
-				+ ", despachoActual=" + despachoActual + ", estadoInterno=" + estadoInterno + ", estadoExterno="
-				+ estadoExterno + "]";
+				+ ", monto=" + monto + ", moneda=" + moneda + ", fechaUltimaActuacion=" + fechaUltimaActuacion
+				+ ", tipoUltimaActuacion=" + tipoUltimaActuacion + ", folio=" + folio + ", nroLiquidacion="
+				+ nroLiquidacion + ", fechaSelloCargo=" + fechaSelloCargo + ", despachoActual=" + despachoActual
+				+ ", estadoInterno=" + estadoInterno + ", estadoExterno=" + estadoExterno + "]";
 	}
 
+	
 	
 }

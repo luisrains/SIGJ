@@ -46,6 +46,30 @@ public class MovimientoActuacionDaoImpl extends DaoImpl<MovimientoActuacion> imp
 			logger.info("No se encontraron actuaciones en el expediente");
 			return null;
 		}
+	}
+	
+	@Override
+	@Transactional
+	public MovimientoActuacion getActuacionByExpediente(Long id_expediente) {
+
+		List<MovimientoActuacion> actuList= null;
+		String sql = "SELECT object(MovimientoActuacion) FROM MovimientoActuacion AS MovimientoActuacion WHERE expediente_id = ?1 ORDER BY fecha_carga DESC";
+		Query query = null;
+		// Usuario no envió ningún filtro
+			query = entityManager.createQuery(sql);
+			query.setParameter(1,id_expediente);
+		
+		try {
+			actuList = query.getResultList();
+			if(!actuList.isEmpty()){
+				return actuList.get(0);
+			}else{
+				return null;
+			}
+		} catch (Exception e) {
+			logger.info("No se encontraron actuaciones en el expediente");
+			return null;
+		}
 		
 		
 	}
