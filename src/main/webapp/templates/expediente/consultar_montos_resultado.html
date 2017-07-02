@@ -5,9 +5,9 @@
 							
 							<label>Total Ingreso:</label>
 								<input th:if="${total_ingreso <= 0}" id="total_ingreso" name="total_ingreso" disabled class="estilo-input"  th:value="${total_ingreso} + ' GS.'" 
-								style="margin-left:42px;"/>
+								style="margin-left:52px;"/>
 								<input th:if="${total_ingreso > 0}" th:value="${#numbers.formatInteger(total_ingreso,3,'POINT')} + ' '+ 'GS.'" id="total_ingreso" name="total_ingreso" disabled
-								style="margin-left:42px;" class="estilo-input"/>
+								style="margin-left:52px;" class="estilo-input"/>
 								<a  th:if="${total_ingreso != null and total_ingreso != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/I'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
 								style="padding-left: 10px;">Ver Detalle</a>
 								
@@ -16,8 +16,8 @@
 							</div>
 							<div class="col-sm-12" style="margin-top:10px;">
 								<label>Total Egreso:</label>
-								<input th:if="${total_egreso > 0}" id="total_egreso" class="estilo-input" name="total_egreso" disabled th:value="${#numbers.formatInteger(total_egreso,3,'POINT')} + ' '+ 'GS.'" style="margin-left:47px;"/>
-								<input th:if="${total_egreso <= 0}" id="total_egreso" class="estilo-input" name="total_egreso" disabled th:value="${total_egreso} + ' '+ 'GS.'" style="margin-left:47px;"/>
+								<input th:if="${total_egreso > 0}" id="total_egreso" class="estilo-input" name="total_egreso" disabled th:value="${#numbers.formatInteger(total_egreso,3,'POINT')} + ' '+ 'GS.'" style="margin-left:57px;"/>
+								<input th:if="${total_egreso <= 0}" id="total_egreso" class="estilo-input" name="total_egreso" disabled th:value="${total_egreso} + ' '+ 'GS.'" style="margin-left:57px;"/>
 								<a  th:if="${total_egreso != null and total_egreso != 0}" th:href="'/sigj/movimiento/buscar-movimiento/'+${expediente_id}+'/E'" target='_blank' data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle"
 								style="padding-left: 10px;">Ver Detalle</a>
 								
