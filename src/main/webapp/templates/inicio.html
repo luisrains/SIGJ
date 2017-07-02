@@ -66,8 +66,11 @@
 						<!-- <th:block th:if="${expedienteActuacionBean} != null" th:each="exb : ${expedienteActuacionBean}">
 							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">		 -->		
 								<div class="alert alert-warning">
-									  <strong style="font-size: 50px; color: red;"><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
-									  <br><span style="font-size: 24px;color: black;"> La actuación del expediente vencerá dentro de  <span th:text="${ex.diaVencimiento}"></span> días</span>
+									  <strong style="font-size: 50px; color: white;"><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
+									  <br><span style="font-size: 24px;color: black;"> La última actuación presentada vencerá dentro de  
+									  <span th:if="${ex.diaVencimiento > 1}" th:text="${ex.diaVencimiento + ' días'}"></span>
+									  <span th:if="${ex.diaVencimiento <= 1}" th:text="${ex.diaVencimiento + ' día'}"></span>
+									</span>
 								</div>
 							<!-- </th:block>
 						</th:block> -->
