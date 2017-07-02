@@ -128,14 +128,14 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 		PlanillaSueldo psu1 = null;
 		PlanillaSueldo p1 = null;
 
-		for (PlanillaSueldo p : planillaSueldoDao.getList(0, 20, null)) {
+		for (PlanillaSueldo p : planillaSueldoDao.getList(0, 200, null)) {
 			if (p.getAnho().equals(aux2) && p.getMes().equals(aux1)) {
 				logger.info("Se carga la planilla");
 				p1 = p;
 			}
 
 		}
-		List<Movimiento> mb = movimientoDao.getList(0, 10, null);
+		List<Movimiento> mb = movimientoDao.getList(0, 100, null);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 		int val = 2;
 		if(mb == null || mb.isEmpty()){
@@ -174,7 +174,7 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 			planillaSueldo.setAnho(aux2);
 			planillaSueldo.setMes(aux1);
 			planillaSueldoDao.create(planillaSueldo);
-			for (PlanillaSueldo psu : planillaSueldoDao.getList(0, 10, null)) {// arreglar
+			for (PlanillaSueldo psu : planillaSueldoDao.getList(0, 100, null)) {// arreglar
 																				// valores
 																				// estaticos
 				if (psu.getAnho().equals(aux2) && psu.getMes().equals(aux1)) {
@@ -182,9 +182,9 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 				}
 			}
 			logger.info("entras pio aca ");
-			logger.info("Esto recibimos:{}", empleadoDao.getList(0, 10, null));
-			logger.info("Esto recibimos de movimiento:{}", movimientoDao.getList(0, 10, null));
-			List<Movimiento> listaAux = movimientoDao.getList(0, 10, null);
+			logger.info("Esto recibimos:{}", empleadoDao.getList(0, 100, null));
+			logger.info("Esto recibimos de movimiento:{}", movimientoDao.getList(0, 100, null));
+			List<Movimiento> listaAux = movimientoDao.getList(0, 100, null);
 			List<Movimiento> listaM = new ArrayList<Movimiento>();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			for (Movimiento m : listaAux) {
