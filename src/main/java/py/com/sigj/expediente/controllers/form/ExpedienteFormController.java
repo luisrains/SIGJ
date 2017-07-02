@@ -230,7 +230,6 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				String monto = (String) rdExpediente.get("monto");
 				if("0".equals(rdExpediente.get("moneda"))){
 					obj.setMoneda("GS");
-					
 				}
 				monto = monto.replaceAll("\\.", "");
 				obj.setMonto(Integer.parseInt(monto));
