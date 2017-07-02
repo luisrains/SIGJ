@@ -228,6 +228,10 @@ public class ExpedienteFormController extends FormController<Expediente> {
 				obj.setCaratula((String) rdExpediente.get("caratula"));
 				obj.setMoneda((String) rdExpediente.get("moneda"));
 				String monto = (String) rdExpediente.get("monto");
+				if("0".equals(rdExpediente.get("moneda"))){
+					obj.setMoneda("GS");
+					
+				}
 				monto = monto.replaceAll("\\.", "");
 				obj.setMonto(Integer.parseInt(monto));
 				obj.setNroExpediente((String) rdExpediente.get("nroExpediente"));
@@ -574,15 +578,19 @@ public class ExpedienteFormController extends FormController<Expediente> {
 			
 			if(listExpDocumento != null && !listExpDocumento.isEmpty()){
 				for (ExpedienteDocumento movimientoActuacion : listExpDocumento) {
-					base64StringDocumento = 	Base64.encodeBytes(movimientoActuacion.getDocumento().getDocumento());
-					base64StringList.add(base64StringDocumento);
+					if(movimientoActuacion.getDocumento().getDocumento() != null){
+						base64StringDocumento = 	Base64.encodeBytes(movimientoActuacion.getDocumento().getDocumento());
+						base64StringList.add(base64StringDocumento);
+					}
 				}
 			}
 			
 				if(listExpDocActuaciones != null && !listExpDocActuaciones.isEmpty()){
 					for (MovimientoActuacion movimientoActuacion : listExpDocActuaciones) {
-						base64StringActuaciones = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
-						base64StringList.add(base64StringActuaciones);
+						if(movimientoActuacion.getDocumento() != null){
+							base64StringActuaciones = 	Base64.encodeBytes(movimientoActuacion.getDocumento());
+							base64StringList.add(base64StringActuaciones);
+						}
 					}
 				}
 				

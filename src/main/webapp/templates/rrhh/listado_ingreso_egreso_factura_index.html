@@ -34,7 +34,7 @@
 												<td th:text="${mov.factura.fechaEmision}"></td>
 												<td th:text="${#numbers.formatInteger(mov.factura.montoTotal,3,'POINT')} + ' GS.'"></td>
 												<td th:if="${mov.factura.totalIvaCinco <=0}" th:text="${mov.factura.totalIvaCinco}+ ' GS.'"></td>
-												<td th:text="${#numbers.formatInteger(mov.factura.totalIvaCinco,3,'POINT')} + ' GS.'"></td>
+												<td th:if="${mov.factura.totalIvaCinco >0}" th:text="${#numbers.formatInteger(mov.factura.totalIvaCinco,3,'POINT')} + ' GS.'"></td>
 												<td th:if="${mov.factura.totalIvaDiez <= 0}" th:text="${mov.factura.totalIvaDiez} + ' GS.'"></td>
 												<td th:if="${mov.factura.totalIvaDiez > 0}" th:text="${#numbers.formatInteger(mov.factura.totalIvaDiez,3,'POINT')} + ' GS.'"></td>
 										</tr>

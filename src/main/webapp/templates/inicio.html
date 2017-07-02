@@ -16,7 +16,9 @@
 					
 						<div class="col-sm-9">
 						<div class="box-header with-border">
-							<h3 class="box-title" th:text=" #{expediente.inicio.nroExpediente.lbl}+' '+${ex.expediente.nroExpediente}"></h3>
+							<h3 class="box-title" th:text="${ex.expediente.caratula}" style="font-weight: 700;font-size: 20px;"></h3><br><br>
+							<h3 class="box-title" th:text=" #{expediente.inicio.nroExpediente.lbl}+' '+${ex.expediente.nroExpediente}"></h3> 
+							 
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
@@ -31,7 +33,7 @@
 										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 							</div>
 							<div class="col-sm-6">
-								<label th:text="#{expediente.juez.lbl}" class="field-label section-02">Año:</label>
+								<label th:text="#{expediente.juez.lbl}" class="field-label section-02">Juez:</label>
 								<input th:value="${ex.expediente.despachoActual.juez}"
 										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 								
