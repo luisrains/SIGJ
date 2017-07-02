@@ -17,14 +17,23 @@
 						<div class="col-sm-9">
 						<div class="box-header with-border">
 							<h3 class="box-title" th:text="${ex.expediente.caratula}" style="font-weight: 700;font-size: 20px;"></h3><br><br>
-							<h3 class="box-title" th:text=" #{expediente.inicio.nroExpediente.lbl}+' '+${ex.expediente.nroExpediente}"></h3> 
-							 
 						</div>
+						
 						<!-- /.box-header -->
 						<div class="box-body">
 							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" > 
+							
 							<div class="col-sm-6">
-								<h4 th:text="#{expediente.folio.lbl}+' '+ ${ex.expediente.folio}"></h4>
+								<label th:text="#{expediente.inicio.nroExpediente.lbl}" class="field-label section-02">Año:</label>
+									<input th:value="${ex.expediente.nroExpediente}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+
+							</div>
+							
+							<div class="col-sm-6">
+								<label th:text="#{expediente.folio.lbl}" class="field-label section-02">Año:</label>
+								<input th:value="${ex.expediente.folio}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
 								 
 							</div>
 							<div class="col-sm-6">
@@ -58,7 +67,7 @@
 	            					</a>
 							</div>
 							
-							<div class="col-sm-6" style="float:right;">
+							<div class="col-sm-6" style="float:right;margin-top:28px;">
 								<button class="btn btn-success" 
 								th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">
 									<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
@@ -79,10 +88,10 @@
 							<th:block th:if="${exb.expediente.id} == ${ex.expediente.id} AND ${exb.diaVencimiento} <= 3">		 -->		
 								<div class="alert alert-warning">
 									  <strong style="font-size: 50px; color: white;"><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
-									  <br><span style="font-size: 24px;color: black;"> La última actuación presentada vencerá dentro de  
-									  <span th:if="${ex.diaVencimiento > 1}" th:text="${ex.diaVencimiento + ' días'}"></span>
-									  <span th:if="${ex.diaVencimiento <= 1}" th:text="${ex.diaVencimiento + ' día'}"></span>
+									  <br><span  th:if="${ex.diaVencimiento >= 1}" style="font-size: 24px;color: black;"> La última actuación presentada vencerá dentro de  
+									  <span th:if="${ex.diaVencimiento >= 1}" th:text="${ex.diaVencimiento + ' días'}"></span>
 									</span>
+									<span  th:if="${ex.diaVencimiento < 1}" style="font-size: 24px;color: black;"> La última actuación presentada vencerá Hoy</span>
 								</div>
 							<!-- </th:block>
 						</th:block> -->
@@ -95,11 +104,19 @@
 					
 						<div class="col-sm-9">
 						<div class="box-header with-border">
-							<h3 class="box-title" th:text=" #{expediente.inicio.nroExpediente.lbl}+' '+${ex.expediente.nroExpediente}"></h3>
+							<h3 class="box-title" th:text="${expediente.caratula}" style="font-weight: 700;font-size: 20px;"></h3><br><br>
 						</div>
+						
 						<!-- /.box-header -->
 						<div class="box-body">
 							<input type="hidden" id="id-expediente" th:value="${ex.expediente.id}" >
+							<div class="col-sm-6">
+								<label th:text="#{expediente.inicio.nroExpediente.lbl}" class="field-label section-02">Año:</label>
+									<input th:value="${ex.expediente.nroExpediente}"
+										class="field-label section-02 estilo-input col-sm-7" style="float:right;" disabled>
+							
+							</div>
+							
 							<div class="col-sm-6">
 								<label th:text="#{expediente.folio.lbl}" class="field-label section-02">Año:</label>
 								<input th:value="${ex.expediente.folio}"
@@ -141,7 +158,7 @@
 	            					</a>
 								 
 							</div>
-							<div class="col-sm-6" style="float:right;">
+							<div class="col-sm-6" style="float:right;margin-top:28px;">
 							<button class="btn btn-success" 
 							th:onclick="'agregar_actuacion(\'' + ${ex.expediente.id} + '\');'">
 								<i class="glyphicon glyphicon-plus"></i>Agregar Actuación
