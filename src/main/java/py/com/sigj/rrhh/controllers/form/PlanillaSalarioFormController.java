@@ -356,6 +356,9 @@ public class PlanillaSalarioFormController extends FormController<PlanillaSalari
 			params.put("MONTO",ver);
 			params.put("NRO_CUENTA", "PAGO DE SALARIOS DEL MES");
 			params.put("LISTA_PLANILLA", lista);
+			InputStream jasperStream1 = null;
+			jasperStream1 = new FileInputStream(FOLDER + "/LOGO.jpg");
+			params.put("LOGO", jasperStream1);
 			//jasperStream = loader.getResource("/comprobante_ahorro_programado/comprobante_ahorro_programado.jasper").getInputStream();
 			logger.info(jasperStream.toString());
 			if (jasperStream != null) {
