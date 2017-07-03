@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="0,0" last-zoom="1"
+<dbmodel pgmodeler-ver="0.8.2" last-position="0,104" last-zoom="0.8"
 	 default-schema="public" default-owner="postgres">
 <role name="lrains"
       superuser="true"
@@ -38,7 +38,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="abogado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="60"/>
+	<position x="580" y="260"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -67,27 +67,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="caja">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="420" y="60"/>
-	<column name="id" not-null="true">
-		<type name="bigint"/>
-	</column>
-	<column name="codigo" not-null="true">
-		<type name="character varying" length="10"/>
-	</column>
-	<column name="fecha">
-		<type name="date"/>
-	</column>
-	<column name="monto" not-null="true">
-		<type name="integer"/>
-	</column>
-	<constraint name="caja_pkey" type="pk-constr" table="public.caja">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <sequence name="caja_id_seq"
 	 start="1" increment="50"
 	 min-value="1" max-value="9223372036854775807"
@@ -99,7 +78,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cliente">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="60"/>
+	<position x="1520" y="266"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -126,7 +105,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cliente_factura">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1120" y="60"/>
+	<position x="200" y="943"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -160,7 +139,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="despacho">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1340" y="60"/>
+	<position x="1940" y="740"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -186,7 +165,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="documento">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="200"/>
+	<position x="2420" y="800"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -212,7 +191,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="empleado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="300" y="200"/>
+	<position x="540" y="520"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -244,7 +223,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="estado_expediente">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="560" y="200"/>
+	<position x="1440" y="623"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -265,7 +244,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="estado_externo_interno">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="820" y="200"/>
+	<position x="2100" y="280"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -305,7 +284,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="expediente">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="200"/>
+	<position x="1080" y="1123"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -362,7 +341,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="expediente_abogado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="500"/>
+	<position x="60" y="383"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -386,7 +365,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="expediente_cliente">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="420" y="500"/>
+	<position x="1020" y="640"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -410,7 +389,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="expediente_documento">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="780" y="500"/>
+	<position x="1960" y="543"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -442,7 +421,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="expediente_factura">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="500"/>
+	<position x="600" y="1440"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -492,7 +471,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="factura_cabecera">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1400" y="500"/>
+	<position x="80" y="1143"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -531,7 +510,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="factura_detalle">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="720"/>
+	<position x="100" y="563"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -577,27 +556,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="ingreso_egreso">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="460" y="720"/>
-	<column name="id" not-null="true">
-		<type name="bigint"/>
-	</column>
-	<column name="descripcion" not-null="true">
-		<type name="character varying" length="15"/>
-	</column>
-	<column name="monto" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="tipo" not-null="true">
-		<type name="character varying" length="15"/>
-	</column>
-	<constraint name="ingreso_egreso_pkey" type="pk-constr" table="public.ingreso_egreso">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <sequence name="ingresoegreso_id_seq"
 	 start="1" increment="50"
 	 min-value="1" max-value="9223372036854775807"
@@ -609,7 +567,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="materia">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="780" y="720"/>
+	<position x="1880" y="1100"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -630,7 +588,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="materia_despacho">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1120" y="720"/>
+	<position x="1960" y="920"/>
 	<column name="materia_id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -653,7 +611,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="materia_proceso">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1380" y="720"/>
+	<position x="1880" y="1260"/>
 	<column name="materia_id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -662,21 +620,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<constraint name="materia_proceso_pkey" type="pk-constr" table="public.materia_proceso">
 		<columns names="materia_id,proceso_id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
-<table name="modelo_hoja">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="60" y="900"/>
-	<column name="id" not-null="true">
-		<type name="bigint"/>
-	</column>
-	<column name="descripcion" not-null="true">
-		<type name="character varying" length="100"/>
-	</column>
-	<constraint name="modelo_hoja_pkey" type="pk-constr" table="public.modelo_hoja">
-		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -691,7 +634,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="movimiento">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="380" y="900"/>
+	<position x="1020" y="1760"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -718,7 +661,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="movimiento_actuacion">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="900"/>
+	<position x="1160" y="1920"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -751,7 +694,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="movimiento_expediente">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1120" y="900"/>
+	<position x="1340" y="1500"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -793,7 +736,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="permiso">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1380" y="900"/>
+	<position x="120" y="1440"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -822,7 +765,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="persona">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="1100"/>
+	<position x="960" y="283"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -878,7 +821,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="planilla_salario">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="1100"/>
+	<position x="620" y="2140"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -908,7 +851,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="planilla_sueldo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="820" y="1100"/>
+	<position x="660" y="1786"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -942,7 +885,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="proceso">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1120" y="1100"/>
+	<position x="1880" y="1420"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -971,7 +914,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="proceso_tipo_demanda">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1460" y="1100"/>
+	<position x="1940" y="1640"/>
 	<column name="proceso_id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -983,7 +926,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="rol">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="1360"/>
+	<position x="100" y="1823"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1012,7 +955,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="rolpermiso">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="400" y="1360"/>
+	<position x="160" y="1623"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1041,7 +984,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="servicio">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="640" y="1360"/>
+	<position x="160" y="800"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1073,7 +1016,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_actuacion">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1000" y="1360"/>
+	<position x="1140" y="2180"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1091,31 +1034,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="tipo_cliente">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="1320" y="1360"/>
-	<column name="id" not-null="true">
-		<type name="bigint"/>
-	</column>
-	<column name="codigo" not-null="true">
-		<type name="character varying" length="2"/>
-	</column>
-	<column name="descripcion" not-null="true">
-		<type name="character varying" length="100"/>
-	</column>
-	<constraint name="tipo_cliente_pkey" type="pk-constr" table="public.tipo_cliente">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-	<constraint name="tipocliente_codigo_uk" type="uq-constr" table="public.tipo_cliente">
-		<columns names="codigo" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <table name="tipo_demanda">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="1480"/>
+	<position x="1920" y="1840"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1130,7 +1052,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_documento">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="380" y="1480"/>
+	<position x="2400" y="620"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1155,27 +1077,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 </sequence>
-
-<table name="tipo_ingreso_egreso">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="720" y="1480"/>
-	<column name="id" not-null="true">
-		<type name="bigint"/>
-	</column>
-	<column name="codigo" not-null="true">
-		<type name="character varying" length="5"/>
-	</column>
-	<column name="descripcion" not-null="true">
-		<type name="character varying" length="15"/>
-	</column>
-	<constraint name="tipo_ingreso_egreso_pkey" type="pk-constr" table="public.tipo_ingreso_egreso">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-	<constraint name="tipoingresoegreso_codigo_uk" type="uq-constr" table="public.tipo_ingreso_egreso">
-		<columns names="codigo" ref-type="src-columns"/>
-	</constraint>
-</table>
 
 <sequence name="tipoactuacion_id_seq"
 	 start="1" increment="50"
@@ -1212,7 +1113,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tomo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1060" y="1480"/>
+	<position x="1640" y="2203"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1230,7 +1131,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tomo_expediente">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1360" y="1480"/>
+	<position x="2000" y="2080"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1267,7 +1168,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="usuario">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="1600"/>
+	<position x="120" y="2040"/>
 	<column name="id" not-null="true">
 		<type name="bigint"/>
 	</column>
@@ -1672,7 +1573,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#29f2b1"
 	 src-table="public.factura_detalle"
 	 dst-table="public.servicio"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="rel_materia_despacho_despacho" type="relfk"
 	 custom-color="#b57ddf"
@@ -1702,7 +1607,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#bca696"
 	 src-table="public.movimiento"
 	 dst-table="public.empleado"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="src-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="rel_movimiento_actuacion_tipo_actuacion" type="relfk"
 	 custom-color="#51f86d"
