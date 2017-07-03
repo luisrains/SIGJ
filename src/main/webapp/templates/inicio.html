@@ -74,7 +74,7 @@
 								</button>
 							</div>
 							<div class="col-sm-6" style="float:right;">
-							<a th:href="@{/expediente/hojear-expediente/{id}(id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" >
+							<a th:href="@{/expediente/hojear-expediente/{forma}/{id}(forma='F',id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" >
 								<i class="glyphicon glyphicon-plus"></i>Ver Expediente Digital
 							</button></a>
 							
@@ -86,7 +86,7 @@
 					<div class="col-sm-3">
 							
 								<div class="alert alert-warning">
-									  <strong style="font-size: 50px; color: white;"><i class="fa fa-exclamation-triangle" style="padding-right:10px;" aria-hidden="true"></i>Atención: </strong>
+									  <strong style="font-size: 50px; color: white;"><i class="fa fa-exclamation-triangle" style="padding-right:10px; margin-left: 31%;" aria-hidden="true"></i>Atención: </strong>
 									  <br><span  th:if="${ex.diaVencimiento >= 1}" style="font-size: 24px;color: black;"> La última actuación presentada vencerá dentro de  
 									  <span th:if="${ex.diaVencimiento >= 1}" th:text="${ex.diaVencimiento + ' días'}"></span>
 									</span>
@@ -162,7 +162,7 @@
 							</button>
 							</div>
 							<div class="col-sm-6" style="float:right;">
-							<a th:href="@{/expediente/hojear-expediente/{id}(id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" >
+							<a th:href="@{/expediente/hojear-expediente/{forma}/{id}(forma='F',id=${ex.expediente.id})}"  target='_blank'><button class="btn btn-success" >
 								<i class="glyphicon glyphicon-plus"></i>Ver Expediente Digital
 							</button></a>
 							
